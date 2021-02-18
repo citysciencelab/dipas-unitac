@@ -1,0 +1,58 @@
+services:
+  masterportal.config:
+    class: Drupal\masterportal\Service\MasterportalConfig
+    arguments: ['@config.factory']
+  logger.channel.masterportal:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['masterportal']
+  masterportal.tokens:
+    class: Drupal\masterportal\Service\MasterportalTokenService
+    arguments: ['@logger.channel.masterportal', '@request_stack']
+  masterportal.layerservice:
+    class: Drupal\masterportal\Service\LayerService
+    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@request_stack', '@plugin.manager.masterportal.layer', '@http_client', '@state', '@cache_tags.invalidator', '@masterportal.instanceservice']
+  masterportal.servicesmanager:
+    class: Drupal\masterportal\Service\ServiceManager
+    arguments: ['@masterportal.tokens', '@masterportal.config']
+  masterportal.instanceservice:
+    class: Drupal\masterportal\Service\InstanceService
+    arguments: ['@entity_type.manager', '@logger.channel.masterportal', '@config.factory']
+  plugin.manager.masterportal.search_bar:
+    class: Drupal\masterportal\PluginSystem\SearchBarPluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.masterportal.controls:
+    class: Drupal\masterportal\PluginSystem\ControlPluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.masterportal.tools:
+    class: Drupal\masterportal\PluginSystem\ToolPluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.masterportal.layer:
+    class: Drupal\masterportal\PluginSystem\LayerPluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.masterportal.layer_styles:
+    class: Drupal\masterportal\PluginSystem\LayerStylePluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.masterportal.instance_config_section:
+    class: Drupal\masterportal\PluginSystem\InstanceConfigSectionManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  masterportal.renderer:
+    class: Drupal\masterportal\Service\Masterportal
+    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@entity_type.manager', '@cache.data', '@request_stack', '@masterportal.layerservice', '@plugin.manager.masterportal.instance_config_section', '@plugin.manager.masterportal.layer_styles', '@plugin.manager.masterportal.layer']
+  masterportal.downloadservice:
+    class: Drupal\masterportal\Service\MasterportalDownloadService
+    arguments: ['@file_system', '@request_stack', '@masterportal.renderer']
+  masterportal.addon_request_resolver:
+    class: Drupal\masterportal\EventSubscriber\AddonRequestResolver
+    arguments: ['@request_stack']
+    tags:
+      - { name: event_subscriber }
+  masterportal.domainhandler:
+    class: Drupal\masterportal\Service\DomainHandler
+    arguments: ['@config.factory', '@event_dispatcher', '@entity_type.manager']

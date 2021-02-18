@@ -1,0 +1,11 @@
+uuid: 4883f591-f0a0-42fe-8b9d-1b016ffc912d
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.accordeon
+id: paragraph.accordeon
+target_entity_type_id: paragraph
+target_bundle: accordeon
+default_langcode: current_interface
+language_alterable: false

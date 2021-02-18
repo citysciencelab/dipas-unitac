@@ -1,0 +1,68 @@
+.DS_Store
+node_modules/
+/dist/
+/dist-doc/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/test/unit/coverage/
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ignore unwanted files and IDE settings
+.DS_Store
+*.zip
+*.rar
+*.tar
+*.gz
+*.tar.gz
+*.bz2
+*.bzip2
+*.sql
+*.mysql
+
+# Ignore Drupal's config export and local directories
+config/export/*
+config/local/*
+
+# Ignore directories administered by composer
+vendor
+drupal/core
+drupal/libraries/*
+drupal/modules/contrib/*
+drupal/profiles/contrib/*
+drupal/themes/contrib/*
+drupal/drush/contrib/*
+bin/*
+
+# Ignore Drupal's file directory
+drupal/files/*
+drupal/sites/default/files/*
+
+# Ignore Drupal's private file system
+private/*
+
+# Ignore Drupal's temp directory
+tmp/*
+
+# Ignore the local settings and services files
+drupal/sites/default/settings.local.php
+drupal/sites/default/services.local.yml
+
+# Ignore dist directory and file
+dist
+dipasd8.zip
+tmp_zip
+
+# ignore all config Files except example.config.js
+**/config.*
+package-lock.json
+
+# Ignore local vue config
+vue.config.local.js

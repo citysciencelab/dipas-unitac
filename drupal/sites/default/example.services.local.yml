@@ -1,0 +1,11 @@
+parameters:
+  # Dev-Settings for the Twig render engine.
+  twig.config:
+    debug: false
+    auto_reload: true
+    cache: false
+
+services:
+  # Disable caching in development environments.
+  cache.backend.null:
+    class: Drupal\Core\Cache\NullBackendFactory

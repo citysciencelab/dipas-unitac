@@ -1,0 +1,300 @@
+uuid: 7bee041f-285f-448f-9166-6e61d07f899b
+langcode: en
+status: true
+dependencies: {  }
+id: default.dipas
+uid: 0
+instance_name: dipas
+label: Dipas
+domain: default
+hidden: false
+settings:
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '["1043","1044","1045","1046","13649","13652","13654","13656"]'
+        custom:
+          name: 'GeoBasisKarten Hamburg'
+          visibility: true
+          gfiTheme: default
+          mixin: '{"visibility": true, "name": "Geobasiskarten (grau-blau)"}'
+      -
+        id: '["4736","4739","4742","4745","12059","12060","12061","12062"]'
+        custom:
+          name: 'GeoBasisKarten Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Geobasiskarten (schwarz-grau)", "legendURL": "ignore", "gfiAttributes": "ignore"}'
+      -
+        id: '["13534","13535","13536","13537","13538","13539","13540","13541"]'
+        custom:
+          name: 'GeoBasisKarten Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Geobasiskarten (Schriftplatte)", "legendURL": "ignore", "gfiAttributes": "ignore"}'
+      -
+        id: '453'
+        custom:
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Stadtplan"}'
+      -
+        id: '12883'
+        custom:
+          visibility: true
+          gfiTheme: default
+          mixin: '{"name": "Gelände", "visibility": true, "isVisibleInTree": false}'
+      -
+        id: '12884'
+        custom:
+          visibility: true
+          gfiTheme: default
+          mixin: "{\"id\": \"12884\", \"name\": \"Gebäude LoD2\", \"visibility\": true, \t\"isVisibleInTree\": false}"
+      -
+        id: '452'
+        custom:
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Luftbilder DOP20"}'
+  DesignSettings:
+    uiStyle: table
+    treeType: light
+    scaleLine: 1
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
+  ForegroundLayerSection:
+    layer:
+      -
+        id: contributions
+        custom:
+          visibility: true
+          gfiTheme: default
+      -
+        id: '["1585","1586","8713"]'
+        custom:
+          name: 'Schulstammdaten und Schülerzahlen der Hamburger Schulen'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Öffentliche Schulen Hamburgs"}'
+      -
+        id: '["683","682"]'
+        custom:
+          name: 'Kita Einrichtungen Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Kindertagesstätten Details"}'
+      -
+        id: '1553'
+        custom:
+          visibility: false
+          gfiTheme: default
+      -
+        id: '1562'
+        custom:
+          visibility: false
+          gfiTheme: default
+      -
+        id: '1561'
+        custom:
+          visibility: false
+          gfiTheme: default
+      -
+        id: '["4831","4832","4833","4835","4836","4837","4838","4839","4841","4843","4844","4845","4846","4848","4850","4851","4852","4853","4854","4855","4856","4857","4858","4859","4860","4861","4862","4863","4864","4865","4866","4868","4870","4871","4872","4873","4874","4875","4876","4877","4878","4879"]'
+        custom:
+          name: 'Velo- und Freizeitrouten Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Velorouten Übersicht"}'
+      -
+        id: '["1933","1935"]'
+        custom:
+          name: 'HVV Streckennetz für Bahn-, Bus- und Fährlinien Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"id": "special2","name": "HVV","children": [{"id": "1935","visibility": false,"styles": ["geofox_Faehre"],"name": ["HVV FÃ¤hrverbindungen"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-faehre.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox-bahn"],"name": ["HVV Bahnlinien"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bahn.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox-bus"],"name": ["HVV Buslinien"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox_BusName"],"name": ["HVV Busliniennummern"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"},{"id": "1933","styles": ["geofox_stations"],"name": ["HVV Haltestellen"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"}]}'
+      -
+        id: '["95","96"]'
+        custom:
+          name: 'Lärmkarten Hamburg (§47c BlmSchG)'
+          visibility: false
+          gfiTheme: default
+      -
+        id: '1747'
+        custom:
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Flächennutzungsplan"}'
+      -
+        id: '["1754","1755","1756","1757","1758","1759","4953","11077"]'
+        custom:
+          name: 'Denkmalkartierung Hamburg'
+          visibility: false
+          gfiTheme: default
+      -
+        id: '["1520","1521","1522","1523","1524","1525","1527","1528","1529","2806","2807","6348"]'
+        custom:
+          name: 'Landesgrundbesitzverzeichnis Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "Landesgrundbesitzverzeichnis"}'
+      -
+        id: '["4409","4410","4411","4412","4413","10767","13895"]'
+        custom:
+          name: 'Integrierte Stadtteilentwicklung - RISE - Fördergebiete in Hamburg'
+          visibility: false
+          gfiTheme: default
+          mixin: '{"name": "RISE"}'
+      -
+        id: '13032'
+        custom:
+          visibility: true
+          gfiTheme: default
+          mixin: '{"isVisibleInTree":"false", "name":"Oblique"}'
+  MapSettings:
+    startCenter: '[565874, 5934140]'
+    options:
+      -
+        resolution: 66.145797614603
+        scale: 250000
+        zoomLevel: 0
+      -
+        resolution: 26.458319045841
+        scale: 100000
+        zoomLevel: 1
+      -
+        resolution: 15.874991427505
+        scale: 60000
+        zoomLevel: 2
+      -
+        resolution: 10.583327618336
+        scale: 40000
+        zoomLevel: 3
+      -
+        resolution: 5.2916638091682
+        scale: 20000
+        zoomLevel: 4
+      -
+        resolution: 2.6458319045841
+        scale: 10000
+        zoomLevel: 5
+      -
+        resolution: 1.3229159522921
+        scale: 5000
+        zoomLevel: 6
+      -
+        resolution: 0.66145797614603
+        scale: 2500
+        zoomLevel: 7
+      -
+        resolution: 0.26458319045841
+        scale: 1000
+        zoomLevel: 8
+      -
+        resolution: 0.13229159522921
+        scale: 500
+        zoomLevel: 9
+    extent: '[510000, 5850000, 625000, 6000000]'
+    zoomLevel: 3
+    epsg: 'EPSG:25832'
+  MenuSettings:
+    tree:
+      name: Themen
+      glyphicon: glyphicon-list
+      isInitOpen: false
+    tools:
+      name: Werkzeuge
+      glyphicon: glyphicon-wrench
+    filter:
+      name: Katgorieauswahl
+      glyphicon: glyphicon-filter
+      deactivateGFI: false
+      isGeneric: false
+      isInitOpen: true
+      liveZoomToFeatures: false
+      allowMultipleQueriesPerLayer: false
+      isVisibleInMenu: false
+      predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
+    legend:
+      name: Legende
+      glyphicon: glyphicon-book
+  PortalSettings:
+    title: ' '
+    logo: '{{library_path}}/img/Logo_Masterportal.svg'
+    link: 'http://geoinfo.hamburg.de'
+    tooltip: 'Landesbetrieb Geoinformation und Vermessung'
+    activePlugins:
+      - 3D
+      - ButtonOblique
+      - Freeze
+      - Fullscreen
+      - TotalView
+      - Orientation3D
+      - Overviewmap
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Controls\ThreeDimensional: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\ButtonOblique: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\Freeze: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\Fullscreen: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\TotalView: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\Orientation3D: {  }
+      Drupal\masterportal\Plugin\Masterportal\Controls\Overviewmap:
+        resolution: '400'
+        layerId: '453'
+        isInitOpen: 0
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 7
+    recommendedListlenth: 5
+    placeholder: 'Suche Adresse/Thema/Beitrag'
+    renderToDOM: ''
+    quickHelp: false
+  SearchPluginSettings:
+    activePlugins:
+      - Gazetteer
+      - Gdi
+      - Tree
+      - VisibleVector
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Gazetteer:
+        serviceId: '6'
+        searchStreets: true
+        searchHouseNumbers: true
+        searchDistricts: true
+        searchParcels: true
+        searchStreetKey: true
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Gdi:
+        minChars: '3'
+        serviceId: elastic_qs
+        queryObject: '{"id":"query","params":{"query_string":"%%searchString%%"}}'
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\VisibleVector:
+        layerTypes:
+          - GeoJSON
+  ToolSettings:
+    activePlugins:
+      - Draw
+      - Gfi
+      - Measure
+      - Populationquery
+      - Shadow
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: 'Zeichnen / Schreiben'
+        glyphicon: glyphicon-pencil
+        visibleInMenu: 1
+      Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
+        name: 'Informationen abfragen'
+        glyphicon: glyphicon-info-sign
+        isActive: true
+        isVisibleInMenu: false
+      Drupal\masterportal\Plugin\Masterportal\Tools\Measure:
+        name: 'Strecke / Fläche messen'
+        glyphicon: glyphicon-resize-horizontal
+      Drupal\masterportal\Plugin\Masterportal\Tools\Populationquery:
+        name: 'Einwohneranzahl abfragen'
+        glyphicon: glyphicon-wrench
+        onlyDesktop: 0
+        populationReqServiceId: '2'
+      Drupal\masterportal\Plugin\Masterportal\Tools\Shadow:
+        name: 'Schatten einstellen'
+        glyphicon: glyphicon-resize-full

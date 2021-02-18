@@ -1,0 +1,351 @@
+<?php
+
+/**
+ * @file
+ * @license https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+ *   GPL-2.0-or-later
+ */
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Config\Config;
+use Drupal\Core\Queue\DatabaseQueue;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function dipas_entity_insert(EntityInterface $entity) {
+  dipas_invalidate_entity_cachetags($entity);
+  dipas_nlp_request_queue($entity, 'insert');
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function dipas_entity_update(EntityInterface $entity) {
+  dipas_invalidate_entity_cachetags($entity);
+  dipas_nlp_request_queue($entity, 'update');
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function dipas_entity_delete(EntityInterface $entity) {
+  dipas_invalidate_entity_cachetags($entity);
+  dipas_nlp_request_queue($entity, 'delete');
+}
+
+/**
+ * Common cache tag invalidation on content entity changes.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ * @throws \Drupal\Core\TypedData\Exception\MissingDataException
+ */
+function dipas_invalidate_entity_cachetags(EntityInterface $entity) {
+  if ($entity instanceof ContentEntityInterface) {
+    $cacheTagsToInvalidate = [
+      sprintf('%s:%d', $entity->getEntityTypeId(), $entity->id()),
+    ];
+    switch (sprintf('%s/%s', $entity->getEntityTypeId(), $entity->bundle())) {
+      case 'node/contribution':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, [
+          'frontpage',
+          'contributionlist',
+          'contributionmap',
+          'statistics',
+          'Layer:ContributionGeoJSON',
+        ]);
+        break;
+
+      case 'node/appointment':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, ['schedule']);
+        break;
+
+      case 'node/conception':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, ['frontpage']);
+        break;
+
+      case 'node/page':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, [
+          'frontpage',
+          'contact',
+          'dataprivacy',
+          'faq',
+          'imprint',
+          'projectinfo',
+          'custompage',
+        ]);
+        break;
+
+      case 'taxonomy_term/categories':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, ['dipas:contributionstyles']);
+      case 'media/download':
+      case 'taxonomy_term/rubrics':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, [
+          'init',
+          'statistics',
+        ]);
+        break;
+
+      // ATTENTION: INTENTIONAL FALLTHROUGH!
+      case 'comment/reply':
+        // Since replies also should invalidate the initial contribution, we need
+        // to determine it's node id and invalidate that as well.
+        $parentComment = \Drupal::entityTypeManager()
+          ->getStorage('comment')
+          ->load($entity->get('entity_id')->first()->getString());
+        if ($parentComment) {
+          $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, [
+            sprintf('node:%d', $parentComment->get('entity_id')
+              ->first()
+              ->getString()),
+          ]);
+        }
+      case 'comment/default':
+        $cacheTagsToInvalidate = array_merge($cacheTagsToInvalidate, ['statistics']);
+        break;
+    }
+
+    dipas_invalidate_cachetags($cacheTagsToInvalidate);
+  }
+}
+
+/**
+ * Invalidate a given range of cache tags.
+ *
+ * @param array $cacheTagsToInvalidate
+ */
+function dipas_invalidate_cachetags(array $cacheTagsToInvalidate = []) {
+  /* @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheTagInvalidator */
+  $cacheTagInvalidator = \Drupal::getContainer()->get('cache_tags.invalidator');
+
+  array_walk(
+    $cacheTagsToInvalidate,
+    function (&$tag) {
+      if (!preg_match('~\:~', $tag)) {
+        $tag = sprintf('dipasRestEndpoint:%s', $tag);
+      }
+    }
+  );
+
+  $cacheTagInvalidator->invalidateTags($cacheTagsToInvalidate);
+}
+
+/**
+ * Implements hook_cron().
+ */
+function dipas_cron() {
+  /* @var \Drupal\dipas\Service\DipasConfig $dipasConfig */
+  $dipasConfig = \Drupal::getContainer()->get('dipas.config');
+  $now = time();
+
+  $configs = [
+    'phase1' => [
+      'ContributionSettings.contribution_status' => 'open',
+      'ContributionSettings.comments_allowed' => TRUE,
+      'ContributionSettings.rating_allowed' => TRUE,
+      'ProjectInformation.allow_conception_comments' => TRUE,
+    ],
+    'phase2' => [
+      'ContributionSettings.contribution_status' => 'closed',
+      'ContributionSettings.comments_allowed' => TRUE,
+      'ContributionSettings.rating_allowed' => TRUE,
+      'ProjectInformation.allow_conception_comments' => TRUE,
+    ],
+    'frozen' => [
+      'ContributionSettings.contribution_status' => 'closed',
+      'ContributionSettings.comments_allowed' => FALSE,
+      'ContributionSettings.rating_allowed' => FALSE,
+      'ProjectInformation.allow_conception_comments' => FALSE,
+    ],
+  ];
+
+  foreach ($dipasConfig->getIds() as $dipasConfigId) {
+    $config = $dipasConfig->getEditable($dipasConfigId);
+
+    $project_start = strtotime($config->get('ProjectSchedule.project_start'));
+    $project_end = strtotime($config->get('ProjectSchedule.project_end')) + 86399;
+    $phase_2_enabled = $config->get('ProjectSchedule.phase_2_enabled');
+    $phase_2_start = strtotime($config->get('ProjectSchedule.phase_2_start'));
+    $phasemix_enabled = $config->get('ProjectSchedule.phasemix_enabled');
+
+    $project_phase = 'unstarted';
+    if ($now >= $project_start && $now < $project_end) {
+      $project_phase = 'phase1';
+
+      if ($phase_2_enabled && $now >= $phase_2_start) {
+        $project_phase = $phasemix_enabled ? 'phasemix' : 'phase2';
+      }
+    }
+    else {
+      if ($now >= $project_end) {
+        $project_phase = 'frozen';
+      }
+    }
+
+    if (in_array($project_phase, ['phase1', 'phasemix'])) {
+      dipas_apply_phase_config($config, $configs['phase1']);
+    }
+    elseif ($project_phase === 'phase2') {
+      dipas_apply_phase_config($config, $configs['phase2']);
+    }
+    elseif ($project_phase === 'frozen') {
+      dipas_apply_phase_config($config, $configs['frozen']);
+    }
+    $config->save();
+  }
+
+  /*
+   * @todo The cache tags should only be invalidated if the phase has changed.
+   *   The invalidation should also be restricted to the tags of the changed
+   *   configs.
+   */
+  dipas_invalidate_cachetags([
+    'init',
+    'frontpage',
+    'contributionlist',
+    'contributionmap',
+  ]);
+}
+
+/**
+ * Add the contribution ID and changeType to the nlp_requests queue.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ * @param string $changeType
+ */
+function dipas_nlp_request_queue($entity, $changeType) {
+  // Get the configuration for the currently active domain.
+  /* @var \Drupal\dipas\Service\DipasConfig $config */
+  $config = \Drupal::service('dipas.config');
+
+  // Only do something if NLP is actually active and the entity is relevant for NLP.
+  if (
+    $config->get('NLPSettings.enabled') &&
+    $entity instanceof ContentEntityInterface &&
+    in_array(
+      sprintf('%s:%s', $entity->getEntityTypeId(), $entity->bundle()),
+      ['node:contribution', 'vote:vote', 'comment:default', 'comment:reply']
+    )
+  ) {
+
+    // All NLP services are contacted on a domain basis, not on an entity basis.
+    // So we need to determine if there's already a queue item present for the current domain.
+    /* @var \Drupal\Core\Database\Connection $database */
+    $database = \Drupal::service('database');
+    $queue_items = $database->select(DatabaseQueue::TABLE_NAME, 'queue')
+      ->condition('name', 'nlp_requests', '=')
+      ->fields('queue', ['data'])
+      ->execute()->fetchAll();
+    $domains = [];
+    foreach ($queue_items as $item) {
+      $data = unserialize($item->data);
+      $domains[] = $data->domain;
+    }
+    $domains = array_unique($domains);
+
+    // Only create a new queue item if there is none for the current domain.
+    if (!in_array($config->getConfigDomain(), $domains)) {
+      /* @var \Drupal\Core\Queue\QueueFactory $queue_factory */
+      $queue_factory = \Drupal::service('queue');
+      /* @var \Drupal\Core\Queue\QueueInterface $queue */
+      $queue = $queue_factory->get('nlp_requests');
+
+      $item = new \stdClass();
+      $item->domain = $config->getConfigDomain();
+      $queue->createItem($item);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ *
+ * @return array
+ */
+function dipas_theme($existing, $type, $theme, $path) {
+  return [
+    'dipas_dashboard' => [
+      'variables' => [
+        'create_links' => [],
+        'administer_links' => [],
+      ],
+    ],
+    'dipas_nlp_analysis' => [
+      'variables' => [
+        'nlp_enabled' => FALSE,
+        'nlp_cluster_enabled' => FALSE,
+        'nlp_wordcloud_enabled' => FALSE,
+      ],
+    ],
+  ];
+}
+
+/**
+  * Implements hook_user_login().
+  */
+
+function dipas_user_login($account) {
+
+  if ($account->isAuthenticated() && in_array('project_admin', $account->getRoles())) {
+    $url = "admin/dipas/dashboard";
+    $response = new RedirectResponse(base_path() . $url);
+    $response->send();
+  }
+
+  return;
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Implemented to set a default domain on taxonomy term forms.
+ */
+function dipas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (
+    in_array($form_id, [
+      'dipas.configuration',
+      'masterportal.settingsform.Layerconfiguration',
+      'masterportal.settingsform.LayerStyles',
+      'masterportal_instance_form',
+    ])
+    && Drupal::service('module_handler')->moduleExists('domain')
+    && $activeDomain = Drupal::service('domain.negotiator')->getActiveDomain()
+  ) {
+    if ($activeDomain->id() === 'default') {
+      $warning = Drupal::service('string_translation')
+        ->translate("You are editing the default configuration, the changes will be reflected in all new proceedings.");
+      \Drupal::service('messenger')->addWarning($warning);
+    }
+
+  }
+}
+
+/**
+ * Apply the given phase config to the dipas configuration.
+ *
+ * @param \Drupal\Core\Config\Config $config
+ *   The editable config object.
+ * @param array $phaseConfig
+ *   An array containing all configs to be set for this phase.
+ *
+ * @return \Drupal\Core\Config\Config
+ *   The editable config object with applied phase configs.
+ */
+function dipas_apply_phase_config(Config $config, array $phaseConfig) {
+
+  foreach ($phaseConfig as $key => $value) {
+    $config->set($key, $value);
+  }
+  return $config;
+}

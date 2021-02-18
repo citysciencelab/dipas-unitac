@@ -1,0 +1,11 @@
+uuid: 57b28ce1-c70c-4ede-8292-14710a42f296
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.download
+id: media.download
+target_entity_type_id: media
+target_bundle: download
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,6 @@
+dipas.config:
+  title: 'DIPAS'
+  description: 'Provides an interface to configure DIPAS related settings for this website.'
+  route_name: dipas.configform
+  parent: system.admin_config_ui
+  menu_name: admin

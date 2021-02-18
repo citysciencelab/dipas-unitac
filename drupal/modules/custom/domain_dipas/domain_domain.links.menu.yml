@@ -1,0 +1,10 @@
+dipas_domain.admin_dipas_domain:
+  title: 'Proceedings'
+  route_name: 'dipas_domain.admin_dipas_domain'
+  parent: 'dipas.config'
+  description: 'Administer and configure DIPAS'
+dipas_domain.settings:
+  title: 'Proceeding settings'
+  route_name: 'dipas_domain.settings'
+  parent: 'dipas.config'
+  description: 'Configure DIPAS proceeding base settings'

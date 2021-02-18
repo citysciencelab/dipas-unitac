@@ -1,0 +1,19 @@
+uuid: c24f93be-fe62-4ca4-9c92-c7328729c7bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_name
+    - paragraphs.paragraphs_type.planning_subarea
+id: paragraph.planning_subarea.field_name
+field_name: field_name
+entity_type: paragraph
+bundle: planning_subarea
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

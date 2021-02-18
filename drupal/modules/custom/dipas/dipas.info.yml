@@ -1,0 +1,17 @@
+name: 'DIPAS'
+description: 'Provides an interface to configure DIPAS related settings for this website.'
+type: module
+package : DIPAS
+core: 8.x
+version: 8.x-1.1-alpha
+dependencies:
+  - drupal:serialization
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:address
+  - drupal:masterportal
+  - drupal:geofield
+  - drupal:votingapi
+  - drupal:datetime
+  - drupal:language
+  - drupal:csv_serialization

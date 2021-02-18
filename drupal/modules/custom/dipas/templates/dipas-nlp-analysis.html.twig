@@ -1,0 +1,38 @@
+<div class="dipas-nlp-analysis">
+
+  {% if nlp_enabled == true %}
+
+  <div class="nlpblocks">
+
+    <div class="nlpblock">
+      <h3>{{ 'Cluster' | trans }}</h3>
+      {% if nlp_cluster_enabled == true %}
+        {{ drupal_block('dipas_nlp_clusterlist_block') }}
+      {% else %}
+        {{ 'Clustering service is disabled' | trans }}
+      {%  endif %}
+    </div>
+
+    <div class="nlpblock">
+      <h3>{{ 'Word cloud' | trans }}</h3>
+      {% if nlp_cluster_enabled == true %}
+        {{ drupal_block('dipas_nlp_wordcloud_block') }}
+      {% else %}
+        {{ 'Wordcloud service is disabled' | trans }}
+      {%  endif %}
+    </div>
+
+  </div>
+
+  <div class="contributions">
+    <h3>{{ 'List view' | trans }}</h3>
+    {{ drupal_view('contributions', 'admin_contribution_list_block') }}
+  </div>
+
+  {% else %}
+
+    {{ 'NLP services are disabled' | trans }}
+
+  {%  endif %}
+
+</div>

@@ -1,0 +1,20 @@
+name: 'DIPAS Admin theme'
+type: 'theme'
+description: 'This is a special admin theme for DIPAS project admins'
+core: '8.x'
+base theme: 'seven'
+libraries:
+  - dipas_admin_theme/global-styling
+# regions copied from base theme 'seven' because they are not inherited
+regions:
+  header: 'Header'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+regions_hidden:
+  - sidebar_first

@@ -1,0 +1,17 @@
+uuid: fb7bc9c4-54d1-46e4-918c-984d02f9c8e5
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      content: content
+      structural: '0'
+id: accordeon_item
+label: 'Accordeon item'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

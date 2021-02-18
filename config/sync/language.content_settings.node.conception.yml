@@ -1,0 +1,11 @@
+uuid: d8ca5a0e-bbab-4bad-a07d-c34e551828e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.conception
+id: node.conception
+target_entity_type_id: node
+target_bundle: conception
+default_langcode: current_interface
+language_alterable: true

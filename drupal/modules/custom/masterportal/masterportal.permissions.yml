@@ -1,0 +1,18 @@
+access masterportal configuration ui:
+  title: 'Access Masterportal configuration interface'
+  description: 'Basic permission to access the Masterportal configuration interface'
+administer masterportal:
+  title: 'Administer Masterportal settings'
+  description: 'Permission to edit the HTML template and basic configuration of the Masterportal.'
+create new masterportal instances:
+  title: 'Create new Masterportal instances'
+  description: 'Permission to create new Masterportal instances.'
+edit any masterportal instances:
+  title: 'Edit any Masterportal instances'
+  description: 'Permission to edit any existing Masterportal instance.'
+delete any masterportal instance:
+  title: 'Delete any Masterportal instance'
+  description: 'Permission to delete any existing Masterportal instance (except protected).'
+download masterportal instances:
+  title: 'Download Masterportal instances'
+  description: 'Permission to download a fully functional standalone Masterportal instance.'

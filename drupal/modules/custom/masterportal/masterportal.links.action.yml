@@ -1,0 +1,5 @@
+masterportal.masterportal_instance.add:
+  route_name: masterportal.masterportal_instance.add
+  title: 'Add new instance'
+  appears_on:
+    - masterportal.settings.instances

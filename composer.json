@@ -1,0 +1,131 @@
+{
+  "name": "lgv/dipas",
+  "description": "Drupal 8 base for the DIPAS system.",
+  "type": "project",
+  "license": "GPL-2.0+",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "require": {
+    "composer/installers": "^1.0.20",
+    "cweagans/composer-patches": "^1.0",
+    "drush/drush": "^8.3.0",
+    "hirak/prestissimo": "^0.3",
+
+    "drupal/core": "^8.8.7",
+
+    "drupal/address": "^1.4",
+    "drupal/admin_toolbar": "^2.0",
+    "drupal/amswap": "^2.0@beta",
+    "drupal/color_field": "^2.0",
+    "drupal/config_ignore": "^2.2",
+    "drupal/csv_serialization": "^2.0@beta",
+    "drupal/ctools": "^3.0",
+    "drupal/domain": "^1.0@beta",
+    "drupal/entity": "^1.0@rc",
+    "drupal/entity_browser": "^2.0",
+    "drupal/entity_browser_enhanced": "^1.0@rc",
+    "drupal/entity_reference_revisions": "^1.6",
+    "drupal/environment_indicator": "^4.0",
+    "drupal/form_options_attributes": "^1.0",
+    "drupal/fpa": "2.x-dev",
+    "drupal/geofield": "^1.0",
+    "drupal/image_effects": "^3.0",
+    "drupal/inline_entity_form": "^1.0@rc",
+    "drupal/menu_link_config": "^1.0@alpha",
+    "drupal/module_filter": "^3.1",
+    "drupal/nimbus": "1.x-dev",
+    "drupal/optional_end_date": "^1.0@beta",
+    "drupal/paragraphs_ee": "^1.1",
+    "drupal/paragraphs_features": "^1.4",
+    "drupal/select2": "^1.1",
+    "drupal/stage_file_proxy": "^1.0@alpha",
+    "drupal/token": "^1.5",
+    "drupal/transliterate_filenames": "^1.2",
+    "drupal/twig_tweak": "^2.6",
+    "drupal/video_embed_field": "^2.0",
+    "drupal/votingapi": "^3.0@beta",
+    "drupal/votingapi_widgets": "^1.0@alpha",
+    "drupal/x_frame_options": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0",
+    "drupal/drupal-extension": "^3.0",
+    "mikey179/vfsstream": "^1.6"
+  },
+  "config": {
+    "discard-changes": true,
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "patches": {
+      "drush/drush": {
+        "Fixes for running drush in a Windows 10 environment": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/dd19163a6a218fb290c66e39bac547aa191fd9af/drush/windows_environment.patch"
+      },
+      "drupal/core": {
+        "https://www.drupal.org/project/drupal/issues/571548": "https://www.drupal.org/files/issues/2019-03-11/571548-119.patch",
+        "Remove PHP notice on missing comment form": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/9ccbe4beead6d1998f10cb00300aa20dd0e9ee22/core/modules/comment/remove_php_notice_when_comment_form_is_missing.patch",
+        "Requeue cron items (https://www.drupal.org/project/drupal/issues/1832818)": "https://www.drupal.org/files/issues/2020-03-24/1832818.80-requeue.patch",
+        "Lower the severity of the log entry for postponed cron items": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/f9b039eefeb041034f181a0a79a5ff4b1a9dad99/core/lib/Drupal/Core/Cron.patch"
+      },
+      "drupal/entity_browser": {
+        "https://www.drupal.org/project/entity_browser/issues/2922885": "https://www.drupal.org/files/issues/entity_browser-media-file-upload-2922885-3.patch"
+      },
+      "drupal/fpa": {
+        "https://www.drupal.org/project/fpa/issues/2886896": "https://www.drupal.org/files/issues/2018-04-23/fpa-critical-error-with-strings-2886896-23.patch"
+      }
+    },
+    "installer-types": [
+      "bower-asset",
+      "npm-asset",
+      "drupal-translation"
+    ],
+    "installer-paths": {
+      "drupal/libraries/{$name}": [
+        "type:drupal-library",
+        "type:bower-asset",
+        "type:npm-asset"
+      ],
+      "drupal/core": [
+        "type:drupal-core"
+      ],
+      "drupal/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "drupal/modules/custom/{$name}": [
+        "type:drupal-module-custom"
+      ],
+      "drupal/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "drupal/profiles/custom/{$name}": [
+        "type:drupal-profile-custom"
+      ],
+      "drupal/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drupal/themes/custom/{$name}}": [
+        "type:drupal-theme-custom"
+      ],
+      "drupal/drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ],
+      "drupal/drush/custom/{$name}": [
+        "type:drupal-drush-custom"
+      ],
+      "drupal/translations": [
+        "type:drupal-translation"
+      ]
+    },
+    "enable-patching": true
+  }
+}

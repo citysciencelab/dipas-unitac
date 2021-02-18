@@ -1,0 +1,15 @@
+uuid: 51a7d57d-6dfa-48ac-8eed-477f0fa86c95
+langcode: en
+status: true
+dependencies: {  }
+name: conception_lg
+label: 'Conception LG'
+effects:
+  b35c0d0e-a3c4-4287-a576-09f20776ef4a:
+    uuid: b35c0d0e-a3c4-4287-a576-09f20776ef4a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 238
+      anchor: center-center

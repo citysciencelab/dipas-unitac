@@ -1,0 +1,35 @@
+uuid: 139d9f28-68c2-4434-b96f-52dd72724f2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.appointment.field_address
+    - field.field.node.appointment.field_date
+    - field.field.node.appointment.field_description
+    - field.field.node.appointment.field_domain_access
+    - field.field.node.appointment.field_domain_all_affiliates
+    - field.field.node.appointment.field_localization
+    - field.field.node.appointment.field_topic
+    - node.type.appointment
+  module:
+    - user
+id: node.appointment.teaser
+targetEntityType: node
+bundle: appointment
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_address: true
+  field_date: true
+  field_description: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_localization: true
+  field_topic: true
+  langcode: true

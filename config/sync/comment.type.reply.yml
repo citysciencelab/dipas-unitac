@@ -1,0 +1,8 @@
+uuid: 6d0fbbcb-bc8f-46d4-ae43-e43c78d4ceaf
+langcode: en
+status: true
+dependencies: {  }
+id: reply
+label: Reply
+target_entity_type_id: comment
+description: ''

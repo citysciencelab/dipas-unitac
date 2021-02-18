@@ -1,0 +1,15 @@
+uuid: d6d1bf47-21d6-4bef-a8cc-241185fa29f3
+langcode: en
+status: true
+dependencies: {  }
+name: content_image_lg
+label: 'Content Image LG'
+effects:
+  e1584217-af0c-4dd1-b867-92cc4c96b939:
+    uuid: e1584217-af0c-4dd1-b867-92cc4c96b939
+    id: image_scale
+    weight: 1
+    data:
+      width: 1200
+      height: null
+      upscale: false

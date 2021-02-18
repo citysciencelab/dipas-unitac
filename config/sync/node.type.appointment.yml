@@ -1,0 +1,11 @@
+uuid: 53f50d61-feba-496f-af39-d67af012eb49
+langcode: en
+status: true
+dependencies: {  }
+name: Appointment
+type: appointment
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

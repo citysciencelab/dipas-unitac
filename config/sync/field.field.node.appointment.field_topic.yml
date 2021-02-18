@@ -1,0 +1,19 @@
+uuid: 6283301e-e713-4d03-831e-c6cd29b33616
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_topic
+    - node.type.appointment
+id: node.appointment.field_topic
+field_name: field_topic
+entity_type: node
+bundle: appointment
+label: Topic
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

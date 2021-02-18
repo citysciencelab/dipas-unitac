@@ -1,0 +1,21 @@
+uuid: c3d867d3-0382-4bf9-a2de-55d3a4686894
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.conception.field_conception
+    - paragraphs.paragraphs_type.conception
+id: paragraph.conception.default
+targetEntityType: paragraph
+bundle: conception
+mode: default
+content:
+  field_conception:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

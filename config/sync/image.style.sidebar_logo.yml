@@ -1,0 +1,15 @@
+uuid: 55bd2670-6ef6-4019-8a6b-62c59f2c07b3
+langcode: en
+status: true
+dependencies: {  }
+name: sidebar_logo
+label: 'Sidebar Logo'
+effects:
+  6b66c683-6a4d-4943-9214-13b20a8ec4df:
+    uuid: 6b66c683-6a4d-4943-9214-13b20a8ec4df
+    id: image_scale
+    weight: 1
+    data:
+      width: 300
+      height: null
+      upscale: true

@@ -1,0 +1,130 @@
+uuid: eabaa408-2bea-46b3-acc0-99b21051b841
+langcode: en
+status: true
+dependencies: {  }
+id: default.contribution_single
+uid: '0'
+instance_name: contribution_single
+label: 'Single contribution display'
+domain: default
+hidden: false
+settings:
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '["717","718","719","720","13709","13712","13714","13716"]'
+        custom:
+          name: 'GeoBasisKarten Hamburg'
+          visibility: true
+          gfiTheme: default
+  DesignSettings:
+    uiStyle: default
+    treeType: custom
+    scaleLine: 0
+    simpleMap: 1
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
+  ForegroundLayerSection:
+    layer:
+      -
+        id: contributions
+        custom:
+          visibility: true
+          gfiTheme: default
+  MapSettings:
+    startCenter: '[566613,5935507]'
+    options:
+      -
+        resolution: 66.145797614603
+        scale: 250000
+        zoomLevel: 0
+      -
+        resolution: 26.458319045841
+        scale: 100000
+        zoomLevel: 1
+      -
+        resolution: 15.874991427505
+        scale: 60000
+        zoomLevel: 2
+      -
+        resolution: 10.583327618336
+        scale: 40000
+        zoomLevel: 3
+      -
+        resolution: 5.2916638091682
+        scale: 20000
+        zoomLevel: 4
+      -
+        resolution: 2.6458319045841
+        scale: 10000
+        zoomLevel: 5
+      -
+        resolution: 1.3229159522921
+        scale: 5000
+        zoomLevel: 6
+      -
+        resolution: 0.66145797614603
+        scale: 2500
+        zoomLevel: 7
+      -
+        resolution: 0.26458319045841
+        scale: 1000
+        zoomLevel: 8
+      -
+        resolution: 0.13229159522921
+        scale: 500
+        zoomLevel: 9
+    zoomLevel: 3
+    epsg: 'EPSG:25832'
+  MenuSettings:
+    tree:
+      name: Themen
+      glyphicon: glyphicon-list
+      isInitOpen: false
+    tools:
+      name: Werkzeuge
+      glyphicon: glyphicon-wrench
+    filter:
+      name: Filter
+      glyphicon: glyphicon-filter
+      deactivateGFI: false
+      isGeneric: false
+      isInitOpen: false
+      liveZoomToFeatures: false
+      allowMultipleQueriesPerLayer: false
+      isVisibleInMenu: false
+      predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
+    legend:
+      name: Legende
+      glyphicon: glyphicon-book
+  PortalSettings:
+    title: ' '
+    logo: ''
+    link: 'http://geoinfo.hamburg.de'
+    tooltip: 'Landesbetrieb Geoinformation und Vermessung'
+    activePlugins: {  }
+    plugins: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Suche nach Themen'
+    renderToDOM: ''
+    quickHelp: false
+  SearchPluginSettings:
+    activePlugins:
+      - Tree
+      - VisibleVector
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\VisibleVector:
+        layerTypes:
+          - GeoJSON
+  ToolSettings:
+    activePlugins:
+      - Gfi
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
+        name: 'Informationen abfragen'
+        glyphicon: glyphicon-info-sign
+        isActive: true
+        isVisibleInMenu: false

@@ -1,0 +1,98 @@
+uuid: c12873b2-e85f-4fff-86ea-1ab4462ebc2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.appointment.field_address
+    - field.field.node.appointment.field_date
+    - field.field.node.appointment.field_description
+    - field.field.node.appointment.field_domain_access
+    - field.field.node.appointment.field_domain_all_affiliates
+    - field.field.node.appointment.field_localization
+    - field.field.node.appointment.field_topic
+    - node.type.appointment
+  module:
+    - address
+    - datetime_range
+    - masterportal
+    - text
+id: node.appointment.default
+targetEntityType: node
+bundle: appointment
+mode: default
+content:
+  field_address:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_date:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
+  field_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_domain_access:
+    type: options_buttons
+    weight: 40
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_domain_all_affiliates:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 41
+    third_party_settings: {  }
+    region: content
+  field_localization:
+    weight: 5
+    settings:
+      html5_geolocation: ''
+      masterportal_instance: appointment_create
+      width: '100'
+      unit: '%'
+      aspect_ratio: aspect_ratio_16_9
+      editingZoomLevel: '6'
+    third_party_settings: {  }
+    type: masterportal_geofield_widget
+    region: content
+  field_topic:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

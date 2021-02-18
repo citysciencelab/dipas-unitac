@@ -1,0 +1,49 @@
+uuid: b46bc901-a256-43b2-bfee-afc965308e4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - paragraphs.paragraphs_type.division_in_planning_subareas
+    - paragraphs.paragraphs_type.planning_subarea
+  module:
+    - entity_reference_revisions
+id: paragraph.division_in_planning_subareas.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: division_in_planning_subareas
+label: 'Division in planning subareas'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      planning_subarea: planning_subarea
+    target_bundles_drag_drop:
+      accordeon:
+        weight: 9
+        enabled: false
+      conception:
+        weight: 10
+        enabled: false
+      division_in_planning_subareas:
+        weight: 8
+        enabled: false
+      image:
+        weight: 11
+        enabled: false
+      planning_subarea:
+        enabled: true
+        weight: 12
+      text:
+        weight: 13
+        enabled: false
+      video:
+        weight: 14
+        enabled: false
+field_type: entity_reference_revisions

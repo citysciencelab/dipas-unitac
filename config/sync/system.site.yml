@@ -1,0 +1,14 @@
+uuid: f8241df8-b806-48bd-84b8-da396a80e43b
+name: 'Beteiligungstool Drupal 8'
+mail: stadtwerkstatt@bsw.hamburg.de
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /user/login
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: de
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI

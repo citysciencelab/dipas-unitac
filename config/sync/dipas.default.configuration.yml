@@ -1,0 +1,129 @@
+id: default.configuration
+domain: default
+ProjectInformation:
+  site_name: 'DIPAS'
+  footer_text: 'Onlinebeteiligung bereitgestellt durch die Stadtwerkstatt der Freien und Hansestadt Hamburg'
+  site_email_name: ''
+  site_email_address: ''
+  department: ''
+  street1: ''
+  street2: ''
+  zip: ''
+  city: ''
+  contact_email: ''
+  contact_telephone: ''
+  contact_website: ''
+  project_logo: ''
+  project_image: ''
+  partner_logos: {  }
+  headline: 'Herzlich Willkommen!'
+  text: 'Hier können Sie teilnehmen!'
+  data_responsible: ''
+ContributionSettings:
+  contribution_status: open
+  maximum_character_count_per_contribution: 1000
+  contributor_must_be_logged_in: false
+  contributions_must_be_localized: true
+  rubrics_use: true
+  geometry:
+    - point
+  comments_allowed: true
+  comments_maxlength: 500
+  display_existing_comments: true
+  rating_allowed: true
+  masterportal_instances:
+    contributionmap: default.default
+    singlecontribution:
+      instance: default.contribution_single
+      other_contributions: hidden
+    createcontribution: default.contribution
+MenuSettings:
+  frontpage: contributionmap
+  mainmenu:
+    contributionmap:
+      enabled: true
+      name: Beitragskarte
+      icon: room
+    contributionlist:
+      enabled: true
+      name: Beitragsliste
+      icon: sms
+    projectinfo:
+      enabled: false
+      name: 'Über das Verfahren'
+      icon: info
+    schedule:
+      enabled: true
+      name: Termine
+      icon: event
+      mapinstance: default.appointment_map
+    statistics:
+      enabled: true
+      name: Auswertungen
+      icon: timeline
+    survey:
+      enabled: false
+      name: Umfrage
+      icon: poll
+      url: ''
+    custompage:
+      enabled: false
+      name: 'eigene Seite'
+      icon: keyboard
+  footermenu:
+    dataprivacy:
+      enabled: false
+      name: Datenschutz
+    imprint:
+      enabled: false
+      name: Impressum
+    faq:
+      enabled: false
+      name: FAQ
+    contact:
+      enabled: false
+      name: Kontakt
+SidebarSettings:
+  blocks:
+    contact: {  }
+KeywordSettings:
+  enabled: false
+  mode: external
+  service_url: ''
+  externalService: ''
+  number_of_keywords: 4
+ProjectArea:
+  project_area: ''
+NLPSettings:
+  enabled: false
+  enable_score_service: false
+  score_service_basis_url: ''
+  enable_score_service_content_score: 'off'
+  enable_score_service_response_score: 'off'
+  enable_score_service_mutuality_score: 'off'
+  enable_score_service_relevance_score: 'off'
+  enable_score_service_sentiment_score: 'off'
+  score_stoplist: ''
+  enable_summary: false
+  summary_service_basis_url: ''
+  enable_wordcloud: false
+  wordcloud_service_basis_url: ''
+  wordcloud_dictionary: 'off'
+  wordcloud_count: ''
+  wordcloud_stoplist: ''
+  enable_clustering: false
+  clustering_service_basis_url: ''
+  cluster_count: ''
+  cluster_stoplist: ''
+  enable_topicmaps: false
+  topicmaps_service_basis_url: ''
+ProjectSchedule:
+  project_start: ''
+  project_end: ''
+  phase_2_enabled: false
+  phasemix_enabled: false
+  phase_2_start: ''
+  conceptionpage: 0
+  allow_conception_comments: true
+  display_existing_conception_comments: true
+  overwriteFrontpage: false

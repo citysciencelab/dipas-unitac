@@ -1,0 +1,8 @@
+uuid: 57339e21-be1f-4526-9eb0-452415812581
+langcode: en
+status: true
+dependencies: {  }
+id: project-administration
+label: 'Project administration'
+description: 'Contains links that are related to DIPAS configuration tasks'
+locked: false

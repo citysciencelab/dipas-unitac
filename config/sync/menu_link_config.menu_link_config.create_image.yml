@@ -1,0 +1,16 @@
+uuid: bde035c7-93a7-4411-944f-8bbd2cb36dfb
+langcode: en
+status: true
+dependencies: {  }
+id: create_image
+title: 'Create image'
+route_name: entity.media.add_form
+route_parameters:
+  media_type: 9fbefed3-357f-4e81-839d-25c0ad11bb83
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_media'
+weight: -50
+description: ''

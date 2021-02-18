@@ -1,0 +1,19 @@
+uuid: 7beaa381-db3f-41be-8a95-60c55a571c1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_headline
+    - paragraphs.paragraphs_type.accordeon_item
+id: paragraph.accordeon_item.field_headline
+field_name: field_headline
+entity_type: paragraph
+bundle: accordeon_item
+label: Headline
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

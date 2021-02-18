@@ -1,0 +1,16 @@
+uuid: a0040da0-2823-4654-b97c-8f04e3e57222
+langcode: en
+status: true
+dependencies: {  }
+id: administer_rubrics
+title: 'Administer rubrics'
+route_name: entity.taxonomy_vocabulary.overview_form
+route_parameters:
+  taxonomy_vocabulary: 52eaa2e2-827d-4478-bbdd-d40c45a9c006
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:administer_categorization'
+weight: -49
+description: ''

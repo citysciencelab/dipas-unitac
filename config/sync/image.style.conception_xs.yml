@@ -1,0 +1,15 @@
+uuid: 38675d45-bef1-437b-a80c-8884b4374ac9
+langcode: en
+status: true
+dependencies: {  }
+name: conception_xs
+label: 'Conception XS'
+effects:
+  80599e9d-35f5-44c5-8584-541a75684aa8:
+    uuid: 80599e9d-35f5-44c5-8584-541a75684aa8
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 120
+      height: 95
+      anchor: center-center

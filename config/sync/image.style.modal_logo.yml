@@ -1,0 +1,35 @@
+uuid: 6815cef9-27c2-49d2-91d5-63681fc3d544
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_effects
+name: modal_logo
+label: 'Modal Logo'
+effects:
+  8cd32f0b-c20b-41ec-a2d4-b302a78f366f:
+    uuid: 8cd32f0b-c20b-41ec-a2d4-b302a78f366f
+    id: image_effects_set_canvas
+    weight: -8
+    data:
+      canvas_size: exact
+      exact:
+        width: '720'
+        height: '350'
+        placement: center-center
+        x_offset: 0
+        y_offset: 0
+      relative:
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+      canvas_color: '#FFFFFFFF'
+  005530a8-a2b3-4392-992c-241aa31226be:
+    uuid: 005530a8-a2b3-4392-992c-241aa31226be
+    id: image_scale
+    weight: -9
+    data:
+      width: 360
+      height: 160
+      upscale: false

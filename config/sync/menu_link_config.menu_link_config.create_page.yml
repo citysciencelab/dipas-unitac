@@ -1,0 +1,16 @@
+uuid: e5826b45-8877-4d5f-b0b2-bf55e365fba1
+langcode: en
+status: true
+dependencies: {  }
+id: create_page
+title: 'Create page'
+route_name: node.add
+route_parameters:
+  node_type: 5986cd31-cada-44e0-9a04-cf7809b09d52
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_content'
+weight: -50
+description: ''

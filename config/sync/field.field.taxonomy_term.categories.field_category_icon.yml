@@ -1,0 +1,38 @@
+uuid: ff9e9ad0-8458-4753-af22-0edb44272c01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_category_icon
+    - taxonomy.vocabulary.categories
+  module:
+    - image
+id: taxonomy_term.categories.field_category_icon
+field_name: field_category_icon
+entity_type: taxonomy_term
+bundle: categories
+label: 'Category icon'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: categoryicons
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

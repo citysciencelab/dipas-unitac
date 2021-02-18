@@ -1,0 +1,11 @@
+uuid: 0e089825-02e0-40c9-b812-7c305c6a5e0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.video
+id: paragraph.video
+target_entity_type_id: paragraph
+target_bundle: video
+default_langcode: current_interface
+language_alterable: false

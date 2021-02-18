@@ -1,0 +1,33 @@
+uuid: b7fb1953-d7af-4823-a6b2-1cee17780c20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.planning_subarea.field_content
+    - field.field.paragraph.planning_subarea.field_name
+    - paragraphs.paragraphs_type.planning_subarea
+  module:
+    - entity_reference_revisions
+id: paragraph.planning_subarea.default
+targetEntityType: paragraph
+bundle: planning_subarea
+mode: default
+content:
+  field_content:
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_name:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

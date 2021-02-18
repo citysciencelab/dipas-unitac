@@ -1,0 +1,25 @@
+label: 'Karteninstanz: DIPAS'
+settings:
+  MenuSettings:
+    tree:
+      name: Themen
+    tools:
+      name: Werkzeuge
+    filter:
+      name: Katgorieauswahl
+    legend:
+      name: Legende
+  SearchBarSettings:
+    placeholder: 'Suche Adresse/Thema/Beitrag'
+  ToolSettings:
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: 'Zeichnen / Schreiben'
+      Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
+        name: 'Informationen abfragen'
+      Drupal\masterportal\Plugin\Masterportal\Tools\Measure:
+        name: 'Strecke / Fläche messen'
+      Drupal\masterportal\Plugin\Masterportal\Tools\Populationquery:
+        name: 'Einwohneranzahl abfragen'
+      Drupal\masterportal\Plugin\Masterportal\Tools\Shadow:
+        name: 'Schatten einstellen'

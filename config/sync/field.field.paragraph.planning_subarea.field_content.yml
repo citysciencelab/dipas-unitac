@@ -1,0 +1,49 @@
+uuid: cde91afa-88c3-4a16-958e-ee1b4ffcfa7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - paragraphs.paragraphs_type.conception
+    - paragraphs.paragraphs_type.planning_subarea
+  module:
+    - entity_reference_revisions
+id: paragraph.planning_subarea.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: planning_subarea
+label: Conceptions
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      conception: conception
+    target_bundles_drag_drop:
+      accordeon:
+        weight: 9
+        enabled: false
+      conception:
+        enabled: true
+        weight: 10
+      division_in_planning_subareas:
+        weight: 8
+        enabled: false
+      image:
+        weight: 11
+        enabled: false
+      planning_subarea:
+        weight: 12
+        enabled: false
+      text:
+        weight: 13
+        enabled: false
+      video:
+        weight: 14
+        enabled: false
+field_type: entity_reference_revisions

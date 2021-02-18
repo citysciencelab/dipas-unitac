@@ -1,0 +1,22 @@
+uuid: cea12969-fe87-4f2b-b37e-4272b0b3b11b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.conception.field_conception
+    - paragraphs.paragraphs_type.conception
+id: paragraph.conception.default
+targetEntityType: paragraph
+bundle: conception
+mode: default
+content:
+  field_conception:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden: {  }

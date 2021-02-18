@@ -1,0 +1,8 @@
+uuid: cd2903bc-5a94-40ec-a767-a9b708e01e57
+langcode: en
+status: true
+dependencies: {  }
+id: content
+label: Content
+description: ''
+weight: -10

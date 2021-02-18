@@ -1,0 +1,15 @@
+uuid: 07223c7f-39a6-4d53-bce5-2cb6841445be
+langcode: en
+status: true
+dependencies: {  }
+id: create_media
+title: 'Create Media'
+route_name: entity.media.add_page
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -47
+description: ''

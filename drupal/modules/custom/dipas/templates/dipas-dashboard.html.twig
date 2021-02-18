@@ -1,0 +1,39 @@
+{# dipas/templates/dipas-dashboard.html.twig #}
+
+<div class="dashboardWrapper">
+  <div class="dashboardLeftPart">
+    <div class="dashboardTopLeftPart">
+      <p class="heading">{{ 'Create' | trans }}</p>
+        {{ create_links }}
+    </div>
+    <div class="dashboardBottomLeftPart">
+      <p class="heading">{{ 'Administer' | trans }}</p>
+      {{ administer_links }}
+    </div>
+  </div>
+  <div class ="dashboardRightPart">
+  </div>
+  <div class="guide">
+    <div class="guideButton">
+      {{ 'Guideline' | trans}}
+    </div>
+      {{ 'Guideline' | trans}}
+    <div class="guideBody">
+        <p>
+         {{'By clicking on the symbols on the dashboard you have direct access to the most important
+          functions to fill and edit your proceeding: create and administer contents.
+          Alternatively you can access all functions through the tabs on the menu bar.' | trans}}
+        </p>
+        <p>
+         {{'Under configuration you can establish the base settings of the proceeding.
+            Images and other media have to be added first before they can be incorporated in single pages.' | trans}}
+        </p>
+        <p>
+         {{'Please contact the techninal Admin Team for any questions.' | trans}}
+        </p>
+    </div>
+  </div>
+</div>
+
+
+

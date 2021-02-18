@@ -1,0 +1,20 @@
+uuid: 150f46f8-f899-4fa0-a79f-3052beebebc0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_rubric
+field_name: field_rubric
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

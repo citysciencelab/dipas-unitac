@@ -1,0 +1,22 @@
+uuid: df770dc1-8375-4bbb-a32d-ff2bc4900333
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.reply
+    - field.field.comment.reply.field_comment
+id: comment.reply.default
+targetEntityType: comment
+bundle: reply
+mode: default
+content:
+  field_comment:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden:
+  langcode: true
+  links: true

@@ -1,0 +1,209 @@
+{
+  "FirstModal": {
+    "projctStartsAt": "The procedure starts on {{projectStarts}} and ends on {{projectEnd}}.",
+    "projectRuns": "The procedure runs from {{projectStarts}} until {{projectEnd}}.",
+    "projectFinished": "The procedure is finished an ran until {{projectEnd}}.",
+    "infoButton": "Get informations",
+    "startButton": "Start entry",
+    "conceptionsButton": "View conceptions"
+  },
+  "Cookiebar": {
+    "title": "We using cookies!",
+    "linktext": "Cookie Privacy Policy",
+    "text": "By clicking on \"Accept Cookies\" you agree that cookies may be used in accordance with our ",
+    "text_2ndLine": "on this website.",
+    "buttontext": "Accept Cookies"
+  },
+  "ContributionList": {
+    "title": "List of contributions",
+    "noContributionsForCriteria": "No posts match the selected criteria",
+    "writeYourFirst": "There are currently no posts available. Write the first post!",
+    "notBeenStarted": "The procedure has not been started yet.",
+    "endsWithoutContributions": "The procedure was completed without contributions.",
+    "noContributions": "No further posts available",
+    "loadMore": "load more posts",
+    "addNew": "Add new post",
+    "ContributionListFilter": {
+      "filterOptions": "Filter Options",
+      "termSelectHeadlineCat": "Choose category",
+      "termSelectTitleCat": "Category",
+      "termSelectTitleCatPlural": "categories",
+      "termSelectHeadlineType": "Choose type",
+      "termSelectTitleType": "Type",
+      "termSelectTitleTypePlural": "types",
+      "sortBy": "Sort by:",
+      "filterChanges": "The filters have not been applied yet",
+      "useFilter": "Apply filter",
+      "resetFilter": "Reset filter",
+      "sortOptions": {
+        "date": "Date",
+        "rating": "Rating",
+        "comments": "Comments",
+        "desc": "descending",
+        "asc": "ascending"
+      },
+      "selection": {
+        "selected": "{{selected}} of {{count}} choosen",
+        "all": "all {{termTitlePlural}} are displayed"
+      }
+    },
+    "ContributionListTeaser": {
+      "loading": "Loading ...",
+      "routeToEntry": "To Entry",
+      "comments": "{{teaserComments}} Comments",
+      "comment": "{{teaserComments}} Comment"
+    }
+  },
+  "Contact": {
+    "headline": "Contact"
+  },
+  "CreateContributionModal": {
+    "cancel": "Cancel",
+    "backward": "Back",
+    "forward": "Next Step",
+    "complete": "Complete",
+    "StepIndicator": {
+      "content": "Content",
+      "category": "Category",
+      "type": "Type",
+      "map": "Map",
+      "overview": "Overview"
+    },
+    "StepContents": {
+      "headline": "Content",
+      "title": "Title",
+      "text": "Your Message",
+      "remainingChars": "You have {{remaining}} of {{maxlength}} chars left."
+    },
+    "StepCategory": {
+      "headline": "Choose your category",
+      "KeywordSelector": {
+        "headline": "Keywords",
+        "proposals": "Proposals:",
+        "placeholder": "Add a own keyword.",
+        "tag-placeholder": "Mark as new keyword.",
+        "note": "We have automatically recommended keywords so that other users can benefit from your contribution and find it. You can deselect the recommended keywords or add your own."
+      }
+    },
+    "StepType": {
+      "headline": "Choose your type",
+      "no_rubrics_text": "There is no classifiction into contribution types in this project."
+    },
+    "StepMap": {
+      "headline": "Situate your post on map",
+      "infotext_point": "To place a point, click on the desired location in the map. You can move the point afterwards.",
+      "infotext_linestring": "To create a line, click in the map on the desired start of the line. Then click at each point and double-click to finish.",
+      "infotext_polygon": "To create a polygon, click in the map on the desired start of the polygon. Then click at each point and double-click to finish.",
+      "geom_point": "Point",
+      "geom_linestring": "Line",
+      "geom_polygon": "Polygone"
+    },
+    "StepOverview": {
+      "headline": "Overview",
+      "updateAltText": "... to edit please click.",
+      "keyword": "keywords"
+    }
+  },
+  "ContributionDetails": {
+    "backToList": "Back to contribution list",
+    "comment": "comment",
+    "oClock": "o'clock"
+  },
+  "ParagraphDivisionInPlanningSubareas": {
+    "Filter": {
+      "label": "Filter",
+      "optionAll": "All"
+    }
+  },
+  "ParagraphImage": {
+    "Tooltip": "open in new window"
+  },
+  "ConceptionDetails": {
+    "commentsFormHeadline": "Comment"
+  },
+  "ConceptionDetailsSidebar": {
+    "headline": "Other conceptions"
+  },
+  "DownloadsBlock": {
+    "headline": "Downloads"
+  },
+  "NewsletterBlock": {
+    "headline": "Newsletter"
+  },
+  "ProjectPartnerBlock": {
+    "headline": "Project Partners"
+  },
+  "RatingWidget": {
+    "already": "This post has already been rated by you.",
+    "acceptedCookies": "Cookies must be accepted in order to vote."
+  },
+  "CommentsForm": {
+    "remainingChars": "You have {{remaining}} chars left.",
+    "tooShort": "Your Comment is too short!",
+    "submitComment": "submit",
+    "saved": "Your Comment will be saved."
+  },
+  "CommentsList": {
+    "headline": "Comments",
+    "noComments": "No Comments",
+    "commentCount": "{{commentcount}} Comments",
+    "Comment": {
+      "meta": "{{created}} | No.{{commentCid}}",
+      "comment": "comment",
+      "cancel": "cancel",
+      "reply": "Reply",
+      "replyNoPlural": "Reply for No. ",
+      "replyNo": "Reply for No. "
+    }
+  },
+  "RelatedContributions": {
+    "headline": "More Contributions"
+  },
+  "DipasButtonText": {
+    "startEntry": "Start Entry",
+    "voteUp": "vote up",
+    "voteDown": "vote down"
+  },
+  "Statistics": {
+    "headline": "Statistics",
+    "StatisticsTopNodeListComments": {
+      "headline": "Top 10 most commented Entries "
+    },
+    "StatisticsTopNodeListRatings": {
+      "headline": "Top 10 Entries by rating"
+    },
+    "StatisticsNumber": {
+      "headlineCountEntries": "Number of Entries",
+      "headlineCountComments": "Number of comments"
+    },
+    "StatisticsDonut": {
+      "headlineCat": "Spreading of entries in categories",
+      "headlineType": "Spreading of entries in type"
+    }
+  },
+  "Schedule": {
+    "headline": "Appointments",
+    "nodeLength": "There are no appointments right now.",
+    "Item": {
+      "topic": "Topic:",
+      "details": "Details",
+      "date": "Date:"
+    }
+  },
+  "MaintenanceMessage": {
+    "headline": "Maintenance work."
+  },
+  "Survey": {
+    "title": "Survey",
+    "linkPrefix": "Our survey is found under the following Link",
+    "linkText": "To the survey",
+    "disclaimer": "We are using LimeSurvey as out tool for conducting surveys. By clicking on the link you are leaving our website."
+  },
+  "ErrorMessages": {
+    "400": "The server is unable to processing your request.",
+    "403": "Access Denied! ",
+    "404": "OOps. We can't find your requested website.",
+    "409": "The data couldn't be saved. Please reload your page and add the data again.",
+    "unknown": "An unknown error occurred."
+  }
+}

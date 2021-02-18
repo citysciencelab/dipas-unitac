@@ -1,0 +1,21 @@
+uuid: 46c4114b-5164-4aed-b29d-f0f6194a6294
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_domain_all_affiliates
+    - media.type.logo
+id: media.logo.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: media
+bundle: logo
+label: 'Send to all affiliates'
+description: 'Make this  media available on all domains.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: An
+  off_label: Aus
+field_type: boolean

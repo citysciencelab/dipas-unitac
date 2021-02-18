@@ -1,0 +1,17 @@
+uuid: 90d230a0-18bf-47dd-9840-9949f7f1a5b2
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      content: content
+      structural: '0'
+id: image
+label: Image
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

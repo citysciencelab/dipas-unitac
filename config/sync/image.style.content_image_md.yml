@@ -1,0 +1,15 @@
+uuid: ad3c9554-f695-4b41-8069-2ed3ea9d2835
+langcode: en
+status: true
+dependencies: {  }
+name: content_image_md
+label: 'Content Image MD'
+effects:
+  11baa8f5-43e9-49e0-9d4b-a4e5b6c0c61e:
+    uuid: 11baa8f5-43e9-49e0-9d4b-a4e5b6c0c61e
+    id: image_scale
+    weight: 1
+    data:
+      width: 1000
+      height: null
+      upscale: false

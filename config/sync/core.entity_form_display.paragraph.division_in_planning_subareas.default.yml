@@ -1,0 +1,46 @@
+uuid: 7716b78d-9660-459b-a5f4-b1af43338644
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.division_in_planning_subareas.field_content
+    - paragraphs.paragraphs_type.division_in_planning_subareas
+  module:
+    - paragraphs
+    - paragraphs_ee
+    - paragraphs_features
+id: paragraph.division_in_planning_subareas.default
+targetEntityType: paragraph
+bundle: division_in_planning_subareas
+mode: default
+content:
+  field_content:
+    weight: 0
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: planning_subarea
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: true
+        add_in_between: false
+        split_text: false
+      paragraphs_ee:
+        paragraphs_ee:
+          dialog_off_canvas: false
+          dialog_style: tiles
+    type: paragraphs
+    region: content
+hidden:
+  created: true
+  status: true

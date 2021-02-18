@@ -1,0 +1,17 @@
+div.MasterportalIframeWrapper {
+  position: relative;
+}
+
+div.MasterportalIframeWrapper iframe.masterportal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+div.MasterportalIframeWrapper.aspect_ratio_1_1 { padding-top: 100%; }
+div.MasterportalIframeWrapper.aspect_ratio_4_3 { padding-top: 75%; }
+div.MasterportalIframeWrapper.aspect_ratio_16_9 { padding-top: 56.25%; }
+div.MasterportalIframeWrapper.aspect_ratio_16_10 { padding-top: 62.5%; }
+div.MasterportalIframeWrapper.aspect_ratio_21_10 { padding-top: 47.62%; }

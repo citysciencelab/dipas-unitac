@@ -1,0 +1,120 @@
+ProjectInformation:
+  site_name: 'Beteiligungstool Drupal 8'
+  footer_text: 'Onlinebeteiligung der FHH bereitgestellt durch die Stadtwerkstatt'
+  site_email_name: 'Stadtwerkstatt Hamburg'
+  site_email_address: stadtwerkstatt@bsw.hamburg.de
+  department: 'Behörde für Stadtentwicklung und Wohnen'
+  street1: 'Neuenfelder Straße 19'
+  street2: ''
+  zip: '21109'
+  city: Hamburg
+  contact_email: stadtwerkstatt@bsw.hamburg.de
+  contact_telephone: '040428403628'
+  contact_website: 'https://www.hamburg.de/stadtwerkstatt'
+  project_logo: ''
+  project_image: ''
+  partner_logos: {  }
+  headline: 'Herzlich Willkommen'
+  text: 'Hier können Sie teilnehmen!'
+ContributionSettings:
+  contribution_status: closed
+  maximum_character_count_per_contribution: 1000
+  contributor_must_be_logged_in: false
+  contributions_must_be_localized: true
+  rubrics_use: true
+  geometry:
+    - point
+  comments_allowed: true
+  comments_maxlength: 500
+  display_existing_comments: true
+  rating_allowed: true
+  masterportal_instances:
+    contributionmap: default
+    singlecontribution:
+      instance: contribution_single
+      other_contributions: hidden
+    createcontribution: contribution
+MenuSettings:
+  mainmenu:
+    contributionmap:
+      enabled: true
+      name: Beitragskarte
+      icon: room
+    contributionlist:
+      enabled: true
+      name: Beitragsliste
+      icon: sms
+    projectinfo:
+      enabled: true
+      name: 'Über das Verfahren'
+      icon: info
+    schedule:
+      enabled: true
+      name: Termine
+      icon: event
+      mapinstance: appointment_map
+    statistics:
+      enabled: true
+      name: Auswertungen
+      icon: timeline
+    survey:
+      enabled: false
+      name: Umfrage
+      icon: poll
+      url: ''
+    custompage:
+      enabled: false
+      name: 'eigene Seite'
+      icon: keyboard
+  footermenu:
+    dataprivacy:
+      enabled: true
+      name: Datenschutz
+    imprint:
+      enabled: true
+      name: Impressum
+    faq:
+      enabled: true
+      name: FAQ
+    contact:
+      enabled: true
+      name: Kontakt
+SidebarSettings:
+  blocks:
+    contact: {  }
+KeywordSettings:
+  enabled: false
+  mode: external
+  service_url: ''
+  externalService: ''
+  number_of_keywords: 4
+ProjectArea:
+  project_area: ''
+NLPSettings:
+  enabled: false
+  enable_score_service: false
+  score_service_basis_url: ''
+  enable_score_service_content_score: 'off'
+  enable_score_service_response_score: 'off'
+  enable_score_service_mutuality_score: 'off'
+  enable_score_service_relevance_score: 'off'
+  enable_score_service_sentiment_score: 'off'
+  enable_summary: false
+  summary_service_basis_url: ''
+  enable_wordcloud: false
+  wordcloud_service_basis_url: ''
+  enable_clustering: false
+  clustering_service_basis_url: ''
+  cluster_count: ''
+  enable_topicmaps: false
+  topicmaps_service_basis_url: ''
+ProjectSchedule:
+  project_start: null
+  project_end: null
+  phase_2_enabled: false
+  phasemix_enabled: false
+  phase_2_start: ''
+  conceptionpage: 0
+  allow_conception_comments: true
+  display_existing_conception_comments: true
+  frontpage: phase1

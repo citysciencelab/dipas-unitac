@@ -1,0 +1,21 @@
+uuid: e1d2efc3-9bfd-49b5-8f5d-111f9a7a40ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_domain_all_affiliates
+    - node.type.conception
+id: node.conception.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: node
+bundle: conception
+label: 'Send to all affiliates'
+description: 'Make this content available on all domains.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: An
+  off_label: Aus
+field_type: boolean

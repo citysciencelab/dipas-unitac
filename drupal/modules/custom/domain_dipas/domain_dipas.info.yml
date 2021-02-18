@@ -1,0 +1,10 @@
+name: 'Domain DIPAS'
+description: 'Domain-based access control for taxonomies and media'
+type: module
+package : DIPAS
+core: 8.x
+version: 8.x-1.0-alpha
+dependencies:
+  - domain:domain
+  - domain:domain_access
+  - dipas

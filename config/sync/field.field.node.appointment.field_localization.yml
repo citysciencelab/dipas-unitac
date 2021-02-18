@@ -1,0 +1,22 @@
+uuid: 91fb6bc1-3a89-45ca-b03c-241f8af32d3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_localization
+    - node.type.appointment
+  module:
+    - geofield
+id: node.appointment.field_localization
+field_name: field_localization
+entity_type: node
+bundle: appointment
+label: Localization
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  backend: geofield_backend_default
+field_type: geofield

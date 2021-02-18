@@ -1,0 +1,1227 @@
+﻿#
+# Translations for Module "DIPAS" for language "Deutsch"
+#
+
+#: dipas.info.yml:2
+msgid "Provides an interface to configure DIPAS related settings for this website."
+msgstr "Hier können Sie DIPAS konfigurieren."
+
+#: dipas.links.menu.yml:2
+msgid "DIPAS"
+msgstr "DIPAS"
+
+#: dipas.links.menu.yml:3
+msgid "Provides an interface to configure DIPAS related settings for this website."
+msgstr "DIPAS Konfigurationsoberfläche."
+
+#: dipas.permissions.yml:2
+msgid "Administer DIPAS"
+msgstr "DIPAS verwalten"
+
+#: dipas.permissions.yml:3
+msgid "Configure DIPAS related settings of the website."
+msgstr "Konfiguration von DIPAS Einstellungen."
+
+#: dipas.permissions.yml:5
+msgid "Administer Keyword Service"
+msgstr "Verwaltung der Verschlagwortungsfunktion"
+
+#: dipas.permissions.yml:6
+msgid "Configure DIPAS related keyword service."
+msgstr "Konfigurieren der Verschlagwortungsfunktion."
+
+#: dipas.permissions.yml:8
+msgid "Administer NLP Services"
+msgstr "Verwaltung der NLP-Funktionen"
+
+#: dipas.permissions.yml:9
+msgid "Configure NLP services"
+msgstr "Konfiguration der NLP-Funktionen"
+
+#: dipas.permissions.yml:11
+msgid "Access DIPAS data exports"
+msgstr "Zugang zum DIPAS Datenexport"
+
+#: dipas.permissions.yml:12
+msgid "Access data export routes in order to save DIPAS data as CSV files"
+msgstr "Zugang zum DIPAS Datenexport zur Speicherung von DIPAS Daten im CSV-Format"
+
+#: dipas.permissions.yml:14
+msgid "Access DIPAS dashboard"
+msgstr "Zugang zum DIPAS Dashboard"
+
+#: dipas.routing.yml:4
+msgid "DIPAS configuration"
+msgstr "DIPAS Konfiguration"
+
+#: dipas.routing.yml:5
+msgid "Provides an interface to configure DIPAS related settings for this website."
+msgstr "DIPAS Konfigurationsoberfläche."
+
+#: dipas.routing.yml:35
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: src/Controller/DashboardController.php:31
+msgid "Page"
+msgstr "Seite"
+
+#: src/Controller/DashboardController.php:43
+msgid "Conception"
+msgstr "Entwurf"
+
+#: src/Controller/DashboardController.php:55
+msgid "Appointments"
+msgstr "Termine"
+
+#: src/Controller/DashboardController.php:67
+msgid "Image"
+msgstr "Bild"
+
+#: src/Controller/DashboardController.php:79
+msgid "Download"
+msgstr "Herunterladen"
+
+#: src/Controller/DashboardController.php:91
+msgid "Logo"
+msgstr "Logo"
+
+#: src/Controller/DashboardController.php:108
+msgid "Contributions"
+msgstr "Beiträge"
+
+#: src/Controller/DashboardController.php:120
+msgid "Media"
+msgstr "Medien"
+
+#: src/Controller/DashboardController.php:132
+msgid "Categorization"
+msgstr "Kategorien"
+
+#: src/Controller/DashboardController.php:144
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: src/Plugin/Masterportal/Layer/Contributions.php:19
+msgid "DIPAS contributions"
+msgstr "DIPAS Beiträge"
+
+#: src/Plugin/Masterportal/Layer/ProjectArea.php:18
+msgid "Project area of the DIPAS project as a GeoJSON layer."
+msgstr "DIPAS Projektgebiet."
+
+#: src/Plugin/Masterportal/LayerStyle/ContributionStyles.php:17
+msgid "GeoJSON layer styles for the DIPAS contribution feed."
+msgstr "GeoJSON Layer-Stile für den DIPAS Beitragslayer."
+
+#: src/Plugin/Masterportal/LayerStyle/ProjectAreaStyle.php:16
+msgid "GeoJSON layer styles for the DIPAS project area layer."
+msgstr "GeoJSON Layer-Stile für das DIPAS Projektgebiet."
+
+#: src/Plugin/QueueWorker/NLPRequestQueue.php:25
+msgid "NLP request task worker: nlp request queue"
+msgstr "NLP Anfragen-Management: nlp Anfragenwarteschlange"
+
+#: src/Plugin/ResponseKey/AddComment.php:20
+msgid "Append a comment to a given entity."
+msgstr "Einen Kommentar an eine bestimmte Entität anhängen."
+
+#: src/Plugin/ResponseKey/AddContribution.php:21
+msgid "Create a new contribution with POST data."
+msgstr "Einen neuen Beitrag mit POST-Daten erstellen."
+
+#: src/Plugin/ResponseKey/ConceptionDetails.php:16
+msgid "Returns the content for a given conception id."
+msgstr "Gibt den Inhalt einer bestimmten Entwurfs-ID zurück."
+
+#: src/Plugin/ResponseKey/ConceptionList.php:16
+msgid "Returns the contents of a given node page that is configured as the page holding all conceptions."
+msgstr "Gibt den Inhalt einer bestimmten Node-Seite zurück, die als Übersichtsseite aller Entwürfe konfiguriert wurde."
+
+#: src/Plugin/ResponseKey/ConfirmCookies.php:17
+msgid "Confirms the use of cookies."
+msgstr "Bestätigt die Nutzung von Cookies."
+
+#: src/Plugin/ResponseKey/Contact.php:16
+msgid "Returns settings for the contact page."
+msgstr "Gibt die Einstellungen für die Kontakt-Seite zurück."
+
+#: src/Plugin/ResponseKey/ContributionDetails.php:16
+msgid "Returns the content for a given contribution id."
+msgstr "Gibt den Inhalt einer bestimmten Beitrags-ID zurück."
+
+#: src/Plugin/ResponseKey/ContributionList.php:14
+msgid "Returns a list of contributions currently contained in the database within given limits and filters."
+msgstr "Gibt eine Liste der derzeit in der Datenbank enthaltenen Beiträge innerhalb vorgegebener Grenzen und Filter zurück."
+
+#: src/Plugin/ResponseKey/ContributionMap.php:16
+msgid "Returns setting data for the map display of all contributions."
+msgstr "Gibt Einstellungsdaten für die Darstellung aller Beiträge auf der Karte zurück."
+
+#: src/Plugin/ResponseKey/DataPrivacy.php:16
+msgid "Returns the content for the data privacy page."
+msgstr "Gibt den Inhalt der Datenschutz-Seite zurück."
+
+#: src/Plugin/ResponseKey/Faq.php:16
+msgid "Returns the contents for the FAQ page."
+msgstr "Gibt den Inhalt der FAQ-Seite zurück."
+
+#: src/Plugin/ResponseKey/Frontpage.php:16
+msgid "Returns the contents of a given node page that is configured as the frontpage."
+msgstr "Gibt den Inhalt einer bestimmten Seite zurück, die als Startseite konfiguriert wurde."
+
+#: src/Plugin/ResponseKey/GetComments.php:95
+msgctxt "DIPAS"
+msgid "(No subject)"
+msgstr "(Kein Betreff)"
+
+#: src/Plugin/ResponseKey/GetComments.php:19
+msgid "Fetch the comments on a given contribution node."
+msgstr "Kommentare zu einem bestimmten Beitrag anfordern."
+
+#: src/Plugin/ResponseKey/Imprint.php:16
+msgid "Returns the content for the imprint page."
+msgstr "Gibt den Inhalt für die Impressum-Seite zurück."
+
+#: src/Plugin/ResponseKey/Init.php:188
+msgctxt "DIPAS"
+msgid "Compare conceptions"
+msgstr "Entwürfe vergleichen"
+
+#: src/Plugin/ResponseKey/Init.php:203
+msgctxt "DIPAS"
+msgid "Compare conceptions"
+msgstr "Entwürfe vergleichen"
+
+#: src/Plugin/ResponseKey/Init.php:218
+msgctxt "DIPAS"
+msgid "Compare conceptions"
+msgstr "Entwürfe vergleichen"
+
+#: src/Plugin/ResponseKey/Init.php:19
+msgid "Combines all basic project information into a single response."
+msgstr "Kombiniert alle grundlegenden Projektinformationen zu einer einzigen Antwort."
+
+#: src/Plugin/ResponseKey/Keywords.php:17
+msgid "Requests the keywords for a given text string."
+msgstr "Fordert die Schlüsselwörter für eine bestimmte Text an."
+
+#: src/Plugin/ResponseKey/OtherConceptions.php:17
+msgid "Returns other conceptions for a given conception id."
+msgstr "Gibt andere Entwürfe für eine gegebene Entwurfs-ID zurück."
+
+#: src/Plugin/ResponseKey/ProjectInfo.php:16
+msgid "Returns the content for the project information page."
+msgstr "Gibt den Inhalt für die Projektinformationsseite zurück."
+
+#: src/Plugin/ResponseKey/Rate.php:19
+msgid "Rate a given entity."
+msgstr "Bewerte eine gegebene Entität."
+
+#: src/Plugin/ResponseKey/RelatedContributions.php:16
+msgid "Returns related contributions for a given contribution id."
+msgstr "Gibt verwandte Beiträge für eine bestimmte Beitrags-ID zurück."
+
+#: src/Plugin/ResponseKey/Schedule.php:14
+msgid "Returns the content for the schedule listing."
+msgstr "Gibt den Inhalt des Projekt-Zeitplans zurück."
+
+#: src/Plugin/ResponseKey/Statistics.php:16
+msgid "Returns the data for the statistics page."
+msgstr "Gibt die Daten für die Statistikseite zurück."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:83
+msgctxt "DIPAS"
+msgid "Maximum character count on contributions"
+msgstr "Maximale Zeichenanzahl für Beiträge"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:84
+msgctxt "DIPAS"
+msgid "Set the maximum number of characters a user can use in the descriptive text of his contribution."
+msgstr "Die maximale Anzahl an Zeichen, die Besucher in ihren Beitragstexten verwenden können."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:92
+msgctxt "DIPAS"
+msgid "Contributor MUST be logged in"
+msgstr "Beitragsschreibende MÜSSEN eingeloggt sein"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:93
+msgctxt "DIPAS"
+msgid "Should only registered and logged-in users be able to contribute? (Function currently unavailable)"
+msgstr "Sollen nur registrierte und eingeloggte Nutzer Beiträge schreiben können? (Funktion derzeit nicht verfügbar)"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:101
+msgctxt "DIPAS"
+msgid "Use Rubrics in Contributions"
+msgstr "Rubriken in Beiträgen benutzen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:102
+msgctxt "DIPAS"
+msgid "Should Rubrics be used in Contributions?"
+msgstr "Sollen Rubriken bei der Beitragserstellung verwendet werden?"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:107
+msgctxt "DIPAS"
+msgid "Contributions MUST be localized"
+msgstr "Beiträge MÜSSEN verortet sein"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:108
+msgctxt "DIPAS"
+msgid "Should users be forced to place a localization on a map in order to create contributions?"
+msgstr "Sollen Benutzer verpflichtet werden, ihren Beitrag zu verorten?"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:113
+msgctxt "DIPAS"
+msgid "Allowed geometry types"
+msgstr "Zugelassene Verortungsarten"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:114
+msgctxt "DIPAS"
+msgid "Please select the types of geometry markings the user can create."
+msgstr "Bitte wählen Sie die Arten der Verortungen, die Ihre Nutzer erzeugen können."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:116
+msgctxt "DIPAS"
+msgid "Point"
+msgstr "Punkt"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:117
+msgctxt "DIPAS"
+msgid "Line"
+msgstr "Linie"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:118
+msgctxt "DIPAS"
+msgid "Area"
+msgstr "Fläche"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:125
+msgctxt "DIPAS"
+msgid "Allow comments on contributions"
+msgstr "Kommentare auf Beiträge zulassen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:126
+msgctxt "DIPAS"
+msgid "When activated, users can write comments on contributions created by other users. If de-activated mid-term, existing comments will not be deleted, and will still be displayed. Only the authoring of new comments will be disabled."
+msgstr "Wenn aktiviert, können Benutzer Beiträge anderer Benutzer kommentieren. Bei Deaktivierung werden existierende Kommentare nicht gelöscht und weiterhin angezeigt. Lediglich das Neuverfassen von Kommentaren wird deaktiviert."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:131
+msgctxt "DIPAS"
+msgid "Maximum character count on comments"
+msgstr "Maximale Zeichenanzahl für Kommentare"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:132
+msgctxt "DIPAS"
+msgid "Set the maximum number of characters a user can use within his/her comments."
+msgstr "Die maximale Anzahl an Zeichen, die Benutzer in ihren Kommentaren verwenden können."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:147
+msgctxt "DIPAS"
+msgid "Keep displaying existing comments"
+msgstr "Existierende Kommentare weiterhin anzeigen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:148
+msgctxt "DIPAS"
+msgid "Should already existing comments still be displayed or should they get hidden?"
+msgstr "Sollen existierende Kommentare weiterhin angezeigt oder verborgen werden?"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:161
+msgctxt "DIPAS"
+msgid "Allow ratings on contributions"
+msgstr "Bewertungen von Beiträgen zulassen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:162
+msgctxt "DIPAS"
+msgid "When activated, users can rate contributions other users have created. If de-activated mid-term, existing ratings will not be deleted. The rating widget will still be displayed, but no new rates can be made."
+msgstr "Wenn aktiviert, können Benutzer Beiträge anderer Benutzer bewerten. Bei Deaktivierung werden existierende Bewertungen nicht gelöscht. Die Bewertungen werden weiterhin angezeigt, aber neue Bewertungen können nicht abgegeben werden."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:167
+msgctxt "DIPAS"
+msgid "Masterportal instances"
+msgstr "Masterportal-Instanzen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:170
+msgctxt "DIPAS"
+msgid "Contribution map"
+msgstr "Beitragskarte"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:172
+msgctxt "DIPAS"
+msgid "Select the Masterportal instance to display contributions on a map. You can configure the instance settings @here."
+msgstr "Wählen Sie die Masterportal-Instanz, die für die Darstellung aller Beiträge verwendet werden soll. Die Einstellungen für Masterportal-Instanzen können @here vorgenommen werden."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:182
+msgctxt "DIPAS"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:190
+msgctxt "DIPAS"
+msgid "Single contribution display"
+msgstr "Anzeige einzelner Beiträge"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:192
+msgctxt "DIPAS"
+msgid "Select the Masterportal instance to display single contributions in. You can configure the instance settings @here."
+msgstr "Wählen Sie die Masterportal-Instanz, die für die Anzeige einzelner Beiträge verwendet werden soll. Die Einstellungen für Masterportal-Instanzen können @here vorgenommen werden."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:202
+msgctxt "DIPAS"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:208
+msgctxt "DIPAS"
+msgid "Hide other contributions on detail pages?"
+msgstr "Andere Beiträge auf Beitragsdetailseiten verbergen?"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:210
+msgctxt "DIPAS"
+msgid "Hidden"
+msgstr "Verbergen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:211
+msgctxt "DIPAS"
+msgid "Displayed"
+msgstr "Angezeigt"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:219
+msgctxt "DIPAS"
+msgid "Create Contribution"
+msgstr "Beitrag erstellen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:221
+msgctxt "DIPAS"
+msgid "Select the Masterportal instance to use for creating contributions. You can configure the instance settings @here."
+msgstr "Wählen Sie die Masterportal-Instanz, um neue Beiträge zu erstellen. Die Einstellungen für Masterportal-Instanzen können @here vorgenommen werden."
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:231
+msgctxt "DIPAS"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:15
+msgid "Contributions"
+msgstr "Beiträge"
+
+#: src/Plugin/SettingsSection/ContributionSettings.php:16
+msgid "Settings related to the contributions users can create."
+msgstr "Einstellungen für die Beitragseingabe."
+
+#: src/Plugin/SettingsSection/Export.php:38
+msgctxt "DIPAS"
+msgid "Export contributions"
+msgstr "Beiträge exportieren"
+
+#: src/Plugin/SettingsSection/Export.php:50
+msgctxt "DIPAS"
+msgid "Export contribution (phase 1) comments"
+msgstr "Beitragskommentare (Phase 1) exportieren"
+
+#: src/Plugin/SettingsSection/Export.php:62
+msgctxt "DIPAS"
+msgid "Export conception (phase 2) comments"
+msgstr "Entwurfskommentare (Phase 2) exportieren"
+
+#: src/Plugin/SettingsSection/Export.php:73
+msgctxt "DIPAS"
+msgid "Open the exported files in Excel"
+msgstr "Öffnen der exportierten Dateien in Excel"
+
+#: src/Plugin/SettingsSection/Export.php:77
+msgctxt "DIPAS"
+msgid "These files will be exported in UTF-8 format. This format describes the way of encoding the characters. Unfortunately Excel is not able to display this format correctly, special characters will be destroyed. To open the exported files in Excel, please import them via \"Data\" => \"Get Data\" => \"From Text\". As \"File origin\" you should choose \"65001: Unicode (UTF-8)\"."
+msgstr "Die Dateien werden im UTF8-Datenformat exportiert. Dieses Format beschreibt die Art und Weise, wie Umlaute kodiert werden. Leider ist Excel nicht in der Lage, dieses Format korrekt zu öffnen und somit werden Umlaute und Sonderzeichen falsch dargestellt. Um eine exportierte Datei in Excel zu öffnen, öffnen Sie sie bitte über ”Daten\" => \"Aus Text\". Als \"Dateiursprung\" wählen Sie im darauffolgenden Dialog bitte \"65001: Unicode (UTF8)\"."
+
+#: src/Plugin/SettingsSection/Export.php:13
+msgid "Data export"
+msgstr "Datenexport"
+
+#: src/Plugin/SettingsSection/Export.php:14
+msgid "Export user generated data as CSV."
+msgstr "Export von nutzergenerierten Daten als CSV."
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:56
+msgctxt "DIPAS"
+msgid "Keyword service settings"
+msgstr "Einstellungen für den Verschlagwortungsdienst"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:57
+msgctxt "DIPAS"
+msgid "Settings that are directly related to the keyword service."
+msgstr "Einstellungen, die den Verschlagwortungsdienst betreffen."
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:61
+msgctxt "DIPAS"
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:66
+msgctxt "DIPAS"
+msgid "Keyword mode"
+msgstr "Schlagwortmodus"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:67
+msgctxt "DIPAS"
+msgid "Shall the users just type keywords (manual) or shall a keyword service be used (internal / external)"
+msgstr "Sollen die Nutzer nur eigene Schlagwörter eingeben können, oder sollen aus dem Beitragstext Schlagworte automatisch extrahiert werden"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:69
+msgctxt "DIPAS"
+msgid "manual"
+msgstr "manuell"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:70
+msgctxt "DIPAS"
+msgid "internal"
+msgstr "intern"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:71
+msgctxt "DIPAS"
+msgid "external"
+msgstr "extern"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:80
+msgctxt "DIPAS"
+msgid "Keyword service URL"
+msgstr "URL des Verschlagwortungsdienstes"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:81
+msgctxt "DIPAS"
+msgid "For mode = external or internal URL of the keyword service provider must be given."
+msgstr "Für den Modus external oder internal muss eine URL des entsprechenden Dienstebereitstellers eingegeben werden."
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:93
+msgctxt "DIPAS"
+msgid "External service"
+msgstr "Externer Service"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:94
+msgctxt "DIPAS"
+msgid "For mode = external selected the service (Leipzig or DBPedia)."
+msgstr "Wählen Sie den Service für den Betriebsmodus 'extern' (Leipzig oder DBPMedia)."
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:106
+msgctxt "DIPAS"
+msgid "Number of keywords to be requested"
+msgstr "Anzahl der Schlagworte, die erzeugt werden sollen"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:107
+msgctxt "DIPAS"
+msgid "Set the number of keywords to be requested from the service."
+msgstr "Konfigurieren Sie die Anzahl der Schlagworte, die der Service erzeugen soll."
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:13
+msgid "Keyword settings"
+msgstr "Einstellungen für die Verschlagwortung"
+
+#: src/Plugin/SettingsSection/KeywordSettings.php:14
+msgid "Settings for the keyword service."
+msgstr "Einstellungen für die Verschlagwortung."
+
+#: src/Plugin/SettingsSection/MenuSettings.php:102
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:118
+msgid "Main menu settings"
+msgstr "Hauptmenü Einstellungen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:122
+msgid "Footer menu settings"
+msgstr "Footer Menü Einstellungen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:141
+msgid "Endpoint: %endpoint"
+msgstr "Endpunkt: %endpoint"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:148
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:154
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:164
+msgid "Icon"
+msgstr "Icon"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:166
+msgid "Please select"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:179
+msgid "Page"
+msgstr "Seite"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:193
+msgid "Map instance"
+msgstr "Karteninstanz"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:195
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:208
+msgid "URL"
+msgstr "URL"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:14
+msgid "Menu settings"
+msgstr "Menüeinstellungen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:15
+msgid "Settings related to the site menus the user is provided with."
+msgstr "Einstellung der Seitenmenüs."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:74
+msgctxt "DIPAS"
+msgid "NLP service settings"
+msgstr "NLP Einstellungen"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:75
+msgctxt "DIPAS"
+msgid "Settings that are directly related to the NLP service. A service providing natural learning processing for the contributions."
+msgstr "Einstellung des NLP Services. Dieser Service stellt Funktionen der automatisierten Textauswertung für die Beiträge bereit."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:79
+msgctxt "DIPAS"
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:87
+msgctxt "DIPAS"
+msgid "Interval in minutes to request the NLP service."
+msgstr "Abfrage-Intervall für den NLP Service in Minuten."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:104
+msgctxt "DIPAS"
+msgid "Enable the score service"
+msgstr "Score-Dienst aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:114
+msgctxt "DIPAS"
+msgid "Score service basic URL"
+msgstr "Score-Dienst Basic-URL"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:115
+msgctxt "DIPAS"
+msgid "The URL of the score service."
+msgstr "Die URL des Score-Dienstes."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:129
+msgctxt "DIPAS"
+msgid "Enable the content score"
+msgstr "Content Score aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:130
+msgctxt "DIPAS"
+msgid "Content score can be OFF, normalized (returns 0-100) or absolute."
+msgstr "Content score kann deaktiviert, normalisiert (gibt 0-100 zurück) oder absolut sein."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:132
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:133
+msgctxt "DIPAS"
+msgid "normalized"
+msgstr "normalisiert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:134
+msgctxt "DIPAS"
+msgid "absolute"
+msgstr "absolut"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:146
+msgctxt "DIPAS"
+msgid "Enable the response score"
+msgstr "Response Score aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:147
+msgctxt "DIPAS"
+msgid "Response score can be OFF, normalized (returns 0-100) or absolute."
+msgstr "Response Score kann deaktiviert, normalisiert (gibt 0-100 zurück) oder absolut sein."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:149
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:150
+msgctxt "DIPAS"
+msgid "normalized"
+msgstr "normalisiert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:151
+msgctxt "DIPAS"
+msgid "absolute"
+msgstr "absolut"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:163
+msgctxt "DIPAS"
+msgid "Enable the mutuality score"
+msgstr "Mutuality Score aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:164
+msgctxt "DIPAS"
+msgid "Mutuality score can be OFF, normalized (returns 0-100) or absolute."
+msgstr "Mutuality Score kann deaktiviert, normalisiert (gibt 0-100 zurück) oder absolut sein."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:166
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:167
+msgctxt "DIPAS"
+msgid "normalized"
+msgstr "normalisiert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:168
+msgctxt "DIPAS"
+msgid "absolute"
+msgstr "absolut"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:180
+msgctxt "DIPAS"
+msgid "Enable the relevance score"
+msgstr "Relevance Score aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:181
+msgctxt "DIPAS"
+msgid "Relevance score can be OFF, normalized (returns 0-100) or absolute."
+msgstr "Relevance Score kann deaktiviert, normalisiert (gibt 0-100 zurück) oder absolut sein."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:183
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:184
+msgctxt "DIPAS"
+msgid "normalized"
+msgstr "normalisiert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:185
+msgctxt "DIPAS"
+msgid "absolute"
+msgstr "absolut"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:197
+msgctxt "DIPAS"
+msgid "Enable the sentiment score"
+msgstr "Sentiment Score aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:198
+msgctxt "DIPAS"
+msgid "Sentiment score can be OFF, normalized (returns 0-100) or absolute."
+msgstr "Sentiment Score kann deaktiviert, normalisiert (gibt 0-100 zurück) oder absolut sein."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:200
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:201
+msgctxt "DIPAS"
+msgid "normalized"
+msgstr "normalisiert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:202
+msgctxt "DIPAS"
+msgid "absolute"
+msgstr "absolut"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:214
+msgctxt "DIPAS"
+msgid "Score blacklist"
+msgstr "Score Blacklist"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:215
+msgctxt "DIPAS"
+msgid "Add specific stopwords, which are not indexed seperated by a comma"
+msgstr "Hier können Worte durch Komma getrennt hinzugefügt werden, die nicht vom Service erfasst werden sollen"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:236
+msgctxt "DIPAS"
+msgid "Enable the clustering service"
+msgstr "Clustering-Dienst aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:246
+msgctxt "DIPAS"
+msgid "Clustering service basic URL"
+msgstr "Clustering-Dienst Basic-URL"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:247
+msgctxt "DIPAS"
+msgid "The URL of the clustering service."
+msgstr "Die URL des Clustering Services."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:264
+msgctxt "DIPAS"
+msgid "Number of clusters to be built."
+msgstr "Anzahl der zu bildenden Cluster."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:278
+msgctxt "DIPAS"
+msgid "Clustering blacklist"
+msgstr "Cluster Blacklist"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:279
+msgctxt "DIPAS"
+msgid "Add specific stopwords, which are not indexed seperated by a comma"
+msgstr "Hier können Worte durch Komma getrennt hinzugefügt werden, die nicht vom Service erfasst werden sollen"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:300
+msgctxt "DIPAS"
+msgid "Enable the summary service"
+msgstr "Summary-Dienst aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:310
+msgctxt "DIPAS"
+msgid "Summary service basic URL"
+msgstr "Summary-Dienst Basic-URL"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:311
+msgctxt "DIPAS"
+msgid "The URL of the summary service."
+msgstr "Die URL des Summary Service."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:336
+msgctxt "DIPAS"
+msgid "Enable the wordcloud service"
+msgstr "Wordcloud-Dienst aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:346
+msgctxt "DIPAS"
+msgid "Wordcloud service basic URL"
+msgstr "Wordcloud-Dienst Basic-URL"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:347
+msgctxt "DIPAS"
+msgid "The URL of the wordcloud service."
+msgstr "Die URL des Wordcloud-Dienstes."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:364
+msgctxt "DIPAS"
+msgid "Number of max keywords in wordcloud."
+msgstr "Maximale Anzahl von Schlagworten in der Worcloud."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:378
+msgctxt "DIPAS"
+msgid "Wordcloud blacklist"
+msgstr "Wordcloud Blacklist"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:379
+msgctxt "DIPAS"
+msgid "Add specific stopwords, which are not indexed seperated by a comma"
+msgstr "Hier können Worte durch Komma getrennt hinzugefügt werden, die nicht vom Service erfasst werden sollen"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:390
+msgctxt "DIPAS"
+msgid "Enable the dictionary"
+msgstr "Wörterbuch aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:391
+msgctxt "DIPAS"
+msgid "The dicionary can be OFF, alphabetic, invers."
+msgstr "Das Wörterbuch kann als deaktiviert, alphabetisch oder invers eingestellt werden."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:393
+msgctxt "DIPAS"
+msgid "OFF"
+msgstr "deaktiviert"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:394
+msgctxt "DIPAS"
+msgid "alphabetic"
+msgstr "alphabetisch"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:395
+msgctxt "DIPAS"
+msgid "invers"
+msgstr "invers"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:417
+msgctxt "DIPAS"
+msgid "Enable the topicmaps service"
+msgstr "Topicmap-Dienst aktivieren"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:427
+msgctxt "DIPAS"
+msgid "Topicmaps service basic URL"
+msgstr "Topicmap-Dienst Basic-URL"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:428
+msgctxt "DIPAS"
+msgid "The URL of the topicmaps service."
+msgstr "URL des Topicmap-Dienstes."
+
+#: src/Plugin/SettingsSection/NLPSettings.php:13
+msgid "NLP settings"
+msgstr "NLP Einstellungen"
+
+#: src/Plugin/SettingsSection/NLPSettings.php:14
+msgid "Settings for the NLP service. A service providing extended statistical information on the contributions."
+msgstr "Einstellung des NLP Services. Dieser Service stellt Funktionen der automatisierten Textauswertung für die Beiträge bereit."
+
+#: src/Plugin/SettingsSection/ProjectArea.php:13
+msgid "Project area"
+msgstr "Projektgebiet"
+
+#: src/Plugin/SettingsSection/ProjectArea.php:14
+msgid "Define the area of this project on a map."
+msgstr "Definieren Sie das Projektgebiet auf der Karte."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:108
+msgctxt "DIPAS"
+msgid "Site-wide settings"
+msgstr "Seitenweite Einstellungen"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:109
+msgctxt "DIPAS"
+msgid "Settings that are directly related to the website configuration."
+msgstr "Einstellungen, die direkt mit der Webseiten-Konfiguration zusammenhängen."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:113
+msgctxt "DIPAS"
+msgid "Project title"
+msgstr "Projekttitel"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:114
+msgctxt "DIPAS"
+msgid "The name of this DIPAS project."
+msgstr "Der Name dieses DIPAS Projektes."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:120
+msgctxt "DIPAS"
+msgid "Footer text"
+msgstr "Fußtext"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:121
+msgctxt "DIPAS"
+msgid "The text that is displayed within the footer."
+msgstr "Der Text, der innerhalb des Seitenfußes angezeigt wird."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:127
+msgctxt "DIPAS"
+msgid "Email: Sender name"
+msgstr "E-Mail: Name des Absenders"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:128
+msgctxt "DIPAS"
+msgid "The name that is used when emails are sent. Leave blank to use the project title above."
+msgstr "Der Name, der bei ausgehenden Emails als Absender verwendet wird. Freilassen, um den Projekttitel zu verwenden."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:133
+msgctxt "DIPAS"
+msgid "Email: sender address (\"from\")"
+msgstr "E-Mail: Adresse des Absenders (\"from\")"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:134
+msgctxt "DIPAS"
+msgid "The address that is used as the sender email address in outgoing emails."
+msgstr "Die Adresse, die als Absenderadresse bei ausgehenden E-Mails verwendet wird."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:142
+msgctxt "DIPAS"
+msgid "Project contact"
+msgstr "Projektkontakt"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:143
+msgctxt "DIPAS"
+msgid "Enter the contact details of the department responsible for this DIPAS project. This information will only be used visually/non-functional."
+msgstr "Geben Sie die Kontaktdaten der projektverantwortlichen Stelle für dieses DIPAS-Projekt ein. Diese Informationen werden ausschließlich zu Anzeigezwecken/nicht funktional verwendet."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:147
+msgctxt "DIPAS"
+msgid "Department contact information"
+msgstr "Behördenkontaktinformation"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:176
+msgctxt "DIPAS"
+msgid "Telephone number"
+msgstr "Telefonnummer"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:183
+msgctxt "DIPAS"
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:190
+msgctxt "DIPAS"
+msgid "Website URL"
+msgstr "Webseiten-URL"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:198
+msgctxt "DIPAS"
+msgid "Project Logos and images"
+msgstr "Projektlogo und Bilder"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:199
+msgctxt "DIPAS"
+msgid "Define the logos and images that are displayed on the website."
+msgstr "Wählen Sie die Logos und Bilder, die auf der Webseite gezeigt werden."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:203
+msgctxt "DIPAS"
+msgid "Project logo"
+msgstr "Projektlogo"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:205
+msgctxt "DIPAS"
+msgid "Select the media item that contains the project logo. If you need to create one first, click @here."
+msgstr "Wählen Sie das Medienelement, dass das Projektlogo enthält. Wenn Sie zuerst eines erzeugen müssen, klicken Sie @here."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:226
+msgctxt "DIPAS"
+msgid "Partner logos"
+msgstr "Partnerlogos"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:233
+msgctxt "DIPAS"
+msgid "Welcome Modal"
+msgstr "Willkommensmodal"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:237
+msgctxt "DIPAS"
+msgid "Headline"
+msgstr "Überschrift"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:239
+msgctxt "DIPAS"
+msgid "The headline of the welcome modal."
+msgstr "Die Überschrift des Willkommensmodals."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:245
+msgctxt "DIPAS"
+msgid "Welcome Text"
+msgstr "Begrüßungstext"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:247
+msgctxt "DIPAS"
+msgid "Define the text displayed within the welcome modal."
+msgstr "Definieren Sie den Text, der im Willkommensmodal angezeigt wird."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:253
+msgctxt "DIPAS"
+msgid "Modal background image"
+msgstr "Hintergrundbild des Modals"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:255
+msgctxt "DIPAS"
+msgid "Select the media item that contains the project image. If you need to create one first, click @here."
+msgstr "Wählen Sie das Medienelement, dass das Projektbild enthält. Wenn Sie zuerst eines erzeugen müssen, klicken Sie @here."
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:301
+msgctxt "DIPAS"
+msgid "Partner logo"
+msgstr "Partnerlogo"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:312
+msgctxt "DIPAS"
+msgid "Logo link"
+msgstr "Verlinkungsadresse des Logos"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:18
+msgid "Project information"
+msgstr "Projektinformation"
+
+#: src/Plugin/SettingsSection/ProjectInformation.php:19
+msgid "Basic project settings."
+msgstr "Allgemeine Projekteinstellungen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:70
+msgctxt "DIPAS"
+msgid "Starting date phase 1 (contributions)"
+msgstr "Startdatum Phase 1 (Beiträge sammeln)"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:71
+msgctxt "DIPAS"
+msgid "Select the starting date, on which the website will start to collect contributions."
+msgstr "Wählen Sie ein Startdatum, an dem die Möglichkeit der Beitragseingabe beginnen soll."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:77
+msgctxt "DIPAS"
+msgid "Enable phase 2"
+msgstr "Phase 2 aktivieren"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:83
+msgctxt "DIPAS"
+msgid "Settings for project phase 2"
+msgstr "Einstellungen für die Phase 2"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:89
+msgctxt "DIPAS"
+msgid "Starting date phase 2 (conceptions)"
+msgstr "Startdatum Phase 2 (Entwürfe vergleichen)"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:90
+msgctxt "DIPAS"
+msgid "Select the starting date, on which the website will start to display conceptions."
+msgstr "Wählen Sie ein Startdatum, an dem der Entwurfsvergleich beginnen soll."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:99
+msgctxt "DIPAS"
+msgid "Conceptions page"
+msgstr "Entwurfsvergleichsseite"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:100
+msgctxt "DIPAS"
+msgid "Select the page that provides the overview of all conceptions."
+msgstr "Wählen Sie die Seite, die einen Überblick über alle Entwürfe enthält."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:101
+msgctxt "DIPAS"
+msgid "Please select"
+msgstr "Bitte wählen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:108
+msgctxt "DIPAS"
+msgid "Allow comments on conceptions"
+msgstr "Kommentare auf Entwürfen zulassen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:109
+msgctxt "DIPAS"
+msgid "When activated, users can write comments on published conceptions"
+msgstr "Wenn aktiviert, können Besucher auf veröffentlichten Entwürfen Kommentare verfassen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:115
+msgctxt "DIPAS"
+msgid "Keep displaying existing comments"
+msgstr "Existierende Kommentare weiterhin anzeigen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:116
+msgctxt "DIPAS"
+msgid "Should already existing comments still be displayed or should they get hidden?"
+msgstr "Sollen existierende Kommentare weiterhin angezeigt oder verborgen werden?"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:129
+msgctxt "DIPAS"
+msgid "Contribution form status"
+msgstr "Beitragsformular-Status"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:130
+msgctxt "DIPAS"
+msgid "Select the status of the contribution form during phase 2."
+msgstr "Wählen Sie den Beitragsformular-Status während der Phase 2."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:132
+msgctxt "DIPAS"
+msgid "closed"
+msgstr "Geschlossen"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:133
+msgctxt "DIPAS"
+msgid "open (Phasemix)"
+msgstr "Offen (Phasenmix)"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:139
+msgctxt "DIPAS"
+msgid "Front page"
+msgstr "Startseite"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:140
+msgctxt "DIPAS"
+msgid "Select the front page you want to display during phase 2."
+msgstr "Wählen Sie eine Startseite für die Phase 2."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:142
+msgctxt "DIPAS"
+msgid "Contribution map"
+msgstr "Beitragskarte"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:143
+msgctxt "DIPAS"
+msgid "Conceptions page"
+msgstr "Entwurfsvergleichsseite"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:154
+msgctxt "DIPAS"
+msgid "Ending date"
+msgstr "Enddatum"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:155
+msgctxt "DIPAS"
+msgid "Select the date on which the website will transition to the frozen state."
+msgstr "Wählen Sie das Datum, an dem das Verfahren eingestellt werden soll."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:179
+msgctxt "DIPAS"
+msgid "The starting date for phase 2 has to be inbetween the project start and end dates."
+msgstr "Das Startdatum für die Phase 2 muss zwischen dem Projektstart und -Ende liegen."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:198
+msgctxt "DIPAS"
+msgid "The ending date has to be after the starting date."
+msgstr "Das Enddatum muss nach dem Startdatum liegen."
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:14
+msgid "Project schedule"
+msgstr "Projekt-Zeitplan"
+
+#: src/Plugin/SettingsSection/ProjectSchedule.php:15
+msgid "Settings for the project phase schedule."
+msgstr "Einstellungen für den Projekt-Zeitplan."
+
+#: src/Plugin/SettingsSection/SidebarSettings.php:82
+msgctxt "DIPAS"
+msgid "Sidebar blocks"
+msgstr "Blöcke in der Seitenspalte"
+
+#: src/Plugin/SettingsSection/SidebarSettings.php:83
+msgctxt "DIPAS"
+msgid "Check the blocks you want to show on the website. Sort by drag and drop."
+msgstr "Aktivieren Sie die Blöcke, die Sie in der Seitenspalte anzeigen wollen. Sortieren Sie sie mit Drag'n'drop."
+
+#: src/Plugin/SettingsSection/SidebarSettings.php:14
+msgid "Sidebar settings"
+msgstr "Seitenleisten-Einstellungen"
+
+#: src/Plugin/SettingsSection/SidebarSettings.php:15
+msgid "Settings related to the sidebar displayed in the website."
+msgstr "Einstellungen für die Seitenleiste der Website."
+
+#: src/Plugin/SidebarBlock/Contact.php:10
+msgid "Contact data"
+msgstr "Kontaktdaten"
+
+#: src/Plugin/SidebarBlock/Contact.php:11
+msgid "Displays the contact data in a block"
+msgstr "Stellt die Kontaktdaten in einem Block dar"
+
+#: src/Plugin/SidebarBlock/Downloads.php:10
+msgid "Document downloads"
+msgstr "Dokumenten-Download"
+
+#: src/Plugin/SidebarBlock/Downloads.php:11
+msgid "Displays available document downloads in a block"
+msgstr "Stellt die verfügbaren Dokumentendownloads in einem Block dar"
+
+#: src/Plugin/SidebarBlock/Newsletter.php:25
+msgctxt "DIPAS"
+msgid "JavaScript snippet"
+msgstr "JavaScript Code"
+
+#: src/Plugin/SidebarBlock/Newsletter.php:10
+msgid "Newsletter subscription"
+msgstr "Newsletter-Anmweldung"
+
+#: src/Plugin/SidebarBlock/Newsletter.php:11
+msgid "Displays a newsletter subscription form of a 3rd party provider in a block"
+msgstr "Stellt ein Newsletter-Anmeldungsformular eines Drittanbieters als Block dar"
+
+#: src/Plugin/SidebarBlock/Projectlogo.php:10
+msgid "Project logo"
+msgstr "Projektlogo"
+
+#: src/Plugin/SidebarBlock/Projectlogo.php:11
+msgid "Displays the project logo in a block"
+msgstr "Stellt das Projektlogo in einem Block dar"
+
+#: src/Service/EntityServices.php:230
+msgid "Default"
+msgstr "Standard"

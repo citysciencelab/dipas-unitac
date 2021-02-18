@@ -1,0 +1,18 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 PostgreSQL 9.6 installation trouble\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 \u8220"Database cluster initialisation failed\u8221"\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 At some cases of postgress installation you run in the error message \u8220"Database cluster initialisation failed\u8221"\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab install the EXE of Postgres e.g.\u160?postgresql-9.6.18-1-windows.exe as local admin\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Installation path e.g.\u160?C:_Local_Data_unsecured(outside Win-Folder!)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab will throw an error in the form \u8220"post-install\u8221" failed and "Database cluster initialisation failed\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Reason: The installation process creates the \u8220"data\u8221" directory (the actual database) and tries to assign permissions to a user \u8220"postgres\u8221". But the local admin is not allowed to set the permissions. Therefore the above mentioned error is thrown.\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab as local admin in the computer administration via \u8220"local users and groups\u8221" - \u8220"users\u8221" create the user \u8220"postgres\u8221" and make him a member of administrators. Remember PW.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab below the postgres installation is the folder \u8220"data\u8221". Add the user \u8220"postgres\u8221" to this folder under \u8220"Properties\u8221" - \u8220"Security\u8221" and give it full rights (Attention: Set path to local computer). 3a. So 4. didn\u8217't work with this either. Therefore I gave the user \u8220"postgres\u8221" the rights to the whole folder \u8220"PostgreSQL\u8221".\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab in console: \u8220"runas /user:postgres cmd\u8221" to start a console as "postgres\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab execute \u8220"initdb -D myPath-E UTF8\u8221". That worked then. Close the console.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab run pg_ctl register -D mypathas local admin. This starts the \u8220"postgreSQL\u8221" service.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab the user \u8220"postgres\u8221" can then have his administrator rights revoked.\sa180\par}
+}

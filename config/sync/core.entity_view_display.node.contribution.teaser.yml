@@ -1,0 +1,41 @@
+uuid: 6a19680f-0319-4ad4-b4fe-d2399639ceae
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.contribution.field_category
+    - field.field.node.contribution.field_comments
+    - field.field.node.contribution.field_domain_access
+    - field.field.node.contribution.field_domain_all_affiliates
+    - field.field.node.contribution.field_geodata
+    - field.field.node.contribution.field_localization
+    - field.field.node.contribution.field_rating
+    - field.field.node.contribution.field_rubric
+    - field.field.node.contribution.field_tags
+    - field.field.node.contribution.field_text
+    - node.type.contribution
+  module:
+    - user
+id: node.contribution.teaser
+targetEntityType: node
+bundle: contribution
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_category: true
+  field_comments: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_geodata: true
+  field_localization: true
+  field_rating: true
+  field_rubric: true
+  field_tags: true
+  field_text: true
+  langcode: true

@@ -1,0 +1,11 @@
+uuid: cb327590-df00-48cc-a9c4-4f748e0eef55
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.default
+id: comment.default
+target_entity_type_id: comment
+target_bundle: default
+default_langcode: current_interface
+language_alterable: false

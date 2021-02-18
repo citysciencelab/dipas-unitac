@@ -1,0 +1,12 @@
+div.dipas-nlp-analysis div.nlpblocks {
+  margin-bottom: 50px;
+}
+
+div.dipas-nlp-analysis div.nlpblocks div.nlpblock {
+  display: inline-block;
+  vertical-align: top;
+}
+
+div.dipas-nlp-analysis div.nlpblocks div.nlpblock:not(:last-child) {
+  margin-right: 100px;
+}

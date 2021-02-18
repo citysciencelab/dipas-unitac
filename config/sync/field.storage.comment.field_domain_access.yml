@@ -1,0 +1,22 @@
+uuid: 5dbd57ba-8f75-489b-8e78-62b44bb90514
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - domain
+_core:
+  default_config_hash: t8xkXa49gJtkzfOA4yZdn-j8qlLq2VWLMRC0y18rGPk
+id: comment.field_domain_access
+field_name: field_domain_access
+entity_type: comment
+type: entity_reference
+settings:
+  target_type: domain
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

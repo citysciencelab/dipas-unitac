@@ -1,0 +1,15 @@
+uuid: f5ed0832-55dc-4918-82d0-19fbbc969c47
+langcode: en
+status: true
+dependencies: {  }
+id: administer_comments
+title: 'Administer comments'
+route_name: comment.admin
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:administer_content'
+weight: 0
+description: ''

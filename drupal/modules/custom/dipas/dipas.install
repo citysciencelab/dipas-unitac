@@ -1,0 +1,313 @@
+<?php
+
+/**
+ * @file
+ * @license https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html GPL-2.0-or-later
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_schema().
+ */
+function dipas_schema() {
+
+  $schema['dipas_keywords'] = [
+    'description' => 'Table to store the text and the keywords of the dipas keyword service',
+    'fields' => [
+      'uid' => [
+        'description' => 'the unique uid for the record',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'token' => [
+        'description' => 'A token generated to identify the record later when updating.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'given_text' => [
+        'description' => 'The text provided to the dipas keyword service.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'keywords' => [
+        'description' => 'The keywors provided by the dipas keyword service for the given text.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'selected_keywords' => [
+        'description' => 'The keywors selected by the user for the given text.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'request_duration' => [
+        'description' => 'The duration of the request to the dipas keyword service in milliseconds.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'timeout' => [
+        'description' => 'A timeout for validation of token build from now + 1 day.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'contribution_id' => [
+        'description' => 'Contribution ID',
+        'type' => 'int',
+        'not null' => FALSE
+        ],
+    ],
+    'indexes' => [
+      'keyword_token' => ['token', 'timeout'],
+    ],
+    'primary key' => [
+      'uid',
+    ],
+  ];
+
+  return $schema;
+
+}
+
+/**
+ * Introducing an new table for dipas keyword service.
+ */
+function dipas_update_8101() {
+
+  $spec = [
+    'description' => 'Table to store the text and the keywords of the dipas keyword service',
+    'fields' => [
+      'uid' => [
+        'description' => 'the unique uid for the record',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'token' => [
+        'description' => 'A token generated to identify the record later when updating.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'given_text' => [
+        'description' => 'The text provided to the dipas keyword service.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'keywords' => [
+        'description' => 'The keywors provided by the dipas keyword service for the given text.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'selected_keywords' => [
+        'description' => 'The keywors selected by the user for the given text.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'request_duration' => [
+        'description' => 'The duration of the request to the dipas keyword service in milliseconds.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'timeout' => [
+        'description' => 'A timeout for validation of token build from now + 1 day.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'indexes' => [
+      'keyword_token' => ['token', 'timeout'],
+    ],
+    'primary key' => [
+      'uid',
+    ],
+  ];
+
+  $schema = Database::getConnection()->schema();
+  $schema->createTable('dipas_keywords', $spec);
+}
+
+/**
+ * Migrate geodata from GeoField to text field.
+ */
+function dipas_update_8102() {
+  /* @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
+  $entityTypeManager = \Drupal::getContainer()->get('entity_type.manager');
+  /* @var \Drupal\Core\Entity\EntityStorageInterface $nodeStorage */
+  $nodeStorage = $entityTypeManager->getStorage('node');
+
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $nodeStorage->loadByProperties([
+    'type' => 'contribution',
+  ]);
+
+  foreach ($nodes as $node) {
+    $localization = $node->get('field_localization');
+    if ($fieldValue = $localization->first()) {
+      $geodata = [
+        'type' => 'Point',
+        'coordinates' => [
+          $fieldValue->get('lon')->getValue(),
+          $fieldValue->get('lat')->getValue(),
+        ],
+      ];
+      $node->set('field_geodata', json_encode($geodata));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Create center points for existing geometries in field geodata.
+ */
+function dipas_update_8103() {
+  /* @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
+  $entityTypeManager = \Drupal::getContainer()->get('entity_type.manager');
+  /* @var \Drupal\Core\Entity\EntityStorageInterface $nodeStorage */
+  $nodeStorage = $entityTypeManager->getStorage('node');
+
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $nodeStorage->loadByProperties([
+    'type' => 'contribution',
+  ]);
+
+  foreach ($nodes as $node) {
+    $geofield = $node->get('field_geodata');
+    if (($fieldValue = $geofield->first()) && $fieldValue = json_decode($fieldValue->getString())) {
+
+      if (empty($fieldValue->type)) {
+        $geodata = $fieldValue;
+      }
+
+      switch ($fieldValue->type) {
+        case 'Point':
+          $geodata = [
+            'geometry' => $fieldValue,
+            'centerPoint' => $fieldValue,
+          ];
+          break;
+
+        case 'LineString':
+          $middleIndex = ceil(count($fieldValue->coordinates) / 2);
+          $middleCoordinates = $fieldValue->coordinates[$middleIndex];
+          $centerPoint = [
+            'type' => 'Point',
+            'coordinates' => $middleCoordinates,
+          ];
+          $geodata = [
+            'geometry' => $fieldValue,
+            'centerPoint' => $centerPoint,
+          ];
+          break;
+
+        case 'Polygon':
+          $coordsToCheck = $fieldValue->coordinates[0];
+
+          $extent = [
+            'lon_min' => 9999999999,
+            'lat_min' => 9999999999,
+            'lon_max' => 0,
+            'lat_max' => 0,
+          ];
+
+          $latall = [];
+          $lonall = [];
+
+          /*
+           * Copy all longitude coordinates in one and all latitude
+           * coordinates in another array.
+           */
+          foreach ($coordsToCheck as $coordinate) {
+            $lonall[] = $coordinate[0];
+            $latall[] = $coordinate[1];
+          }
+
+          // Get the min and the max of both arrays.
+          $extent = [
+            'lon_min' => min($lonall),
+            'lat_min' => min($latall),
+            'lon_max' => max($lonall),
+            'lat_max' => max($latall),
+          ];
+
+          $extent['lon_diff'] = $extent['lon_max'] - $extent['lon_min'];
+          $extent['lon_avg'] = $extent['lon_min'] + $extent['lon_diff'] / 2;
+          $extent['lat_diff'] = $extent['lat_max'] - $extent['lat_min'];
+          $extent['lat_avg'] = $extent['lat_min'] + $extent['lat_diff'] / 2;
+
+          $centerPoint = [
+            'type' => 'Point',
+            'coordinates' => [$extent['lon_avg'], $extent['lat_avg']],
+          ];
+
+          $geodata = [
+            'geometry' => $fieldValue,
+            'centerPoint' => $centerPoint,
+          ];
+      }
+
+      $node->set('field_geodata', json_encode($geodata));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Add a new column contributionID for dipas keyword service.
+ */
+function dipas_update_8104() {
+  $spec = [
+    'type' => 'int',
+    'description' => "Contribution ID",
+    'not null' => FALSE,
+  ];
+  $schema = Database::getConnection()->schema();
+  $schema->addField('dipas_keywords', 'contribution_id', $spec);
+}
+
+/**
+ * Exceptionally remove of masterportal setting within dipas_update hook: Removing extent.
+ *
+ */
+function dipas_update_8105() {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('masterportal.instance.') as $masterportal_instance) {
+    $config = $config_factory->getEditable($masterportal_instance);
+    if ($config->get('settings') && $config->get('settings')['MapSettings'] && $config->get('settings')['MapSettings']['extent']) {
+      $settings = $config->get('settings');
+      unset($settings['MapSettings']['extent']);
+
+      # remove entire object if empty
+      if (count($settings['MapSettings']) === 0) {
+        unset($settings['MapSettings']);
+      }
+
+      $config->set('settings', $settings);
+      $config->save(TRUE);
+    }
+  }
+}

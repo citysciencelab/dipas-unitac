@@ -1,0 +1,22 @@
+uuid: 36afc54d-5d6b-44d1-af46-d6c7709f5cda
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.conception
+id: node.conception.promote
+field_name: promote
+entity_type: node
+bundle: conception
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: An
+  off_label: Aus
+field_type: boolean

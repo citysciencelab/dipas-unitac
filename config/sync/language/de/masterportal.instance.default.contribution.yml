@@ -1,0 +1,17 @@
+label: 'Karteninstanz: Beitrag erstellen'
+settings:
+  MenuSettings:
+    tree:
+      name: Themen
+    tools:
+      name: Werkzeuge
+    filter:
+      name: Katgorieauswahl
+    legend:
+      name: Legende
+  SearchBarSettings:
+    placeholder: 'Suche nach Adresse/Thema'
+  ToolSettings:
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: 'Zeichnen / Schreiben'

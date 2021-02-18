@@ -1,0 +1,51 @@
+uuid: b968ffab-f60c-4708-b46b-15bef2cff8ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.rubrics.field_domain_access
+    - field.field.taxonomy_term.rubrics.field_domain_all_affiliates
+    - taxonomy.vocabulary.rubrics
+id: taxonomy_term.rubrics.default
+targetEntityType: taxonomy_term
+bundle: rubrics
+mode: default
+content:
+  field_domain_access:
+    type: options_buttons
+    weight: 40
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_domain_all_affiliates:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 41
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 2
+    region: content
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true

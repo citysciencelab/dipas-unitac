@@ -1,0 +1,26 @@
+uuid: 89bfeb8a-53a0-4948-995a-5d17f7ebfe4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.rubrics.field_domain_access
+    - field.field.taxonomy_term.rubrics.field_domain_all_affiliates
+    - taxonomy.vocabulary.rubrics
+  module:
+    - text
+id: taxonomy_term.rubrics.default
+targetEntityType: taxonomy_term
+bundle: rubrics
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  langcode: true

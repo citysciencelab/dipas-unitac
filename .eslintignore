@@ -1,0 +1,15 @@
+config/
+doc/
+drupal/
+node_modules/
+patches/
+public/
+scripts/
+src/assets/
+vendor/
+/*.ico
+/*.json
+/*.txt
+/*.md
+/*.lock
+/*.yml

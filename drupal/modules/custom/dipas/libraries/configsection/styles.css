@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+form.dipasconfiguration fieldset:not(.multiValueRow) > div {
+  display: flex;
+  flex-direction: column;
+}
+
+form.dipasconfiguration fieldset:not(.multiValueRow) > div > div.description {
+  order: -1;
+}
+
+form.dipasconfiguration select.materialicons {
+  width: 70px;
+  margin-right: 10px;
+  line-height: 20px;
+  position: relative;
+  top: 5px;
+}
+
+form.dipasconfiguration select.materialicons,
+form.dipasconfiguration select.materialicons option {
+  font-family: 'Material Icons';
+  font-size: 20px;
+  line-height: 20px;
+}
+
+form.dipasconfiguration div.endpointname {
+  width: 180px;
+}
+
+form.dipasconfiguration .item-inline {
+  display: inline-block;
+}
+
+form.dipasconfiguration .inline-fieldset {
+  border: none 0 transparent;
+  padding: 0;
+}
+
+form.dipasconfiguration .inline-fieldset legend {
+  position: unset;
+}
+
+form.dipasconfiguration .inline-fieldset .fieldset-wrapper {
+  display: block;
+}

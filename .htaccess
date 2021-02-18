@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    # if WHOLE path not exists as dir
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # if WHOLE path not exists as file
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # THEN rewrite rule
+    RewriteRule ^([^/]*?)/(.*) http://$1.%{HTTP_HOST}/dipas/$2
+</IfModule>

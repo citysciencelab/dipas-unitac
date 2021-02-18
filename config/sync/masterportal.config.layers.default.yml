@@ -1,0 +1,4 @@
+Layerconfiguration:
+  static_layer_definitions: '{{library_path}}/layerdefinitions.json'
+  custom_layers: ''
+  preview: null

@@ -1,0 +1,18 @@
+uuid: e5d2f51d-f120-410e-999f-1442ed05f83a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - dipas_admin_theme
+id: dipas_admin_theme_pagetitle
+theme: dipas_admin_theme
+region: header
+weight: -1
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: Seitentitel
+  provider: core
+  label_display: '0'
+visibility: {  }

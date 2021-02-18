@@ -1,0 +1,153 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Set up development environment\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Parts of the development environment\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.apachefriends.org/index.html"}}{\fldrslt{\ul
+xampp
+}}}
+ to get\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Apache 2.4 or higher\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab PHP 7+\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.postgresql.org/"}}{\fldrslt{\ul
+PostgreSQL
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab do not forget to start the service\u8230?\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://git-scm.com/"}}{\fldrslt{\ul
+GIT
+}}}
+ for version control\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://nodejs.org/"}}{\fldrslt{\ul
+Node.js
+}}}
+, the currently used version is 10.15.3 LTS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.npmjs.com/"}}{\fldrslt{\ul
+npm
+}}}
+ as Javascript package manager\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://getcomposer.org/"}}{\fldrslt{\ul
+composer
+}}}
+ as PHP package manager\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://github.com/drush-ops/drush-launcher/releases"}}{\fldrslt{\ul
+drush
+}}}
+ as Drupal Shell (not neccessary but recommended)\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Prerequisits\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 In this documentation it is stated that the system contains an up and running webserver environment with PHP 7+ and PostgreSQL 9.4 or higher. Starting from this basics, in the following the setup of the development environment is described. The description is made for a Microsoft Windows environment, as this is used by the {\field{\*\fldinst{HYPERLINK "https://www.hamburg.de/geowerkstatt/"}}{\fldrslt{\ul
+Geowerkstatt Hamburg
+}}}
+.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Setup the webserver environment locally (Windows)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Setup XAMPP with PHP 7+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Follow these {\field{\*\fldinst{HYPERLINK "https://pureinfotech.com/install-xampp-windows-10/#install_xampp_windows10"}}{\fldrslt{\ul
+installation
+}}}
+ steps.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Configure an Apache 2.4 with PHP 7 or higher.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Setup PostgreSQL 9.4\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Download {\field{\*\fldinst{HYPERLINK "https://www.enterprisedb.com/downloads/postgres-postgresql-downloads"}}{\fldrslt{\ul
+PostgreSQL
+}}}
+ (61.2MB) to your local machine.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Run and finish the windows installer as administrator.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 At troubleshooting.md you can find a workflow if you have installion trouble with system permissions.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 The basics\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Since dipas currently uses Drupal 8, at least one additional software is neccessary to get the local development environment running: Composer. The Drupal shell \u8220"drush\u8221" is highly recommended since it eases the working with Drupal by giving shorthand commands for several tasks.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Setup drush & composer\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 PHP-executable available in PATH\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 To get tools like composer and drush working it is essential to make a PHP-executable available in PATH variable. Therefore add the path to PHP (possibly installed with Xampp) to your environment variable PATH.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Check if it was successful by typing in a console window:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 php -v\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Installation of Composer\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The download section of {\field{\*\fldinst{HYPERLINK "https://getcomposer.org/"}}{\fldrslt{\ul
+composer
+}}}
+ contains an easy to use Windows installer. To run it administrator permissions are probably required.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Check if it was successful by typing in a console window:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 composer -version\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Please do not use a default \u8220"cmd\u8221"-shell of the windows system nor the so called \u8220"powershell\u8221". With both console systems problems are known with the automated application of software-patches by composer.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Installation of drush library\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 For drush not the command itself is installed but a \u8220"launcher\u8221". This will then call the drush-library of the current project.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Create a subfolder \u8220"drush\u8221" in the user-folder.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Download the files {\b drush.phar} and {\b drush.version} from {\field{\*\fldinst{HYPERLINK "https://github.com/drush-ops/drush-launcher/releases"}}{\fldrslt{\ul
+https://github.com/drush-ops/drush-launcher/releases
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Copy both files to the new drush-folder.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Rename drush.phar to drush (remove the file ending)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Create a file drush.bat in the drush-folder\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab add following content to the file drush.bat\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 @echo off\line
+php "%~dp0\\drush" %*\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab add the path to drush folder to the PATH environment variable to make it available in all console windows\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Check if it was successful by typing in a console window:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush version\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs24 Useful drush commands\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush status (short: drush st)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 shows a short status overview if drush can connect with Drupal\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush config-export (short: drush cex)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 exports the currently exisiting configuration of the system to config files\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush config-import (short: drush cim)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 imports the configuration, available in file system, to the database\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush cache-rebuild (short: drush cr)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 flushes all drupal caches\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 drush updatedb (short: drush updb)\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 executes pending update hooks\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Get the source code\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Repository\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The repository contains the drupal part as well as the VueJS part of the project.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 branches\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The main development branch is {\b {\i dev}}. The stable branch is {\b {\i production}}.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 To contribute to this project, take a branch from dev and do your development. Then a pull request is needed to merge back to dev.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The production branch is filled from dev when new features are ready to ship. We use {\field{\*\fldinst{HYPERLINK "http://semver.org/"}}{\fldrslt{\ul
+SemVer
+}}}
+ for versioning. For the versions available see the {\field{\*\fldinst{HYPERLINK "https://bitbucket.org/geowerkstatt-hamburg/beteiligungsmodul2/commits"}}{\fldrslt{\ul
+tags on our repository
+}}}
+.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 pre-push hooks\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 To ensure the quality of dipas code, pre-push hooks are used to run some checks before pushing locally edited source code back to the repository. Currently following checks are configured as pre-push checks:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab running ESLint\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab running Javascript Unittests\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab running PHP Unittests\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Set up the project\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 for the {\b {\i drupal}} part do\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 composer install\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 for the {\b {\i VueJS}} part do\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 npm install\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Compiles and hot-reloads for development\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 npm run serve\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Compiles and minifies for production\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 npm run build\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Run your tests\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 npm run test\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Lints and fixes files\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 npm run lint\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Customize configuration\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 See {\field{\*\fldinst{HYPERLINK "https://cli.vuejs.org/config/"}}{\fldrslt{\ul
+Configuration Reference
+}}}
+.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Configure Settings\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Connection to the database\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Drupal needs to know the connection to the database to store configurations.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Set up a PostgreSQL-Database in your system\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Edit the file drupal.database-settings.php in folder config to let Drupal know the database\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Connection from frontend to backend\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The VueJS Frontend needs to know about the Drupal backend.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Open folder src\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Copy the file example.config.js and rename it to config.js\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Edit the file config.js and to let VueJS know the path to your local Drupal backend\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Translation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Currently it is not planned to have a language switcher so that the user can decide which language they like. But it is possible for the technical admin to translate all texts to the favourite language.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 There are three parts where the frontend and the backend will be translated.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Translating the frontend\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Most of the text parts in the frontend are delivred by the configuration from the backend. Those parts which are directly written in code in VueJS can fully be translated. Take care of this when you write new code, so that you prepare texts directly for possible translation.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Have a look at the folder src/lang to see how the translation of frontend will be done.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Translating the backend\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Some parts of the backend can be translated in the Dipas configuration by e.g.\u160?typing the names of the menu entrys. Texts which are hardcoded in Drupal will be translated in the modules where they occur. Each module has a folder files/translations where the *.po files, holding the translations, are located.\par}
+}

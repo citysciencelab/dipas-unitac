@@ -1,0 +1,17 @@
+label: 'Karteninstanz: Einzelbeitrag'
+settings:
+  MenuSettings:
+    tree:
+      name: Themen
+    tools:
+      name: Werkzeuge
+    filter:
+      name: Filter
+    legend:
+      name: Legende
+  SearchBarSettings:
+    placeholder: 'Suche nach Themen'
+  ToolSettings:
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
+        name: 'Informationen abfragen'

@@ -1,0 +1,14 @@
+uuid: ff706edc-1f25-4302-9de9-8af90e4445c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.project_administrator_all_domains
+  module:
+    - user
+id: user_remove_role_action.project_administrator_all_domains
+label: 'Revoke the role "Project administrator all domains" from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: project_administrator_all_domains

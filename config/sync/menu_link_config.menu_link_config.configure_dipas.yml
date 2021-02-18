@@ -1,0 +1,15 @@
+uuid: 84e67b1f-a098-4156-9b97-bae28156dfca
+langcode: en
+status: true
+dependencies: {  }
+id: configure_dipas
+title: 'DIPAS configuration'
+route_name: dipas.configform
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -45
+description: ''

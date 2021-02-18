@@ -1,0 +1,34 @@
+masterportal.settings:
+  title: 'Masterportal'
+  description: 'Settings for the integration of a Masterportal map.'
+  route_name: masterportal.settings.instances
+  parent: system.admin_config_ui
+  menu_name: admin
+
+masterportal.settings.basics:
+  title: 'Basic settings'
+  route_name: masterportal.settings.basics
+  parent: masterportal.settings
+  menu_name: admin
+  weight: 10
+
+masterportal.settings.layerdefinitions:
+  title: 'Layer definitions'
+  route_name: masterportal.settings.layerdefinitions
+  parent: masterportal.settings
+  menu_name: admin
+  weight: 20
+
+masterportal.settings.layerstyles:
+  title: 'Layer styles'
+  route_name: masterportal.settings.layerstyles
+  parent: masterportal.settings
+  menu_name: admin
+  weight: 30
+
+masterportal.settings.instances:
+  title: 'Instance configurations'
+  route_name: masterportal.settings.instances
+  parent: masterportal.settings
+  menu_name: admin
+  weight: 40

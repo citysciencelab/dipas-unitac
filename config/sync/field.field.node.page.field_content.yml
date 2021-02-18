@@ -1,0 +1,56 @@
+uuid: 93ce0b7e-6e82-4dbf-b71a-62b5b8a2f46b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.page
+    - paragraphs.paragraphs_type.accordeon_item
+    - paragraphs.paragraphs_type.conception
+    - paragraphs.paragraphs_type.planning_subarea
+  module:
+    - entity_reference_revisions
+id: node.page.field_content
+field_name: field_content
+entity_type: node
+bundle: page
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 1
+    target_bundles:
+      accordeon_item: accordeon_item
+      conception: conception
+      planning_subarea: planning_subarea
+    target_bundles_drag_drop:
+      accordeon:
+        weight: -6
+        enabled: false
+      accordeon_item:
+        enabled: true
+        weight: 10
+      conception:
+        enabled: true
+        weight: 10
+      division_in_planning_subareas:
+        weight: 8
+        enabled: false
+      image:
+        weight: -8
+        enabled: false
+      planning_subarea:
+        enabled: true
+        weight: 12
+      text:
+        weight: -9
+        enabled: false
+      video:
+        weight: -7
+        enabled: false
+field_type: entity_reference_revisions

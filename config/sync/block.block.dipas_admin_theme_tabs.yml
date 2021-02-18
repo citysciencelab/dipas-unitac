@@ -1,0 +1,20 @@
+uuid: fbb90d0a-de46-4323-8f69-bbec65a30f55
+langcode: en
+status: true
+dependencies:
+  theme:
+    - dipas_admin_theme
+id: dipas_admin_theme_tabs
+theme: dipas_admin_theme
+region: header
+weight: 1
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Reiter
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

@@ -1,0 +1,14 @@
+administer dipas:
+  title: 'Administer DIPAS'
+  description: 'Configure DIPAS related settings of the website.'
+administer keywords:
+  title: 'Administer Keyword Service'
+  description: 'Configure DIPAS related keyword service.'
+administer nlp services:
+  title: 'Administer NLP Services'
+  description: 'Configure NLP services'
+use dipas data export:
+  title: 'Access DIPAS data exports'
+  description: 'Access data export routes in order to save DIPAS data as CSV files'
+use dipas dashboard:
+  title: 'Access DIPAS dashboard'

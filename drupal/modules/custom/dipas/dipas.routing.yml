@@ -1,0 +1,76 @@
+dipas.configform:
+  path: '/admin/config/user-interface/dipas'
+  defaults:
+    _title: 'DIPAS configuration'
+    _description: 'Provides an interface to configure DIPAS related settings for this website.'
+    _form: '\Drupal\dipas\Form\Settings'
+  requirements:
+    _permission: 'administer dipas'
+
+dipas.restapi.endpoint:
+  path: '/dipas/{key}/{id}'
+  defaults:
+    _controller: 'dipas.restapi:requestEndpoint'
+    id: 0
+  methods: [GET, POST]
+  requirements:
+    _permission: 'access content'
+    key: \w+
+    id: \d+
+  options:
+    _maintenance_access: true
+
+dipas.pdsapi.endpoint:
+  path: '/dipas-pds/projects/{proj_ID}/{type}/{contr_ID}/{comments}'
+  defaults:
+    _controller: 'dipas.restapi:requestPDSEndpoint'
+    proj_ID: '0'
+    contr_ID: '0'
+    type: 'none'
+    comments: 'none'
+  requirements:
+    _permission: 'access content'
+    proj_ID: \w+
+    type: \w+
+    comments: \w+
+    contr_ID: \d+
+  options:
+    _maintenance_access: true
+
+dipas.export:
+  path: '/dipas/export/{type}'
+  defaults:
+    _controller: 'dipas.dataexport:export'
+  requirements:
+    _permission: 'use dipas data export'
+    type: \w+
+
+dipas.dashboard:
+  path: '/admin/dipas/dashboard'
+  defaults:
+    _controller: 'dipas.dashboard:viewDashboard'
+    _title: 'Dashboard'
+  requirements:
+    _permission: 'use dipas dashboard'
+
+dipas.nlp_analysis:
+  path: '/admin/dipas/nlp-analysis'
+  defaults:
+    _controller: '\Drupal\dipas\Controller\NLPAnalysis::pageCallback'
+    _title: 'DIPAS NLP Analysis'
+  requirements:
+    _permission: 'administer dipas'
+
+dipas.clusterlist:
+  path: '/admin/dipas/clusterlist'
+  defaults:
+    _controller: 'dipas.nlp_services:getClusterlist'
+  requirements:
+    _permission: 'administer dipas'
+
+dipas.wordcloud:
+  path: '/admin/dipas/wordcloud'
+  defaults:
+    _controller: 'dipas.nlp_services:getWordcloud'
+  requirements:
+    _permission: 'administer dipas'

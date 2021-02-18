@@ -1,0 +1,35 @@
+uuid: 3bfb1de6-9ebb-4aec-bccb-f70cc4dc4e79
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.download.field_domain_access
+    - field.field.media.download.field_domain_all_affiliates
+    - field.field.media.download.field_media_file
+    - image.style.medium
+    - media.type.download
+  module:
+    - image
+id: media.download.media_library
+targetEntityType: media
+bundle: download
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_media_file: true
+  langcode: true
+  name: true
+  uid: true

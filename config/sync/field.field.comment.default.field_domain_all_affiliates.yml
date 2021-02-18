@@ -1,0 +1,21 @@
+uuid: 9e90108c-c75a-4da3-83d9-28d78d84abf1
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.default
+    - field.storage.comment.field_domain_all_affiliates
+id: comment.default.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: comment
+bundle: default
+label: 'Send to all affiliates'
+description: 'Make this comment available on all domains.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: An
+  off_label: Aus
+field_type: boolean

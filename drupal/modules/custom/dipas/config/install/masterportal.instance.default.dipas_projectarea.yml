@@ -1,0 +1,133 @@
+uuid: bec56254-72eb-4d6f-91cc-732e5c3b7634
+langcode: en
+status: true
+dependencies: {  }
+id: default.dipas_projectarea
+uid: 0
+instance_name: dipas_projectarea
+label: 'DIPAS Projectarea'
+domain: default
+hidden: true
+settings:
+  DesignSettings:
+    uiStyle: simple
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Suche nach Adresse/Thema'
+    renderToDOM: ''
+    quickHelp: false
+  ForegroundLayerSection:
+    layer: {  }
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '["717","718","719","720","13709","13712","13714","13716"]'
+        custom:
+          name: 'GeoBasisKarten Hamburg'
+          visibility: true
+          gfiTheme: default
+  MapSettings:
+    startCenter: '[566263,5934768]'
+    options:
+      -
+        resolution: 66.145797614603
+        scale: 250000
+        zoomLevel: 0
+      -
+        resolution: 26.458319045841
+        scale: 100000
+        zoomLevel: 1
+      -
+        resolution: 15.874991427505
+        scale: 60000
+        zoomLevel: 2
+      -
+        resolution: 10.583327618336
+        scale: 40000
+        zoomLevel: 3
+      -
+        resolution: 5.2916638091682
+        scale: 20000
+        zoomLevel: 4
+      -
+        resolution: 2.6458319045841
+        scale: 10000
+        zoomLevel: 5
+      -
+        resolution: 1.3229159522921
+        scale: 5000
+        zoomLevel: 6
+      -
+        resolution: 0.66145797614603
+        scale: 2500
+        zoomLevel: 7
+      -
+        resolution: 0.26458319045841
+        scale: 1000
+        zoomLevel: 8
+      -
+        resolution: 0.13229159522921
+        scale: 500
+        zoomLevel: 9
+    extent: '[510000, 5850000, 625000, 6000000]'
+    zoomLevel: 2
+    epsg: 'EPSG:25832'
+  MenuSettings:
+    tree:
+      name: Themen
+      glyphicon: glyphicon-list
+      isInitOpen: false
+    tools:
+      name: Werkzeuge
+      glyphicon: glyphicon-wrench
+    filter:
+      name: Katgorieauswahl
+      glyphicon: glyphicon-filter
+      deactivateGFI: false
+      isGeneric: false
+      isInitOpen: false
+      liveZoomToFeatures: false
+      allowMultipleQueriesPerLayer: false
+      isVisibleInMenu: false
+      predefinedQueries: '[]'
+    legend:
+      name: Legende
+      glyphicon: glyphicon-book
+  PortalSettings:
+    title: ' '
+    logo: ''
+    link: ''
+    tooltip: ''
+    activePlugins:
+      - InputWidgetMap
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Controls\InputWidgetMap:
+        setMarker: false
+        setCenter: false
+  SearchPluginSettings:
+    activePlugins:
+      - Tree
+      - Gazetteer
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Gazetteer:
+        serviceId: '6'
+        searchStreets: true
+        searchHouseNumbers: true
+        searchDistricts: true
+        searchParcels: true
+        searchStreetKey: true
+  ToolSettings:
+    activePlugins:
+      - Draw
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: Draw
+        glyphicon: glyphicon-info-sign
+        visibleInMenu: 0

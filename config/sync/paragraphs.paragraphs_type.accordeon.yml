@@ -1,0 +1,17 @@
+uuid: cc6769e3-6f59-43f8-85cd-eb464c907dec
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      structural: structural
+      content: '0'
+id: accordeon
+label: Accordeon
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

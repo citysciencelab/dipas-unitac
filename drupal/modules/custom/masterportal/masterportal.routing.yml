@@ -1,0 +1,254 @@
+masterportal.settings.basics:
+  path: '/admin/config/user-interface/masterportal/basics'
+  defaults:
+    _title: 'Masterportal'
+    _description: 'Defines the basic setting options for the Masterportal integration.'
+    _form: '\Drupal\masterportal\Form\BasicSettings'
+  requirements:
+    _permission: 'administer masterportal'
+
+masterportal.settings.layerstyles:
+  path: '/admin/config/user-interface/masterportal/layerstyles'
+  defaults:
+    _title: 'Masterportal'
+    _description: 'Defines the setting options for the layer styles configuration.'
+    _form: '\Drupal\masterportal\Form\LayerStyles'
+  requirements:
+    _permission: 'administer masterportal'
+
+masterportal.settings.layerdefinitions:
+  path: '/admin/config/user-interface/masterportal/layerdefinitions'
+  defaults:
+    _title: 'Masterportal'
+    _description: 'Defines the layer settings.'
+    _form: '\Drupal\masterportal\Form\Layerconfiguration'
+  requirements:
+    _permission: 'administer masterportal'
+
+masterportal.settings.instances:
+  path: '/admin/config/user-interface/masterportal/instances'
+  defaults:
+    _title: 'Masterportal'
+    _description: 'Defines the instances.'
+    _entity_list: 'masterportal_instance'
+  requirements:
+    _permission: 'access masterportal configuration ui'
+
+masterportal.masterportal_instance.add:
+  path: '/admin/config/user-interface/masterportal/instances/add'
+  defaults:
+    _entity_form: masterportal_instance.default
+    _title: 'Add new Masterportal instance'
+  requirements:
+    _permission: 'create new masterportal instances'
+
+entity.masterportal_instance.edit_form:
+  path: '/admin/config/user-interface/masterportal/instances/{masterportal_instance}'
+  defaults:
+    _entity_form: masterportal_instance.default
+    _title: 'Edit Masterportal instance'
+  requirements:
+    _permission: 'administer masterportal'
+
+entity.masterportal_instance.delete_form:
+  path: '/admin/config/user-interface/masterportal/instances/{masterportal_instance}/delete'
+  defaults:
+    _entity_form: masterportal_instance.delete
+    _title: 'Delete Masterportal instance'
+  requirements:
+    _permission: 'administer masterportal'
+
+masterportal.settings.testpage:
+  path: '/admin/config/user-interface/masterportal/instances/{masterportal_instance}/testpage'
+  defaults:
+    _title: 'Masterportal configuration'
+    _description: 'Test page for a given portal configuration.'
+    _controller: 'masterportal.renderer:iframe'
+    width: 900px
+    aspectratio: aspect_ratio_16_9
+  requirements:
+    _permission: 'administer masterportal'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.iframe:
+  path: '/masterportal/{masterportal_instance}/{width}/{aspectratio}'
+  defaults:
+    _title: 'Masterportal'
+    _controller: 'masterportal.renderer:iframe'
+    width: '100%'
+    aspectratio: 'aspect_ratio_16_9'
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+    width: \d+(%|px)
+    aspectratio: aspect_ratio_\d+_\d+
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.fullscreen:
+  path: '/masterportal/{masterportal_instance}/fullscreen'
+  defaults:
+    _title: 'Masterportal'
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'BasicSettings.html_structure'
+    content_type: 'text/html; charset=utf-8'
+    cacheTags:
+      - instanceHtml
+      - instanceHtml:{masterportal_instance}
+    cacheContexts:
+      - url
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.table:
+  path: '/masterportal/{masterportal_instance}/table'
+  defaults:
+    _title: 'Masterportal'
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'BasicSettings.html_structure'
+    content_type: 'text/html; charset=utf-8'
+    cacheTags:
+      - instanceHtml
+      - instanceHtml:{masterportal_instance}
+    cacheContexts:
+      - url
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    overwrites:
+      uiStyle: table
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.download.instance:
+  path: '/masterportal/{masterportal_instance}/download'
+  defaults:
+    _title: 'Masterportal'
+    _controller: 'masterportal.downloadservice:createZip'
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.javascript:
+  path: '/masterportal/{masterportal_instance}/config.js'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'BasicSettings.js'
+    content_type: 'application/javascript; charset=utf-8'
+    preprocess: generateJavascriptSettingsObject
+    cacheTags:
+      - instanceJavascript
+      - instanceJavascript:{masterportal_instance}
+    cacheContexts:
+      - url
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.json:
+  path: '/masterportal/{masterportal_instance}/config.json'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'JSON'
+    content_type: 'application/json; charset=utf-8'
+    preprocess: generateJsonSettingsObject
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance
+
+masterportal.services:
+  path: '/masterportal/services.json'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'BasicSettings.service_definitions'
+    content_type: 'application/json; charset=utf-8'
+    preprocess: generateServicesJson
+    cacheTags:
+      - Services
+  requirements:
+    _permission: 'access content'
+
+masterportal.layerstyles:
+  path: '/masterportal/layerstyles.json'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'LayerStyles'
+    content_type: 'application/json; charset=utf-8'
+    preprocess: generateLayerStyles
+    cacheTags:
+      - layerStyles
+  requirements:
+    _permission: 'access content'
+
+masterportal.layerplugin:
+  path: '/masterportal/layer/{layerid}'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'JSON'
+    content_type: 'application/json; charset=utf-8'
+    preprocess: renderLayer
+    cacheTags:
+      - LayerPlugin
+    cacheContexts:
+      - url
+  requirements:
+    _permission: 'access content'
+    layerid: \w+
+
+masterportal.layerdefinitions:
+  path: '/masterportal/layerdefinitions.json'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'Layerconfiguration'
+    content_type: 'application/json; charset=utf-8'
+    preprocess: enrichLayerDefinitions
+    cacheID: LayerDefinitions
+    cacheTags:
+      - LayerDefinitions
+  requirements:
+    _permission: 'access content'
+
+masterportal.layerdefinitions.instance:
+  path: '/masterportal/{masterportal_instance}/layerdefinitions.json'
+  defaults:
+    _controller: 'masterportal.renderer:createResponse'
+    key: 'Layerconfiguration'
+    cacheID: InstanceLayerDefinitions
+    cacheTags:
+      - InstanceLayerDefinitions:{masterportal_instance}
+    cacheContexts:
+      - url
+    content_type: 'application/json; charset=utf-8'
+    preprocess: enrichLayerDefinitions
+  requirements:
+    _permission: 'access content'
+    masterportal_instance: \w+(?:\.\w+)?
+  options:
+    parameters:
+      masterportal_instance:
+        type: entity:masterportal_instance

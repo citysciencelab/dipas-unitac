@@ -1,0 +1,16 @@
+uuid: b1c7028f-a829-4c7d-a223-3f996749c728
+langcode: en
+status: true
+dependencies: {  }
+id: create_download
+title: 'Create download'
+route_name: entity.media.add_form
+route_parameters:
+  media_type: b9ea1a65-05ec-44be-861d-62c0247fd489
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_media'
+weight: -48
+description: ''

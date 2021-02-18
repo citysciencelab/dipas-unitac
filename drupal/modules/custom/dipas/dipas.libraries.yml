@@ -1,0 +1,36 @@
+configsection:
+  css:
+    component:
+      libraries/configsection/styles.css: { minified: false }
+
+projectareamap:
+  js:
+    libraries/projectarea/messenger.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+
+dipas_dashboard:
+  css:
+    theme:
+      templates/assets/dashboard.css: { minified: false }
+  js:
+    templates/assets/guidelines.js: {minified: false}
+  dependencies:
+    - core/jquery
+
+nlpblock:
+  css:
+    component:
+      libraries/nlpblock/block.css: { minified: false }
+  js:
+    libraries/nlpblock/filter.js: { minified: false }
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+nlpanalysis:
+  css:
+    theme:
+      templates/assets/nlpanalysis.css: { minified: false }

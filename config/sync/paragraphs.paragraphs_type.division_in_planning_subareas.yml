@@ -1,0 +1,17 @@
+uuid: 6a1b7d33-a1ef-4c47-a4e3-4a348c7d1abe
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      structural: structural
+      content: '0'
+id: division_in_planning_subareas
+label: 'Division in planning subareas'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

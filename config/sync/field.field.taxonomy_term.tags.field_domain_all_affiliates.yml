@@ -1,0 +1,21 @@
+uuid: e8132ed6-4d4b-4f9b-9fbd-b76462620546
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_domain_all_affiliates
+    - taxonomy.vocabulary.tags
+id: taxonomy_term.tags.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: taxonomy_term
+bundle: tags
+label: 'Send to all affiliates'
+description: 'Make this term available on all domains.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: An
+  off_label: Aus
+field_type: boolean

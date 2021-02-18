@@ -1,0 +1,14 @@
+uuid: 41d0d68e-03aa-4451-990d-112ea67ecc87
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.project_administrator_all_domains
+  module:
+    - user
+id: user_add_role_action.project_administrator_all_domains
+label: 'Assign the role "Project administrator all domains" to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: project_administrator_all_domains

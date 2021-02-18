@@ -1,0 +1,33 @@
+uuid: f63da38c-57aa-436f-a1c3-62e4ed455c53
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.default
+    - field.storage.comment.field_replies
+  module:
+    - comment
+id: comment.default.field_replies
+field_name: field_replies
+entity_type: comment
+bundle: default
+label: Replies
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    status: 2
+    cid: 0
+    last_comment_timestamp: 0
+    last_comment_name: null
+    last_comment_uid: 0
+    comment_count: 0
+default_value_callback: ''
+settings:
+  default_mode: 0
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 0
+field_type: comment

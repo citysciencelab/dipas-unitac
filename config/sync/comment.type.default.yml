@@ -1,0 +1,8 @@
+uuid: 73e1d8cb-416c-444b-bf7b-df5f3b821afd
+langcode: en
+status: true
+dependencies: {  }
+id: default
+label: Default
+target_entity_type_id: node
+description: ''

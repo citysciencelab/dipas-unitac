@@ -1,0 +1,22 @@
+uuid: 8ded97dd-21ac-4f53-acf6-5e7c06774ad3
+langcode: en
+status: true
+dependencies:
+  module:
+    - domain
+    - taxonomy
+_core:
+  default_config_hash: GLtAMwMGedOHJLRClHzPxOwibPI48Er2j2z8dEGO394
+id: taxonomy_term.field_domain_access
+field_name: field_domain_access
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: domain
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

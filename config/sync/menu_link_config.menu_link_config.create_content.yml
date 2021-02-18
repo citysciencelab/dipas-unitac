@@ -1,0 +1,15 @@
+uuid: 574091ad-1f01-4038-a358-2869948bb3a6
+langcode: en
+status: true
+dependencies: {  }
+id: create_content
+title: 'Create content'
+route_name: node.add_page
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -48
+description: ''

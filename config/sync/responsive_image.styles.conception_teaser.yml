@@ -1,0 +1,27 @@
+uuid: c1addfaf-b6a1-4f01-a535-b95bfce99400
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.conception_lg
+    - image.style.conception_md
+    - image.style.conception_sm
+    - image.style.conception_xl
+    - image.style.conception_xs
+id: conception_teaser
+label: 'Conception Teaser'
+image_style_mappings:
+  -
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(min-width: 350px) 360w, (min-width: 290px) 300w, (min-width: 230px) 240w, (min-width: 170px) 180w, (min-width: 90px) 120w, 15vw'
+      sizes_image_styles:
+        - conception_lg
+        - conception_md
+        - conception_sm
+        - conception_xl
+        - conception_xs
+breakpoint_group: responsive_image
+fallback_image_style: conception_md

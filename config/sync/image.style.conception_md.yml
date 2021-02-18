@@ -1,0 +1,15 @@
+uuid: 96c135ee-46b8-4329-962d-9d36ba72f7a8
+langcode: en
+status: true
+dependencies: {  }
+name: conception_md
+label: 'Conception MD'
+effects:
+  c109349a-70dd-4c0e-b00b-546e7262d8cb:
+    uuid: c109349a-70dd-4c0e-b00b-546e7262d8cb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 240
+      height: 190
+      anchor: center-center

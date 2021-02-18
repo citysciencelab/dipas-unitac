@@ -1,0 +1,12 @@
+label: 'Bilderverzeichnis'
+display_configuration:
+  link_text: 'Bild auswählen'
+widgets:
+  6ca0f451-b6ab-49b7-a7e8-90c5e8d56ea0:
+    settings:
+      submit_text: 'Bild auswählen'
+    label: 'Aus vorhandenen Bildern auswählen'
+  c55e4d6d-251a-423a-b184-45ac47d85d4c:
+    settings:
+      submit_text: 'Bild speichern'
+    label: 'Neues Bild hochladen'

@@ -1,0 +1,11 @@
+uuid: efa048a6-6af6-4a24-b602-f9960e4ace66
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.appointment
+id: node.appointment
+target_entity_type_id: node
+target_bundle: appointment
+default_langcode: current_interface
+language_alterable: true

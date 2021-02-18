@@ -1,0 +1,37 @@
+uuid: 57493bce-e917-43ce-acd2-145fe4ba0dcf
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.default
+    - core.entity_view_display.comment.reply.default
+    - field.field.comment.default.field_comment
+    - field.field.comment.default.field_replies
+  module:
+    - comment
+id: comment.default.default
+targetEntityType: comment
+bundle: default
+mode: default
+content:
+  field_comment:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_replies:
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: content
+hidden:
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  langcode: true
+  links: true

@@ -1,0 +1,169 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\domain_dipas\Form\DomainEditForm;
+use Drupal\domain_dipas\DomainListBuilder;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_views_data_alter().
+ *
+ * Add the views filter configuration for each entity type. The configuration
+ * for nodes added by the domain_access module get overwritten by our new
+ * configuration using an adjusted version of the
+ * {@link
+ * \Drupal\domain_dipas\Plugin\views\filter\DomainAccessCurrentAllFilter} that
+ * only applies if the view is opened on an non-default domain.
+ */
+function domain_dipas_views_data_alter(array &$data) {
+  $tables = ['comment', 'media', 'node'];
+
+  foreach ($tables as $tableName) {
+    $table = $tableName . '__' . DOMAIN_ACCESS_FIELD;
+    $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
+    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+
+    // Current domain filter.
+    $data[$table]['current_all'] = [
+      'title' => t('Current domain'),
+      'group' => t('Domain'),
+      'filter' => [
+        'field' => DOMAIN_ACCESS_FIELD . '_target_id',
+        'id' => 'domain_dipas_current_all_filter',
+        'entity' => $tableName,
+        'title' => t('Available on current domain'),
+        'help' => t('Filters out entities available on current domain (published to current domain or all affiliates). The filter is disabled on the default domain.'),
+      ],
+    ];
+
+    // Since domains are not stored in the database, relationships cannot be used.
+    unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+
+    // Set the user data.
+    $table = 'user__' . DOMAIN_ACCESS_FIELD;
+    $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
+    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+
+    // Since domains are not stored in the database, relationships cannot be used.
+    unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+  }
+
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function domain_dipas_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['taxonomy_term'])) {
+    /* @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+    $entity_types['taxonomy_term']->setHandlerClass('storage', '\Drupal\domain_dipas\Entity\TaxonomyTermStorage');
+  }
+  if (isset($entity_types['domain'])) {
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityType $domainEntityType */
+    $domainEntityType = $entity_types['domain'];
+
+    $domainEntityType->setListBuilderClass(DomainListBuilder::class);
+    $domainEntityType->setFormClass('default', DomainEditForm::class);
+    $domainEntityType->setFormClass('edit', DomainEditForm::class);
+
+    $domainEntityType->set('label', new TranslatableMarkup('Proceeding', [], ['context' => 'DIPAS']));
+
+  }
+}
+
+/**
+ * Implements hook_toolbar().
+ */
+function domain_dipas_toolbar() {
+  $user = \Drupal::currentUser();
+
+  if ($user->hasPermission('access toolbar')) {
+    return \Drupal::service('dipas_domain.toolbar_switcher')->build();
+  }
+
+  return [];
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Implemented to set a redirect URL in case of undefined or inactive domains for DIPAS fronend
+ */
+function domain_dipas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'domain_settings') {
+    $config = \Drupal::config('domain.settings');
+
+    $form['redirect_url'] = [
+      '#type' => 'url',
+      '#title' => Drupal::service('string_translation')
+        ->translate('Redirect URL in case of undefined or inactive domain'),
+      '#default_value' => $config->get('redirect_url'),
+      '#description' => Drupal::service('string_translation')
+        ->translate('Enter a URL where the DIPAS frontend shall be redirected, when a user tries to access an undefined or inactive domain.'),
+      '#required' => FALSE,
+    ];
+
+    $form['#submit'][1] = 'domain_dipas_settings_form_submit';
+  }
+  else {
+    $form_ids_to_alter_regex = [
+      '/taxonomy_term_.*_form/',
+      '/media_.*_add_form/',
+      '/node_.*_form/',
+      '/comment_reply_form/',
+    ];
+
+    array_walk(
+      $form_ids_to_alter_regex,
+      function (&$regex) use($form_id, &$form) {
+        if (preg_match($regex, $form_id)) {
+          $form["field_domain_access"]["#type"] = "hidden";
+          $form["field_domain_access"]["widget"]['#type'] = "value";
+          $form["field_domain_all_affiliates"]["#type"] = "hidden";
+        }
+      }
+    );
+  }
+}
+
+function domain_dipas_settings_form_submit($form, FormStateInterface $form_state) {
+  $config = \Drupal::service('config.factory')->getEditable('domain.settings');
+  $config->set('redirect_url', $form_state->getValue('redirect_url'));
+  $config->save();
+}
+
+
+/**
+ * Implements hook_domain_validate_alter
+ */
+function domain_dipas_domain_validate_alter(array &$error_list, $hostname) {
+  domain_dipas_invalidate_cachetags(["init"]);
+}
+
+/**
+ * Invalidate a given range of cache tags.
+ *
+ * @param array $cacheTagsToInvalidate
+ */
+function domain_dipas_invalidate_cachetags(array $cacheTagsToInvalidate = []) {
+  /* @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheTagInvalidator */
+  $cacheTagInvalidator = \Drupal::getContainer()->get('cache_tags.invalidator');
+
+  array_walk(
+    $cacheTagsToInvalidate,
+    function (&$tag) {
+      if (!preg_match('~\:~', $tag)) {
+        $tag = sprintf('dipasRestEndpoint:%s', $tag);
+      }
+    }
+  );
+
+  $cacheTagInvalidator->invalidateTags($cacheTagsToInvalidate);
+}

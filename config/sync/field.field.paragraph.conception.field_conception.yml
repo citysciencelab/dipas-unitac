@@ -1,0 +1,25 @@
+uuid: 2a52fd86-92fe-452d-85cf-2713b13e39c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_conception
+    - paragraphs.paragraphs_type.conception
+id: paragraph.conception.field_conception
+field_name: field_conception
+entity_type: paragraph
+bundle: conception
+label: Conception
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: conceptions
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

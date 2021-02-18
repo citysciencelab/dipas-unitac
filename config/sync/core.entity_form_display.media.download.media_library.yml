@@ -1,0 +1,32 @@
+uuid: 5796fc75-79e9-40b5-a948-5af0fdca67d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.download.field_domain_access
+    - field.field.media.download.field_domain_all_affiliates
+    - field.field.media.download.field_media_file
+    - media.type.download
+id: media.download.media_library
+targetEntityType: media
+bundle: download
+mode: media_library
+content:
+  name:
+    type: string_textfield
+    settings:
+      size: 60
+      placeholder: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_media_file: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

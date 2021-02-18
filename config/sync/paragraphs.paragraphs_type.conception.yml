@@ -1,0 +1,17 @@
+uuid: 3fba3635-e435-4b58-882c-ff9e4c4a3653
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      structural: structural
+      content: '0'
+id: conception
+label: Conception
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

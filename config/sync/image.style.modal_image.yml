@@ -1,0 +1,15 @@
+uuid: eb828053-6019-44cb-a6a2-358c0b37e26b
+langcode: en
+status: true
+dependencies: {  }
+name: modal_image
+label: 'Modal Image'
+effects:
+  180928db-fce3-4e84-ae47-8beff4563034:
+    uuid: 180928db-fce3-4e84-ae47-8beff4563034
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 720
+      height: 360
+      anchor: center-center

@@ -1,0 +1,29 @@
+uuid: ec22f85b-c908-4c8a-911b-e71047ae31cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_rubric
+    - node.type.contribution
+    - taxonomy.vocabulary.rubrics
+id: node.contribution.field_rubric
+field_name: field_rubric
+entity_type: node
+bundle: contribution
+label: Rubric
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      rubrics: rubrics
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

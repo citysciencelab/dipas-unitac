@@ -1,0 +1,38 @@
+fieldset.masterportalWidget,
+div.field--widget-masterportal-textfield-widget div.form-type-textarea {
+  display: none;
+}
+
+fieldset.masterportalWidgetMap div.fieldset-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset.masterportalWidgetMap div.fieldset-wrapper :nth-child(2) {
+  order: 1;
+}
+
+fieldset.masterportalWidgetMap div.fieldset-wrapper :nth-child(1) {
+  order: 2;
+}
+
+fieldset.masterportalWidgetMap.form-required:after {
+  display: none;
+}
+
+fieldset.masterportalWidgetMap.form-required legend span:after {
+  background-size: 7px 7px;
+  width: 7px;
+  height: 7px;
+  content: '';
+  vertical-align: super;
+  display: inline-block;
+  background-image: url("/core/misc/icons/ee0000/required.svg");
+  background-repeat: no-repeat;
+  margin: 0 0.3em;
+}
+
+fieldset.masterportalWidgetMap.error {
+  border-color: red;
+  background-color: hsla(15, 75%, 97%, 1);
+}

@@ -1,0 +1,24 @@
+uuid: a282bd2e-0bf2-47ef-87c3-ffa1bac56494
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.division_in_planning_subareas.field_content
+    - paragraphs.paragraphs_type.division_in_planning_subareas
+  module:
+    - entity_reference_revisions
+id: paragraph.division_in_planning_subareas.default
+targetEntityType: paragraph
+bundle: division_in_planning_subareas
+mode: default
+content:
+  field_content:
+    weight: 0
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden: {  }

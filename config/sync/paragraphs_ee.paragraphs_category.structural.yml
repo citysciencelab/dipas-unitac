@@ -1,0 +1,8 @@
+uuid: d35119b2-11e9-4b0d-9d7f-6853bb96a1f6
+langcode: en
+status: true
+dependencies: {  }
+id: structural
+label: Structural
+description: ''
+weight: -10

@@ -1,0 +1,52 @@
+.multiValueRow {
+  padding-top: 10px !important;
+}
+
+.multivalueRowRemoveButton {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 27px;
+  margin-right: 20px;
+}
+
+.multivalueRowInlineInput {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.multivalueAddSelector {
+  display: inline-block;
+  width: 60%;
+}
+
+.multivalueEmptyText {
+  margin: 10px 0;
+  padding: 30px;
+  background-color: #dddddd;
+  border: solid 1px #aaaaaa;
+}
+
+input[type="submit"].addRowButton {
+  margin-top: 20px;
+}
+
+.ui-selectmenu-button,
+.ui-selectmenu-menu {
+  border: solid 1px #cccccc;
+}
+
+.ui-selectmenu-menu .ui-menu {
+  height: 200px;
+  z-index: 99999;
+  padding: 10px 0 10px 0;
+  background-color: #ffffff;
+}
+
+.ui-selectmenu-menu .glyphicon {
+  float: left;
+  margin-right: 10px;
+}
+
+.dependee {
+  margin-left: 20px;
+}

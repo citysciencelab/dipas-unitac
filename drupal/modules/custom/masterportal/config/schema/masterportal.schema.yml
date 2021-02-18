@@ -1,0 +1,62 @@
+masterportal.config.basic:
+  type: config_entity
+  label: 'Masterportal basic'
+  mapping:
+    html_structure:
+      type: string
+      label: 'The basic HTML template'
+    js:
+      type: string
+      label: 'JS'
+    service_definitions:
+      type: string
+      label: 'Service definitions'
+
+masterportal.config.*.layers:
+  type: config_entity
+  label: 'Masterportal layer configuration'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    domain:
+      type: string
+      label: 'Domain ID'
+    Layerconfiguration:
+      type: config_object
+      label: 'Configuration settings'
+      mapping:
+        static_layer_definitions:
+          type: string
+          label: 'Static layer definitions'
+        custom_layers:
+          type: string
+          label: 'Custom layers'
+        preview:
+          nullable: true
+    LayerStyles:
+      type: config_object
+      label: 'Layer styles'
+      mapping:
+        layerstyles:
+          type: sequence
+
+masterportal.instance.*.*:
+  type: config_entity
+  label: 'Masterportal instance configuration'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    instance_name:
+      type: string
+      label: 'Instance Name'
+    domain:
+      type: string
+      label: 'Domain ID'
+    label:
+      type: label
+      label: 'Administrative name'
+    settings:
+      type: sequence
+      label: 'Configuration settings'

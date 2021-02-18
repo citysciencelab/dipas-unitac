@@ -1,0 +1,15 @@
+uuid: 1ff5d149-e36b-4536-87bf-b329cf571086
+langcode: en
+status: true
+dependencies: {  }
+id: dashboard
+title: Dashboard
+route_name: dipas.dashboard
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -50
+description: ''

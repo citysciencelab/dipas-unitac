@@ -1,0 +1,16 @@
+uuid: 82cb693f-1134-4c38-a842-fe26f9644ecc
+langcode: en
+status: true
+dependencies: {  }
+id: create_conception
+title: 'Create conception'
+route_name: node.add
+route_parameters:
+  node_type: dc5deb12-d470-468e-b475-3a7bbc68073e
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_content'
+weight: -48
+description: ''

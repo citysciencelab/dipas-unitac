@@ -1,0 +1,16 @@
+uuid: 67ab8d64-6cee-4c3a-a7f0-15545f145af8
+langcode: en
+status: true
+dependencies: {  }
+id: create_appointment
+title: 'Create appointment'
+route_name: node.add
+route_parameters:
+  node_type: 53f50d61-feba-496f-af39-d67af012eb49
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_content'
+weight: -49
+description: ''

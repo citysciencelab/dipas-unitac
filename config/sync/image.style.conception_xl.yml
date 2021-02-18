@@ -1,0 +1,15 @@
+uuid: 54192c7e-5783-45bd-ad05-631757416d60
+langcode: en
+status: true
+dependencies: {  }
+name: conception_xl
+label: 'Conception XL'
+effects:
+  0a3f6254-82ee-4654-b936-42e3cded7350:
+    uuid: 0a3f6254-82ee-4654-b936-42e3cded7350
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 360
+      height: 285
+      anchor: center-center

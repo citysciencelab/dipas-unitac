@@ -1,0 +1,16 @@
+uuid: 22aa4dfc-3bed-49e0-92b2-b451b1d58312
+langcode: en
+status: true
+dependencies: {  }
+id: create_logo
+title: 'Create logo'
+route_name: entity.media.add_form
+route_parameters:
+  media_type: 255941f5-ced9-4881-9f4e-5889bae60873
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:create_media'
+weight: -49
+description: ''

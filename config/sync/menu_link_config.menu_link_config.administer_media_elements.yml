@@ -1,0 +1,15 @@
+uuid: 4720ade0-8b58-4afc-92f3-b4d9e1e501b9
+langcode: en
+status: true
+dependencies: {  }
+id: administer_media_elements
+title: 'Administer media elements'
+route_name: entity.media.collection
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:administer_content'
+weight: 0
+description: ''

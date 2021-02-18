@@ -1,0 +1,31 @@
+uuid: f7cd7ef5-ccb9-476c-936c-b403183f0dcf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.accordeon_item.field_headline
+    - field.field.paragraph.accordeon_item.field_text
+    - paragraphs.paragraphs_type.accordeon_item
+  module:
+    - text
+id: paragraph.accordeon_item.default
+targetEntityType: paragraph
+bundle: accordeon_item
+mode: default
+content:
+  field_headline:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_text:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

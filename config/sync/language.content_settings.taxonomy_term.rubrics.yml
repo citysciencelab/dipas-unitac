@@ -1,0 +1,11 @@
+uuid: 6834dc08-8b53-4181-b88e-d34787683081
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.rubrics
+id: taxonomy_term.rubrics
+target_entity_type_id: taxonomy_term
+target_bundle: rubrics
+default_langcode: current_interface
+language_alterable: false

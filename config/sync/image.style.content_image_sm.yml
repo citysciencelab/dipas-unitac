@@ -1,0 +1,15 @@
+uuid: 7d7b7282-e784-4ba6-b0bc-83f3520cc4b8
+langcode: en
+status: true
+dependencies: {  }
+name: content_image_sm
+label: 'Content Image SM'
+effects:
+  029d08e8-ba52-4c1f-9c12-5dd0419a07c8:
+    uuid: 029d08e8-ba52-4c1f-9c12-5dd0419a07c8
+    id: image_scale
+    weight: 1
+    data:
+      width: 800
+      height: null
+      upscale: false

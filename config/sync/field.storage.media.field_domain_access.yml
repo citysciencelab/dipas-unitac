@@ -1,0 +1,22 @@
+uuid: 257ffb25-5e88-4125-bc61-72cd869b0107
+langcode: en
+status: true
+dependencies:
+  module:
+    - domain
+    - media
+_core:
+  default_config_hash: 45kTXioJNYd2Nzg0wLyz6x3pmaBXD7DLz4bgo3Cj-_M
+id: media.field_domain_access
+field_name: field_domain_access
+entity_type: media
+type: entity_reference
+settings:
+  target_type: domain
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,52 @@
+uuid: d618d70b-6c37-4586-ae54-52398e033408
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_content
+    - paragraphs.paragraphs_type.accordeon
+    - paragraphs.paragraphs_type.accordeon_item
+  module:
+    - entity_reference_revisions
+id: paragraph.accordeon.field_content
+field_name: field_content
+entity_type: paragraph
+bundle: accordeon
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      accordeon_item: accordeon_item
+    target_bundles_drag_drop:
+      accordeon:
+        weight: 5
+        enabled: false
+      accordeon_item:
+        enabled: true
+        weight: 9
+      conception:
+        weight: 11
+        enabled: false
+      division_in_planning_subareas:
+        weight: 12
+        enabled: false
+      image:
+        weight: 6
+        enabled: false
+      planning_subarea:
+        weight: 14
+        enabled: false
+      text:
+        weight: 7
+        enabled: false
+      video:
+        weight: 8
+        enabled: false
+field_type: entity_reference_revisions

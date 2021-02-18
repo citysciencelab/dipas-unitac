@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * @license https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+ *   GPL-2.0-or-later
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_cron().
+ *
+ * Determines the file mtime of the static layer definitions
+ * and invalidates the cache related if the file got updated.
+ */
+function masterportal_cron() {
+  \Drupal::service('masterportal.layerservice')->checkForLayerChanges();
+}
+
+/**
+ * Implements hook_element_info_alter().
+ *
+ * Replace GeofieldLatLng widgets own elementValidate handler with a
+ * custom one in order to prevent setting form errors on unfocussable
+ * (because hidden) fields.
+ */
+function masterportal_element_info_alter(array &$info) {
+  if (isset($info["geofield_latlon"])) {
+    $info["geofield_latlon"]["#process"] = [
+      [
+        'Drupal\masterportal\Element\MasterportalGeofieldLatLng',
+        'latlonProcess',
+      ],
+    ];
+    $info["geofield_latlon"]["#element_validate"] = [
+      [
+        'Drupal\masterportal\Element\MasterportalGeofieldLatLng',
+        'elementValidate',
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function masterportal_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['domain'])) {
+    /* @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+    $entity_types['domain']->setFormClass('default', 'Drupal\masterportal\Form\DomainEdit');
+    $entity_types['domain']->setFormClass('edit', 'Drupal\masterportal\Form\DomainEdit');
+    $entity_types['domain']->setFormClass('delete', 'Drupal\masterportal\Form\DomainDelete');
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function masterportal_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if (
+    $form_id === 'masterportal.settingsform.BasicSettings'
+    && Drupal::service('module_handler')->moduleExists('domain')
+    && $activeDomain = Drupal::service('domain.negotiator')->getActiveDomain()
+  ) {
+    if ($activeDomain->id() === 'default') {
+      $warning = Drupal::service('string_translation')
+        ->translate("This settings apply to all instances & proceedings!");
+      \Drupal::service('messenger')->addWarning($warning);
+    }
+  }
+}

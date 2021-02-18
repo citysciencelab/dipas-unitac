@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Domain Access module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Installs the default domain field on media types & taxonomy terms.
+ * We don't do this via schema.yml
+ * files because we have an unknown number of node types.
+ */
+function domain_dipas_install() {
+
+  /*
+   * Set the weight high to be ran after the masterportal module because we
+   * need to some hooks after the masterportal.
+   */
+
+  module_set_weight('domain_dipas', 15);
+
+
+  if (\Drupal::isConfigSyncing()) {
+    // Configuration is assumed to already be checked by the config importer
+    // validation events.
+    return;
+  }
+
+  $taxonomy_term_types = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->loadMultiple();
+  foreach ($taxonomy_term_types as $type => $info) {
+    $list[$type] = 'taxonomy_term';
+  }
+
+  $media_types = \Drupal::entityTypeManager()->getStorage('media_type')->loadMultiple();
+  foreach ($media_types as $type => $info) {
+    $list[$type] = 'media';
+  }
+
+  $comment_types = \Drupal::entityTypeManager()->getStorage('comment_type')->loadMultiple();
+  foreach ($comment_types as $type => $info) {
+    $list[$type] = 'comment';
+  }
+
+
+  $text['media'] = [
+    'name' => ' media',
+    'label' => 'Send to all affiliates',
+    'description' => 'Make this  media available on all domains.',
+  ];
+
+  $text['taxonomy_term'] = [
+    'name' => 'term',
+    'label' => 'Send to all affiliates',
+    'description' => 'Make this term available on all domains.',
+  ];
+  $text['comment'] = [
+    'name' => 'comment',
+    'label' => 'Send to all affiliates',
+    'description' => 'Make this comment available on all domains.',
+  ];
+
+  // Install our fields.
+  foreach ($list as $bundle => $entity_type) {
+    domain_access_confirm_fields($entity_type, $bundle, $text);
+  }
+}

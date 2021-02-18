@@ -1,0 +1,25 @@
+uuid: acf9cf80-a4a9-4ce7-89a4-83b7a0f043e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_domain_access
+    - taxonomy.vocabulary.categories
+id: taxonomy_term.categories.field_domain_access
+field_name: field_domain_access
+entity_type: taxonomy_term
+bundle: categories
+label: 'Domain Access'
+description: 'Select the affiliate domain(s) for this term'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: 'Drupal\domain_access\DomainAccessManager::getDefaultValue'
+settings:
+  handler: 'default:domain'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: weight
+      direction: ASC
+field_type: entity_reference

@@ -1,0 +1,16 @@
+uuid: b16ecbf7-a6fd-4326-b849-eeaf0f58f84c
+langcode: en
+status: true
+dependencies: {  }
+id: administer_categories
+title: 'Administer categories'
+route_name: entity.taxonomy_vocabulary.overview_form
+route_parameters:
+  taxonomy_vocabulary: e62ddb4b-e43e-45dd-8efa-2d0780698adf
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: 'menu_link_config:administer_categorization'
+weight: -50
+description: ''

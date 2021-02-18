@@ -1,0 +1,63 @@
+services:
+  dipas.config:
+    class: Drupal\dipas\Service\DipasConfig
+    arguments: ['@config.factory']
+  dipasconfig.api:
+    class: Drupal\dipas\Controller\DipasConfig
+    arguments: ['@dipas.config']
+  logger.channel.dipas:
+    class: Drupal\Core\Logger\LoggerChannels
+    factory: logger.factory:get
+    arguments: ['dipas']
+  plugin.manager.dipas.setting_sections:
+    class: Drupal\dipas\PluginSystem\SettingsSectionPluginManager
+    parent: default_plugin_manager
+    arguments: []
+  plugin.manager.dipas.response_key:
+    class: Drupal\dipas\PluginSystem\ResponseKeyPluginManager
+    parent: default_plugin_manager
+    arguments: []
+  plugin.manager.dipas.pds_response:
+    class: Drupal\dipas\PluginSystem\PDSResponsePluginManager
+    parent: default_plugin_manager
+    arguments: []
+  plugin.manager.dipas.sidebar_blocks:
+    class: Drupal\dipas\PluginSystem\SidebarBlockPluginManager
+    parent: default_plugin_manager
+    arguments: []
+  dipas.entity_services:
+    class: Drupal\dipas\Service\EntityServices
+    arguments: ['@entity_type.manager', '@entity_type.bundle.info', '@entity_field.manager', '@entity_type.repository', '@entity_display.repository', '@string_translation']
+  dipas.restapi:
+    class: Drupal\dipas\Service\RestApi
+    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@plugin.manager.dipas.response_key', '@request_stack', '@cache.data', '@cache_tags.invalidator', '@plugin.manager.dipas.pds_response']
+  dipas.cookie:
+    class: Drupal\dipas\Service\DipasCookie
+    arguments: ['@request_stack']
+  dipas.keywords:
+    class: Drupal\dipas\Service\DipasKeywords
+    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@http_client', '@database', '@dipas.entity_services']
+  dipas.nlp_services:
+    class: Drupal\dipas\Service\DipasNlpServices
+    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@http_client', '@state', '@dipas.entity_services', '@database', '@entity_type.manager', '@date.formatter', '@request_stack']
+  dipas.dataexport:
+    class: Drupal\dipas\Service\DataExport
+    arguments: ['@database', '@date.formatter', '@csv_serialization.encoder.csv', '@state', '@entity_type.manager']
+  dipas.anonymous_redirect_to_login:
+    class: Drupal\dipas\EventSubscriber\AnonymousRedirectToLogin
+    arguments: ['@current_user', '@request_stack']
+    tags:
+      - {name: event_subscriber}
+  dipas.remove_x_frame_options_in_dev:
+    class: Drupal\dipas\EventSubscriber\RemoveXFrameOptionForDev
+    arguments: []
+    tags:
+      - {name: event_subscriber}
+  dipas.dashboard:
+    class: Drupal\dipas\Controller\DashboardController
+    arguments: []
+  dipas.domain_change:
+    class: Drupal\dipas\EventSubscriber\DomainChange
+    arguments: ['@config.factory', '@entity_type.manager']
+    tags:
+      - {name: event_subscriber}

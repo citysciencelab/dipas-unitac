@@ -1,0 +1,15 @@
+uuid: 85b816ed-0fd8-4d2e-8dd5-ec6316259a8f
+langcode: en
+status: true
+dependencies: {  }
+name: conception_sm
+label: 'Conception SM'
+effects:
+  10a378e2-5fc9-4188-a487-c1fa4c350c22:
+    uuid: 10a378e2-5fc9-4188-a487-c1fa4c350c22
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 180
+      height: 143
+      anchor: center-center

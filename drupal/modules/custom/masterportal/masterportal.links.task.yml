@@ -1,0 +1,31 @@
+masterportal.settings.basics:
+  title: 'Basic settings'
+  route_name: masterportal.settings.basics
+  base_route: masterportal.settings.basics
+  weight: 10
+
+masterportal.settings.layerdefinitions:
+  title: 'Layer definitions'
+  route_name: masterportal.settings.layerdefinitions
+  base_route: masterportal.settings.basics
+  weight: 20
+
+masterportal.settings.layerstyles:
+  title: 'Layer styles'
+  route_name: masterportal.settings.layerstyles
+  base_route: masterportal.settings.basics
+  weight: 30
+
+masterportal.settings.instances:
+  title: 'Instance configurations'
+  route_name: masterportal.settings.instances
+  base_route: masterportal.settings.basics
+  weight: 40
+
+masterportal.settings.testpage:
+  title: 'Testpage'
+  route_name: masterportal.settings.testpage
+  base_route: masterportal.settings.basics
+  weight: 50
+  route_parameters:
+    masterportal_instance: 'thisTaskIsJustHereToKeepTheTabsVisibleOnTheTestpage'

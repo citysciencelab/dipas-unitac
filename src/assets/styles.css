@@ -1,0 +1,64 @@
+@import "https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css";
+@import "https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap";
+@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+}
+
+body, p, a {
+    font-family: Roboto, sans-serif;
+}
+
+body,
+#app {
+    overflow: hidden;
+}
+
+section.content {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#app.desktop section.content {
+    height: calc(100vh - 145px);
+    margin: 115px 0 0 0;
+    padding: 40px 50px 40px;
+}
+
+#app.desktop section.content.contributionmap.noFooterCreateButton {
+    overflow-y: auto;
+}
+
+#app.mobile section.content {
+    height: calc((var(--vh, 1vh) * 100) - 150px);
+    margin: 50px 0 0;
+    padding: 20px 16px 10px 18px;
+}
+
+#app.mobile section.content.noFooterCreateButton {
+    height: calc((var(--vh, 1vh) * 100) - 100px);
+}
+.dipas-primary {
+    color: #ffffff;
+    background-color: #E10019;
+}
+.btn.dipas-primary:hover {
+    color: #ffffff;
+}
+.dipas-primary :focus {
+    color: #ffffff;
+}
+.dipas-secondary{
+    color: #000000;
+    background-color: #E3E3E3;
+}
+h2 {
+    color: #003064;
+}

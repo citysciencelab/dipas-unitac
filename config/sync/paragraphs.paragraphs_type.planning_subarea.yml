@@ -1,0 +1,17 @@
+uuid: 9fbcbf24-4929-473b-a43b-b02d1e901bc0
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      structural: structural
+      content: '0'
+id: planning_subarea
+label: 'Planning subarea'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,51 @@
+uuid: 1f4b1e8a-2e93-4b46-87a6-b3bfaa68717b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_address
+    - node.type.appointment
+  module:
+    - address
+id: node.appointment.field_address
+field_name: field_address
+entity_type: node
+bundle: appointment
+label: Address
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    country_code: DE
+    langcode: de
+    organization: ''
+    address_line1: ''
+    address_line2: ''
+    postal_code: ''
+    locality: ''
+    given_name: null
+    additional_name: null
+    family_name: null
+    sorting_code: null
+    dependent_locality: null
+    administrative_area: null
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: hidden
+    additionalName:
+      override: hidden
+    familyName:
+      override: hidden
+    sortingCode:
+      override: hidden
+    dependentLocality:
+      override: hidden
+    administrativeArea:
+      override: hidden
+  fields: {  }
+field_type: address

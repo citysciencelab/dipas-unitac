@@ -1,0 +1,19 @@
+uuid: 5e9c2848-0e5d-4599-b9b5-17933104c63c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geodata
+    - node.type.contribution
+id: node.contribution.field_geodata
+field_name: field_geodata
+entity_type: node
+bundle: contribution
+label: Localization
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

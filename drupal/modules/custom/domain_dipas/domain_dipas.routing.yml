@@ -1,0 +1,41 @@
+domain.admin:
+  path: '/admin/config/user-interface/proceedings'
+  defaults:
+    _entity_list: 'domain'
+    _title: 'Proceedings'
+    _title_context: 'DIPAS'
+  requirements:
+    _custom_access: 'Drupal\domain\Access\DomainListCheck::viewDomainList'
+
+entity.domain.add:
+  path: '/admin/config/user-interface/proceedings/add'
+  defaults:
+    _entity_form: domain.edit
+    _title: 'Add proceeding'
+    _title_context: 'DIPAS'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_create_access: domain
+
+entity.domain.edit_form:
+  path: '/admin/config/user-interface/proceedings/{domain}'
+  defaults:
+    _entity_form: domain.edit
+    _title: 'Edit proceeding'
+    _title_context: 'DIPAS'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_access: domain.update
+
+entity.domain.delete_form:
+  path: '/admin/config/user-interface/proceedings/{domain}/delete'
+  defaults:
+    _entity_form: domain.delete
+    _title: 'Delete proceeding'
+    _title_context: 'DIPAS'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_access: domain.delete

@@ -1,0 +1,209 @@
+{
+  "FirstModal": {
+    "projctStartsAt": "Das Verfahren startet am {{projectStarts}} und endet am {{projectEnd}}.",
+    "projectRuns": "Das Verfahren läuft vom {{projectStarts}} bis zum {{projectEnd}}.",
+    "projectFinished": "Das Verfahren lief bis zum {{projectEnd}}.",
+    "infoButton": "Jetzt informieren",
+    "startButton": "Beitrag erstellen",
+    "conceptionsButton": "Entwürfe ansehen"
+  },
+  "Cookiebar": {
+    "title": "Wir verwenden Cookies!",
+    "linktext": "Datenschutzinformation",
+    "text": "Mit Klick auf \"Cookies akzeptieren\" stimmen Sie zu, dass Cookies gemäß unserer Cookie Policy",
+    "text_2ndLine": "auf dieser Webseite verwendet werden dürfen.",
+    "buttontext": "Cookies akzeptieren"
+  },
+  "ContributionList": {
+    "title": "Beitragsliste",
+    "noContributionsForCriteria": "Kein Beitrag entspricht den gewählten Kriterien",
+    "writeYourFirst": "Derzeit sind noch keine Beiträge vorhanden. Schreiben Sie den ersten Beitrag!",
+    "notBeenStarted": "Das Verfahren wurde noch nicht gestartet.",
+    "endsWithoutContributions": "Das Verfahren wurde ohne Beiträge beendet.",
+    "noContributions": "Keine weiteren Beiträge vorhanden",
+    "loadMore": "Weitere Beiträge laden",
+    "addNew": "Beitrag erstellen",
+    "ContributionListFilter": {
+      "filterOptions": "Filteroptionen",
+      "termSelectHeadlineCat": "Kategorie wählen",
+      "termSelectTitleCat": "Kategorie",
+      "termSelectTitleCatPlural": "Kategorien",
+      "termSelectHeadlineType": "Typ wählen",
+      "termSelectTitleType": "Typ",
+      "termSelectTitleTypePlural": "Typen",
+      "sortBy": "Sortieren nach:",
+      "filterChanges": "Die Filter wurden noch nicht angewendet",
+      "useFilter": "Filter anwenden",
+      "resetFilter": "Filter zurücksetzen",
+      "sortOptions": {
+        "date": "Datum",
+        "rating": "Bewertung",
+        "comments": "Kommentare",
+        "desc": "absteigend",
+        "asc": "aufsteigend"
+      },
+      "selection": {
+        "selected": "{{selected}} von {{count}} ausgewählt",
+        "all": "alle {{termTitlePlural}} werden angezeigt"
+      }
+    },
+    "ContributionListTeaser": {
+      "loading": "Lade ...",
+      "routeToEntry": "zum Beitrag",
+      "comments": "{{teaserComments}} Kommentare",
+      "comment": "{{teaserComments}} Kommentar"
+    }
+  },
+  "Contact": {
+    "headline": "Kontakt"
+  },
+  "CreateContributionModal": {
+    "cancel": "Abbrechen",
+    "backward": "Zurück",
+    "forward": "Weiter",
+    "complete": "Fertigstellen",
+    "StepIndicator": {
+      "content": "Inhalt",
+      "category": "Kategorie",
+      "type": "Typ",
+      "map": "Verorten",
+      "overview": "Übersicht"
+    },
+    "StepContents": {
+      "headline": "Inhalt",
+      "title": "Titel",
+      "text": "Text",
+      "remainingChars": "Sie haben noch {{remaining}} von {{maxlength}} Zeichen übrig."
+    },
+    "StepCategory": {
+      "headline": "Kategorie wählen",
+      "KeywordSelector": {
+        "headline": "Schlagworte",
+        "proposals": "Vorschläge:",
+        "placeholder": "Eigenes Schlagwort?",
+        "tag-placeholder": "Markieren Sie als neues Schlagwort",
+        "note": "Wir haben Ihnen Schlagworte empfohlen, damit andere Nutzer von Ihrem Beitrag profitieren und diesen finden können. Sie können die empfohlenen Schlagworte ablehnen oder eigene hinzufügen. Diese Funktion befindet sich aktuell noch in der Entwicklung."
+      }
+    },
+    "StepType": {
+      "headline": "Typ wählen",
+      "no_rubrics_text": "Eine Einteilung in Beitragstypen findet nicht statt!"
+    },
+    "StepMap": {
+      "headline": "Beitrag verorten",
+      "infotext_point": "Um einen Punkt zu setzen, klicken Sie an gewünschter Stelle in die Karte. Anschließend können Sie den gesetzten Punkt noch verschieben.",
+      "infotext_linestring": "Um eine Linie zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
+      "infotext_polygon": "Um ein Polygon zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
+      "geom_point": "Punkt",
+      "geom_linestring": "Linie",
+      "geom_polygon": "Polygon"
+    },
+    "StepOverview": {
+      "headline": "Übersicht",
+      "updateAltText": "... zum Bearbeiten bitte klicken.",
+      "keyword": "Schlagworte"
+    }
+  },
+  "ContributionDetails": {
+    "backToList": "Zurück zur Beitragsliste",
+    "comment": "kommentieren",
+    "oClock": "Uhr"
+  },
+  "ParagraphDivisionInPlanningSubareas": {
+    "Filter": {
+      "label": "Filter",
+      "optionAll": "Alle"
+    }
+  },
+  "ParagraphImage": {
+    "Tooltip": "im neuen Fenster öffnen"
+  },
+  "ConceptionDetails": {
+    "commentsFormHeadline": "Kommentieren"
+  },
+  "ConceptionDetailsSidebar": {
+    "headline": "Weitere Entwürfe"
+  },
+  "DownloadsBlock": {
+    "headline": "Downloads"
+  },
+  "NewsletterBlock": {
+    "headline": "Newsletter"
+  },
+  "ProjectPartnerBlock": {
+    "headline": "Projektpartner"
+  },
+  "RatingWidget": {
+    "already": "Dieser Beitrag wurde bereits von Ihnen bewertet.",
+    "acceptedCookies": "Cookies müssen akzeptiert werden, um bewerten zu können."
+  },
+  "CommentsForm": {
+    "remainingChars": "Sie haben noch {{remaining}} Zeichen übrig.",
+    "tooShort": "Ihr Kommentar ist zu kurz!",
+    "submitComment": "absenden",
+    "saved": "Ihr Kommentar wird gespeichert."
+  },
+  "CommentsList": {
+    "headline": "Kommentare",
+    "noComments": "Noch keine Kommentare vorhanden.",
+    "commentCount": "{{commentcount}} Kommentare",
+    "Comment": {
+      "meta": "{{created}} | Nr.{{commentCid}}",
+      "comment": "kommentieren",
+      "cancel": "abbrechen",
+      "reply": "Antworten",
+      "replyNoPlural": "Antworten an Nr. ",
+      "replyNo": "Antwort an Nr. "
+    }
+  },
+  "RelatedContributions": {
+    "headline": "Weitere Beiträge"
+  },
+  "DipasButtonText": {
+    "startEntry": "Beitrag erstellen",
+    "voteUp": "dafür",
+    "voteDown": "dagegen"
+  },
+  "Statistics": {
+    "headline": "Auswertungen",
+    "StatisticsTopNodeListComments": {
+      "headline": "Top 10 Beiträge nach Kommentaren"
+    },
+    "StatisticsTopNodeListRatings": {
+      "headline": "Top 10 Beiträge nach Bewertungen"
+    },
+    "StatisticsNumber": {
+      "headlineCountEntries": "Anzahl Beiträge",
+      "headlineCountComments": "Anzahl Kommentare"
+    },
+    "StatisticsDonut": {
+      "headlineCat": "Verteilung der Beiträge nach Kategorien",
+      "headlineType": "Verteilung der Beiträge nach Typ"
+    }
+  },
+  "Schedule": {
+    "headline": "Termine",
+    "nodeLength": "Derzeit gibt es keine anstehenden Termine oder Veranstaltungen.",
+    "Item": {
+      "topic": "Thema:",
+      "details": "Details",
+      "date": "Datum:"
+    }
+  },
+  "MaintenanceMessage": {
+    "headline": "Wartungsarbeiten"
+  },
+  "Survey": {
+    "title": "Umfrage",
+    "linkPrefix": "Unsere Umfrage finden Sie unter dem folgenden Link",
+    "linkText": "Zur Umfrage",
+    "disclaimer": "Wir verwenden für Umfragen das Tool Limesurvey. Sie verlassen bei Klick auf den Link unsere Webseite."
+  },
+  "ErrorMessages": {
+    "400": "Der Server konnte die Anfrage nicht verarbeiten.",
+    "403": "Der Zugriff auf die gewünschte Ressource wurde abgelehnt.",
+    "404": "Die gewünschte Seite konnte nicht gefunden werden.",
+    "409": "Die Daten konnten nicht gespeichert werden. Bitte laden Sie die Seite neu und fügen die Daten erneut hinzu.",
+    "unknown": "Ein unerwarteter Fehler ist aufgetreten."
+  }
+}

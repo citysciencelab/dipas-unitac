@@ -1,0 +1,18 @@
+uuid: 350a1137-2a5c-42d4-89f6-930299edcee1
+langcode: en
+status: true
+dependencies:
+  theme:
+    - dipas_admin_theme
+id: dipas_admin_theme_primareverwaltungsaktionen
+theme: dipas_admin_theme
+region: pre_content
+weight: 0
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primäre administrative Aufgaben'
+  provider: core
+  label_display: '0'
+visibility: {  }

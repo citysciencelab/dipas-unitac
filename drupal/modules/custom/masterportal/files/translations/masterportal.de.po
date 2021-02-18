@@ -1,0 +1,1743 @@
+﻿#
+# Translations for Module "LGV Masterportal" for language "Deutsch"
+#
+
+#: masterportal.info.yml:2
+msgid "Integrates the \"Masterportal\" into Drupal as a presentation layer as well as a field widget."
+msgstr "Integriert das \"Masterportal\" in Drupal sowohl als Präsentationsebene als auch als Feldwidget"
+
+#: masterportal.links.action.yml:3
+msgid "Add new instance"
+msgstr "Neue Instanz hinzufügen"
+
+#: masterportal.links.menu.yml:2
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.links.menu.yml:3
+msgid "Settings for the integration of a Masterportal map."
+msgstr "Einstellungen für die Integration einer Masterportal-Karte."
+
+#: masterportal.links.menu.yml:9
+msgid "Basic settings"
+msgstr "Grundeinstellungen"
+
+#: masterportal.links.menu.yml:16
+msgid "Layer definitions"
+msgstr "Fachdatenlayer-Definitionen"
+
+#: masterportal.links.menu.yml:23
+msgid "Layer styles"
+msgstr "Fachdatenlayer-Stile"
+
+#: masterportal.links.menu.yml:30
+msgid "Instance configurations"
+msgstr "Instanzkonfiguration"
+
+#: masterportal.links.task.yml:2
+msgid "Basic settings"
+msgstr "Grundeinstellungen"
+
+#: masterportal.links.task.yml:8
+msgid "Layer definitions"
+msgstr "Fachdatenlayer-Definitionen"
+
+#: masterportal.links.task.yml:14
+msgid "Layer styles"
+msgstr "Fachdatenlayer-Stile"
+
+#: masterportal.links.task.yml:20
+msgid "Instance configurations"
+msgstr "Instanzkonfiguration"
+
+#: masterportal.links.task.yml:26
+msgid "Testpage"
+msgstr "Testseite"
+
+#: masterportal.permissions.yml:2
+msgid "Access Masterportal configuration interface"
+msgstr "Zugriff auf die Masterportal-Konfigurationsoberfläche"
+
+#: masterportal.permissions.yml:3
+msgid "Basic permission to access the Masterportal configuration interface"
+msgstr "Grundberechtigung für den Zugriff auf die Masterportal-Konfigurationsoberfläche"
+
+#: masterportal.permissions.yml:5
+msgid "Administer Masterportal settings"
+msgstr "Masterportal-Einstellungen verwalten"
+
+#: masterportal.permissions.yml:6
+msgid "Permission to edit the HTML template and basic configuration of the Masterportal."
+msgstr "Berechtigung zum Bearbeiten der HTML-Vorlage und der Grundkonfiguration des Masterportals."
+
+#: masterportal.permissions.yml:8
+msgid "Create new Masterportal instances"
+msgstr "Neue Masterportal-Instanzen erstellen"
+
+#: masterportal.permissions.yml:9
+msgid "Permission to create new Masterportal instances."
+msgstr "Berechtigung zum Erstellen neuer Masterportal-Instanzen."
+
+#: masterportal.permissions.yml:11
+msgid "Edit any Masterportal instances"
+msgstr "Beliebige Masterportal-Instanzen bearbeiten"
+
+#: masterportal.permissions.yml:12
+msgid "Permission to edit any existing Masterportal instance."
+msgstr "Berechtigung zum Bearbeiten einer vorhandenen Masterportal-Instanz."
+
+#: masterportal.permissions.yml:14
+msgid "Delete any Masterportal instance"
+msgstr "Eine Masterportal-Instanz löschen"
+
+#: masterportal.permissions.yml:15
+msgid "Permission to delete any existing Masterportal instance (except protected)."
+msgstr "Berechtigung eine bestehende Masterportal-Instanz zu löschen (geschützte ausgenommen)."
+
+#: masterportal.permissions.yml:17
+msgid "Download Masterportal instances"
+msgstr "Masterportal-Instanzen herunterladen"
+
+#: masterportal.permissions.yml:18
+msgid "Permission to download a fully functional standalone Masterportal instance."
+msgstr "Berechtigung eine voll funktionierende eigenständige Masterportal-Instanz herunterzuladen."
+
+#: masterportal.routing.yml:4
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:5
+msgid "Defines the basic setting options for the Masterportal integration."
+msgstr "Definiert die Grundeinstellungen für die Masterportal-Integration."
+
+#: masterportal.routing.yml:13
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:14
+msgid "Defines the setting options for the layer styles configuration."
+msgstr "Definiert die grundlegenden Einstellungsoptionen für die Masterportal-Integration."
+
+#: masterportal.routing.yml:22
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:23
+msgid "Defines the layer settings."
+msgstr "Definiert die Fachdatenlayer-Einstellungen."
+
+#: masterportal.routing.yml:31
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:32
+msgid "Defines the instances."
+msgstr "Definiert die Instanzen."
+
+#: masterportal.routing.yml:41
+msgid "Add new Masterportal instance"
+msgstr "Eine neue Masterportal-Instanz hinzufügen"
+
+#: masterportal.routing.yml:49
+msgid "Edit Masterportal instance"
+msgstr "Eine Masterportal-Instanz bearbeiten"
+
+#: masterportal.routing.yml:57
+msgid "Delete Masterportal instance"
+msgstr "Eine Masterportal-Instanz löschen"
+
+#: masterportal.routing.yml:64
+msgid "Masterportal configuration"
+msgstr "Masterportal-Konfiguration"
+
+#: masterportal.routing.yml:65
+msgid "Test page for a given portal configuration."
+msgstr "Testseite für eine bestimmte Portal-Konfiguration."
+
+#: masterportal.routing.yml:80
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:97
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:117
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: masterportal.routing.yml:139
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: src/Element/MasterportalGeofieldLatLng.php:65
+msgid "The field %field is required! Please select a location on the map!"
+msgstr "Das Feld %field ist erforderlich! Bitte wählen Sie einen Ort auf der Karte aus!"
+
+#: src/Element/MasterportalGeofieldLatLng.php:106
+msgid "Please check your input at field %field: @suberrors"
+msgstr "Bitte überprüfen Sie Ihre Eingabe im Feld %field: @suberrors"
+
+#: src/Entity/MasterportalInstance.php:141
+msgctxt "Masterportal"
+msgid "Default"
+msgstr "Standard"
+
+#: src/Entity/MasterportalInstance.php:142
+msgctxt "Masterportal"
+msgid "Touch table"
+msgstr "Berührungsempfindlicher Tisch"
+
+#: src/Entity/MasterportalInstance.php:143
+msgctxt "Masterportal"
+msgid "No menu bar"
+msgstr "Keine Menüzeile"
+
+#: src/Entity/MasterportalInstance.php:24
+msgid "Masterportal instance"
+msgstr "Masterportal-Instanz"
+
+#: src/Form/BasicSettings.php:45
+msgctxt "Masterportal"
+msgid "HTML structure"
+msgstr "HTML-Struktur"
+
+#: src/Form/BasicSettings.php:47
+msgctxt "Masterportal"
+msgid "Insert the HTML structure to use when a Masterportal map should get integrated. @availabletokens"
+msgstr "Die HTML-Struktur, mit der das Masterportal eingebunden wird. @availabletokens"
+
+#: src/Form/BasicSettings.php:70
+msgctxt "Masterportal"
+msgid "Basic Javascript configuration"
+msgstr "Grundlegende JavaScript-Konfiguration"
+
+#: src/Form/BasicSettings.php:72
+msgctxt "Masterportal"
+msgid "Insert the contents of the Javascript settings file. Will automatically be transformed to JSON format. @availabletokens"
+msgstr "Geben Sie den Inhalt der JavaScript-Konfigurationsdatei ein. Wird automatisch in JSON umgewandelt. @availabletokens"
+
+#: src/Form/BasicSettings.php:89
+msgctxt "Masterportal"
+msgid "Service definitions"
+msgstr "Dienste"
+
+#: src/Form/BasicSettings.php:91
+msgctxt "Masterportal"
+msgid "Local path to the service definition file. File must exist and contain valid JSON. @availabletokens"
+msgstr "Lokaler Pfad zur Datei mit Dienst-Informationen. Die Datei muss existieren und valides JSON enthalten. @availabletokens"
+
+#: src/Form/BasicSettings.php:193
+msgctxt "Masterportal"
+msgid "The paths to the configuration files are missing!"
+msgstr "Die Pfade zu den Konfigurationsdateien fehlen!"
+
+#: src/Form/ElementValidateCoordinatesTrait.php:79
+msgid "The \"@element\" element has to be checked for valid JSON data first!"
+msgstr "Das Element \"@element\" muss zuerst auf gültige JSON-Daten überprüft werden!"
+
+#: src/Form/ElementValidateCoordinatesTrait.php:95
+msgid "The \"@element\" element does not contain an array."
+msgstr "Das \"@Element\"-Element enthält kein Array."
+
+#: src/Form/ElementValidateCoordinatesTrait.php:107
+msgid "The \"@element\" element does not contain @count coordinate values."
+msgstr "Das Element \"@element\" enthält keine @count Koordinatenwerte."
+
+#: src/Form/ElementValidateCoordinatesTrait.php:127
+msgid "The \"@element\" element definition does not contain @count integer values."
+msgstr "Die \"@element\"-Elementdefinition enthält keine ganzzahligen @count Werte."
+
+#: src/Form/ElementValidateFileExistsTrait.php:46
+msgid "The remote address given in %element returned a %http_status status code!"
+msgstr "Die in %element angegebene externe Adresse gab einen %http_status Statuscode zurück!"
+
+#: src/Form/ElementValidateFileExistsTrait.php:72
+msgid "The file path given in %element does not exist!"
+msgstr "Der in %element angegebene Dateipfad existiert nicht!"
+
+#: src/Form/LayerStyles.php:66
+msgctxt "Masterportal"
+msgid "Layer styles"
+msgstr "Ebenenstile"
+
+#: src/Form/LayerStyles.php:92
+msgctxt "Masterportal"
+msgid "Style ID"
+msgstr "Stil ID"
+
+#: src/Form/LayerStyles.php:93
+msgctxt "Masterportal"
+msgid "The layer ID this styleset is for."
+msgstr "Die Layer ID, zu der diese Stildefinition gehört."
+
+#: src/Form/LayerStyles.php:98
+msgctxt "Masterportal"
+msgid "Rules"
+msgstr "Regeln"
+
+#: src/Form/LayerStyles.php:119
+msgctxt "Masterportal"
+msgid "Conditions"
+msgstr "Bedingungen"
+
+#: src/Form/LayerStyles.php:124
+msgctxt "Masterportal"
+msgid "Style"
+msgstr "Darstellung"
+
+#: src/Form/LayerStyles.php:148
+msgctxt "Masterportal"
+msgid "Property name"
+msgstr "Eigenschaftsname"
+
+#: src/Form/LayerStyles.php:149
+msgctxt "Masterportal"
+msgid "You may use dot syntax to address nested properties."
+msgstr "Sie können die Punktsyntax verwenden, um verschachtelte Eigenschaften anzusprechen."
+
+#: src/Form/LayerStyles.php:154
+msgctxt "Masterportal"
+msgid "Property value"
+msgstr "Eigenschaftswert"
+
+#: src/Form/LayerStyles.php:163
+msgctxt "Masterportal"
+msgid "Style property"
+msgstr "Stileigenschaft"
+
+#: src/Form/LayerStyles.php:168
+msgctxt "Masterportal"
+msgid "Property value"
+msgstr "Eigenschaftswert"
+
+#: src/Form/LayerStyles.php:173
+msgctxt "Masterportal"
+msgid "Property value is in JSON format."
+msgstr "Eigenschaftswert ist im JSON-Format."
+
+#: src/Form/Layerconfiguration.php:66
+msgctxt "Masterportal"
+msgid "Static layer definitions"
+msgstr "Dienstdefinitionen"
+
+#: src/Form/Layerconfiguration.php:68
+msgctxt "Masterportal"
+msgid "Path to the static layer definition file. Can be remote (location starts with http). File must exist and contain valid JSON. @availabletokens"
+msgstr "Pfad zur statischen Ebenendefinitionsdatei. Kann extern sein (Speicherort beginnt mit http). Die Datei muss vorhanden sein und gültiges JSON enthalten. @verfügbareToken"
+
+#: src/Form/Layerconfiguration.php:81
+msgctxt "Masterportal"
+msgid "Custom layer definitions in JSON format"
+msgstr "Benutzerdefinierte Layerdefinitionen im JSON-Format"
+
+#: src/Form/Layerconfiguration.php:83
+msgctxt "Masterportal"
+msgid "Insert custom layer definitions in a valid JSON format defining the custom layers to integrate in a Masterportal map. @availabletokens"
+msgstr "Geben Sie benutzerdefinierte Layerdefinitionen in validem JSON-Format ein, um sie in einer Masterportal-Karte integrieren zu können. @availabletokens"
+
+#: src/Form/Layerconfiguration.php:101
+msgctxt "Masterportal"
+msgid "Click the @testlink to get a preview of this feed in a new browser tab."
+msgstr "Klicken Sie auf den @testlink, um eine Vorschau der Datenquelle in einem neuen Browsertab zu sehen."
+
+#: src/Form/MasterportalInstanceDeleteForm.php:78
+msgctxt "Masterportal"
+msgid "Are you sure you want to delete the instance configuration \"%name\"?"
+msgstr "Sind Sie sicher, dass Sie die Instanzkonfiguration \"%name\" löschen wollen?"
+
+#: src/Form/MasterportalInstanceDeleteForm.php:97
+msgctxt "Masterportal"
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/Form/MasterportalInstanceDeleteForm.php:129
+msgctxt "Masterportal"
+msgid "Masterportal instance \"%name\" has been deleted."
+msgstr "Masterportal-Instanz \"%name\" wurde gelöscht."
+
+#: src/Form/MasterportalInstanceEditForm.php:168
+msgctxt "Masterportal"
+msgid "Administrative label"
+msgstr "Administrative Bezeichnung"
+
+#: src/Form/MasterportalInstanceEditForm.php:188
+msgctxt "Masterportal"
+msgid "Hidden"
+msgstr "Verbergen"
+
+#: src/Form/MasterportalInstanceEditForm.php:189
+msgctxt "Masterportal"
+msgid "Should this instance be hidden on the instances page?"
+msgstr "Soll diese Instanz auf der Übersichtsseite verborgen werden?"
+
+#: src/Form/MasterportalInstanceEditForm.php:205
+msgctxt "Masterportal"
+msgid "Detailed configuration section"
+msgstr "Detaillierter Konfigurationsabschnitt"
+
+#: src/Form/MasterportalInstanceEditForm.php:211
+msgctxt "Masterportal"
+msgid "Everything <b>except the map layers</b> is pre-configured in this instance and does not need to be set. Only change settings that need to match your requirements."
+msgstr "Alles <b>mit Ausnahme der Kartenebenen</b> ist vorkonfiguriert in dieser Instanz und benötigt keine initiale Konfiguration. Ändern Sie nur Einstellungen, um diese Instanz an Ihre Anforderungen anzupassen."
+
+#: src/Form/MasterportalInstanceEditForm.php:291
+msgctxt "Masterportal"
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: src/Form/MasterportalInstanceEditForm.php:298
+msgctxt "Masterportal"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/Form/MasterportalInstanceEditForm.php:387
+msgctxt "Masterportal"
+msgid "Instance %instance was successfully %action."
+msgstr "Instanz %instance wurde erfolgreich %action."
+
+#: src/Form/MasterportalInstanceEditForm.php:392
+msgctxt "Masterportal"
+msgid "updated"
+msgstr "geändert"
+
+#: src/Form/MasterportalSettingsBase.php:160
+msgctxt "Masterportal"
+msgid "Cancel changes and reload"
+msgstr "Änderungen verwerfen und neu laden"
+
+#: src/Form/MultivalueRowTrait.php:105
+msgid "Remove row"
+msgstr "Reihe entfernen"
+
+#: src/Form/MultivalueRowTrait.php:142
+msgid "Weight"
+msgstr "Gewichtung"
+
+#: src/GlyphiconTrait.php:129
+msgctxt "Masterportal"
+msgid "Glyphicon"
+msgstr "Glyphicon"
+
+#: src/ListBuilder/MasterportalInstances.php:180
+msgctxt "Masterportal"
+msgid "Show hidden entities"
+msgstr "Verborgene Instanzen anzeigen"
+
+#: src/ListBuilder/MasterportalInstances.php:195
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/ListBuilder/MasterportalInstances.php:196
+msgctxt "Masterportal"
+msgid "Owner"
+msgstr "Eigentümer"
+
+#: src/ListBuilder/MasterportalInstances.php:197
+msgctxt "Masterportal"
+msgid "Layers"
+msgstr "Layer"
+
+#: src/ListBuilder/MasterportalInstances.php:224
+msgctxt "Masterportal"
+msgid "@count initially visible"
+msgstr "@count initial sichtbar"
+
+#: src/ListBuilder/MasterportalInstances.php:222
+msgctxt "Masterportal"
+msgid "1 foreground layer"
+msgid_plural "@count foreground layers"
+msgstr[0] "1 Vordergrundebene"
+msgstr[1] "@count Hintergrundebenen"
+
+#: src/ListBuilder/MasterportalInstances.php:223
+msgctxt "Masterportal"
+msgid "1 background layer"
+msgid_plural "@count background layers"
+msgstr[0] "1 Hintergrundebene"
+msgstr[1] "@count Hintergrundebenen"
+
+#: src/Plugin/Block/MasterportalBlock.php:108
+msgctxt "Masterportal"
+msgid "Masterportal instance"
+msgstr "Masterportal-Instanz"
+
+#: src/Plugin/Block/MasterportalBlock.php:109
+msgctxt "Masterportal"
+msgid "The instance of the Masterportal to use for the field output."
+msgstr "Die Instanz des Masterportals, die zur Feldausgabe verwendet wird."
+
+#: src/Plugin/Block/MasterportalBlock.php:116
+msgctxt "Masterportal"
+msgid "Map width"
+msgstr "Kartenbreite"
+
+#: src/Plugin/Block/MasterportalBlock.php:117
+msgctxt "Masterportal"
+msgid "The width the map gets integrated in."
+msgstr "Die Breite, in der die Karte integriert wird."
+
+#: src/Plugin/Block/MasterportalBlock.php:131
+msgctxt "Masterportal"
+msgid "Unit"
+msgstr "Einheit"
+
+#: src/Plugin/Block/MasterportalBlock.php:132
+msgctxt "Masterportal"
+msgid "Is the width value stated in pixel or percent?"
+msgstr "Ist die Breitenangabe in Pixel oder Prozent angegeben?"
+
+#: src/Plugin/Block/MasterportalBlock.php:136
+msgctxt "Masterportal"
+msgid "Percent"
+msgstr "Prozent"
+
+#: src/Plugin/Block/MasterportalBlock.php:137
+msgctxt "Masterportal"
+msgid "Pixel"
+msgstr "Pixel"
+
+#: src/Plugin/Block/MasterportalBlock.php:146
+msgctxt "Masterportal"
+msgid "Aspect ratio"
+msgstr "Seitenverhältnis"
+
+#: src/Plugin/Block/MasterportalBlock.php:147
+msgctxt "Masterportal"
+msgid "The aspect ratio the map gets integrated in."
+msgstr "Das Seitenverhältnis, in dem die Karte integriert wird."
+
+#: src/Plugin/Block/MasterportalBlock.php:25
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: src/Plugin/Field/FieldFormatter/InlineMasterportal.php:21
+msgid "Masterportal (inline)"
+msgstr "Masterportal (inline)"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:125
+msgctxt "Masterportal"
+msgid "Masterportal instance"
+msgstr "Masterportal-Instanz"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:126
+msgctxt "Masterportal"
+msgid "The instance of the Masterportal to use for the field output."
+msgstr "Die Instanz des Masterportals, die zur Feldausgabe verwendet wird."
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:133
+msgctxt "Masterportal"
+msgid "Initial zoom level"
+msgstr "Initiale Zoomstufe"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:141
+msgctxt "Masterportal"
+msgid "Hide other contributions"
+msgstr "Andere Beiträge ausblenden"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:142
+msgctxt "Masterportal"
+msgid "If activated, shows only the marker of the current node in the map."
+msgstr "Wenn aktiviert, werden andere Beiträge als der aktuelle in der Kartendarstellung ausgeblendet."
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:148
+msgctxt "Masterportal"
+msgid "Map width"
+msgstr "Kartenbreite"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:149
+msgctxt "Masterportal"
+msgid "The width the map gets integrated in."
+msgstr "Die Breite, in der die Karte integriert wird."
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:163
+msgctxt "Masterportal"
+msgid "Unit"
+msgstr "Einheit"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:164
+msgctxt "Masterportal"
+msgid "Is the width value stated in pixel or percent?"
+msgstr "Ist die Breitenangabe in Pixel oder Prozent angegeben?"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:168
+msgctxt "Masterportal"
+msgid "Percent"
+msgstr "Prozent"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:169
+msgctxt "Masterportal"
+msgid "Pixel"
+msgstr "Pixel"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:178
+msgctxt "Masterportal"
+msgid "Aspect ratio"
+msgstr "Seitenverhältnis"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:179
+msgctxt "Masterportal"
+msgid "The aspect ratio the map gets integrated in."
+msgstr "Das Seitenverhältnis, in dem die Karte integriert wird."
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:194
+msgctxt "Masterportal"
+msgid "Masterportal instance: @instance"
+msgstr "Masterportal-Instanz: @instance"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:195
+msgctxt "Masterportal"
+msgid "Map width: @width@unit"
+msgstr "Kartenbreite: @width@unit"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:196
+msgctxt "Masterportal"
+msgid "Aspect ratio: @aspect_ratio"
+msgstr "Seitenverhältnis: @aspect_ratio"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:197
+msgctxt "Masterportal"
+msgid "Initial zoom level: @zoom"
+msgstr "Initiale Zoomstufe: @zoom"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:199
+msgctxt "Masterportal"
+msgid "Other contributions: @others"
+msgstr "Andere Beiträge: @others"
+
+#: src/Plugin/Field/FieldFormatter/MasterportalFormatter.php:24
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: src/Plugin/Field/FieldWidget/MasterportalGeofieldWidget.php:68
+msgctxt "Masterportal"
+msgid "Click in the map to set a location."
+msgstr "Klicken Sie in die Karte, um einen Ort festzulegen."
+
+#: src/Plugin/Field/FieldWidget/MasterportalGeofieldWidget.php:19
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: src/Plugin/Field/FieldWidget/MasterportalTextfieldWidget.php:99
+msgctxt "Masterportal"
+msgid "Select the type of drawing you want to make"
+msgstr "Wählen Sie die Zeichnungsart, die Sie machen wollen"
+
+#: src/Plugin/Field/FieldWidget/MasterportalTextfieldWidget.php:102
+msgctxt "Masterportal"
+msgid "Point"
+msgstr "Punkt"
+
+#: src/Plugin/Field/FieldWidget/MasterportalTextfieldWidget.php:103
+msgctxt "Masterportal"
+msgid "Line"
+msgstr "Linie"
+
+#: src/Plugin/Field/FieldWidget/MasterportalTextfieldWidget.php:104
+msgctxt "Masterportal"
+msgid "Area"
+msgstr "Fläche"
+
+#: src/Plugin/Field/FieldWidget/MasterportalTextfieldWidget.php:19
+msgid "Masterportal"
+msgstr "Masterportal"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:115
+msgid "Masterportal instance"
+msgstr "Masterportal-Instanz"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:116
+msgid "Select the Masterportal instance that will be used for this field."
+msgstr "Wählen Sie die Masterportal-Instanz, die für dieses Feld genutzt werden soll."
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:124
+msgid "Map width"
+msgstr "Kartenbreite"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:125
+msgid "The width the map gets integrated in."
+msgstr "Die Breite, die für die Karte zur Verfügung steht."
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:139
+msgid "Unit"
+msgstr "Einheit"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:140
+msgid "Is the width value stated in pixel or percent?"
+msgstr "Ist der Breiten-Wert in Pixel oder Prozent angegeben?"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:144
+msgid "Percent"
+msgstr "Prozent"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:145
+msgid "Pixel"
+msgstr "Pixel"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:154
+msgid "Aspect ratio"
+msgstr "Seitenverhältnis"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:155
+msgid "The aspect ratio the map gets integrated in."
+msgstr "Das Seitenverhältnis, das für die Kartenintegration vorgesehen ist."
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:162
+msgid "Editing zoom level"
+msgstr "Zoomstufen bearbeiten"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:163
+msgid "The zoom level to use when editing existing content."
+msgstr "Die bei der Bearbeitung vorhandener Inhalte zu verwendende Zoomstufe."
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:178
+msgid "Map instance: @instance"
+msgstr "Karteninstanz: @instance"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:179
+msgid "Map width: @width@unit"
+msgstr "Kartenbreite: @width@unit"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:180
+msgid "Aspect ratio: @aspect_ratio"
+msgstr "Seitenverhältnis: @aspect_ratio"
+
+#: src/Plugin/Field/FieldWidget/MasterportalWidgetTrait.php:181
+msgid "Editing zoom level is @editingZoomLevel"
+msgstr "Die Bearbeitung der Zoomstufe ist @editingZoomLevel"
+
+#: src/Plugin/Masterportal/Controls/Attributions.php:14
+msgid "Display layer attributions"
+msgstr "Darstellung von Ebenen-Attributen"
+
+#: src/Plugin/Masterportal/Controls/Attributions.php:15
+msgid "Defines if layer attribution texts should be shown or not."
+msgstr "Definiert ob Ebenen-Attributstexte gezeigt werden sollen oder nicht."
+
+#: src/Plugin/Masterportal/Controls/ButtonOblique.php:14
+msgid "Display oblique aerial images"
+msgstr "Schrägluftbilder anzeigen"
+
+#: src/Plugin/Masterportal/Controls/ButtonOblique.php:15
+msgid "Control element that toggles the display of the Masterportal angled aerial images."
+msgstr "Steuerelement, das die Perspektive der Schrägluftbilder des Masterportals umschaltet."
+
+#: src/Plugin/Masterportal/Controls/Freeze.php:14
+msgid "Freeze"
+msgstr "Einfrieren"
+
+#: src/Plugin/Masterportal/Controls/Freeze.php:15
+msgid "Control element that freezes the display of the Masterportal in it's current state."
+msgstr "Steuerelement, das die Anzeige des Masterportals in seinem aktuellen Zustand einfriert."
+
+#: src/Plugin/Masterportal/Controls/Fullscreen.php:14
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#: src/Plugin/Masterportal/Controls/Fullscreen.php:15
+msgid "Control element that toggles the display of the Masterportal to full screen."
+msgstr "Steuerelement, das die Anzeige des Masterportals auf Vollbild umschaltet."
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:55
+msgctxt "Masterportal"
+msgid "Use setMarker (only for GeofieldLatLonWidgets)?"
+msgstr "'setMarker' benutzen (nur für Felder mit GeofieldLatLonWidgets)"
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:56
+msgctxt "Masterportal"
+msgid "If this Masterportal is used in conjunction with a Geofield, check this option."
+msgstr "Wenn das Masterportal mit einem Geofield verwendet wird, aktivieren Sie diese Option."
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:61
+msgctxt "Masterportal"
+msgid "Center the map around a marker set"
+msgstr "Karte an Marker zentrieren"
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:62
+msgctxt "Masterportal"
+msgid "If set, the map will automatically re-center itself around a marker placed on the map."
+msgstr "Wenn aktiviert, wird die Karte automatisch um einen durch klicken/tippen auf die Karte gesetzten Marker zentriert."
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:16
+msgid "Use the Masterportal as an input interface"
+msgstr "Verwenden Sie das Masterportal als Eingabeschnittstelle"
+
+#: src/Plugin/Masterportal/Controls/InputWidgetMap.php:17
+msgid "Configures the actual instance in a way that it can be used as an input interface."
+msgstr "Konfiguriert die aktuelle Instanz so, dass sie als Eingabeschnittstelle verwendet werden kann."
+
+#: src/Plugin/Masterportal/Controls/MousePosition.php:14
+msgid "Display mouse position"
+msgstr "Mausposition anzeigen"
+
+#: src/Plugin/Masterportal/Controls/MousePosition.php:15
+msgid "Control element that toggles the display of the mouse coordinates."
+msgstr "Steuerelement, das die Anzeige der Maus-Koordinaten umschaltet."
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:55
+msgctxt "Masterportal"
+msgid "Use the user\'s location."
+msgstr "Den Standort des Benutzers verwenden."
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:56
+msgctxt "Masterportal"
+msgid "Should the map focus on the user\'s location?"
+msgstr "Soll sich die Karte auf den Standort des Benutzers konzentrieren?"
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:58
+msgctxt "Masterportal"
+msgid "Do not use the location"
+msgstr "Ort nicht verwenden"
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:59
+msgctxt "Masterportal"
+msgid "Focus the location on startup"
+msgstr "Ort beim initialen Kartenaufbau verwenden"
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:60
+msgctxt "Masterportal"
+msgid "Always focus on the location"
+msgstr "Immer auf den Ort zentrieren"
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:16
+msgid "Utilize user location"
+msgstr "Benutzerstandort verwenden"
+
+#: src/Plugin/Masterportal/Controls/Orientation.php:17
+msgid "Defines if the map should focus on the user location or not."
+msgstr "Definiert, ob die Karte auf den Standort des Benutzers fokussiert werden soll oder nicht."
+
+#: src/Plugin/Masterportal/Controls/Orientation3D.php:14
+msgid "Display north pointing arrow"
+msgstr "Nordpfeil anzeigen"
+
+#: src/Plugin/Masterportal/Controls/Orientation3D.php:15
+msgid "Control element that provides a control structure that points north all the time."
+msgstr "Kontrollelement, das eine Kontrollstruktur bereitstellt, die immer nach Norden zeigt."
+
+#: src/Plugin/Masterportal/Controls/Overviewmap.php:66
+msgctxt "Masterportal"
+msgid "Resolution of the overviewmap."
+msgstr "Auflösung der Übersichtskarte."
+
+#: src/Plugin/Masterportal/Controls/Overviewmap.php:71
+msgctxt "Masterportal"
+msgid "Layer to be shown on the overviewmap."
+msgstr "Kartenebene, die in der Übersichtskarte gezeigt werden soll."
+
+#: src/Plugin/Masterportal/Controls/Overviewmap.php:77
+msgctxt "Masterportal"
+msgid "Should the overviewmap be shown initially?"
+msgstr "Soll die Übersichtskarte standardmäßig gezeigt werden?"
+
+#: src/Plugin/Masterportal/Controls/Overviewmap.php:16
+msgid "Display overview map"
+msgstr "Übersichtskarte anzeigen"
+
+#: src/Plugin/Masterportal/Controls/Overviewmap.php:17
+msgid "Defines if an overview map should be shown or not."
+msgstr "Definiert, ob eine Übersichtskarte angezeigt werden soll oder nicht."
+
+#: src/Plugin/Masterportal/Controls/ThreeDimensional.php:14
+msgid "3D"
+msgstr "3D"
+
+#: src/Plugin/Masterportal/Controls/ThreeDimensional.php:15
+msgid "3D Control element."
+msgstr "3D-Steuerelement."
+
+#: src/Plugin/Masterportal/Controls/TotalView.php:14
+msgid "Reset viewport"
+msgstr "Ansichtsfenster zurücksetzen"
+
+#: src/Plugin/Masterportal/Controls/TotalView.php:15
+msgid "Resets the viewport of the Masterportal to it's initial state."
+msgstr "Setzt den Viewport des Masterportals in seinen Anfangszustand zurück."
+
+#: src/Plugin/Masterportal/Controls/Zoom.php:14
+msgid "Zoom controls"
+msgstr "Zoom-Steuerelemente"
+
+#: src/Plugin/Masterportal/Controls/Zoom.php:15
+msgid "Control element that toggles the display of the zoom control elements."
+msgstr "Steuerelement, das die Anzeige der Zoom-Steuerelemente umschaltet."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/BackgroundLayerSettings.php:14
+msgid "Background layer"
+msgstr "Hintergrundebene"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/BackgroundLayerSettings.php:15
+msgid "The background layer configuration for the Masterportal instance."
+msgstr "Die Konfiguration der Hintergrundebene für die Masterportal-Instanz."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:79
+msgctxt "Masterportal"
+msgid "UI style"
+msgstr "Darstellung der Benutzeroberfläche"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:80
+msgctxt "Masterportal"
+msgid "Choose the style of the map when it is integrated."
+msgstr "Wählen Sie die Art der Benutzeroberfläche für die Kartenintegration."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:88
+msgctxt "Masterportal"
+msgid "Tree type"
+msgstr "Typ des Themenbaums"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:89
+msgctxt "Masterportal"
+msgid "Choose the style of the menu tree."
+msgstr "Wählen Sie die Art des Themenbaums."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:91
+msgctxt "Masterportal"
+msgid "Default"
+msgstr "Standard"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:92
+msgctxt "Masterportal"
+msgid "Light"
+msgstr "Minimal"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:93
+msgctxt "Masterportal"
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:101
+msgctxt "Masterportal"
+msgid "Scale line"
+msgstr "Maßstab"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:102
+msgctxt "Masterportal"
+msgid "Should a scale line be integrated?"
+msgstr "Soll ein Maßstab integriert werden?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:108
+msgctxt "Masterportal"
+msgid "Add simpleMap links?"
+msgstr "simpleMap-Links hinzufügen?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:109
+msgctxt "Masterportal"
+msgid "Should a simpleMap URL be added to the \"Save selection\" dialog? (Not available on tree type \"light\")"
+msgstr "Sollen simpleMap-Links zum Auswahl speichern\"-Dialog hinzugefügt werden? (Nicht verfügbar bei Baumtyp Minimal\")"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:123
+msgctxt "Masterportal"
+msgid "Path to a custom background image"
+msgstr "Pfad zum benutzerdefinierten Hintergrundbild"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:125
+msgctxt "Masterportal"
+msgid "Leave blank if no custom background image should be used. @availabletokens"
+msgstr "Frei lassen, wenn kein benutzerdefiniertes Hintergrundbild eingebunden werden soll. @availabletokens"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:16
+msgid "Design settings"
+msgstr "Design-Einstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/DesignSettings.php:17
+msgid "Settings related to the design of the Masterportal."
+msgstr "Einstellungen im Zusammenhang mit dem Design des Masterportals."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ForegroundLayerSection.php:14
+msgid "Foreground layer"
+msgstr "Vordergrundebene"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ForegroundLayerSection.php:15
+msgid "The data layer configuration for the Masterportal instance."
+msgstr "Die Datenlayer-Konfiguration für die Masterportal-Instanz."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:112
+msgctxt "Masterportal"
+msgid "Layer ID"
+msgstr "Layer-ID"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:124
+msgctxt "Masterportal"
+msgid "Layer name"
+msgstr "Name des Layers"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:134
+msgctxt "Masterportal"
+msgid "Initially visible"
+msgstr "Initial sichtbar"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:142
+msgctxt "Masterportal"
+msgid "Layer attribution"
+msgstr "Layerbeschreibung"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:148
+msgctxt "Masterportal"
+msgid "GFI theme"
+msgstr "GFI Darstellung"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:149
+msgctxt "Masterportal"
+msgid "Select the GFI theme to use for this layer."
+msgstr "Wählen Sie die Darstellung der Feature-Info für diese Kartenebene."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:155
+msgctxt "Masterportal"
+msgid "Custom JSON properties"
+msgstr "Benutzerdefinierte JSON-Eigenschaften"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:156
+msgctxt "Masterportal"
+msgid "Enter valid JSON data to override specific layer properties. Use with caution!"
+msgstr "Valides JSON eingeben, um Layereigenschaften zu überschreiben. Mit Vorsicht verwenden!"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:173
+msgctxt "Masterportal"
+msgid "Choose layer to add"
+msgstr "Wählen Sie den Layer zum hinzufügen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/LayerSectionBase.php:205
+msgctxt "Masterportal"
+msgid "The layer requested is already in the layer stack!"
+msgstr "Der ausgewählte Layer befindet sich bereits in der Konfiguration!"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:103
+msgctxt "Masterportal"
+msgid "Starting center & zoom level"
+msgstr "Startmittelpunkt und Zoomstufe"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:108
+msgctxt "Masterportal"
+msgid "Use the map to set the initial zoom level and starting center point of your instance."
+msgstr "Benutzen Sie die Karte, um die initiale Zoomstufe und den Kartenmittelpunkt dieser Instanz einzustellen."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:136
+msgctxt "Masterportal"
+msgid "Center coordinates"
+msgstr "Mittelpunktkoordinaten"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:138
+msgctxt "Masterportal"
+msgid "The @projection (UTM) center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values."
+msgstr "Die initialen @projection (UTM) Mittelpunktkoordinaten. Die Eingabe muss in validem JSON erfolgen als Array aus 2 ganzzahligen Werten."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:150
+msgctxt "Masterportal"
+msgid "Initial zoom level"
+msgstr "Initiale Zoomstufe"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:151
+msgctxt "Masterportal"
+msgid "The initial zoom level that map gets displayed in."
+msgstr "Die Zoomstufe für die initiale Darstellung der Karte."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:167
+msgctxt "Masterportal"
+msgid "Map scale options"
+msgstr "Kartenskalierungseinstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:173
+msgctxt "Masterportal"
+msgid "The scale options the map utilizes."
+msgstr "Die Skalierungsstufen, die diese Instanz verwendet."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:196
+msgctxt "Masterportal"
+msgid "Map resolution"
+msgstr "Kartenauflösung"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:209
+msgctxt "Masterportal"
+msgid "Map scale"
+msgstr "Kartenskalierung"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:217
+msgctxt "Masterportal"
+msgid "Zoom level"
+msgstr "Zoomstufe"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:18
+msgid "Map settings"
+msgstr "Karten-Einstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:19
+msgid "Settings related to the map integration of the Masterportal."
+msgstr "Einstellungen im Zusammenhang mit der Kartenintegration des Masterportals."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:94
+msgctxt "Masterportal"
+msgid "Tree options"
+msgstr "Themenbaumoptionen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:98
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:107
+msgctxt "Masterportal"
+msgid "Open by default"
+msgstr "Standardmäßig geöffnet"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:108
+msgctxt "Masterportal"
+msgid "Should the menu tree be initially opened?"
+msgstr "Soll der Themenbaum standardmäßig geöffnet sein?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:116
+msgctxt "Masterportal"
+msgid "Tools"
+msgstr "Werkzeuge"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:120
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:131
+msgctxt "Masterportal"
+msgid "Filter"
+msgstr "Filter"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:135
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:144
+msgctxt "Masterportal"
+msgid "Deactivate GFI"
+msgstr "GFI deaktivieren"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:150
+msgctxt "Masterportal"
+msgid "Is generic"
+msgstr "Ist generisch"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:156
+msgctxt "Masterportal"
+msgid "Initially opened?"
+msgstr "Initial geöffnet?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:162
+msgctxt "Masterportal"
+msgid "Live zoom to feature"
+msgstr "Direktzoom auf Filterergebnisse"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:168
+msgctxt "Masterportal"
+msgid "Allow multiple queries per layer?"
+msgstr "Mehrere Abfragen pro Layer zulassen?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:174
+msgctxt "Masterportal"
+msgid "Visible in menu?"
+msgstr "Sichtbar im Menü?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:180
+msgctxt "Masterportal"
+msgid "Predefined queries"
+msgstr "Vordefinierte Abfragen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:191
+msgctxt "Masterportal"
+msgid "Legend"
+msgstr "Legende"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:195
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:16
+msgid "Menu settings"
+msgstr "Menüeinstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:17
+msgid "Settings related to the menu structure of the Masterportal."
+msgstr "Einstellungen in Bezug auf die Menüstruktur des Masterportals."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:106
+msgctxt "Masterportal"
+msgid "Portal title"
+msgstr "Portaltitel"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:110
+msgctxt "Masterportal"
+msgid "The title of the Masterportal"
+msgstr "Der Titel der Masterportal-Instanz"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:116
+msgctxt "Masterportal"
+msgid "Path to a custom logo image"
+msgstr "Pfad zur benutzerdefinierten Logo-Datei"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:118
+msgctxt "Masterportal"
+msgid "Leave blank to omit a logo image. @availabletokens"
+msgstr "Leer lassen, um kein Logo anzuzeigen. @availabletokens"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:128
+msgctxt "Masterportal"
+msgid "External link"
+msgstr "Externer Link"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:129
+msgctxt "Masterportal"
+msgid "The external link associated with this instance (if any)."
+msgstr "Der externe Link dieser Instanz (wenn vorhanden)."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:135
+msgctxt "Masterportal"
+msgid "Title tooltip"
+msgstr "Tooltip des Titels"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:136
+msgctxt "Masterportal"
+msgid "The tooltip that should be displayed when hovering above the title."
+msgstr "Der Tooltip, der für den Titel der Instanz angezeigt werden soll."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:144
+msgctxt "Masterportal"
+msgid "Active control plugins"
+msgstr "Aktive Kontroll-Plugins"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:145
+msgctxt "Masterportal"
+msgid "Select the controls you want to activate on this portal"
+msgstr "Wählen Sie die Kontroll-Plugins aus, die in dieser Instanz aktiv sein sollen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:179
+msgctxt "Masterportal"
+msgid "Plugin settings for plugin %plugin"
+msgstr "Plugin-Einstellungen für das Plugin %plugin"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:18
+msgid "Portal settings"
+msgstr "Portal-Einstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/PortalSettings.php:19
+msgid "Basic settings of the Masterportal."
+msgstr "Grundeinstellungen des Masterportals."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:86
+msgctxt "Masterportal"
+msgid "Minimum characters"
+msgstr "Mindestzeichenanzahl"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:87
+msgctxt "Masterportal"
+msgid "The minimum number of characters that have to be entered to perform a search."
+msgstr "Die Mindestanzahl an Zeichen, die eingegeben werden muss, um eine Suche auszulösen."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:95
+msgctxt "Masterportal"
+msgid "Zoom level"
+msgstr "Zoomstufe"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:96
+msgctxt "Masterportal"
+msgid "The zoom level to set when a search result is chosen."
+msgstr "Die Zoomstufe, die genutzt werden soll, wenn ein Suchergebnis ausgewählt wurde."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:104
+msgctxt "Masterportal"
+msgid "Recommendations"
+msgstr "Vorschläge"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:105
+msgctxt "Masterportal"
+msgid "The number of items in the recommendations list."
+msgstr "Die Anzahl an Vorschlägen in der Vorschlagsliste."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:113
+msgctxt "Masterportal"
+msgid "QuickHelp"
+msgstr "Schnellhilfe"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:114
+msgctxt "Masterportal"
+msgid "Should quick help tips get offered?"
+msgstr "Sollen Hilfetipps angeboten werden?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:119
+msgctxt "Masterportal"
+msgid "Placeholder"
+msgstr "Platzhalter"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:120
+msgctxt "Masterportal"
+msgid "The placeholder for the search bar field."
+msgstr "Der Platzhalter im Suchschlitz."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:125
+msgctxt "Masterportal"
+msgid "DOM ID"
+msgstr "DOM ID"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:126
+msgctxt "Masterportal"
+msgid "HTML ID of the DOM element to which the search results gets attached."
+msgstr "HTML ID des DOM Elementes, dem die Suchergebnisse hinzugefügt werden."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:16
+msgid "Search bar settings"
+msgstr "Suchleisten-Einstellungen"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchBarSettings.php:17
+msgid "Settings related to the structure and functionality of the search bar of the Masterportal."
+msgstr "Einstellungen in Bezug auf die Struktur und Funktionalität der Suchleiste des Masterportals."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchPluginSettings.php:72
+msgctxt "Masterportal"
+msgid "Enabled search plugins"
+msgstr "Aktivierte Suchplugins"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchPluginSettings.php:108
+msgctxt "Masterportal"
+msgid "Plugin settings for plugin %plugin"
+msgstr "Plugin-Einstellungen für das Plugin %plugin"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchPluginSettings.php:17
+msgid "Search plugins"
+msgstr "Such-Plugins"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/SearchPluginSettings.php:18
+msgid "Select the search components you want to use in this Masterportal instance."
+msgstr "Wählen Sie die Suchkomponenten aus, die Sie in dieser Masterportal-Instanz verwenden möchten."
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ToolSettings.php:72
+msgctxt "Masterportal"
+msgid "Enabled tool plugins"
+msgstr "Aktivierte Werkzeug-Plugins"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ToolSettings.php:107
+msgctxt "Masterportal"
+msgid "Plugin settings for plugin %plugin"
+msgstr "Plugin-Einstellungen für das Plugin %plugin"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ToolSettings.php:17
+msgid "Tool plugins"
+msgstr "Werkzeug-Plugins"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/ToolSettings.php:18
+msgid "Settings related to the tools available in the Masterportal instance."
+msgstr "Einstellungen in Bezug auf die in der Masterportal-Instanz verfügbaren Werkzeuge."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:90
+msgctxt "Masterportal"
+msgid "Service ID of the search service."
+msgstr "Dienst-ID des Suchdienstes."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:92
+msgctxt "Masterportal"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:100
+msgctxt "Masterportal"
+msgid "Service ID of the suggestions service."
+msgstr "Dienst-ID des Vorschlagsdienstes."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:102
+msgctxt "Masterportal"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:110
+msgctxt "Masterportal"
+msgid "Extent coordinates"
+msgstr "Koordinaten der Kartenausdehnung"
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:112
+msgctxt "Masterportal"
+msgid "The @coordsystem coordinates, in which this search service performs it's search. Must be entered in a valid JSON format and contain an array with exactly 4 integers."
+msgstr "Die @coordsystem Koordinaten, in denen der Suchservice die Suche durchführt. Muss in einem gültigen JSON Format eingegeben werden und ein Array mit exakt 4 ganzzahligen Werten enthalten."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:125
+msgctxt "Masterportal"
+msgid "Score value for the search results."
+msgstr "Gewichtungswert der Suchergebnisse."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:133
+msgctxt "Masterportal"
+msgid "Number of suggestions."
+msgstr "Anzahl der Vorschläge."
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:19
+msgid "BKG - Federal Agency for Cartography and Geodesy"
+msgstr "Bundesamt für Kartographie und Geodäsie"
+
+#: src/Plugin/Masterportal/SearchBar/Bkg.php:20
+msgid "A search bar plugin to utilize the BKG search service."
+msgstr "Ein Suchleisten-Plugin zur Nutzung des BKG-Suchdienstes."
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:103
+msgctxt "Masterportal"
+msgid "Service"
+msgstr "Dienst"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:105
+msgctxt "Masterportal"
+msgid "Please choose"
+msgstr "Bitte wählen"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:113
+msgctxt "Masterportal"
+msgid "Search for matching street names"
+msgstr "Suche nach übereinstimmenden Straßennamen"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:118
+msgctxt "Masterportal"
+msgid "Search for matching street names including house numbers"
+msgstr "Suche nach übereinstimmenden Straßennamen inkl. Hausnummern"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:132
+msgctxt "Masterportal"
+msgid "Search for matching district names"
+msgstr "Suche nach übereinstimmenden Stadtteilnamen"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:137
+msgctxt "Masterportal"
+msgid "Search for matching parcel names"
+msgstr "Suche nach übereinstimmenden Flurstückbezeichnungen"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:142
+msgctxt "Masterportal"
+msgid "Search for matching street keys"
+msgstr "Suche nach übereinstimmenden Straßenschlüsseln"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:19
+msgid "Gazetteer"
+msgstr "Gazetteer"
+
+#: src/Plugin/Masterportal/SearchBar/Gazetteer.php:20
+msgid "A search bar plugin to utilize the Gazetteer search service."
+msgstr "Ein Suchleisten-Plugin zur Nutzung des Gazeteer-Dienstes"
+
+#: src/Plugin/Masterportal/SearchBar/Gdi.php:67
+msgctxt "Masterportal"
+msgid "Number of characters after which the search is initiated."
+msgstr "Mindestanzahl an Zeichen, mit der eine Suche gestartet wird."
+
+#: src/Plugin/Masterportal/SearchBar/Gdi.php:72
+msgctxt "Masterportal"
+msgid "Layer to be used for the elastic search."
+msgstr "Kartenebene für die Suche Elastic Search."
+
+#: src/Plugin/Masterportal/SearchBar/Gdi.php:78
+msgctxt "Masterportal"
+msgid "Query parameters for the elastic search"
+msgstr "Abfrageparameter für Elsatic Search"
+
+#: src/Plugin/Masterportal/SearchBar/Gdi.php:18
+msgid "Gdi"
+msgstr "Gdi"
+
+#: src/Plugin/Masterportal/SearchBar/Gdi.php:19
+msgid "A search bar plugin to utilize an elastic search."
+msgstr "Ein Suchleisten-Plugin zur Nutzung des Elastic-Search-Suchdienstes."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:81
+msgctxt "Masterportal"
+msgid "Maximum features"
+msgstr "Maximalanzahl Eigenschaften"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:82
+msgctxt "Masterportal"
+msgid "Default count of maximum features to find. Can be overridden in distinct implementations."
+msgstr "Standard für die Eigenschaftsmaximalanzahl für die Suche. Kann in Einzelfällen überschrieben werden."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:91
+msgctxt "Masterportal"
+msgid "Timeout"
+msgstr "Zeitüberschreitung"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:92
+msgctxt "Masterportal"
+msgid "Time in seconds after which requests to search services are considered stale."
+msgstr "Zeit in Sekunden, nach denen Anfragen an Suchdienste als fehlgeschlagen angesehen werden."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:102
+msgctxt "Masterportal"
+msgid "Service definitions"
+msgstr "Dienste"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:103
+msgctxt "Masterportal"
+msgid "Definitions on which this search service performs a search on."
+msgstr "Dienste, in denen diese Suche sucht."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:126
+msgctxt "Masterportal"
+msgid "Category name"
+msgstr "Kategoriename"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:127
+msgctxt "Masterportal"
+msgid "Name, which is displayed in the recommendation list."
+msgstr "Der Name, der in der Vorschlagsliste benutzt wird."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:132
+msgctxt "Masterportal"
+msgid "URL"
+msgstr "URL"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:133
+msgctxt "Masterportal"
+msgid "Webaddress of the WFS layer."
+msgstr "Adresse des WFS Dienstes."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:139
+msgctxt "Masterportal"
+msgid "Type name"
+msgstr "Typ"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:140
+msgctxt "Masterportal"
+msgid "TypeName of the WFS layer."
+msgstr "Typ des WFS Dienstes."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:145
+msgctxt "Masterportal"
+msgid "Property names"
+msgstr "Eigenschaftsnamen"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:146
+msgctxt "Masterportal"
+msgid "The name(s) of the properties that are to be searched. Must contain an array in valid JSON format."
+msgstr "Der oder die Namen der Eigenschaften, die durchsucht werden. Muss als Array in validem JSON eingegeben werden."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:152
+msgctxt "Masterportal"
+msgid "Geometry name"
+msgstr "Geometriename"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:153
+msgctxt "Masterportal"
+msgid "Attribute name of the geometry."
+msgstr "Attributname der Geometrie."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:158
+msgctxt "Masterportal"
+msgid "Maximum features"
+msgstr "Maximalanzahl Eigenschaften"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:159
+msgctxt "Masterportal"
+msgid "Maximum number of features to find."
+msgstr "Maximale Anzahl an Suchergebnissen für die Suche."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:167
+msgctxt "Masterportal"
+msgid "Data"
+msgstr "Daten"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:168
+msgctxt "Masterportal"
+msgid "Filter parameters for the WFS request."
+msgstr "Filterparameter für die WFS Anfrage."
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:19
+msgid "specialWFS"
+msgstr "specialWFS"
+
+#: src/Plugin/Masterportal/SearchBar/SpecialWFS.php:20
+msgid "A search bar plugin to utilize a specialWFS search."
+msgstr "Ein Suchleisten-Plugin, das einen specialWFS Suchdienst verfügbar macht."
+
+#: src/Plugin/Masterportal/SearchBar/Tree.php:18
+msgid "Tree"
+msgstr "Tree"
+
+#: src/Plugin/Masterportal/SearchBar/Tree.php:19
+msgid "A search bar plugin to utilize a tree search."
+msgstr "Ein Suchleisten-Plugin zur Nutzung des Tree-Suchdienstes."
+
+#: src/Plugin/Masterportal/SearchBar/VisibleVector.php:48
+msgctxt "Masterportal"
+msgid "Layer types"
+msgstr "Layerarten"
+
+#: src/Plugin/Masterportal/SearchBar/VisibleVector.php:50
+msgctxt "Masterportal"
+msgid "GeoJSON"
+msgstr "GeoJSON"
+
+#: src/Plugin/Masterportal/SearchBar/VisibleVector.php:51
+msgctxt "Masterportal"
+msgid "WFS"
+msgstr "WFS"
+
+#: src/Plugin/Masterportal/SearchBar/VisibleVector.php:18
+msgid "visibleVector"
+msgstr "visibleVector"
+
+#: src/Plugin/Masterportal/SearchBar/VisibleVector.php:19
+msgid "A search bar plugin to utilize a visibleVector search."
+msgstr "Ein Suchleisten-Plugin zur Nutzung des visibleVector-Suchdienstes."
+
+#: src/Plugin/Masterportal/Tools/Coord.php:60
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Coord.php:18
+msgid "Get coordinates"
+msgstr "Koordinaten holen"
+
+#: src/Plugin/Masterportal/Tools/Coord.php:19
+msgid "A plugin that let's users set a marker on the map and see the coordinates of it."
+msgstr "Ein Plugin, mit dem Benutzer eine Markierung auf der Karte setzen und die Koordinaten der Karte sehen können."
+
+#: src/Plugin/Masterportal/Tools/Draw.php:72
+msgctxt "Masterportal"
+msgid "Draw-Tool is visible in Masterportal menu"
+msgstr "Zeichenwerkzeug sichtbar im Menu des Masterportals"
+
+#: src/Plugin/Masterportal/Tools/Draw.php:73
+msgctxt "Masterportal"
+msgid "Uncheck to hide this tool from being listed in the Masterportal menu."
+msgstr "Deaktivieren, um dieses Werkzeug im Menu des Masterportals zu verstecken."
+
+#: src/Plugin/Masterportal/Tools/Draw.php:78
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Draw.php:18
+msgid "Draw"
+msgstr "Zeichnen"
+
+#: src/Plugin/Masterportal/Tools/Draw.php:19
+msgid "A plugin that let's users draw on the map."
+msgstr "Ein Plugin, mit dem Benutzer auf der Karte zeichnen können."
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:76
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:87
+msgctxt "Masterportal"
+msgid "Active by default"
+msgstr "Standardmäßig aktiv"
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:88
+msgctxt "Masterportal"
+msgid "Determines if the user has to actively activate this plugin or if it is active by default."
+msgstr "Bestimmt, ob ein Benutzer dieses Plugin zur Benutzung erst aktivieren muss, oder ob es standardmäßig aktiv ist."
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:93
+msgctxt "Masterportal"
+msgid "Visible in menu"
+msgstr "Im Menü sichtbar"
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:18
+msgid "Gfi"
+msgstr "Gfi"
+
+#: src/Plugin/Masterportal/Tools/Gfi.php:19
+msgid "A plugin that integrates the getFeatureInformation functionality."
+msgstr "Ein Plugin, das die Funktionalität von getFeatureInformation integriert."
+
+#: src/Plugin/Masterportal/Tools/Measure.php:60
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Measure.php:18
+msgid "Measure"
+msgstr "Messen"
+
+#: src/Plugin/Masterportal/Tools/Measure.php:19
+msgid "A plugin that let's users measure distances and areas."
+msgstr "Ein Plugin, mit dem Benutzer Entfernungen und Flächen messen können."
+
+#: src/Plugin/Masterportal/Tools/Populationquery.php:78
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Populationquery.php:89
+msgctxt "Masterportal"
+msgid "Desktop only?"
+msgstr "Nur auf Desktop-Geräten?"
+
+#: src/Plugin/Masterportal/Tools/Populationquery.php:94
+msgctxt "Masterportal"
+msgid "Service used for the population query."
+msgstr "Dienst, der für die Einwohnerabfrage verwendet wird."
+
+#: src/Plugin/Masterportal/Tools/Populationquery.php:18
+msgid "Populationquery"
+msgstr "Bevölkerungsabfrage"
+
+#: src/Plugin/Masterportal/Tools/Populationquery.php:19
+msgid "A plugin that let's users query population values specifically for Hamburg."
+msgstr "Ein Plugin, mit dem Benutzer Bevölkerungswerte speziell für Hamburg abfragen können."
+
+#: src/Plugin/Masterportal/Tools/QR.php:30
+msgctxt "Masterportal"
+msgid "Tap on the map to generate a QR code leading to the contribution wizard."
+msgstr "Tippen Sie auf die Karte, um einen QR-Code zu generieren, der zum Beitragsassistenten führt."
+
+#: src/Plugin/Masterportal/Tools/QR.php:48
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/QR.php:54
+msgctxt "Masterportal"
+msgid "Tool Text"
+msgstr "Werkzeug-Text"
+
+#: src/Plugin/Masterportal/Tools/QR.php:65
+msgctxt "Masterportal"
+msgid "URL"
+msgstr "URL"
+
+#: src/Plugin/Masterportal/Tools/QR.php:67
+msgctxt "Masterportal"
+msgid "The URL pointing to the DIPAS contribution wizard without GET parameters"
+msgstr "Die URL, die zum DIPAS-Beitragsassistenten ohne GET-Parameter führt"
+
+#: src/Plugin/Masterportal/Tools/QR.php:18
+msgid "QR Code"
+msgstr "QR Code"
+
+#: src/Plugin/Masterportal/Tools/QR.php:19
+msgid "A plugin that allows the placement of qr-codes"
+msgstr "Ein Plugin, das die Platzierung von QR-Codes erlaubt"
+
+#: src/Plugin/Masterportal/Tools/SearchByCoord.php:60
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/SearchByCoord.php:18
+msgid "Search by coordinates"
+msgstr "Suche anhand von Koordinaten"
+
+#: src/Plugin/Masterportal/Tools/SearchByCoord.php:19
+msgid "A plugin that let's users search coordinates on the map."
+msgstr "Ein Plugin, mit dem Benutzer Koordinaten auf der Karte suchen können."
+
+#: src/Plugin/Masterportal/Tools/Shadow.php:60
+msgctxt "Masterportal"
+msgid "Name"
+msgstr "Name"
+
+#: src/Plugin/Masterportal/Tools/Shadow.php:18
+msgid "Shadow"
+msgstr "Schatten"
+
+#: src/Plugin/Masterportal/Tools/Shadow.php:19
+msgid "A plugin that shadow options to the 3D layers."
+msgstr "Ein Plugin, das Gebäude-Schatten im 3D-Modus simuliert."
+
+#: src/Service/MasterportalTokenService.php:142
+msgctxt "Masterportal"
+msgid "Available tokens"
+msgstr "Verfügbare Tokens"

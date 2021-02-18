@@ -1,0 +1,59 @@
+aspectratios:
+  css:
+    component:
+      libraries/masterportal/css/masterportalAspectRatios.css: {minified: false }
+
+listbuilder:
+  js:
+    libraries/listbuilder/showHidden.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+configform:
+  css:
+    component:
+      libraries/configform/configformstyles.css: { minified: false }
+      libraries/masterportal/css/style-glyphicons.css: { minified: false }
+  js:
+    libraries/configform/rowsort.js: { minified: false }
+    libraries/configform/selectmenu.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery.ui
+    - core/jquery.ui.sortable
+    - core/jquery.ui.selectmenu
+
+configmap:
+  js:
+    libraries/configmap/messenger.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+fieldWidgetSettingsForm:
+  js:
+    libraries/fieldWidgetSettingsForm/settings.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+
+masterportalWidget:
+  js:
+    libraries/masterportalWidget/messenger.js: { minified: false }
+  css:
+    component:
+      libraries/masterportalWidget/widget.css: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+
+inlineLibrary:
+  js:
+    //cesiumjs.org/releases/1.51/Build/Cesium/Cesium.js: {external: true, minified: true }
+    libraries/masterportal/js/masterportal.js: { minified: true, attributes: { foo: 'bar' } }
+  css:
+    component:
+      libraries/masterportal/css/style.css: { minified: false }

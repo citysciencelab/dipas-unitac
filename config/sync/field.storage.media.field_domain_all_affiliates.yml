@@ -1,0 +1,20 @@
+uuid: c777bd34-e6e0-4680-b04a-c234b662bb09
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: yFyMQtLYPIGoEmipo3kOtrI-33-W0QDyRZwg8uO_KQk
+id: media.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: media
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

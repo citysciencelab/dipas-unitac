@@ -1,0 +1,15 @@
+uuid: 86321920-d573-44d4-beb0-ded7cc1b71bf
+langcode: en
+status: true
+dependencies: {  }
+id: administer_content
+title: 'Administer content'
+route_name: system.admin_content
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -49
+description: ''

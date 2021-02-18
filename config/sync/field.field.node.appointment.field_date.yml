@@ -1,0 +1,21 @@
+uuid: 191e7a37-0c0a-4f33-b31c-86d972a94293
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.appointment
+  module:
+    - datetime_range
+id: node.appointment.field_date
+field_name: field_date
+entity_type: node
+bundle: appointment
+label: Date
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange

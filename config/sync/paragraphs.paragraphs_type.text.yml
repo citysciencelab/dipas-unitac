@@ -1,0 +1,17 @@
+uuid: d9bf7bb4-b821-45ae-88f5-95129defd7ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      content: content
+      structural: '0'
+id: text
+label: Text
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

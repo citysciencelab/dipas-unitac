@@ -1,0 +1,58 @@
+uuid: 74943223-b3ed-428a-82dc-598956b0e452
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.download.field_domain_access
+    - field.field.media.download.field_domain_all_affiliates
+    - field.field.media.download.field_media_file
+    - image.style.thumbnail
+    - media.type.download
+  module:
+    - file
+    - image
+    - user
+id: media.download.default
+targetEntityType: media
+bundle: download
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_media_file:
+    weight: 6
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  thumbnail:
+    type: image
+    weight: 5
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    region: content
+    third_party_settings: {  }
+  uid:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  langcode: true
+  name: true

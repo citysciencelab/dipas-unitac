@@ -1,0 +1,15 @@
+uuid: cecfcb24-9ea0-4cd2-865a-fa786736bd76
+langcode: en
+status: true
+dependencies: {  }
+id: administer_categorization
+title: 'Administer categorization'
+route_name: entity.taxonomy_vocabulary.collection
+route_parameters: {  }
+options: {  }
+expanded: false
+menu_name: project-administration
+enabled: true
+parent: ''
+weight: -46
+description: ''
