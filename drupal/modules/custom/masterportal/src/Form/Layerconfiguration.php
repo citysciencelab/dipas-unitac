@@ -31,7 +31,7 @@ class Layerconfiguration extends MasterportalSettingsBase {
    * {@inheritdoc}
    */
   protected function prepareForm() {
-    $this->configurationKey = sprintf('masterportal.config.layers.%s', $this->getActiveDomain());
+    $this->configurationKey = sprintf('masterportal.config.%s.layers', $this->getActiveDomain());
   }
 
   /**
