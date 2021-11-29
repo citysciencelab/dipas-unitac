@@ -67,7 +67,7 @@ class ContributionDetails extends ContributionNodeRequestBase {
     return [
       'nid' => $node->id(),
       'title' => $node->label(),
-      'text' => $node->get('field_text')->first()->getString(),
+      'text' => html_entity_decode($node->get('field_text')->first()->getString(), ENT_QUOTES, 'UTF-8'),
       'category' => (int) $node->get('field_category')->first()->getString(),
       'rubric' =>  ($rubric = $node->get('field_rubric')->first()) ? (int) $rubric->getString() : FALSE,
       'geodata' => ($geodata = $node->get('field_geodata')->first()) ? json_decode($geodata->getString()) : (object) [],

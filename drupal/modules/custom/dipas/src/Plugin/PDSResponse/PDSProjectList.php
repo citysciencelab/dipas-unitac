@@ -52,9 +52,7 @@ class PDSProjectList extends PDSResponseBase {
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
-
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
-
   }
 
   /**
@@ -94,9 +92,8 @@ class PDSProjectList extends PDSResponseBase {
         continue;
       }
 
-      $domain_id = preg_replace('/dipas\.(\w+)\.configuration/', '$1', $domain_config);
+      $domain_id = preg_replace('/dipas\.(.+?)\.configuration/', '$1', $domain_config);
       $dipasConfigDomain = $this->dipasConfig->getEditable($domain_config);
-
       $project_area = json_decode($dipasConfigDomain->get('ProjectArea.project_area'));
 
       // Find projectinformation description ToDo!!
@@ -108,7 +105,7 @@ class PDSProjectList extends PDSResponseBase {
       if (!empty($project_area->geometry)) {
         $featureObject->setGeometry($project_area->geometry);
       }
-      else {
+      elseif ($project_area) {
         $featureObject->setGeometry($project_area);
       }
 
@@ -174,8 +171,8 @@ class PDSProjectList extends PDSResponseBase {
        */
 
       if ($this->domainModulePresent && count($terms)) {
-        $hasDomainAccessField = reset($terms)->hasField(DOMAIN_ACCESS_FIELD);
-        $hasDomainAllAccessField = reset($terms)->hasField(DOMAIN_ACCESS_ALL_FIELD);
+        $hasDomainAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD);
+        $hasDomainAllAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD);
         $terms = array_filter(
           $terms,
           function (\Drupal\taxonomy\TermInterface $term) use ($hasDomainAccessField, $hasDomainAllAccessField, $domain_id) {
@@ -184,12 +181,12 @@ class PDSProjectList extends PDSResponseBase {
                 function ($assignment) {
                   return $assignment['target_id'];
                 },
-                $term->get(DOMAIN_ACCESS_FIELD)->getValue()
+                $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD)->getValue()
               );
             }
 
             $accessOnAllDomains = $hasDomainAllAccessField
-              ? (bool) $term->get(DOMAIN_ACCESS_ALL_FIELD)->getString()
+              ? (bool) $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD)->getString()
               : FALSE;
 
             if ($accessOnAllDomains || in_array($domain_id, $assignedDomains)) {
@@ -277,11 +274,14 @@ class PDSProjectList extends PDSResponseBase {
   protected function getClusterList($domain_id) {
     $nlp_cluster = $this->state->get('dipas.nlp.clustering.result:'.$domain_id);
 
-    $list = array_map(function ($cluster) {
-      return $cluster->title;
-    }, $nlp_cluster['result']);
+    if ( $nlp_cluster && $nlp_cluster['result']) {
+      $list = array_map(function ($cluster) {
+        return $cluster->title;
+      }, $nlp_cluster['result']);
 
-    return $list;
+      return $list;
+    }
+    return null;
   }
 
   /**

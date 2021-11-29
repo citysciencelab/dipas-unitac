@@ -101,6 +101,12 @@ class MenuSettings extends SettingsSectionBase {
           'icon' => 'keyboard',
           'node' => '',
         ],
+        'conceptionlist' => [
+          'enabled' => 0,
+          'name' => 'Entwürfe vergleichen',
+          'icon' => 'compare_arrows',
+          'overwriteFrontpage' => 0,
+        ],
       ],
       'footermenu' => [
         'dataprivacy' => [
@@ -145,6 +151,28 @@ class MenuSettings extends SettingsSectionBase {
     foreach (['mainmenu', 'footermenu'] as $menu) {
       $menus = array_merge($defaults[$menu], $this->{$menu});
       foreach ($menus as $endpoint => $settings) {
+        if ($endpoint === 'conceptionlist') {
+          $enabledSettings = [
+            '#type' => 'checkbox',
+            '#title' => $this->t('Enabled', [], ['context' => 'DIPAS']),
+            '#default_value' => '',
+            '#weight' => 10,
+            '#attributes' => [
+              'disabled' => 'disabled',
+            ],
+            '#states' => [
+              'checked' => [':input[type="checkbox"][name="settings[ProjectSchedule][phase_2_enabled]"]' => ['checked' => TRUE]],
+            ],
+          ];
+        }
+        else {
+          $enabledSettings = [
+            '#type' => 'checkbox',
+            '#title' => $this->t('Enabled', [], ['context' => 'DIPAS']),
+            '#default_value' => $settings['enabled'],
+            '#weight' => 10,
+          ];
+        }
         $form[$menu][$endpoint] = [
           '#type' => 'container',
           '#attributes' => [
@@ -161,12 +189,7 @@ class MenuSettings extends SettingsSectionBase {
             '#suffix' => '</div>',
             '#weight' => 1,
           ],
-          'enabled' => [
-            '#type' => 'checkbox',
-            '#title' => $this->t('Enabled', [], ['context' => 'DIPAS']),
-            '#default_value' => $settings['enabled'],
-            '#weight' => 10,
-          ],
+          'enabled' => $enabledSettings,
           'name' => [
             '#type' => 'textfield',
             '#title' => $this->t('Name', [], ['context' => 'DIPAS']),
@@ -245,6 +268,19 @@ class MenuSettings extends SettingsSectionBase {
             '#weight' => 60,
           ];
         }
+
+        if (isset($settings['overwriteFrontpage']) || isset($defaults[$menu][$endpoint]['overwriteFrontpage'])) {
+          $form[$menu][$endpoint]['overwriteFrontpage'] = [
+            '#title' => $this->t('Override Front page', [], ['context' => 'DIPAS']),
+            '#description' => $this->t('Use Conceptions page instead of frontpage setting from menus section. It will only be overridden after phase 2 has started.', [], ['context' => 'DIPAS']),
+            '#type' => 'checkbox',
+            '#default_value' => $settings['overwriteFrontpage'],
+            '#states' => [
+              'disabled' => [sprintf(':input[type="checkbox"][name="settings[ProjectSchedule][phase_2_enabled]"]', $menu, $endpoint) => ['checked' => FALSE]],
+            ],
+            '#weight' => 70,
+          ];
+        }
       }
     }
 
@@ -289,6 +325,9 @@ class MenuSettings extends SettingsSectionBase {
         }
         if (isset($settings['url'])) {
           $sectionsettings[$menuname][$settings['endpoint']]['url'] = $settings['url'];
+        }
+        if (isset($settings['overwriteFrontpage'])) {
+          $sectionsettings[$menuname][$settings['endpoint']]['overwriteFrontpage'] = $settings['overwriteFrontpage'];
         }
       }
     }

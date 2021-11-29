@@ -14,9 +14,38 @@ export default {
    * @example ./doc/documentation.md
    */
   name: "ModalElement",
+  mounted () {
+    this.$refs.content.focus();
+
+    const focusableElements = "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+      modal = this.$refs.content,
+      firstFocusableElement = modal.querySelectorAll(focusableElements)[0],
+      focusableContent = modal.querySelectorAll(focusableElements),
+      lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+    document.addEventListener("keydown", function (e) {
+      const isTabPressed = e.key === "Tab" || e.keyCode === 9;
+
+      if (!isTabPressed) {
+        return;
+      }
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          lastFocusableElement.focus();
+          e.preventDefault();
+        }
+      }
+      else if (document.activeElement === lastFocusableElement) {
+        firstFocusableElement.focus();
+        e.preventDefault();
+      }
+    });
+  },
   methods: {
     /**
      * Close the Modal element
+     * @event closeModal
      * @returns {void}
      */
     closeModal ($event) {
@@ -38,22 +67,36 @@ export default {
     <div
       ref="content"
       class="modalContent"
+      role="dialog"
+      tabindex="0"
+      @keyup.esc="closeModal"
     >
       <!--
         triggered on click
-        @event click
+        @event click closeModal
       -->
       <button
         ref="closeButton"
+        tabindex="0"
         class="closebutton"
         @click="closeModal"
       >
-        <i class="material-icons">close</i>
+        <i
+          :aria-label="$t('Schedule.closeButton')"
+          class="material-icons"
+        >
+          close
+        </i>
       </button>
       <!-- @slot Use this slot content-->
       <slot></slot>
     </div>
-    <div class="modalBackground"></div>
+    <div
+      class="modalBackground"
+      tabindex="0"
+      @keyup.esc="closeModal"
+    >
+    </div>
   </div>
 </template>
 
@@ -88,6 +131,8 @@ export default {
         border: none 0 transparent;
         width: fit-content;
         height: fit-content;
+        overflow-x: hidden;
+        overflow-y: auto;
         padding: 30px;
         z-index: 1001;
         box-shadow: 5px 5px 10px -5px #000000;
@@ -119,20 +164,34 @@ export default {
 
     div.customModal div.modalContent button.closebutton {
         position: absolute;
-        top: 5px;
-        right: 5px;
+        top: 0.1rem;
+        right: 0.3rem;
         border: none 0 transparent;
         background-color: transparent;
         margin: 0;
         padding: 0;
-        width: 30px;
-        height: 30px;
-        line-height: 42px;
+        width: 1.875rem;
+        height: 1.875rem;
         background: #FFFFFF;
-        border-radius: 15px;
+        border-radius: 0.938rem;
     }
 
-    div.customModal div.modalContent button.closebutton:focus {
+    div.customModal div.modalContent button.closebutton:focus:not(:focus-visible)  {
         outline: none;
+    }
+
+    div.customModal div.modalContent button.closebutton:focus-visible {
+        outline: 3px solid #005CA9;
+        outline-offset: -3px;
+        border-radius: 0.938rem;
+    }
+
+    .customModal .modalContent:focus-visible {
+        outline-color: transparent;
+    }
+
+    div.customModal .modalContent button.dipasButton:focus-visible {
+        outline: 3px solid #005CA9;
+        outline-offset: 4px;
     }
 </style>

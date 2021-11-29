@@ -48,7 +48,7 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
    */
   protected function setAdditionalDependencies(Container $container) {
     $this->layerService = $container->get('masterportal.layerservice');
-    $this->tempStore = $container->get('user.private_tempstore')->get('masterportal');
+    $this->tempStore = $container->get('tempstore.private')->get('masterportal');
   }
 
   /**
@@ -202,7 +202,9 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
     }
     elseif (in_array($addSelectorValue, $currentlyUsedLayerIds)) {
       // Set a message if the layer is already in the stack.
-      drupal_set_message($this->t('The layer requested is already in the layer stack!', [], ['context' => 'Masterportal']), 'warning');
+      \Drupal::messenger()->addWarning(
+        $this->t('The layer requested is already in the layer stack!', [], ['context' => 'Masterportal'])
+      );
     }
     return FALSE;
   }

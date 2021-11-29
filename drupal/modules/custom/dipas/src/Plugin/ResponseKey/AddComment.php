@@ -121,7 +121,7 @@ class AddComment extends GetComments {
       return $sanitized;
     }
   }
-  
+
   /**
    * {@inheritdoc}
    */

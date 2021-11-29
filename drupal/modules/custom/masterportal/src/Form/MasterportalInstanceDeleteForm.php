@@ -125,13 +125,13 @@ class MasterportalInstanceDeleteForm extends EntityConfirmFormBase {
         '%user' => $this->currentUser->getDisplayName(),
       ]
     );
-    drupal_set_message($this->t(
-      'Masterportal instance "%name" has been deleted.',
-      [
-        '%name' => $this->entity->label(),
-      ],
-      ['context' => 'Masterportal']
-    ));
+    \Drupal::messenger()->addMessage(
+      $this->t(
+        'Masterportal instance "%name" has been deleted.',
+        ['%name' => $this->entity->label()],
+        ['context' => 'Masterportal']
+      )
+    );
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 

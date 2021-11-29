@@ -32,24 +32,43 @@ export default {
       uniqueIdHeadline: _.uniqueId("title-"),
       uniqueIdText: _.uniqueId("text-"),
       headline: this.value.headline,
-      text: this.value.text
+      text: this.value.text,
+      headlineMinLength: this.value.headlineMinLength,
+      contributionMinLength: this.value.contributionMinLength
     };
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the max length of contribution
+     * @returns {Number} length
      */
     maxlength () {
       return this.$store.getters.contributionMaxlength;
     },
+    /**
+     * serves the remaining chars for text length
+     * @returns {Number} length
+     */
     remaining () {
       return this.maxlength - this.text.length;
+    },
+    headlineTooShort () {
+      return this.headline.length < this.headlineMinLength;
+    },
+    contributionTooShort () {
+      return this.text.length < this.contributionMinLength;
     }
   },
   watch: {
+    /**
+     * @event input if the headline or text changing
+     */
     headline () {
       this.$emit("input", {headline: this.headline, text: this.text});
     },
+    /**
+     * @event input if the headline or text changing
+     */
     text () {
       this.$emit("input", {headline: this.headline, text: this.text});
     }
@@ -59,32 +78,58 @@ export default {
 
 <template>
   <div class="createContributionStep1">
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("CreateContributionModal.StepContents.headline") }}
-    </p>
+    </h3>
 
-    <label :for="uniqueIdHeadline">{{ $t("CreateContributionModal.StepContents.title") }}</label>
+    <label
+      v-if="headlineTooShort"
+      :for="uniqueIdHeadline"
+    >
+      {{ $t("CreateContributionModal.StepContents.title") }} ({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": headlineMinLength}) }})
+    </label>
+    <label
+      v-else
+      :for="uniqueIdHeadline"
+    >
+      {{ $t("CreateContributionModal.StepContents.title") }}
+    </label>
 
     <input
       :id="uniqueIdHeadline"
       v-model="headline"
       type="text"
       class="input"
+      aria-describedby="minimumchars"
       maxlength="200"
       autocomplete="off"
     />
 
-    <label :for="uniqueIdText">{{ $t("CreateContributionModal.StepContents.text") }}</label>
+    <label
+      v-if="contributionTooShort"
+      :for="uniqueIdText"
+    >
+      {{ $t("CreateContributionModal.StepContents.text") }} ({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": contributionMinLength}) }})
+    </label>
+    <label
+      v-else
+      :for="uniqueIdText"
+    >
+      {{ $t("CreateContributionModal.StepContents.text") }}
+    </label>
 
     <textarea
       :id="uniqueIdText"
       v-model="text"
+      aria-describedby="charsremaining minimumchars"
       class="input"
       :maxlength="maxlength"
       autocomplete="off"
     />
-
-    <p class="charCounter">
+    <p
+      id="charsremaining"
+      class="charCounter"
+    >
       {{ $t("CreateContributionModal.StepContents.remainingChars", {"remaining": remaining, "maxlength": maxlength}) }}
     </p>
   </div>
@@ -107,32 +152,11 @@ export default {
     }
 
     div.createContributionStep1 p.charCounter {
-        font-size: 14px;
+        font-size: 0.8rem;
         font-weight: normal;
-        color: #767676;
+        color: #595959;
         margin: 5px 0 0 0;
         padding: 0 0 5px 0;
-    }
-
-    div.createContributionStep1 div.radiogroup label.withIcon {
-        display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 95%;
-    }
-
-    #app.mobile div.createContributionStep1 div.radiogroup {
-        padding-bottom: 25%;
-    }
-
-    div.createContributionStep1 div.radio-wrapper {
-        margin-bottom: 0;
-        height: 37px;
-    }
-
-    div.createContributionStep1 div.radio-wrapper label:before {
-        margin-bottom: 2px;
     }
 
     #app.mobile div.customModal.createContributionModal.modalMobile div.modalContent {

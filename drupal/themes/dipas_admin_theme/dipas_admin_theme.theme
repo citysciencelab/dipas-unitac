@@ -8,7 +8,6 @@
 /**
  * Implements hook_preprocess_html().
  */
-
 function dipas_admin_theme_preprocess_html(&$variables) {
   // Get currently active user and his roles.
   $account = \Drupal::currentUser();

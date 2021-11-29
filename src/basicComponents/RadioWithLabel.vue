@@ -22,6 +22,7 @@ export default {
   props: {
     /**
      * Checked state.
+     * @name checked
      */
     checked: {
       type: [Number, String],
@@ -29,6 +30,7 @@ export default {
     },
     /**
      * The value of radio with number and value
+     * @name value
      */
     value: {
       type: [Number, String],
@@ -36,6 +38,7 @@ export default {
     },
     /**
      * Label text
+     * @name label
      */
     label: {
       type: String,
@@ -43,15 +46,21 @@ export default {
     },
     /**
      * icon of radio.
+     * @name icon
      */
     icon: {
       type: String,
       default: ""
     },
     /**
-     *
+     * direction of text
+     * @name horizontal
      */
     horizontal: {
+      type: String,
+      default: ""
+    },
+    groupId: {
       type: String,
       default: ""
     }
@@ -63,7 +72,9 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the internal value of the checkbox
+     * @name internalValue
+     * @returns {Boolean} checked
      */
     internalValue: {
       get () {
@@ -74,7 +85,9 @@ export default {
       }
     },
     /**
-     * computed ToDo
+     * serves the label style
+     * @name labelStyle
+     * @returns {String} labelStyle
      */
     labelStyle: function () {
       return this.icon ? "background-image: url(" + this.icon + ")" : "";
@@ -91,9 +104,10 @@ export default {
     <input
       :id="uniqueId"
       v-model="internalValue"
+      tabindex="0"
       type="radio"
+      :name="groupId"
       :value="value"
-      autocomplete="off"
     />
     <label
       :for="uniqueId"
@@ -121,7 +135,7 @@ export default {
     }
 
     div.radio-wrapper label {
-        font-size: 17px;
+        font-size: 1.063rem;
         line-height: 20px;
         margin: 0;
         padding: 0;
@@ -131,9 +145,9 @@ export default {
 
     div.radio-wrapper label:before {
         content: "";
-        font-size: 9px;
+        font-size: 0.563rem;
         color: white;
-        line-height: 17px;
+        line-height: 1rem;
         text-align: center;
         vertical-align: text-bottom;
         display: inline-block;

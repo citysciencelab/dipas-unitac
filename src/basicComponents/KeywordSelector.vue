@@ -16,6 +16,10 @@ export default {
    */
   name: "KeywordSelector",
   props: {
+    /**
+     * holds the keywords data object
+     * @name value
+     */
     value: {
       type: Object,
       default () {
@@ -34,17 +38,36 @@ export default {
     };
   },
   computed: {
+    /**
+     * serves the proposal keywords
+     * @name proposals
+     * @return {Array} proposals
+     */
     proposals () {
       return this.value.proposals;
     },
+    /**
+     * serves the value wether proposals are available or not
+     * @name hasProposals
+     * @return {Boolean} hasProposals
+     */
     hasProposals () {
       return !_.isUndefined(this.proposals) && _.isArray(this.proposals) && this.proposals.length;
     },
+    /**
+     * serves the value how many abandoned proposals are in memory
+     * @name hasAbandonedProposals
+     * @return {Number} hasProposals
+     */
     hasAbandonedProposals () {
       return this.value.abandonedProposals.length;
     }
   },
   watch: {
+    /**
+     * clone selectedKeywords for later use
+     * @returns {void}
+     */
     proposals (val) {
       this.value.selectedKeywords = _.clone(val);
     }
@@ -52,7 +75,7 @@ export default {
   methods: {
     /**
      * remove a keyword from List and sorts back to proposals if it is a proposal
-     * @param {String} keyword Keyqord
+     * @param {String} keyword Keyword
      * @returns {void}
      */
     removeKeyword: function (keyword) {
@@ -67,7 +90,6 @@ export default {
     },
     /**
      * remove a keyword from List and sorts back to proposals if it is a proposal
-     * @param {String} trimmed used to check wheter it gives only spaces
      * @returns {void}
      */
     keyUpToAddCustomKeyword: function () {

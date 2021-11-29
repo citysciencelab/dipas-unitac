@@ -3,9 +3,18 @@
  */
 
 <script>
+/**
+ * Shows a maintainance message
+ * @displayName MaintenanceMessage
+ */
 export default {
   name: "MaintenanceMessage",
   props: {
+    /**
+     * holds the message string
+     * @name message
+     * @returns {void}
+     */
     message: {
       type: String,
       default: "",
@@ -22,6 +31,7 @@ export default {
         class="maintenance-image"
         src="../assets/maintenance.svg"
         width="100"
+        alt=""
       />
       <h1>{{ $t("MaintenanceMessage.headline") }}</h1>
       <hr>

@@ -35,13 +35,30 @@ class ServiceManager implements ServiceManagerInterface {
     MasterportalTokenServiceInterface $token_service,
     MasterportalConfigInterface $config
   ) {
-    $serviceDefinitionsFile = $config->get('BasicSettings')['service_definitions'];
-    if ($token_service->containsTokens($serviceDefinitionsFile)) {
-      $serviceDefinitionsFile = $token_service->replaceTokens($serviceDefinitionsFile);
-      $serviceDefinitionsFile = realpath(sprintf('%s/%s', DRUPAL_ROOT, $serviceDefinitionsFile));
+    if ($serviceDefinitionsFile = $config->get('BasicSettings')['service_definitions']) {
+      if ($token_service->containsTokens($serviceDefinitionsFile)) {
+        $token_service->setFileSystemTokenReplacement(TRUE);
+        $serviceDefinitionsFile = $token_service->replaceTokens($serviceDefinitionsFile);
+        $serviceDefinitionsFile = realpath(sprintf('%s/%s', DRUPAL_ROOT, $serviceDefinitionsFile));
+      }
+      if (preg_match('~^https?://~i', $serviceDefinitionsFile)) {
+        try {
+          /* @var \GuzzleHttp\ClientInterface $guzzle */
+          $guzzle = \Drupal::getContainer()->get('http_client');
+          $serviceDefinitionsFile = $guzzle->request('GET', $serviceDefinitionsFile)->getBody()->getContents();
+        } catch (\Exception $e) {
+          $this->logger->error("Unable to fetch services definitions! Error thrown: %error", ['%error' => $e->getMessage()]);
+          $serviceDefinitionsFile = '[]';
+        }
+      }
+      else {
+        $serviceDefinitionsFile = file_get_contents($serviceDefinitionsFile);
+      }
+      $this->services = !empty(($decoded = json_decode($serviceDefinitionsFile))) ? $decoded : [];
     }
-    $serviceDefinitionsFile = file_get_contents($serviceDefinitionsFile);
-    $this->services = !empty(($decoded = json_decode($serviceDefinitionsFile))) ? $decoded : [];
+    else {
+      $this->services = [];
+    }
   }
 
   /**

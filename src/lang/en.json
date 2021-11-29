@@ -1,18 +1,29 @@
 {
+  "Site": {
+    "siteName": "Logo",
+    "logoLink": "Link to Home Page",
+    "footerText": "Online-Contribution made with",
+    "footerDipasLogoAltText": "DIPAS-Logo",
+    "footerDipasLogoTitle": "Link to dipas.org"
+  },
   "FirstModal": {
     "projctStartsAt": "The procedure starts on {{projectStarts}} and ends on {{projectEnd}}.",
     "projectRuns": "The procedure runs from {{projectStarts}} until {{projectEnd}}.",
     "projectFinished": "The procedure is finished an ran until {{projectEnd}}.",
-    "infoButton": "Get informations",
+    "infoButton": "Get information",
     "startButton": "Start entry",
     "conceptionsButton": "View conceptions"
   },
   "Cookiebar": {
-    "title": "We using cookies!",
+    "title": "We use cookies!",
     "linktext": "Cookie Privacy Policy",
     "text": "By clicking on \"Accept Cookies\" you agree that cookies may be used in accordance with our ",
     "text_2ndLine": "on this website.",
     "buttontext": "Accept Cookies"
+  },
+  "ContributionMap": {
+    "addContributionButton": "Start entry",
+    "title": "Contribution map"
   },
   "ContributionList": {
     "title": "List of contributions",
@@ -55,7 +66,10 @@
     }
   },
   "Contact": {
-    "headline": "Contact"
+    "headline": "Contact",
+    "phone": "Phone",
+    "email": "E-Mail",
+    "web": "Website"
   },
   "CreateContributionModal": {
     "cancel": "Cancel",
@@ -65,15 +79,16 @@
     "StepIndicator": {
       "content": "Content",
       "category": "Category",
-      "type": "Type",
+      "type": "Contribution Type",
       "map": "Map",
       "overview": "Overview"
     },
     "StepContents": {
       "headline": "Content",
-      "title": "Title",
-      "text": "Your Message",
-      "remainingChars": "You have {{remaining}} of {{maxlength}} chars left."
+      "title": "Contribution Title",
+      "text": "Description",
+      "remainingChars": "You have {{remaining}} of {{maxlength}} chars left.",
+      "minimalChars": "minimal {{minChar}} chars"
     },
     "StepCategory": {
       "headline": "Choose your category",
@@ -86,11 +101,12 @@
       }
     },
     "StepType": {
-      "headline": "Choose your type",
+      "headline": "Choose your contribution type",
       "no_rubrics_text": "There is no classifiction into contribution types in this project."
     },
     "StepMap": {
       "headline": "Situate your post on map",
+      "geometry": "Select a tool",
       "infotext_point": "To place a point, click on the desired location in the map. You can move the point afterwards.",
       "infotext_linestring": "To create a line, click in the map on the desired start of the line. Then click at each point and double-click to finish.",
       "infotext_polygon": "To create a polygon, click in the map on the desired start of the polygon. Then click at each point and double-click to finish.",
@@ -106,7 +122,7 @@
   },
   "ContributionDetails": {
     "backToList": "Back to contribution list",
-    "comment": "comment",
+    "comment": "Comment",
     "oClock": "o'clock"
   },
   "ParagraphDivisionInPlanningSubareas": {
@@ -135,13 +151,19 @@
   },
   "RatingWidget": {
     "already": "This post has already been rated by you.",
-    "acceptedCookies": "Cookies must be accepted in order to vote."
+    "acceptedCookies": "Cookies must be accepted in order to vote.",
+    "iconThumbUp": "Thumb up votes",
+    "iconThumbDown": "Thumb down votes",
+    "iconVoteThumbUp": "Vote thumb up",
+    "iconVoteThumbDown": "Vote thumb down"
   },
   "CommentsForm": {
     "remainingChars": "You have {{remaining}} chars left.",
     "tooShort": "Your Comment is too short!",
-    "submitComment": "submit",
-    "saved": "Your Comment will be saved."
+    "submitComment": "Submit",
+    "cancelComment": "Cancel",
+    "saved": "Your Comment will be saved.",
+    "canceled": "You canceled commenting."
   },
   "CommentsList": {
     "headline": "Comments",
@@ -149,8 +171,8 @@
     "commentCount": "{{commentcount}} Comments",
     "Comment": {
       "meta": "{{created}} | No.{{commentCid}}",
-      "comment": "comment",
-      "cancel": "cancel",
+      "comment": "Comment",
+      "cancel": "Cancel",
       "reply": "Reply",
       "replyNoPlural": "Reply for No. ",
       "replyNo": "Reply for No. "
@@ -167,13 +189,19 @@
   "Statistics": {
     "headline": "Statistics",
     "StatisticsTopNodeListComments": {
-      "headline": "Top 10 most commented Entries "
+      "headline": "Top 10 most commented entries "
+    },
+    "StatisticsAccessibleTables": {
+      "showTable": "Show data as table",
+      "hideTable": "Hide table"
     },
     "StatisticsTopNodeListRatings": {
-      "headline": "Top 10 Entries by rating"
+      "headline": "Top 10 entries by rating"
     },
     "StatisticsNumber": {
-      "headlineCountEntries": "Number of Entries",
+      "headlineRubric": "Rubric",
+      "headlineCategory": "Category",
+      "headlineCountEntries": "Number of entries",
       "headlineCountComments": "Number of comments"
     },
     "StatisticsDonut": {
@@ -182,6 +210,7 @@
     }
   },
   "Schedule": {
+    "closeButton": "Close",
     "headline": "Appointments",
     "nodeLength": "There are no appointments right now.",
     "Item": {

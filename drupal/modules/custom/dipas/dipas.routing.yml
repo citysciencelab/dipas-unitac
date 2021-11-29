@@ -7,6 +7,16 @@ dipas.configform:
   requirements:
     _permission: 'administer dipas'
 
+dipas.cockpitdataapi.endpoint:
+  path: '/dipas/participation_cockpit/{data}'
+  defaults:
+    _controller: 'dipas.restapi:requestCockpitDataEndpoint'
+  requirements:
+    _permission: 'access content'
+    data: \w+
+  options:
+    _maintenance_access: true    
+
 dipas.restapi.endpoint:
   path: '/dipas/{key}/{id}'
   defaults:
@@ -30,7 +40,7 @@ dipas.pdsapi.endpoint:
     comments: 'none'
   requirements:
     _permission: 'access content'
-    proj_ID: \w+
+    proj_ID: \w+(?:\-\w+)*
     type: \w+
     comments: \w+
     contr_ID: \d+

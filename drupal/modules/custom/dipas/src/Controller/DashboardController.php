@@ -123,7 +123,7 @@ class DashboardController extends ControllerBase {
             'title' => [
               '#markup' => sprintf("<span class='link_title'>%s</span>", $this->t('Media'))
             ],
-            'url' => Url::fromRoute('entity.media.add_page'),
+            'url' => Url::fromRoute('entity.media.collection'),
             'attributes' => [
               'class' => [
                 'iconLink',

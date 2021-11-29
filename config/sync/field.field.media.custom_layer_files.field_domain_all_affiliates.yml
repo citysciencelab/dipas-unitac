@@ -1,0 +1,23 @@
+uuid: af3eff21-1e88-45df-a477-ecba27bd37ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_domain_all_affiliates
+    - media.type.custom_layer_files
+id: media.custom_layer_files.field_domain_all_affiliates
+field_name: field_domain_all_affiliates
+entity_type: media
+bundle: custom_layer_files
+label: 'Send to all affiliates'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

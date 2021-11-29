@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessCheckInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Path\PathMatcherInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\domain\DomainNegotiatorInterface;
 use Drupal\domain_access\DomainAccessManagerInterface;
@@ -94,7 +95,12 @@ class DomainAccessCheck implements AccessCheckInterface {
       && in_array('project_admin', $account->getRoles())
       && !$this->manager->hasDomainPermissions($account, $domain, ['access inactive domains'])
     ) {
-      return AccessResult::forbidden('No permission to access this domain');
+      // Returning an AccessResult::forbidden actually leads to a redirect loop.
+      // Instead, we will simply end the session and redirect to the front page.
+      user_logout();
+      $response = new TrustedRedirectResponse('<front>');
+      $response->send();
+      // return AccessResult::forbidden('No permission to access this domain');
     }
 
     return AccessResult::allowed()->addCacheTags(['url.site']);

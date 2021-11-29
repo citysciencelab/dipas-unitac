@@ -28,14 +28,26 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the welcome modal data
+     * @name welcomemodal
+     * @returns {Object} welcomemodal
      */
     welcomemodal () {
       return this.$store.getters.welcomemodal;
     },
+    /**
+     * serves the project phase
+     * @name projectPhase
+     * @returns {String} projectphase
+     */
     projectPhase () {
       return this.$store.getters.projectphase;
     },
+    /**
+     * serves wether the modal is shown or not
+     * @name showModal
+     * @returns {Boolean}
+     */
     showModal () {
       const cookie = this.$cookies.get("dipas");
       let cookieForbidsModal = false,
@@ -64,17 +76,41 @@ export default {
 
       return !this.$root.modalWasShown && Object.keys(this.projectperiod).length && !cookieForbidsModal;
     },
+    /**
+     * serves the project title
+     * @name projecttitle
+     * @returns {String} projecttitle
+     */
     projecttitle () {
       return this.$store.getters.projecttitle;
     },
+    /**
+     * serves the project period
+     * @name projectperiod
+     * @returns {Object} projectperiod
+     */
     projectperiod () {
       return this.$store.getters.projectperiod;
     },
+    /**
+     * serves wether phase 2 is enabled
+     * @name enabledPhase2
+     * @returns {Boolean} enabledPhase2
+     */
     enabledPhase2 () {
       return this.$store.getters.enabledPhase2;
     },
     /**
+     * serves the name text for the conception button
+     * @name concetionButtonName
+     * @returns {String} conception button name
+     */
+    concetionButtonName () {
+      return this.$store.getters.concetionButtonName;
+    },
+    /**
      * Determines if showContributionButton should be shown
+     * @name showContributionButton
      * @returns {String} showContributionButton
      */
     showContributionButton () {
@@ -82,6 +118,7 @@ export default {
     },
     /**
      * Determines if showConceptionButton should be shown
+     * @name showConceptionsButton
      * @returns {String} showConceptionsButton
      */
     showConceptionsButton () {
@@ -91,6 +128,7 @@ export default {
   methods: {
     /**
      * Close the modal and saves whether the modal was allways onetime shown
+     * @returns {void}
      */
     closeModal () {
       const cookie = this.$cookies.get("dipas");
@@ -103,6 +141,7 @@ export default {
     },
     /**
      * Routes to project-info page and close the FirstModal instantely.
+     * @returns {void}
      */
     showProjectInfo () {
       this.closeModal();
@@ -112,6 +151,8 @@ export default {
     },
     /**
      * Routes to the createContribution wizard page/modal and close the FirstModal instantely.
+     * @event createContribution
+     * @returns {void}
      */
     createContribution () {
       this.closeModal();
@@ -119,6 +160,7 @@ export default {
     },
     /**
      * Routes to the frontpage and close the FirstModal instantely.
+     * @returns {void}
      */
     viewConceptions () {
       this.closeModal();
@@ -129,6 +171,10 @@ export default {
 </script>
 
 <template>
+  <!--
+    @name ModalElement
+    @fire closeModal
+  -->
   <ModalElement
     v-if="showModal"
     class="noPadding firstModal"
@@ -137,9 +183,10 @@ export default {
   >
     <div class="firstModalContent">
       <div
-        v-if="welcomemodal.image"
+        v-if="welcomemodal.image.path"
         class="modal-image"
-        :style="'background-image: url(' + welcomemodal.image + ')'"
+        :style="'background-image: url(' + welcomemodal.image.path + ')'"
+        :aria-label="welcomemodal.image.alttext"
       />
 
       <div class="textcontent">
@@ -152,9 +199,15 @@ export default {
         -->
         <div class="row buttons">
           <div :class="[(!$root.isMobile && (showContributionButton || showConceptionsButton)) ? 'col-xs-6 col-6' : 'col-xs-12 col-12', 'buttonContainer']">
+            <!--
+              @name DipasButton
+              @event click showProjectInfo
+            -->
             <DipasButton
+              tabindex="0"
               :text="$t('FirstModal.infoButton')"
               class="grey informButton"
+              role="button"
               :class="[$root.isMobile ? 'angular' : 'round']"
               @click="showProjectInfo"
             />
@@ -167,10 +220,11 @@ export default {
             :class="[!$root.isMobile ? 'col-xs-6 col-6' : 'col-xs-12 col-12', 'buttonContainer']"
           >
             <!--
-              triggered on click
-              @event click
+              @name DipasButton
+              @event click createContribution
             -->
             <DipasButton
+              tabindex="0"
               :text="$t('FirstModal.startButton')"
               icon="add"
               class="red contributeButton"
@@ -187,12 +241,14 @@ export default {
             :class="[!$root.isMobile ? 'col-xs-6 col-6' : 'col-xs-12 col-12', 'buttonContainer']"
           >
             <!--
-              triggered on click
-              @event click
+              @name DipasButton
+              @event click viewConceptions
             -->
             <DipasButton
-              :text="$t('FirstModal.conceptionsButton')"
+              tabindex="0"
+              :text="concetionButtonName"
               class="red conceptionButton"
+              role="button"
               :class="[$root.isMobile ? 'angular' : 'round']"
               @click="viewConceptions"
             />
@@ -214,7 +270,7 @@ export default {
     }
 
     #app.desktop .firstModalContent .textcontent .buttons .buttonContainer .dipasButton .customIcon {
-        margin: 0 40px 2px -70px;
+        margin: 0 6px 2px -16px;
     }
 
     .firstModal .modal-image {
@@ -230,13 +286,17 @@ export default {
         background-position: center center;
     }
 
+    button.closebutton .material-icons {
+      font-size: 1.875rem;
+    }
+
     .firstModal .textcontent {
         padding: 30px 30px 0 30px;
         margin: 10px 0;
     }
 
     .firstModal .textcontent h2 {
-        font-size: 36px;
+        font-size: 2.25rem;
         font-weight: bold;
     }
 

@@ -63,10 +63,10 @@ export default {
 <template>
   <div class="createContributionStep">
     <!--
-    triggered on change
-    @event input
-    @event jumpTo
-  -->
+      triggered on change
+      @event input
+      @event jumpTo
+    -->
     <component
       :is="component"
       :key="component.name"
@@ -81,7 +81,7 @@ export default {
 <style>
     div.createContributionStep {
         width: 100%;
-        min-height: 500px;
+        min-height: 50vh;
         margin-top: 30px;
     }
 
@@ -89,15 +89,15 @@ export default {
         min-height: auto;
     }
 
-    div.createContributionStep p.headline {
-        font-size: 20px;
+    div.createContributionStep h3.headline {
+        font-size: 1.5rem;
         font-weight: bold;
         color: black;
         margin: 0 0 10px 0;
     }
 
     div.createContributionStep label {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: bold;
         color: black;
         margin: 5px 0 5px 0;
@@ -108,8 +108,8 @@ export default {
         padding: 5px;
     }
 
-    div.createContributionStep input:focus,
-    div.createContributionStep textarea:focus {
+    div.createContributionStep input:focus:not(:focus-visible) ,
+    div.createContributionStep textarea:focus:not(:focus-visible)  {
         outline: none;
     }
 </style>

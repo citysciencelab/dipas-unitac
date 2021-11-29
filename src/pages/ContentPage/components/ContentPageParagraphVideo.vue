@@ -3,11 +3,18 @@
  */
 
 <script>
+/**
+ * Holds the content for the paragraph video
+ * @displayName ContentPageParagraphVideo
+ */
 import _ from "underscore";
 
 export default {
   name: "ContentPageParagraphVideo",
   props: {
+    /**
+     * serves the content object
+     */
     content: {
       type: Object,
       default () {
@@ -38,6 +45,10 @@ export default {
     };
   },
   computed: {
+    /**
+     * serves the aspect ratio for the picture
+     * @returns {String} ratioClass
+     */
     ratio_class () {
       const matches = this.content.field_video.match(/.*?width="(\d+?)".*?height="(\d+?)"/i),
         width = !isNaN(parseInt(matches[1], 10)) ? parseInt(matches[1], 10) : 16,

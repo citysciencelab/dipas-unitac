@@ -116,7 +116,7 @@ class MasterportalInstances extends ConfigEntityListBuilder {
     }
 
     // Only display entities that the current user has editing access to.
-    if (!$this->currentUser->hasPermission('edit any masterportal instance')) {
+    if (!$this->currentUser->hasPermission('edit any masterportal instances')) {
       $query->condition('uid', $this->currentUser->id(), '=');
     }
 

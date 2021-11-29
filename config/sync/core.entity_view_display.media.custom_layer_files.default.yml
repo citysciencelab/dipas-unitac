@@ -1,0 +1,57 @@
+uuid: 467b6d99-001e-4561-8315-645fef9a069a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.custom_layer_files.field_domain_access
+    - field.field.media.custom_layer_files.field_domain_all_affiliates
+    - field.field.media.custom_layer_files.field_media_file
+    - media.type.custom_layer_files
+  module:
+    - file
+    - image
+    - user
+id: media.custom_layer_files.default
+targetEntityType: media
+bundle: custom_layer_files
+mode: default
+content:
+  created:
+    type: timestamp
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_media_file:
+    label: above
+    weight: 3
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  thumbnail:
+    type: image
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+  uid:
+    type: author
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  langcode: true
+  name: true

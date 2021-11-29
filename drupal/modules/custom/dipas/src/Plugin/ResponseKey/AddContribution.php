@@ -108,7 +108,14 @@ class AddContribution extends ResponseKeyBase {
       // Make sure the key is lowercase.
       $key = strtolower($key);
       // XSS-sanitize ALL transferred values.
-      $value = Xss::filter($value);
+      if (is_array($value)) {
+        array_walk($value, function ($elem) {
+          return Xss::filter($elem);
+        });
+      }
+      else {
+        $value = Xss::filter($value);
+      }
       // Cast the value to a required format (if given).
       if (isset($requiredFields[$key])) {
         settype($value, $requiredFields[$key]);

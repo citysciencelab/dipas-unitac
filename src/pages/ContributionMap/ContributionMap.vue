@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * The corresponding map to the contribution
+ * @displayName ContributionMap
+ */
 import _ from "underscore";
 import {mapGetters} from "vuex";
 import {requestBroker} from "../../mixins/requestBroker.js";
@@ -32,6 +36,10 @@ export default {
       "projectRunning",
       "takesNewContributions"
     ]),
+    /**
+     * serves the map with the contribution extend
+     * @returns {String|Boolean}
+     */
     contributionMapWithExtend () {
       let queryString = "?castToPoint=true";
 
@@ -55,6 +63,10 @@ export default {
     }
   },
   beforeMount () {
+    /**
+     * loads initial the contribution extend
+     * @returns {void}
+     */
     this.loadContributionsExtend();
   }
 };
@@ -66,15 +78,20 @@ export default {
       v-if="contributionMapWithExtend"
       id="contribution_map"
       :src="contributionMapWithExtend"
-      width="100%"
+      :title="$t('ContributionMap.title')"
     />
+
     <div
       v-if="!$root.isMobile"
       class="buttonWrapper"
     >
+      <!--
+        @name DipasButton
+        @event click createContribution
+      -->
       <DipasButton
         v-if="projectRunning && takesNewContributions"
-        text="Beitrag erstellen"
+        :text="$t('ContributionMap.addContributionButton')"
         icon="add"
         class="red round"
         @click="$root.$emit('createContribution')"
@@ -94,7 +111,8 @@ export default {
 
     #app.desktop section.content div.map_frontpage,
     #app.desktop section.content div.map_frontpage iframe#contribution_map {
-        height: 100%
+        height: 100%;
+        width: 100%;
     }
 
     #app.desktop section.content .buttonWrapper {
@@ -112,7 +130,9 @@ export default {
     #app.mobile section.content div.map_frontpage,
     #app.mobile section.content div.map_frontpage iframe#contribution_map {
         padding: 0;
+        width: 100%;
         height: 100%;
+        border: none;
     }
 </style>
 

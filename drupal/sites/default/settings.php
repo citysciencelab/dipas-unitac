@@ -767,17 +767,7 @@ $settings['entity_update_batch_size'] = 50;
  * Keep this code block at the end of this file to take full effect.
  */
 $config_path = realpath(__DIR__ . "/../../../config/");
-
-$config_directories = [
-  CONFIG_SYNC_DIRECTORY => "$config_path/sync",
-];
-
-// Nimbus config directory configuration
-global $_nimbus_config_override_directories;
-$_nimbus_config_override_directories = [
-  "$config_path/local",
-  "$config_path/export"
-];
+$settings['config_sync_directory'] = "$config_path/sync";
 
 $settings['hash_salt'] = require_once("$config_path/drupal.salt.inc.php");
 $databases = require_once("$config_path/drupal.database-settings.php");

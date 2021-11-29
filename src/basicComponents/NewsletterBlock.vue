@@ -18,7 +18,8 @@ export default {
   name: "NewsletterBlock",
   props: {
     /**
-     * The object for settings.
+     * holds the object for settings.
+     * @name settings
      */
     settings: {
       type: Object,

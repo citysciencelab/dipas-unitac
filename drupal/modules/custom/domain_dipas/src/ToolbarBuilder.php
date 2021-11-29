@@ -153,7 +153,7 @@ class ToolbarBuilder {
           'attributes' => [],
         ];
         $link_title = $domain->get('name');
-        if ($domain->id() === $currentDomain->id()) {
+        if ($currentDomain && $domain->id() === $currentDomain->id()) {
           $link['attributes']['class'][] = 'is-active';
           $link['attributes']['title'] = $this->t(
             'Current active @current proceeding',

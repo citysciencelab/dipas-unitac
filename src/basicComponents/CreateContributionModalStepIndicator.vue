@@ -17,6 +17,8 @@ export default {
   props: {
     /**
      * The content object of the actual step
+     * @name activeStep
+     * @default 0
      */
     activeStep: {
       type: Number,
@@ -39,11 +41,17 @@ export default {
 
 <template>
   <ul class="createContributionStepIndicator">
+    <!--
+      @fire activeStep
+      @event click jumpTo
+    -->
     <li
       v-for="(step, index) in steps"
       :key="'createContributionStep-' + index"
       :class="[activeStep === index ? 'red' : (activeStep > index ? 'blue jumpButton' : 'grey')]"
+      :tabindex="[activeStep === index ? '0' : (activeStep > index ? '0' : '-1')]"
       @click="activeStep > index ? $emit('jumpTo', index) : null"
+      @keyup.enter="activeStep > index ? $emit('jumpTo', index) : null"
     >
       <span class="content">{{ step }}</span>
     </li>
@@ -67,7 +75,7 @@ export default {
         border-bottom-width: 8px;
         margin: 0 2px 0 0;
         padding: 0 0 5px 0;
-        font-size: 13px;
+        font-size: 0.813rem;
         font-weight: bold;
         cursor: default;
     }
@@ -97,5 +105,10 @@ export default {
     ul.createContributionStepIndicator li.blue {
         border-bottom-color: #003063;
         color: #003063;
+    }
+
+    div.createContributionModal ul.createContributionStepIndicator li.jumpButton:focus-visible {
+      outline: 3px solid #005CA9;
+      outline-offset: 1px;
     }
 </style>

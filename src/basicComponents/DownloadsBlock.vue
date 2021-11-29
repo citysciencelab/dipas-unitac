@@ -28,17 +28,34 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * holds the downloads
+     * @name downloads
+     * @returns {Array} downloads
      */
     downloads () {
       return this.$store.getters.downloads;
     },
+    /**
+     * holds the download page name
+     * @name downloadPage
+     * @returns {Array} downloads page
+     */
     downloadPage () {
       return this.downloads.slice((this.currentPage - 1) * this.filesPerPage, this.currentPage * this.filesPerPage);
     },
+    /**
+     * holds the number of total download pages
+     * @name totalPages
+     * @returns {Number} total pages amount
+     */
     totalPages () {
       return Math.ceil(this.downloads.length / this.filesPerPage);
     },
+    /**
+     * holds the pager links in array
+     * @name pagerLinks
+     * @returns {Array} pager links
+     */
     pagerLinks () {
       const pagerLinks = [];
 
@@ -64,9 +81,19 @@ export default {
     }
   },
   methods: {
+    /**
+     * sets the previous page number
+     * @name prevPage
+     * @returns {Number} previous page
+     */
     prevPage () {
       this.currentPage = this.currentPage > 1 ? this.currentPage - 1 : 1;
     },
+    /**
+     * sets the next page number
+     * @name prevPage
+     * @returns {Number} next page
+     */
     nextPage () {
       this.currentPage = this.currentPage < this.totalPages ? this.currentPage + 1 : this.totalPages;
     }
@@ -76,18 +103,23 @@ export default {
 
 <template>
   <section v-if="downloads.length">
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("DownloadsBlock.headline") }}
-    </p>
+    </h3>
 
     <div class="listing">
       <div class="links">
+        <!--
+          @name DownloadLink
+          @property downloadPage
+        -->
         <DownloadLink
           v-for="(link, index) in downloadPage"
           :key="index"
           :link="link"
         />
       </div>
+
       <div
         v-if="totalPages > 1"
         class="pager"

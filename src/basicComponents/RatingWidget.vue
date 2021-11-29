@@ -25,6 +25,7 @@ export default {
   props: {
     /**
      * Type of the entity.
+     * @name entityType
      */
     entityType: {
       type: String,
@@ -32,6 +33,7 @@ export default {
     },
     /**
      * ID for the entity.
+     * @name entityID
      */
     entityID: {
       type: String,
@@ -39,6 +41,7 @@ export default {
     },
     /**
      * ToDo
+     * @name bundle
      */
     bundle: {
       type: String,
@@ -46,6 +49,7 @@ export default {
     },
     /**
      * the rating with upVotes and downVotes.
+     * @name rating
      */
     rating: {
       type: Object,
@@ -58,6 +62,7 @@ export default {
     },
     /**
      * The style object for rating widget
+     * @name widgetStyle
      */
     widgetStyle: {
       type: String,
@@ -65,6 +70,7 @@ export default {
     },
     /**
      * Allows to rate for a contibution.
+     * @name ratingsAllowed
      * @values true, false
      */
     ratingsAllowed: {
@@ -79,19 +85,25 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves wether the cookies are accepted or not
+     * @name cookiesAccepted
+     * @returns {Boolean}
      */
     cookiesAccepted () {
       return !_.isNull(this.cookieData) || this.$root.cookieBannerConfirmed;
     },
     /**
-     * computed ToDo
+     * serves the rating widget display style
+     * @name displayStyle
+     * @returns {String}
      */
     displayStyle () {
       return this.widgetStyle;
     },
     /**
-     * computed ToDo
+     * serves the amount of up votes
+     * @name upVotes
+     * @returns {Number} upVotes
      */
     upVotes: {
       get () {
@@ -102,7 +114,9 @@ export default {
       }
     },
     /**
-     * computed ToDo
+     * serves the amount of down votes
+     * @name downVotes
+     * @returns {Number} downVotes
      */
     downVotes: {
       get () {
@@ -113,13 +127,17 @@ export default {
       }
     },
     /**
-     * computed ToDo
+     * serves the amount of all votes
+     * @name allVotes
+     * @returns {Number} allVotes
      */
     allVotes () {
       return this.upVotes + this.downVotes;
     },
     /**
-     * computed ToDo
+     * serves the the graphical bar up with value as css style percent
+     * @name upWidth
+     * @returns {String} upWidth
      */
     upWidth () {
       let percent = this.allVotes > 0 ? 100 * this.upVotes / this.allVotes : 0;
@@ -130,7 +148,9 @@ export default {
       return "width: " + percent + "%;";
     },
     /**
-     * computed ToDo
+     * serves the the graphical bar down width value as css style percent
+     * @name downWidth
+     * @returns {String} downWidth
      */
     downWidth () {
       let percent = this.allVotes > 0 ? 100 * this.downVotes / this.allVotes : 0;
@@ -141,7 +161,9 @@ export default {
       return "width: " + percent + "%;";
     },
     /**
-     * computed ToDo
+     * serves wether the client has already voted or not
+     * @name hasVoted
+     * @returns {Boolean} hasVoted
      */
     hasVoted () {
       if (
@@ -156,13 +178,17 @@ export default {
       return false;
     },
     /**
-     * computed ToDo
+     * serves wether the client can vote or not
+     * @name canVote
+     * @returns {Boolean} canVote
      */
     canVote () {
       return this.cookiesAccepted && !this.hasVoted && !this.savingInProgress;
     },
     /**
-     * computed ToDo
+     * serves wether tooltip is disabled or not
+     * @name disabledTooltip
+     * @returns {Boolean} disabledTooltip
      */
     disabledTooltip () {
       return !_.isNull(this.cookieData)
@@ -217,7 +243,9 @@ export default {
         :disabled="!canVote"
         :disabledText="disabledTooltip"
         icon="thumb_up"
+        :aria-label="$t('RatingWidget.iconVoteThumbUp')"
         @click="voteUp"
+        @keyup.enter="voteUp"
       />
       <!--
         triggered on click
@@ -228,14 +256,23 @@ export default {
         :disabled="!canVote"
         :disabledText="disabledTooltip"
         icon="thumb_down"
+        :aria-label="$t('RatingWidget.iconVoteThumbDown')"
         @click="voteDown"
+        @keyup.enter="voteDown"
       />
     </div>
+
     <div class="ratingStatus">
       <div class="thumbs upVotes">
         {{ upVotes }}
-        <i class="material-icons">thumb_up</i>
+        <i
+          :aria-label="$t('RatingWidget.iconThumbUp')"
+          class="material-icons"
+        >
+          thumb_up
+        </i>
       </div>
+
       <div
         class="barChart"
         :class="{noVotes: !allVotes}"
@@ -256,7 +293,12 @@ export default {
       </div>
 
       <div class="thumbs downVotes">
-        <i class="material-icons">thumb_down</i>
+        <i
+          :aria-label="$t('RatingWidget.iconThumbDown')"
+          class="material-icons"
+        >
+          thumb_down
+        </i>
         {{ downVotes }}
       </div>
     </div>
@@ -275,10 +317,16 @@ export default {
         height: 40px;
     }
 
+    div.ratingwidget div.ratingActions button.rateButton:focus-visible {
+        outline: 3px solid #005CA9;
+        outline-offset: -4px;
+    }
+
     div.ratingwidget div.ratingStatus {
         width: 100%;
         display: flex;
         margin-top: 10px;
+        padding-right: 5px;
     }
 
     div.ratingwidget.simple div.ratingStatus {
@@ -292,7 +340,7 @@ export default {
     }
 
     div.ratingwidget div.ratingStatus div.thumbs {
-        font-size: 12px;
+        font-size: 0.75rem;
         line-height: 10px;
         display: inline-block;
         white-space: nowrap;
@@ -309,18 +357,18 @@ export default {
     }
 
     div.ratingwidget.simple div.ratingStatus div.thumbs {
-        font-size: 10px;
+        font-size: 0.8rem;
     }
 
     div.ratingwidget div.ratingStatus div.thumbs i.material-icons {
         transform: scaleX(-1);
         line-height: 10px;
-        font-size: 20px;
+        font-size: 1.187rem;
         position: relative;
     }
 
     div.ratingwidget.simple div.ratingStatus div.thumbs i.material-icons {
-        font-size: 16px;
+        font-size: 1.187rem;
     }
 
     div.ratingwidget div.ratingStatus div.thumbs.upVotes i.material-icons {
@@ -367,13 +415,13 @@ export default {
 
     div.ratingwidget div.ratingActions .lightgreen .material-icons {
         transform: scaleX(-1);
-        font-size: 20px;
+        font-size: 1.25rem;
         margin: 0px 1px 2px 0px;
     }
 
     div.ratingwidget div.ratingActions .lightred .material-icons {
         transform: scaleX(-1);
-        font-size: 20px;
+        font-size: 1.25rem;
         margin: 5px 0px 0px 7px;
     }
 </style>

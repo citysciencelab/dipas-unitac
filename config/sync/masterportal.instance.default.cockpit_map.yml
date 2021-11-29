@@ -1,0 +1,26 @@
+uuid: 92da07c5-1f17-4081-a76f-e5bab1007d16
+langcode: de
+status: true
+dependencies: {  }
+id: default.cockpit_map
+uid: '1'
+instance_name: cockpit_map
+label: 'Cockpit Map'
+domain: default
+hidden: false
+settings:
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '19969'
+        custom:
+          visibility: true
+          gfiTheme: default
+  ForegroundLayerSection:
+    layer: {  }
+  DesignSettings:
+    uiStyle: simple
+    treeType: custom
+    scaleLine: 0
+    simpleMap: 1
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'

@@ -3,9 +3,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.dipas
-domain: default
-instance_name: dipas
 uid: '0'
+instance_name: dipas
 label: Dipas
 domain: default
 hidden: false
@@ -16,9 +15,8 @@ settings:
         id: '["1043","1044","1045","1046","13649","13652","13654","13656"]'
         custom:
           name: 'GeoBasisKarten Hamburg'
-          visibility: true
+          visibility: false
           gfiTheme: default
-          mixin: '{"visibility": true, "name": "Geobasiskarten (grau-blau)"}'
       -
         id: '["4736","4739","4742","4745","12059","12060","12061","12062"]'
         custom:
@@ -34,11 +32,10 @@ settings:
           gfiTheme: default
           mixin: '{"name": "Geobasiskarten (Schriftplatte)", "legendURL": "ignore", "gfiAttributes": "ignore"}'
       -
-        id: '453'
+        id: '19969'
         custom:
-          visibility: false
+          visibility: true
           gfiTheme: default
-          mixin: '{"name": "Stadtplan"}'
       -
         id: '12883'
         custom:
@@ -213,7 +210,7 @@ settings:
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
-      predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
+      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
     legend:
       name: Legende
       glyphicon: glyphicon-book
@@ -238,9 +235,9 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Controls\TotalView: {  }
       Drupal\masterportal\Plugin\Masterportal\Controls\Orientation3D: {  }
       Drupal\masterportal\Plugin\Masterportal\Controls\Overviewmap:
-        resolution: '400'
-        layerId: '453'
-        isInitOpen: 0
+        resolution: 400
+        layerId: '19969'
+        isInitOpen: false
   SearchBarSettings:
     minChars: 3
     zoomLevel: 7
@@ -264,7 +261,7 @@ settings:
         searchStreetKey: true
       Drupal\masterportal\Plugin\Masterportal\SearchBar\Gdi:
         minChars: '3'
-        serviceId: elastic_qs
+        serviceId: elastic
         queryObject: '{"id":"query","params":{"query_string":"%%searchString%%"}}'
       Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
       Drupal\masterportal\Plugin\Masterportal\SearchBar\VisibleVector:
@@ -285,7 +282,7 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
         name: 'Informationen abfragen'
         glyphicon: glyphicon-info-sign
-        isActive: true
+        active: true
         isVisibleInMenu: false
       Drupal\masterportal\Plugin\Masterportal\Tools\Measure:
         name: 'Strecke / Fläche messen'

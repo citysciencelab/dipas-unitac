@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Holds the content page paragraph accordeon
+ * @displayName ContentPageParagraphAccordeon
+ */
 import ContentPageParagraphAccordeonItem from "./ContentPageParagraphAccordeonItem.vue";
 
 export default {
@@ -11,6 +15,9 @@ export default {
     ContentPageParagraphAccordeonItem
   },
   props: {
+    /**
+     * holds the content for the accordeon
+     */
     content: {
       type: Object,
       default () {
@@ -23,6 +30,10 @@ export default {
 
 <template>
   <div class="accordeonParagraph">
+    <!--
+      ContentPageParagraphAccordeonItem component
+      @property {Object} content
+    -->
     <ContentPageParagraphAccordeonItem
       v-for="(element, index) in content.field_content"
       :key="index"

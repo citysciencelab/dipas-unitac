@@ -12,9 +12,8 @@ settings:
   BackgroundLayerSettings:
     layer:
       -
-        id: '["717","718","719","720","13709","13712","13714","13716"]'
+        id: '19969'
         custom:
-          name: 'GeoBasisKarten Hamburg'
           visibility: true
           gfiTheme: default
   DesignSettings:
@@ -68,7 +67,6 @@ settings:
         resolution: 0.13229159522921
         scale: 500
         zoomLevel: 9
-    resolution: 15.874991427505
     zoomLevel: 2
     epsg: 'EPSG:25832'
   MenuSettings:
@@ -88,13 +86,13 @@ settings:
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: true
-      predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
+      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
     legend:
       name: Legende
       glyphicon: glyphicon-book
   PortalSettings:
     title: Masterportal
-    logo: '{{library_path}}/img/logo.png'
+    logo: ''
     link: 'http://geoinfo.hamburg.de'
     tooltip: 'Landesbetrieb Geoinformation und Vermessung'
     activePlugins: {  }

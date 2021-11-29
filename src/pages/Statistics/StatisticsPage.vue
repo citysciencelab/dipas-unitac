@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves the frame of the statistic page
+ * @displayName StatisticsPage
+ */
 import _ from "underscore";
 import {requestBroker} from "../../mixins/requestBroker.js";
 import {mapGetters} from "vuex";
@@ -27,7 +31,9 @@ export default {
         comments: 0,
         contributionData: []
       },
-      headline: ""
+      headline: "",
+      rubricTableActive: false,
+      categoryTableActive: false
     };
   },
   computed: {
@@ -36,18 +42,38 @@ export default {
       "allRubrics",
       "useRubrics"
     ]),
+    /**
+     * @name topContributionsByCommentCount
+     * @returns {Array}
+     */
     topContributionsByCommentCount () {
       return _.sortBy(_.clone(this.statistics.contributionData), (contribution) => Number(contribution.comments)).reverse().slice(0, 10);
     },
+    /**
+     * @name topContributionsByRating
+     * @returns {Array}
+     */
     topContributionsByRating: function () {
       return _.sortBy(_.clone(this.statistics.contributionData), (contribution) => Number(contribution.rating)).reverse().slice(0, 10);
     },
+    /**
+     * @name contributionCount
+     * @returns {Number}  the value of the counted contributions
+     */
     contributionCount () {
       return this.statistics.contributionData.length;
     },
+    /**
+     * @name contributionCategories
+     * @returns {Array}
+     */
     contributionCategories () {
       return _.uniq(_.pluck(this.statistics.contributionData, "category"), false);
     },
+    /**
+     * @name contributionCategoryLabels
+     * @returns {Array} labels
+     */
     contributionCategoryLabels () {
       const labels = [];
 
@@ -56,6 +82,10 @@ export default {
       }, this);
       return labels;
     },
+    /**
+     * @name contributionCategoryColors
+     * @returns {Array} colors
+     */
     contributionCategoryColors () {
       const colors = [];
 
@@ -64,6 +94,10 @@ export default {
       }, this);
       return colors;
     },
+    /**
+     * @name contributionsByCategory
+     * @returns {Array} contribution counts by category
+     */
     contributionsByCategory () {
       const counts = [];
 
@@ -72,9 +106,48 @@ export default {
       }, this);
       return counts;
     },
+    contributionsByCategoryAsText () {
+      const
+        rndidCats = "cat" + Math.floor(Math.random() * 1000000),
+        rndidContribs = "contrib" + Math.floor(Math.random() * 1000000),
+        catCount = this.contributionCategories.length;
+      let catTextAlt =
+        "<table class='scr-only'><thead><tr><th id='" +
+        rndidCats +
+        "'>" +
+        this.$t("Statistics.StatisticsNumber.headlineCategory") +
+        "</th><th id='" +
+        rndidContribs +
+        "'>" +
+        this.$t("Statistics.StatisticsNumber.headlineCountEntries") +
+        "</th></tr></thead><tbody>";
+
+      for (let i = 0; i < catCount; i++) {
+        catTextAlt += "<tr><td headers='" +
+        rndidCats +
+        "'>" +
+        this.contributionCategoryLabels[i] +
+        "</td><td headers='" +
+        rndidContribs +
+        "'>" +
+        this.contributionsByCategory[i] +
+        "</td></tr>";
+      }
+      catTextAlt += "</tbody></table>";
+
+      return catTextAlt;
+    },
+    /**
+     * @name contributionRubrics
+     * @returns {Array} rubrics
+     */
     contributionRubrics () {
       return _.uniq(_.pluck(this.statistics.contributionData, "rubric"), false);
     },
+    /**
+     * @name contributionRubricLabels
+     * @returns {Array} labels
+     */
     contributionRubricLabels () {
       const labels = [];
 
@@ -83,10 +156,14 @@ export default {
       }, this);
       return labels;
     },
+    /**
+     * @name contributionRubricColors
+     * @returns {Array} used colors
+     */
     contributionRubricColors () {
-      const rubricColors = ["#40648B", "#537396", "#6683A2", "#7992AE", "#8CA2B9", "#9FB1C5", "#B3C1D1", "#C5D0DC", "#D9E0E8", "#ECEFF3"],
+      const rubricColors = ["#003063", "#703980", "#C63C76", "#FB624F", "#FFA600", "#8F9800", "#107C10", "#488F31", "#BAD0AF", "#033005", "#FFFFFF", "#000000"],
         noRubrics = this.allRubrics.length > 0 ? this.allRubrics.length : rubricColors.length,
-        colorStep = parseInt(rubricColors.length / noRubrics, 10),
+        colorStep = parseInt(rubricColors.length / noRubrics, 12),
         useColors = [];
 
       let colorIndex = 0;
@@ -98,6 +175,10 @@ export default {
 
       return useColors;
     },
+    /**
+     * @name contributionsByRubric
+     * @returns {Array}
+     */
     contributionsByRubric () {
       const counts = [];
 
@@ -105,6 +186,37 @@ export default {
         counts.push(_.filter(this.statistics.contributionData, (contribution) => contribution.rubric === rubric).length);
       }, this);
       return counts;
+    },
+    contributionsByRubricAsText () {
+      const
+        rndidRubrics = "rubric" + Math.floor(Math.random() * 1000000),
+        rndidContribs = "contrib" + Math.floor(Math.random() * 1000000),
+        rubricCount = this.contributionRubrics.length;
+      let rubricTextAlt =
+        "<table class='scr-only'><thead><tr><th id='" +
+        rndidRubrics +
+        "'>" +
+        this.$t("Statistics.StatisticsNumber.headlineRubric") +
+        "</th><th id='" +
+        rndidContribs +
+        "'>" +
+        this.$t("Statistics.StatisticsNumber.headlineCountEntries") +
+        "</th></tr></thead><tbody>";
+
+      for (let i = 0; i < rubricCount; i++) {
+        rubricTextAlt += "<tr><td headers='" +
+        rndidRubrics +
+        "'>" +
+        this.contributionRubricLabels[i] +
+        "</td><td headers='" +
+        rndidContribs +
+        "'>" +
+        this.contributionsByRubric[i] +
+        "</td></tr>";
+      }
+      rubricTextAlt += "</tbody></table>";
+
+      return rubricTextAlt;
     }
   },
   watch: {
@@ -117,6 +229,10 @@ export default {
     }
   },
   beforeMount () {
+    /**
+     * loads initally the statistic data object from requestbroker drupal api
+     * @returns {void}
+     */
     this.loadStatisticalData();
   }
 };
@@ -130,6 +246,9 @@ export default {
 
         <div class="row">
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 statisticsContainer statisticsNumber statisticsNumberContributions">
+            <!--
+              @name StatisticsNumber
+            -->
             <StatisticsNumber
               :headline="$t('Statistics.StatisticsNumber.headlineCountEntries')"
               :value="contributionCount"
@@ -137,6 +256,9 @@ export default {
           </div>
 
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 statisticsContainer statisticsNumber statisticsNumberComments">
+            <!--
+              @name StatisticsNumber
+            -->
             <StatisticsNumber
               :headline="$t('Statistics.StatisticsNumber.headlineCountComments')"
               :value="statistics.comments"
@@ -144,29 +266,67 @@ export default {
           </div>
 
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 statisticsContainer statisticsDonut statisticsDonutCategories">
+            <!--
+              @name StatisticsDonat
+            -->
             <StatisticsDonut
               :key="'categorydonut' + asyncRenderKey"
               :headline="$t('Statistics.StatisticsDonut.headlineCat')"
+              :aria-label="$t('Statistics.StatisticsDonut.headlineCat')"
               :keyId="'categorydonut' + asyncRenderKey"
               :labels="contributionCategoryLabels"
               :colors="contributionCategoryColors"
               :donutData="contributionsByCategory"
+              :textAlternative="contributionsByCategoryAsText"
             />
+            <p
+              class="displayAsLink"
+              tabindex="0"
+              @click="categoryTableActive = !categoryTableActive"
+              @keyup.enter="categoryTableActive = !categoryTableActive"
+            >
+              {{ categoryTableActive ? $t("Statistics.StatisticsAccessibleTables.hideTable") : $t("Statistics.StatisticsAccessibleTables.showTable") }}
+            </p>
+            <div
+              v-if="categoryTableActive"
+              v-html="contributionsByCategoryAsText"
+            >
+            </div>
           </div>
-
           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 statisticsContainer statisticsDonut statisticsDonutRubrics">
+            <!--
+              @name StatisticsDonat
+            -->
             <StatisticsDonut
               v-if="useRubrics"
               :key="'rubricdonut' + asyncRenderKey"
               :headline="$t('Statistics.StatisticsDonut.headlineType')"
+              :aria-label="$t('Statistics.StatisticsDonut.headlineType')"
               :keyId="'rubricdonut' + asyncRenderKey"
               :labels="contributionRubricLabels"
               :donutData="contributionsByRubric"
               :colors="contributionRubricColors"
+              :textAlternative="contributionsByRubricAsText"
             />
+            <p
+              class="displayAsLink"
+              tabindex="0"
+              @click="rubricTableActive = !rubricTableActive"
+              @keyup.enter="rubricTableActive = !rubricTableActive"
+            >
+              {{ rubricTableActive ? $t("Statistics.StatisticsAccessibleTables.hideTable") : $t("Statistics.StatisticsAccessibleTables.showTable") }}
+            </p>
+            <div
+              v-if="rubricTableActive"
+              v-html="contributionsByRubricAsText"
+            >
+            </div>
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 statisticsContainer nodeTopList nodeTopListComments">
+            <!--
+              @name StatisticsTopNodeList
+            -->
             <StatisticsTopNodeList
               :headline="$t('Statistics.StatisticsTopNodeListComments.headline')"
               :nodeList="topContributionsByCommentCount"
@@ -175,6 +335,9 @@ export default {
           </div>
 
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 statisticsContainer nodeTopList nodeTopListRating">
+            <!--
+              @name StatisticsTopNodeList
+            -->
             <StatisticsTopNodeList
               :headline="$t('Statistics.StatisticsTopNodeListRatings.headline')"
               :nodeList="topContributionsByRating"
@@ -185,7 +348,9 @@ export default {
       </div>
 
       <div class="col-lg-1 col-xl-1"></div>
-
+      <!--
+        @name RightColumn
+      -->
       <RightColumn class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" />
     </div>
   </div>
@@ -197,7 +362,7 @@ export default {
     }
 
     div.statistics h1 {
-        font-size: 36px;
+        font-size: 2.25rem;
         font-weight: bold;
         color: #003063;
         word-break: break-word;
@@ -219,8 +384,9 @@ export default {
         padding: 20px;
     }
 
-    div.statistics div.statisticsContainer > div > p.headline {
-        font-size: 20px;
+    div.statistics div.statisticsContainer > div > h3.headline,
+    div.statistics div.statisticsContainer > div > div > h3.headline {
+        font-size: 1.5rem;
         font-weight: bold;
         color: #003063;
         word-break: break-word;
@@ -245,9 +411,9 @@ export default {
     }
 
     div.statistics div.nodeTopList ol li a {
-        font-size: 14px;
+        font-size: 1rem;
         font-weight: bold;
-        color: black;
+        color: #005CA9;
     }
 
     div.statistics div.nodeTopList ol li:before {
@@ -256,17 +422,42 @@ export default {
         text-align: right;
         margin-right: 5px;
         content: counter(list-counter);
-        font-size: 14px;
+        font-size: 1rem;
         color: #40648B;
         font-weight: bold;
     }
 
     div.statistics div.statisticsNumber p.number {
         font-weight: 700;
-        font-size: 70px;
+        font-size: 4.375rem;
         color: #40648B;
         word-break: keep-all;
         text-align: center;
         margin: 30px 0;
+    }
+
+    div.statisticsContainer table.scr-only {
+      border: 1px solid #a0a0a0;
+      width: 100%;
+      background-color: #FFFFFF
+    }
+
+    div.statisticsContainer table.scr-only  th {
+      font-weight: bold;
+    }
+
+    div.statisticsContainer table.scr-only  td, th {
+      border: 1px solid #a0a0a0;
+      padding: 4px 30px;
+      text-align: center;
+    }
+
+    div.statisticsContainer p.displayAsLink {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #005CA9;
+      text-align: center;
+      margin-top: 5px;
+      cursor: pointer;
     }
 </style>

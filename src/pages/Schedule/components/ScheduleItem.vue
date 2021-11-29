@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves the data of a single schedule item
+ * @displayName ScheduleItem
+ */
 import _ from "underscore";
 import moment from "moment";
 import Masterportal from "../../../basicComponents/Masterportal.vue";
@@ -13,6 +17,9 @@ export default {
     Masterportal
   },
   props: {
+    /**
+     * single appointment item
+     */
     appointment: {
       type: Object,
       default () {
@@ -22,10 +29,15 @@ export default {
   },
   data () {
     return {
-      showDetails: false
+      showDetails: false,
+      rndid: "id" + Math.floor(Math.random() * 100000000)
     };
   },
   computed: {
+    /**
+     * serves the date of the single appointment item
+     * @returns {String} appointment date
+     */
     appointmentDate () {
       let appointmentDate = moment(this.appointment.start).format("DD.MM.YYYY - HH:mm");
 
@@ -42,6 +54,10 @@ export default {
       }
       return appointmentDate;
     },
+    /**
+     * serves the localization of a single appointment item
+     * @returns {String|Boolean} appointment date
+     */
     appointmentLocalization () {
       if (!_.isNull(this.appointment.lon) && !_.isNull(this.appointment.lat)) {
         const coords = this.appointment.lon + "," + this.appointment.lat;
@@ -57,13 +73,23 @@ export default {
 <template>
   <section
     class="appointment"
+    tabindex="0"
     @click="showDetails = true"
+    @keyup.enter="showDetails = true"
   >
-    <h2>{{ appointment.title }}</h2>
+    <h2
+      :id="rndid"
+    >
+      {{ appointment.title }}
+    </h2>
     <p class="topic">
       <label>{{ $t("Schedule.Item.topic") }}</label> {{ appointment.topic }}
     </p>
-    <p class="detailLink">
+    <p
+      class="detailLink"
+      role="link"
+      :aria-describedby="rndid"
+    >
       {{ $t("Schedule.Item.details") }}<i class="material-icons">play_arrow</i>
     </p>
     <hr />
@@ -73,9 +99,13 @@ export default {
     <p class="appointmentDate">
       {{ appointmentDate }}
     </p>
-
+    <!--
+      @name ModalElement
+      @fire closeModal
+    -->
     <ModalElement
       v-if="showDetails"
+      role="dialog"
       @closeModal="showDetails = false"
     >
       <div class="scheduleDetails">
@@ -105,7 +135,9 @@ export default {
           </template>
           {{ appointment.zip }} {{ appointment.city }}
         </p>
-
+        <!--
+          @name Masterportal
+        -->
         <Masterportal
           v-if="appointmentLocalization"
           :src="appointmentLocalization"
@@ -118,12 +150,12 @@ export default {
 <style>
     section.appointment {
         background-color: #F0F0F0;
-        padding: 20px;
+        padding: 32px;
         margin-bottom: 10px;
     }
 
     section.appointment h2 {
-        font-size: 20px;
+        font-size: 1rem;
         font-weight: bold;
         color: #003063;
         padding: 0;
@@ -131,16 +163,16 @@ export default {
     }
 
     section.appointment p {
-        font-size: 13px;
+        font-size: 1rem;
         padding: 0;
         margin: 0 0 5px 0;
     }
 
     section.appointment p.address,
     section.appointment p.appointmentDate {
-        font-size: 12px;
+        font-size: 0.8rem;
         font-weight: bold;
-        line-height: 12px;
+        line-height: 0.9rem;
         color: black;
     }
 
@@ -154,8 +186,8 @@ export default {
     section.appointment p.detailLink i {
         vertical-align: middle;
         text-align: right;
-        line-height: 10px;
-        font-size: 10px;
+        line-height: 2rem;
+        font-size: 0.8rem;
         margin: 0;
         padding: 0;
         white-space: nowrap;
@@ -163,12 +195,8 @@ export default {
 
     section.appointment p.detailLink {
         cursor: pointer;
-        color: #2573B4;
-    }
-
-    section.appointment:hover p.detailLink,
-    section.appointment p.detailLink:hover {
-        text-decoration: underline;
+        color: #005CA9;
+        font-weight: bold;
     }
 
     section.appointment div.customModal div.scheduleDetails {
@@ -189,7 +217,7 @@ export default {
     }
 
     section.appointment div.customModal div.scheduleDetails p.address {
-        font-size: 13px;
+        font-size: 1rem;
         line-height: inherit;
         font-weight: normal;
         margin-top: 10px;

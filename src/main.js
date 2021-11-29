@@ -229,7 +229,8 @@ i18next.init({
   resources: {
     en: {translation: translate.translationsEn},
     de: {translation: translate.translationsDe}
-  }
+  },
+  ignoreJSONStructure: false
 });
 
 new Vue({
@@ -263,6 +264,9 @@ new Vue({
     });
 
     this.$store.dispatch("readTheming", configElement.src);
+    const html = document.documentElement;
+    // eslint-disable-next-line
+    html.setAttribute("lang", process.env.VUE_APP_LANG);
   },
 
   mounted () {

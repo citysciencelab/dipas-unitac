@@ -77,6 +77,41 @@ function dipas_schema() {
     ],
   ];
 
+  $schema['dipas_cockpit_data'] = [
+    'description' => 'Table to store the contributions and comments per month over all proceedings.',
+    'fields' => [
+        'dipas_cockpit_data_id' => [
+          'description' => 'the unique id for the data',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'year' => [
+          'description' => 'The year were the contribution or comment was entered',
+          'type' => 'int',
+          'not null' => TRUE,
+        ],
+        'month' => [
+          'description' => 'The month were the contribution or comment was entered',
+          'type' => 'int',
+          'not null' => TRUE,
+        ],
+        'contributions' => [
+          'description' => 'The count of the contribution were entered',
+          'type' => 'int',
+          'not null' => FALSE,
+        ],
+        'comments' => [
+          'description' => 'The count were the comments were entered',
+          'type' => 'int',
+          'not null' => FALSE,
+       ],
+    ],
+    'primary key' => [
+      'dipas_cockpit_data_id',
+    ],
+  ];
+
   return $schema;
 
 }
@@ -310,4 +345,83 @@ function dipas_update_8105() {
       $config->save(TRUE);
     }
   }
+}
+
+/**
+ * Remove overwriteFrontpage Tickbox from projectSchedule settings and check the box on MenuSettings if it was set
+ *
+ */
+function dipas_update_8106() {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('dipas.') as $dipas_config) {
+    $config = $config_factory->getEditable($dipas_config);
+
+    $settings = $config->get('ProjectSchedule');
+
+    if ($settings && in_array('overwriteFrontpage', $settings)) {
+
+      $settingsValue = $settings['overwriteFrontpage'];
+
+      if ($config->get('MenuSettings') && $settingsValue) {
+        $menuSettings = $config->get('MenuSettings');
+
+        $menuSettings['mainmenu']['conceptionlist']['enabled'] = TRUE;
+        $menuSettings['mainmenu']['conceptionlist']['name'] = 'Entwürfe Ansehen';
+        $menuSettings['mainmenu']['conceptionlist']['icon'] = 'compare_arrows';
+        $menuSettings['mainmenu']['conceptionlist']['overwriteFrontpage'] = $settingsValue;
+
+        $config->set('MenuSettings', $menuSettings);
+
+      }
+
+      unset($settings['overwriteFrontpage']);
+      $config->set('ProjectSchedule', $settings);
+      $config->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Introducing a new table for DIPAS Cockpit
+ */
+function dipas_update_8107() {
+  $spec = [
+    'description' => 'Table to store the contributions and comments per month over all proceedings.',
+    'fields' => [
+        'dipas_cockpit_data_id' => [
+          'description' => 'the unique id for the data',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'year' => [
+          'description' => 'The year were the contribution or comment was entered',
+          'type' => 'int',
+          'not null' => TRUE,
+        ],
+        'month' => [
+          'description' => 'The month were the contribution or comment was entered',
+          'type' => 'int',
+          'not null' => TRUE,
+        ],
+        'contributions' => [
+          'description' => 'The count of the contribution were entered',
+          'type' => 'int',
+          'not null' => FALSE,
+        ],
+        'comments' => [
+          'description' => 'The count were the comments were entered',
+          'type' => 'int',
+          'not null' => FALSE,
+       ],
+    ],
+    'primary key' => [
+      'dipas_cockpit_data_id',
+    ],
+  ];
+  // Fetch the actual schema from the default database
+  $schema = Database::getConnection()->schema();
+  // CREATE TABLE dipas_cockpit_data
+  $schema->createTable('dipas_cockpit_data', $spec);
 }

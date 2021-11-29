@@ -1,0 +1,35 @@
+uuid: f527d412-9b23-4291-a681-be029ba5371c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.custom_layer_files.field_domain_access
+    - field.field.media.custom_layer_files.field_domain_all_affiliates
+    - field.field.media.custom_layer_files.field_media_file
+    - image.style.medium
+    - media.type.custom_layer_files
+  module:
+    - image
+id: media.custom_layer_files.media_library
+targetEntityType: media
+bundle: custom_layer_files
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_media_file: true
+  langcode: true
+  name: true
+  uid: true

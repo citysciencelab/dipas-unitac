@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves the content page paragraph of the conception
+ * @displayName ContentPageParagraphConception
+ */
 import ContentPageNodeConception from "./ContentPageNodeConception.vue";
 
 export default {
@@ -10,6 +14,9 @@ export default {
   components: {
     ContentPageNodeConception
   },
+  /**
+   * holds the content data
+   */
   props: {
     content: {
       type: Object,
@@ -22,6 +29,10 @@ export default {
 </script>
 
 <template>
+  <!--
+    ContentPageNodeConception component
+    @property {Object} content
+  -->
   <ContentPageNodeConception :content="content" />
 </template>
 

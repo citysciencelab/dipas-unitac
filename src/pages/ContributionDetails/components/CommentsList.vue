@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * List the comments
+ * @displayName CommentsList
+ */
 import {requestBroker} from "../../../mixins/requestBroker.js";
 import CommentsListComment from "./CommentsListComment.vue";
 
@@ -13,15 +17,27 @@ export default {
   },
   mixins: [requestBroker],
   props: {
+    /**
+     * root entity bundle
+     */
     rootEntityBundle: undefined,
+    /**
+     * id of root entity
+     */
     rootEntityID: {
       type: String,
       default: ""
     },
+    /**
+     * id of contribution
+     */
     contributionID: {
       type: String,
       default: ""
     },
+    /**
+     * contribution data object
+     */
     contribution: {
       type: Object,
       default () {
@@ -39,6 +55,10 @@ export default {
   watch: {
     // This watch only gets triggered if the parent node is not cached.
     contributionID () {
+      /**
+       * load the comments via requestbroker mixin from drupal api
+       * @param {String} contributionID id of the contribution
+       */
       this.loadComments(this.contributionID);
     }
   },
@@ -55,9 +75,9 @@ export default {
 <template>
   <section class="comments">
     <div class="oneline">
-      <p class="headline">
+      <h2 class="headline">
         {{ $t("CommentsList.headline") }}
-      </p>
+      </h2>
       <p class="commentcount">
         {{ $t("CommentsList.commentCount", {"commentcount": commentcount}) }}
       </p>
@@ -71,6 +91,11 @@ export default {
       :key="'comments-' + commentsTimestamp"
       class="comments"
     >
+      <!--
+        @name CommentsListComment
+        @event reloadComments event
+        @property {Array} comments
+      -->
       <CommentsListComment
         v-for="comment in comments"
         :key="comment.cid"
@@ -91,9 +116,9 @@ export default {
         width: 50%;
     }
 
-    div.oneline p.headline {
+    div.oneline h2.headline {
         color: #003063;
-        font-size: 26px;
+        font-size: 1.875rem;
         font-weight: bold;
     }
 

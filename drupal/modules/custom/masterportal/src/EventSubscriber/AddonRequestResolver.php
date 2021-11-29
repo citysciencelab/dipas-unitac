@@ -9,7 +9,7 @@ namespace Drupal\masterportal\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -50,7 +50,7 @@ class AddonRequestResolver implements EventSubscriberInterface {
   /**
    * Event subscriber handler method.
    */
-  public function onResponse(FilterResponseEvent $event) {
+  public function onResponse(ResponseEvent $event) {
     $requestUriPattern = sprintf(
       '~^%1$s%2$s/libraries/masterportal/(?:js|css)/~',
       base_path(),

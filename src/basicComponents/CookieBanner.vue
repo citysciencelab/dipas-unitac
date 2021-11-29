@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * read cookies from browser
+     * @returns {Object} cookie
      */
     hasCookie () {
       return this.$cookies.get("dipas");
@@ -37,6 +38,7 @@ export default {
   methods: {
     /**
      * Gets called when the user clicks "accept coockies"
+     * @returns {void}
      */
     acceptCookies: function () {
       this.$root.cookieBannerConfirmed = true;
@@ -44,6 +46,7 @@ export default {
     },
     /**
      * Gets called when the user clicks "inform"
+     * @returns {void}
      */
     gotoToDataprivacyPage: function () {
       this.$root.cookieBannerConfirmed = true;
@@ -58,6 +61,7 @@ export default {
   <div
     v-if="!hasCookie && !$root.cookieBannerConfirmed"
     class="cookieBanner"
+    role="dialog"
   >
     <!--
     close the cookie banner in mobile state
@@ -79,6 +83,7 @@ export default {
         {{ $t('Cookiebar.text') }}
         <span
           class="dataPrivacyLink"
+          role="link"
           @click="gotoToDataprivacyPage()"
         >
           {{ $t('Cookiebar.linktext') }}
@@ -87,13 +92,19 @@ export default {
       </p>
     </div>
     <!--
-    triggered on click and accept cookies
-    @event click
+      triggered on click and accept cookies
+      @event click
     -->
     <div class="buttons">
+      <!--
+        @name DipasButton
+        @event click accept cookies
+      -->
       <DipasButton
         :text="$t('Cookiebar.buttontext')"
         class="blue angular"
+        role="button"
+        tabindex="0"
         @click="acceptCookies"
       />
     </div>
@@ -128,7 +139,7 @@ export default {
         border-radius: 15px;
     }
 
-    div.cookieBanner button.closebutton:focus {
+    div.cookieBanner button.closebutton:focus:not(:focus-visible) {
         outline: none;
     }
 
@@ -167,13 +178,13 @@ export default {
     div.cookieBanner div.text p,
     div.cookieBanner div.text p a {
         color: white;
-        font-size: 12px;
+        font-size: 0.75rem;
         margin: 0;
     }
 
     #app.mobile div.cookieBanner div.text p,
     #app.mobile div.cookieBanner div.text p a {
-        font-size: 16px;
+        font-size: 1rem;
         color: black;
     }
 
@@ -183,12 +194,12 @@ export default {
 
     div.cookieBanner div.text p.headline {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1rem;
         margin-bottom: 10px;
     }
 
     #app.mobile div.cookieBanner div.text p.headline {
-        font-size: 24px;
+        font-size: 1.5rem;
         color: #003063;
         margin-bottom: 20px;
     }
@@ -208,11 +219,20 @@ export default {
     }
 
     div.cookieBanner div.buttons button {
-        font-size: 12px;
         padding: 0 20px;
         height: 40px;
         -webkit-box-shadow: 3px 3px 3px -2px rgba(0, 0, 0, 0.6);
         -moz-box-shadow: 3px 3px 3px -2px rgba(0, 0, 0, 0.6);
         box-shadow: 3px 3px 3px -2px rgba(0, 0, 0, 0.6);
     }
+
+    div.cookieBanner button.dipasButton:focus-visible {
+        outline: 3px solid #ffffff;
+    }
+
+    #app.mobile div.cookieBanner button.dipasButton:focus-visible {
+        outline: 3px solid #ffffff;
+        outline-offset: -7px;
+    }
+
 </style>

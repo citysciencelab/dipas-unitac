@@ -3,6 +3,9 @@
  */
 
 <script>
+/**
+ * Holds the related contributions
+ */
 import _ from "underscore";
 import {requestBroker} from "../../../mixins/requestBroker.js";
 import ContributionListTeaser from "../../ContributionList/components/ContributionListTeaser.vue";
@@ -14,6 +17,9 @@ export default {
   },
   mixins: [requestBroker],
   props: {
+    /**
+     * holds the id of the contribution
+     */
     contributionID: {
       type: String,
       default: ""
@@ -26,10 +32,18 @@ export default {
   },
   watch: {
     // This watch only gets triggered if the parent node is not cached.
+    /**
+     * reload related contributions if contribution id changes
+     * @returns {void}
+     */
     contributionID (val) {
       this.loadRelatedContributions(val);
     }
   },
+  /**
+   * load initially the related contributions
+   * @returns {void}
+   */
   mounted () {
     if (!_.isUndefined(this.contributionID)) {
       this.loadRelatedContributions(this.contributionID);
@@ -40,10 +54,13 @@ export default {
 
 <template>
   <section class="relatedContributions">
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("RelatedContributions.headline") }}
-    </p>
-
+    </h3>
+    <!--
+      @name contribution list teaser
+      @property {Array} of relatedContributions objects
+    -->
     <ContributionListTeaser
       v-for="relatedContribution in relatedContributions"
       :key="relatedContribution.nid"
@@ -57,8 +74,8 @@ export default {
         margin-top: 40px;
     }
 
-    section.relatedContributions p.headline {
-        font-size: 26px;
+    section.relatedContributions h3.headline {
+        font-size: 1.5rem;
         font-weight: bold;
         color: #003063;
     }

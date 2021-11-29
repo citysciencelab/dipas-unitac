@@ -12,6 +12,7 @@ use Drupal\Core\Config\ConfigValueException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Url;
+use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\Entity\MasterportalInstanceInterface;
 use Drupal\masterportal\PluginSystem\PluginManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -26,6 +27,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @package Drupal\masterportal\Service
  */
 class Masterportal implements MasterportalInterface {
+
+  use DomainAwareTrait;
 
   /**
    * Prefix to use for cache ids.
@@ -255,9 +258,10 @@ class Masterportal implements MasterportalInterface {
 
     // Construct the cache ID of the current request.
     $cacheID = sprintf(
-      '%s:%s',
+      '%s:%s:%s',
       self::CACHE_ID_PREFIX,
-      (!empty($cacheID = $this->currentRequest->attributes->get('cacheID')) ? $cacheID : $key)
+      (!empty($cacheID = $this->currentRequest->attributes->get('cacheID')) ? $cacheID : $key),
+      $this->getActiveDomain()
     );
 
     // If the current request is instance-sensitive,
@@ -295,7 +299,7 @@ class Masterportal implements MasterportalInterface {
     $cache = $this->cacheBackend->get($cacheID);
 
     // If no valid cache existed, process and cache the data.
-    if ($this->currentRequest->query->has('nocache') || $cache === FALSE) {
+    if ($this->currentRequest->query->has('noCache') || $cache === FALSE) {
 
       // Are there any overwrites that should get passed on?
       $routeObject = $this->currentRequest->get('_route_object');
@@ -620,7 +624,7 @@ class Masterportal implements MasterportalInterface {
         // Create a rule array holding the rule definition.
         $style['rules'][] = [
           'conditions' => [],
-          'styles' => [],
+          'style' => [],
         ];
 
         // This is the target variable all definition information will be inserted in.
@@ -646,7 +650,7 @@ class Masterportal implements MasterportalInterface {
           $propertyValue = $styleDefinition['property_is_json']
             ? json_decode($styleDefinition['property_value'])
             : $styleDefinition['property_value'];
-          $ruleTarget['styles'][$styleDefinition['style_property']] = $propertyValue;
+          $ruleTarget['style'][$styleDefinition['style_property']] = $propertyValue;
         }
 
       }
@@ -677,7 +681,19 @@ class Masterportal implements MasterportalInterface {
       $content = $this->tokenService->replaceTokens($content);
       $content = realpath(sprintf('%s/%s', DRUPAL_ROOT, $content));
     }
-    return file_get_contents($content);
+    if (preg_match('~^https?://~i', $content)) {
+      try {
+        /* @var \GuzzleHttp\ClientInterface $guzzle */
+        $guzzle = \Drupal::getContainer()->get('http_client');
+        return $guzzle->request('GET', $content)->getBody()->getContents();
+      } catch (\Exception $e) {
+        $this->logger->error("Unable to fetch services definitions! Error thrown: %error", ['%error' => $e->getMessage()]);
+        return '[]';
+      }
+    }
+    else {
+      return file_get_contents($content);
+    }
   }
 
   /**

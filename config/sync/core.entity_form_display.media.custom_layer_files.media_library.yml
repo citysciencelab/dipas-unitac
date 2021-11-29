@@ -1,0 +1,32 @@
+uuid: b5dcc5e4-023d-4cd3-9d64-34089c77929c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.custom_layer_files.field_domain_access
+    - field.field.media.custom_layer_files.field_domain_all_affiliates
+    - field.field.media.custom_layer_files.field_media_file
+    - media.type.custom_layer_files
+id: media.custom_layer_files.media_library
+targetEntityType: media
+bundle: custom_layer_files
+mode: media_library
+content:
+  name:
+    type: string_textfield
+    settings:
+      size: 60
+      placeholder: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  field_media_file: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

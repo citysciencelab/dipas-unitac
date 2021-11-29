@@ -1,4 +1,11 @@
 {
+  "Site": {
+    "siteName": "Logo",
+    "logoLink": "Link zur Startseite",
+    "footerText": "Online-Beteiligung mit",
+    "footerDipasLogoAltText": "DIPAS-Logo",
+    "footerDipasLogoTitle": "Link zu dipas.org"
+  },
   "FirstModal": {
     "projctStartsAt": "Das Verfahren startet am {{projectStarts}} und endet am {{projectEnd}}.",
     "projectRuns": "Das Verfahren läuft vom {{projectStarts}} bis zum {{projectEnd}}.",
@@ -13,6 +20,10 @@
     "text": "Mit Klick auf \"Cookies akzeptieren\" stimmen Sie zu, dass Cookies gemäß unserer Cookie Policy",
     "text_2ndLine": "auf dieser Webseite verwendet werden dürfen.",
     "buttontext": "Cookies akzeptieren"
+  },
+  "ContributionMap": {
+    "addContributionButton": "Beitrag erstellen",
+    "title": "Beitragskarte"
   },
   "ContributionList": {
     "title": "Beitragsliste",
@@ -55,7 +66,10 @@
     }
   },
   "Contact": {
-    "headline": "Kontakt"
+    "headline": "Kontakt",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "web": "Webseite"
   },
   "CreateContributionModal": {
     "cancel": "Abbrechen",
@@ -65,15 +79,16 @@
     "StepIndicator": {
       "content": "Inhalt",
       "category": "Kategorie",
-      "type": "Typ",
+      "type": "Beitragstyp",
       "map": "Verorten",
       "overview": "Übersicht"
     },
     "StepContents": {
       "headline": "Inhalt",
-      "title": "Titel",
-      "text": "Text",
-      "remainingChars": "Sie haben noch {{remaining}} von {{maxlength}} Zeichen übrig."
+      "title": "Beitragstitel",
+      "text": "Beschreibung",
+      "remainingChars": "Sie haben noch {{remaining}} von {{maxlength}} Zeichen übrig.",
+      "minimalChars": "mindestens {{minChar}} Zeichen"
     },
     "StepCategory": {
       "headline": "Kategorie wählen",
@@ -86,11 +101,12 @@
       }
     },
     "StepType": {
-      "headline": "Typ wählen",
+      "headline": "Beitragstyp wählen",
       "no_rubrics_text": "Eine Einteilung in Beitragstypen findet nicht statt!"
     },
     "StepMap": {
       "headline": "Beitrag verorten",
+      "geometry": "Wählen Sie ein Werkzeug",
       "infotext_point": "Um einen Punkt zu setzen, klicken Sie an gewünschter Stelle in die Karte. Anschließend können Sie den gesetzten Punkt noch verschieben.",
       "infotext_linestring": "Um eine Linie zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
       "infotext_polygon": "Um ein Polygon zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
@@ -106,7 +122,7 @@
   },
   "ContributionDetails": {
     "backToList": "Zurück zur Beitragsliste",
-    "comment": "kommentieren",
+    "comment": "Kommentieren",
     "oClock": "Uhr"
   },
   "ParagraphDivisionInPlanningSubareas": {
@@ -135,13 +151,19 @@
   },
   "RatingWidget": {
     "already": "Dieser Beitrag wurde bereits von Ihnen bewertet.",
-    "acceptedCookies": "Cookies müssen akzeptiert werden, um bewerten zu können."
+    "acceptedCookies": "Cookies müssen akzeptiert werden, um bewerten zu können.",
+    "iconThumbUp": "Mit Daumen hoch bewertet",
+    "iconThumbDown": "Mit Daumen runter bewertet",
+    "iconVoteThumbUp": "Bewertung Daumen hoch vergeben",
+    "iconVoteThumbDown": "Bewertung Daumen runter vergeben"
   },
   "CommentsForm": {
     "remainingChars": "Sie haben noch {{remaining}} Zeichen übrig.",
     "tooShort": "Ihr Kommentar ist zu kurz!",
-    "submitComment": "absenden",
-    "saved": "Ihr Kommentar wird gespeichert."
+    "submitComment": "Absenden",
+    "cancelComment": "Abbrechen",
+    "saved": "Ihr Kommentar wird gespeichert.",
+    "canceled": "Kommentieren wurde abgebrochen."
   },
   "CommentsList": {
     "headline": "Kommentare",
@@ -149,8 +171,8 @@
     "commentCount": "{{commentcount}} Kommentare",
     "Comment": {
       "meta": "{{created}} | Nr.{{commentCid}}",
-      "comment": "kommentieren",
-      "cancel": "abbrechen",
+      "comment": "Kommentieren",
+      "cancel": "Abbrechen",
       "reply": "Antworten",
       "replyNoPlural": "Antworten an Nr. ",
       "replyNo": "Antwort an Nr. "
@@ -169,10 +191,16 @@
     "StatisticsTopNodeListComments": {
       "headline": "Top 10 Beiträge nach Kommentaren"
     },
+    "StatisticsAccessibleTables": {
+      "showTable": "Daten als Tabelle anzeigen",
+      "hideTable": "Tabelle verbergen"
+    },
     "StatisticsTopNodeListRatings": {
       "headline": "Top 10 Beiträge nach Bewertungen"
     },
     "StatisticsNumber": {
+      "headlineRubric": "Typ",
+      "headlineCategory": "Kategorie",
       "headlineCountEntries": "Anzahl Beiträge",
       "headlineCountComments": "Anzahl Kommentare"
     },
@@ -182,6 +210,7 @@
     }
   },
   "Schedule": {
+    "closeButton": "Schließen",
     "headline": "Termine",
     "nodeLength": "Derzeit gibt es keine anstehenden Termine oder Veranstaltungen.",
     "Item": {

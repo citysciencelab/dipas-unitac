@@ -23,17 +23,17 @@ function domain_dipas_views_data_alter(array &$data) {
   $tables = ['comment', 'media', 'node'];
 
   foreach ($tables as $tableName) {
-    $table = $tableName . '__' . DOMAIN_ACCESS_FIELD;
-    $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
-    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
-    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+    $table = $tableName . '__' . \Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD;
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
 
     // Current domain filter.
     $data[$table]['current_all'] = [
       'title' => t('Current domain'),
       'group' => t('Domain'),
       'filter' => [
-        'field' => DOMAIN_ACCESS_FIELD . '_target_id',
+        'field' => \Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD . '_target_id',
         'id' => 'domain_dipas_current_all_filter',
         'entity' => $tableName,
         'title' => t('Available on current domain'),
@@ -42,16 +42,16 @@ function domain_dipas_views_data_alter(array &$data) {
     ];
 
     // Since domains are not stored in the database, relationships cannot be used.
-    unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+    unset($data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD]['relationship']);
 
     // Set the user data.
-    $table = 'user__' . DOMAIN_ACCESS_FIELD;
-    $data[$table][DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
-    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
-    $data[$table][DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
+    $table = 'user__' . \Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD;
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD]['field']['id'] = 'domain_access_field';
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD . '_target_id']['filter']['id'] = 'domain_access_filter';
+    $data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD . '_target_id']['argument']['id'] = 'domain_access_argument';
 
     // Since domains are not stored in the database, relationships cannot be used.
-    unset($data[$table][DOMAIN_ACCESS_FIELD]['relationship']);
+    unset($data[$table][\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD]['relationship']);
   }
 
 }
@@ -90,7 +90,6 @@ function domain_dipas_toolbar() {
   return [];
 }
 
-
 /**
  * Implements hook_form_alter().
  *
@@ -114,22 +113,40 @@ function domain_dipas_form_alter(&$form, FormStateInterface $form_state, $form_i
   }
   else {
     $form_ids_to_alter_regex = [
-      '/taxonomy_term_.*_form/',
-      '/media_.*_add_form/',
-      '/node_.*_form/',
-      '/comment_reply_form/',
+      '/^taxonomy_term_.*?_form$/',
+      '/^media_.*?_add_form$/',
+      '/^node_.*?_form$/',
+      '/^comment_reply_form$/',
     ];
 
     array_walk(
       $form_ids_to_alter_regex,
-      function (&$regex) use($form_id, &$form) {
+      function ($regex) use ($form_id, &$form) {
         if (preg_match($regex, $form_id)) {
-          $form["field_domain_access"]["#type"] = "hidden";
-          $form["field_domain_access"]["widget"]['#type'] = "value";
-          $form["field_domain_all_affiliates"]["#type"] = "hidden";
+          $form["field_domain_access"]["#type"] = 'hidden';
+          $form["field_domain_access"]["widget"]['#type'] = 'value';
+          $form["field_domain_all_affiliates"]["#type"] = 'hidden';
         }
       }
     );
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ *
+ * Hide domain fields for project administrators.
+ */
+function domain_dipas_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface &$form_state) {
+  $currentUser = \Drupal::currentUser();
+
+  if (
+    $currentUser->id() !== "1" &&
+    !count(array_intersect($currentUser->getRoles(), ['siteadmin', 'project_administrator_all_domains']))
+  ) {
+    $entity_form["field_domain_access"]["#type"] = 'hidden';
+    $entity_form["field_domain_access"]["widget"]['#type'] = 'value';
+    $entity_form["field_domain_all_affiliates"]["#type"] = 'hidden';
   }
 }
 
@@ -138,7 +155,6 @@ function domain_dipas_settings_form_submit($form, FormStateInterface $form_state
   $config->set('redirect_url', $form_state->getValue('redirect_url'));
   $config->save();
 }
-
 
 /**
  * Implements hook_domain_validate_alter

@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves the front page data and components
+ * @displayName Frontpage
+ */
 import {mapGetters} from "vuex";
 import ContributionMap from "../ContributionMap/ContributionMap.vue";
 import ContributionList from "../ContributionList/ContributionList.vue";
@@ -95,7 +99,7 @@ export default {
     }
 
     #app.desktop section.frontpage .buttonWrapper .dipasButton .customIcon {
-        margin: 0 35px 2px -60px;
+        margin: 0 0.5rem 0.3rem 0;
     }
 
     #app.mobile section.frontpage div.map_frontpage,

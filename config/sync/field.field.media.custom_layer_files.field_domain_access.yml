@@ -1,0 +1,26 @@
+uuid: 95f18bfa-6e8a-4ef2-8c68-bba08332f0df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_domain_access
+    - media.type.custom_layer_files
+id: media.custom_layer_files.field_domain_access
+field_name: field_domain_access
+entity_type: media
+bundle: custom_layer_files
+label: 'Domain Access'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: 'Drupal\domain_access\DomainAccessManager::getDefaultValue'
+settings:
+  handler: 'default:domain'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+    sort:
+      field: weight
+      direction: ASC
+field_type: entity_reference

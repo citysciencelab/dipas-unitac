@@ -1,4 +1,4 @@
-![dipaslogo](dipaslogo.jpg){width=250 height=250}
+![dipaslogo](../dipaslogo.jpg){width=250 height=250}
 
 DIPAS (Digital Participation System)
 =====
@@ -7,32 +7,24 @@ DIPAS (Digital Participation System) is a tool for digital citizen participation
 
 # Getting started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-## Installing
+These instructions will get you a copy of the project up and running. Read the files about [contributing](#contributing_to_dipas) to set up DIPAS on your local machine for development and testing purposes.
 
 * [Project structure](structure.md)
-* [First steps for developers](setup_dev_environment.md)
 
-# Deployment
+# Initial set up of DIPAS
 
-* [Download](https://bitbucket.org/geowerkstatt-hamburg/beteiligungsmodul2/downloads/)
-* [First steps](first_steps.md)
-* [Setting it up, step by step](step_by_step.md)
-
+* [Download](https://bitbucket.org/geowerkstatt-hamburg/dipas/downloads/)
+* [First steps to get DIPAS up and running](first_steps.md)
 
 # Built with
 
 * [Drupal](https://www.drupal.de) - The Content-Management-System used.
 * [Vue.js](https://vuejs.org) - The web framework used.
 
-# Contributing
+# Contributing to DIPAS
 
-Please read [Contribute.md](contribute.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-# Issues
-
-Please read [known_issues.md](known_issues.md) to find out about currently known issues in DIPAS.
+* [First steps for developers](setup_dev_environment.md)
+* See [Contribute.md](contribute.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 # Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available see the [tags on our repository](https://bitbucket.org/geowerkstatt-hamburg/beteiligungsmodul2/commits).
@@ -56,4 +48,4 @@ Created under the leadership of the [Stadtwerkstatt](https://www.hamburg.de/stad
 
 # License
 
-This project is licensed under the GNU GPLv2 or later license - see the [LICENSE](LICENSE.txt) file for details.
+This project is licensed under the GNU GPLv2 or later license - see the [LICENSE](https://bitbucket.org/geowerkstatt-hamburg/dipas/src/dev/LICENSE.txt) file for details.

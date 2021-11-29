@@ -12,9 +12,8 @@ settings:
   BackgroundLayerSettings:
     layer:
       -
-        id: '["717","718","719","720","13709","13712","13714","13716"]'
+        id: '19969'
         custom:
-          name: 'GeoBasisKarten Hamburg'
           visibility: true
           gfiTheme: default
   DesignSettings:
@@ -92,7 +91,7 @@ settings:
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
-      predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
+      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
     legend:
       name: Legende
       glyphicon: glyphicon-book
@@ -126,5 +125,5 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
         name: 'Informationen abfragen'
         glyphicon: glyphicon-info-sign
-        isActive: true
+        active: true
         isVisibleInMenu: false

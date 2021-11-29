@@ -11,31 +11,41 @@ export default {
   name: "WrapperElement",
   computed: {
     /**
-     * computed ToDo
+     * serves the project phase
+     * @name projectPhase
+     * @returns {String} projectphase
      */
     projectPhase () {
       return this.$store.getters.projectphase;
     },
     /**
-     * computed ToDo
+     * serves the dipasFront
+     * @name dipasFront
+     * @returns {String} dipasFront
      */
     dipasFront () {
       return this.$store.getters.dipasFront;
     },
     /**
-     * computed ToDo
+     * serves wether the project is still running or not
+     * @name projectRunning
+     * @returns {String|Boolean} projectRunning
      */
     projectRunning () {
       return this.$store.getters.projectRunning;
     },
     /**
-     * computed ToDo
+     * serves wether takes nwe contributions
+     * @name takesNewContributions
+     * @returns {Boolean} new contributions
      */
     takesNewContributions () {
       return this.$store.getters.takesNewContributions;
     },
     /**
-     * computed ToDo
+     * serves the page class
+     * @name pageClass
+     * @returns {String} pageClass
      */
     pageClass () {
       const classes = [
@@ -72,12 +82,16 @@ export default {
       return classes;
     }
   },
+  /**
+   * @event mounted
+   */
   mounted () {
     this.$emit("mounted");
   },
   methods: {
     /**
      * Scrolling events from wrapper
+     * @name onScroll
      * @param {number} scrollTop Top of the wrapper
      * @param {number} clientHeight Height of the client window
      * @param {number} scrollHeight Scroll height value
@@ -94,12 +108,15 @@ export default {
 </script>
 
 <template>
-  <section
-    :class="pageClass"
-    @scroll="onScroll"
-  >
-    <keep-alive include="contributionList">
-      <router-view :key="$route.fullPath" />
-    </keep-alive>
-  </section>
+  <main>
+    <section
+      :class="pageClass"
+      tabindex="-1"
+      @scroll="onScroll"
+    >
+      <keep-alive include="contributionList">
+        <router-view :key="$route.fullPath" />
+      </keep-alive>
+    </section>
+  </main>
 </template>

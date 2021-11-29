@@ -2,7 +2,7 @@ name: 'DIPAS'
 description: 'Provides an interface to configure DIPAS related settings for this website.'
 type: module
 package : DIPAS
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.1-alpha
 dependencies:
   - drupal:serialization

@@ -26,9 +26,9 @@ export default {
 
 <template>
   <div class="nodeTopList">
-    <p class="headline">
+    <h3 class="headline">
       {{ headline }}
-    </p>
+    </h3>
     <div class="listing">
       <ol start="9">
         <li

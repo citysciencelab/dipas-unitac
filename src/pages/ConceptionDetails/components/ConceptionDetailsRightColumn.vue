@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Shows the Conception Details at the right column
+ * @displayName ConceptionDetailsRightColumn
+ */
 import _ from "underscore";
 import {requestBroker} from "../../../mixins/requestBroker.js";
 import ContentPageNodeConception from "../../ContentPage/components/ContentPageNodeConception.vue";
@@ -19,6 +23,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * The conception ID
+     */
     conceptionId () {
       return this.$route.params.id;
     }
@@ -39,9 +46,9 @@ export default {
 
 <template>
   <div class="conceptionSidebar">
-    <p class="headline">
+    <h3 class="headline">
       {{ $t('ConceptionDetailsSidebar.headline') }}
-    </p>
+    </h3>
 
     <ContentPageNodeConception
       v-for="(element, index) in otherConceptions"
@@ -51,3 +58,12 @@ export default {
     />
   </div>
 </template>
+
+<style>
+    .conceptionSidebar h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #003063;
+    }
+
+</style>

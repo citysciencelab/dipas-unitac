@@ -81,6 +81,7 @@ export default {
     <input
       :id="uniqueId"
       v-model="internalValue"
+      tabindex="0"
       type="checkbox"
       :value="value"
     />
@@ -118,7 +119,7 @@ export default {
         background-color: white;
         border: solid 1px #005CA9;
         font-family: "Material Icons";
-        font-size: 18px;
+        font-size: 1.125rem;
         font-weight: bold;
         line-height: 20px;
         color: white;
@@ -135,6 +136,12 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         background-position: top left;
+    }
+
+    div.checkbox-wrapper input:focus-visible + label {
+        outline: 3px solid #005CA9;
+        outline-offset: 5px;
+        opacity: 1;
     }
 </style>
 

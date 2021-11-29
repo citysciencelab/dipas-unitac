@@ -67,7 +67,6 @@ class ProjectInformation extends SettingsSectionBase {
   public static function getDefaults() {
     return [
       'site_name' => '',
-      'footer_text' => '',
       'site_email_name' => '',
       'site_email_address' => '',
       'department' => '',
@@ -106,13 +105,6 @@ class ProjectInformation extends SettingsSectionBase {
           '#description' => $this->t('The name of this DIPAS process.', [], ['context' => 'DIPAS']),
           '#required' => TRUE,
           '#default_value' => $this->site_name,
-        ],
-        'footer_text' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Footer text', [], ['context' => 'DIPAS']),
-          '#description' => $this->t('The text that is displayed within the footer.', [], ['context' => 'DIPAS']),
-          '#required' => FALSE,
-          '#default_value' => $this->footer_text,
         ],
         'site_email_name' => [
           '#type' => 'textfield',
@@ -345,7 +337,6 @@ class ProjectInformation extends SettingsSectionBase {
     });
     return [
       'site_name' => $plugin_values['site_settings']['site_name'],
-      'footer_text' => $plugin_values['site_settings']['footer_text'],
       'site_email_name' => $plugin_values['site_settings']['site_email_name'],
       'site_email_address' => $plugin_values['site_settings']['site_email_address'],
       'department' => $plugin_values["project_contact"]["contact_details"]["organization"],

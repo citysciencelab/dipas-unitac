@@ -311,7 +311,9 @@ class DomainListBuilder extends ConfigEntityListBuilder {
       return $list;
     }
     // Get the values of an entity.
-    $values = $entity->hasField(DOMAIN_ACCESS_FIELD) ? $entity->get(DOMAIN_ACCESS_FIELD) : NULL;
+    $values = $entity->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD)
+      ? $entity->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD)
+      : NULL;
     // Must be at least one item.
     if (!empty($values)) {
       foreach ($values as $item) {

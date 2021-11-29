@@ -6,8 +6,6 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
-use Drupal\comment\CommentManagerInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -11,7 +11,9 @@ use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\GeoJSONFeature;
 use Drupal\masterportal\PluginSystem\LayerPluginInterface;
 use Drupal\taxonomy\TermInterface;
+use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * Implements a layer plugin for the Masterportal.
@@ -86,7 +88,16 @@ class Contributions implements LayerPluginInterface {
         'link' => 'link',
         'nid' => 'nid',
       ],
-      'gfiTheme' => 'dipas',
+      'gfiTheme' => (object) [
+        'name' => 'dipas',
+        'params' => (object) [
+          'gfiIconPath' => Url::fromUri(
+            'base:/' . drupal_get_path('module', 'dipas') .'/assets/09_grau.png',
+            ['absolute' => TRUE]
+          )->toString(),
+        ] 
+      ],
+      'legend' => TRUE,
       'layerAttribution' => 'nicht vorhanden',
       'cache' => FALSE,
       'datasets' => [],

@@ -31,7 +31,6 @@ class DataExport implements DataExportInterface {
     ContributionDetailsTrait::getGroupBy as protected traitGroupBy;
   }
   use StringTranslationTrait;
-  use DomainAwareTrait;
 
   /**
    * @var string
@@ -114,7 +113,7 @@ class DataExport implements DataExportInterface {
       'trim' => TRUE,
     ]);
     $this->utcTimeZone = new \DateTimeZone('UTC');
-    $this->drupalTimeZone = new \DateTimeZone(drupal_get_user_timezone());
+    $this->drupalTimeZone = new \DateTimeZone(date_default_timezone_get());
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
     $this->commentStorage = $this->entityTypeManager->getStorage('comment');

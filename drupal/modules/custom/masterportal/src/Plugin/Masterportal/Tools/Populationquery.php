@@ -17,7 +17,7 @@ use Drupal\masterportal\PluginSystem\ToolPluginInterface;
  *   id = "Populationquery",
  *   title = @Translation("Populationquery"),
  *   description = @Translation("A plugin that let's users query population values specifically for Hamburg."),
- *   configProperty = "einwohnerabfrage",
+ *   configProperty = "populationRequest",
  *   isAddon = true
  * )
  */

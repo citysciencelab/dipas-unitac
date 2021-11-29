@@ -38,11 +38,16 @@ export default {
       type: [String, Boolean],
       default: ""
     },
-
+    /**
+     * The geodata
+     */
     geodata: {
       type: [String, Boolean],
       default: false
     },
+    /**
+     * The aspect ratio of the map
+     */
     aspectratio: {
       type: [String, undefined],
       default: undefined
@@ -75,11 +80,17 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * @name hideOthers
+     * @returns {Number}
      */
     hideOthers () {
       return this.$store.getters.singlecontributionmap.other_contributions === "hidden" ? 1 : 0;
     },
+    /**
+     * serves the query string form setting up the masterportal
+     * @name queryString
+     * @returns {String}
+     */
     queryString () {
       let params = {};
 
@@ -98,13 +109,19 @@ export default {
         }
       }
 
+      if (this.extent && !this.selectedFeat) {
+        params.zoomToExtent = this.extent.minLon + "," + this.extent.minLat + "," + this.extent.maxLon + "," + this.extent.maxLat;
+      }
+
       if (this.selectedFeat && Object.keys(this.selectedFeat).length) {
         if (this.selectedFeat.geometry.type === "Point") {
           params.center = this.selectedFeat.geometry.coordinates[0] + "," + this.selectedFeat.geometry.coordinates[1];
           params.zoomLevel = 6;
         }
         else {
-          params.center = this.selectedFeat.geometry.coordinates[0][0] + "," + this.selectedFeat.geometry.coordinates[0][1];
+          const extent = this.getFeatureExtent(this.selectedFeat);
+
+          params.zoomToExtent = extent.minLon + "," + extent.minLat + "," + extent.maxLon + "," + extent.maxLat;
         }
       }
 
@@ -118,14 +135,29 @@ export default {
 
       return queryString.join("&");
     },
+    /**
+     * serves the source for the iframe
+     * @name iframeSrc
+     * @returns {String} source
+     */
     iframeSrc () {
       const src = this.src !== "" ? this.src.split("?") : [];
 
       return this.queryString.length ? src.shift() + "?" + src.concat([this.queryString]).join("&") : this.src;
     },
+    /**
+     * serves the aspect ratio class
+     * @name arClass
+     * @returns {String} aspect ratio class
+     */
     arClass () {
       return "aspect_ratio_" + (!_.isUndefined(this.aspectratio) ? this.aspectratio.replace(":", "_") : "16_9");
     },
+    /**
+     * serves the postMessageUrl for the frontend
+     * @name postMessageUrl_frontend
+     * @returns {String} postMessageUrl
+     */
     postMessageUrl_frontend () {
       let url = window.location.protocol + "//" + window.location.hostname;
 
@@ -135,6 +167,11 @@ export default {
 
       return url;
     },
+    /**
+     * serves the postMessageUrl for the masterportal
+     * @name postMessageUrl_masterportal
+     * @returns {String} postMessageUrl
+     */
     postMessageUrl_masterportal () {
       const src = this.src.split("?").shift(),
         src_parts = src.split("/").filter(function (el) {
@@ -205,17 +242,6 @@ export default {
           "maxFeatures": 1,
           "transformWGS": true
         };
-
-        if (this.extent) {
-          this.iframe.postMessage({
-            "radio_channel": "Map",
-            "radio_function": "zoomToProjExtent",
-            "radio_para_object": {
-              "extent": [this.extent.minLon, this.extent.minLat, this.extent.maxLon, this.extent.maxLat],
-              "options": {},
-              "projection": "EPSG:4326"
-            }}, this.postMessageUrl_masterportal);
-        }
 
         if (this.selectedFeat) {
           // if I have a geometry, init draw module with the given geom, then allow editing it
@@ -294,6 +320,36 @@ export default {
           this.initDraw();
         }
       }
+    },
+    getFeatureExtent: function (geodata) {
+      const extent = {
+          minLon: 999999999,
+          minLat: 999999999,
+          maxLon: 0,
+          maxLat: 0
+        },
+        latall = [],
+        lonall = [];
+      let coord = [];
+
+      if (geodata.geometry.type === "LineString") {
+        coord = geodata.geometry.coordinates;
+      }
+      else if (geodata.geometry.type === "Polygon") {
+        coord = geodata.geometry.coordinates[0];
+      }
+
+      coord.forEach(function (coordinate) {
+        latall.push(coordinate[1]);
+        lonall.push(coordinate[0]);
+      });
+
+      extent.minLon = Math.min(...lonall);
+      extent.minLat = Math.min(...latall);
+      extent.maxLon = Math.max(...lonall);
+      extent.maxLat = Math.max(...latall);
+
+      return extent;
     }
   }
 };
@@ -308,9 +364,8 @@ export default {
       <iframe
         id="create_geometry_map_iframe"
         ref="iframe"
-        width="100%"
-        height="100%"
         :src="iframeSrc"
+        :title="$t('ContributionMap.title')"
       />
     </div>
   </div>
@@ -337,6 +392,8 @@ export default {
         left: 0;
         bottom: 0;
         right: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
 

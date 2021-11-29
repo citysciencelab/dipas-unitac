@@ -16,7 +16,8 @@ export default {
   name: "ContactBlock",
   computed: {
     /**
-     * computed ToDo
+     * serves the project owner
+     * @returns {String} project owner
      */
     projectowner () {
       return this.$store.getters.projectowner;
@@ -30,9 +31,9 @@ export default {
     Shows the contact data at sidebar
   -->
   <section>
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("Contact.headline") }}
-    </p>
+    </h3>
     <div class="contactInfo">
       <p class="projectOwner">
         {{ projectowner.name }}
@@ -55,14 +56,35 @@ export default {
       >
         {{ projectowner.zip }} {{ projectowner.city }}
       </p>
-      <p>
-        <a><i class="material-icons">phone</i> {{ projectowner.telephone }}</a><br />
-        <a :href="'mailto:' + projectowner.email"><i class="material-icons material-icons-style">email</i>&nbsp;{{ projectowner.email }}</a><br />
+      <p class="phone">
+        <a>
+          <i
+            class="material-icons material-icons-style"
+            :aria-label="$t('Contact.phone')"
+          >
+            phone
+          </i> {{ projectowner.telephone }}</a>
+      </p>
+      <p class="address">
+        <a :href="'mailto:' + projectowner.email">
+          <i
+            class="material-icons material-icons-style"
+            :aria-label="$t('Contact.email')"
+          >
+            email
+          </i>&nbsp;{{ projectowner.email }}</a>
+      </p>
+      <p class="address">
         <a
           :href="projectowner.website"
           target="_blank"
         >
-          <i class="material-icons material-icons-style">public</i>&nbsp;{{ projectowner.website }}
+          <i
+            class="material-icons material-icons-style"
+            :aria-label="$t('Contact.web')"
+          >
+            public
+          </i>&nbsp;{{ projectowner.website }}
         </a>
       </p>
     </div>
@@ -70,28 +92,32 @@ export default {
 </template>
 
 <style>
-    .contactInfo a {
+    div.contactInfo a {
         text-overflow: ellipsis;
         overflow: hidden;
         display: inline-block;
         width: 100%;
         white-space: nowrap;
-        color: #212529;
+        color: #005CA9;
+        font-weight: bold;
     }
 
-     a:hover {
+    div.contactInfo  a:hover {
         white-space: normal;
         word-wrap: break-word;
         text-decoration: none;
     }
 
-    .address {
+    div.contactInfo .address {
       margin-top: -1em;
     }
 
-    .material-icons-style {
+    div.contactInfo .phone {
+      color: #005CA9;
+    }
+
+    div.contactInfo .material-icons-style {
         display: inline;
-        color: #212529;
     }
 </style>
 

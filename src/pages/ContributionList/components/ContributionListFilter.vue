@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * The contribution list filter
+ * @displayName ContributionListFilter
+ */
 import {mapGetters} from "vuex";
 import JSum from "jsum";
 import ContributionListFilterTermSelect from "./ContributionListFilterTermSelect.vue";
@@ -17,6 +21,9 @@ export default {
     DipasButton
   },
   props: {
+    /**
+     * holds the applied filters
+     */
     filtersApplied: {
       type: Object,
       default () {
@@ -72,15 +79,27 @@ export default {
       "allRubrics",
       "useRubrics"
     ]),
+    /**
+     * @name filtersConfigured
+     * @returns {Object} configured filters
+     */
     filtersConfigured () {
       return {
         filters: this.pickFilters(this.filters),
         sort: this.sort
       };
     },
+    /**
+     * @name filterConfiguredHash
+     * @returns {String} SHA256 styled hash
+     */
     filterConfiguredHash () {
       return JSum.digest(this.filtersConfigured, "SHA256", "hex");
     },
+    /**
+     * @name filterAppliedHash
+     * @returns {String} SHA256 styled hash
+     */
     filterAppliedHash () {
       const compareBase = {
         filters: this.pickFilters(this.filtersApplied.filters),
@@ -89,9 +108,17 @@ export default {
 
       return JSum.digest(compareBase, "SHA256", "hex");
     },
+    /**
+     * @name filterChanged
+     * @returns {String} SHA256 styled hash
+     */
     filterChanged () {
       return this.filterConfiguredHash !== this.filterAppliedHash;
     },
+    /**
+     * @name categoryOptions
+     * @returns {Object} options object
+     */
     categoryOptions () {
       const options = {};
 
@@ -105,6 +132,10 @@ export default {
 
       return options;
     },
+    /**
+     * @name rubricOptions
+     * @returns {Object} options object
+     */
     rubricOptions () {
       const options = {};
 
@@ -119,6 +150,11 @@ export default {
     }
   },
   methods: {
+    /**
+     * apply the filters
+     * @event filter set the filters
+     * @returns {void}
+     */
     applyFilters: function () {
       if (this.filters.category.length === Object.keys(this.allCategories).length) {
         this.filters.category = [];
@@ -128,6 +164,11 @@ export default {
       }
       this.$emit("filter", {filters: this.filters, sort: this.sort});
     },
+    /**
+     * reset the filters
+     * @event resetFilter reset the filters
+     * @returns {void}
+     */
     resetFilters: function () {
       this.filters = {
         category: [],
@@ -139,6 +180,11 @@ export default {
       };
       this.$emit("resetFilters");
     },
+    /**
+     * pick up the filters
+     * @param {Object} filters filter
+     * @returns {Object} result
+     */
     pickFilters: function (filters) {
       const result = {};
 
@@ -149,7 +195,6 @@ export default {
         }
 
       });
-
       return result;
     }
   }
@@ -158,13 +203,16 @@ export default {
 
 <template>
   <section class="filter">
-    <p class="headline">
+    <h3 class="headline">
       <i class="material-icons">filter_list</i>
       {{ $t("ContributionList.ContributionListFilter.filterOptions") }}
-    </p>
+    </h3>
 
     <hr />
-
+    <!--
+      @name ContributionListFilterTermSelect
+      @model {Object} filters
+    -->
     <ContributionListFilterTermSelect
       v-model="filters.category"
       :headline="$t('ContributionList.ContributionListFilter.termSelectHeadlineCat')"
@@ -174,7 +222,10 @@ export default {
       icon="field_category_icon"
       class="termSelect"
     />
-
+    <!--
+      @name ContributionListFilterTermSelect
+      @model {Object} filters
+    -->
     <ContributionListFilterTermSelect
       v-if="useRubrics"
       v-model="filters.rubric"
@@ -189,32 +240,51 @@ export default {
       <p class="headline">
         {{ $t('ContributionList.ContributionListFilter.sortBy') }}
       </p>
-
-      <RadioGroup
-        v-model="sort.field"
-        class="orderFieldRadioGroup"
-        :options="sortOptions.field"
-        :value="sort.field"
-      />
-
-      <RadioGroup
-        v-model="sort.direction"
-        class="orderDirectionRadioGroup"
-        :options="sortOptions.direction"
-        :value="sort.direction"
-      />
+      <fieldset>
+        <legend class="sr-only">
+          {{ $t('ContributionList.ContributionListFilter.sortBy') }}
+        </legend>
+        <!--
+          @name radio group
+          @model {Object} sort.field
+        -->
+        <RadioGroup
+          v-model="sort.field"
+          class="orderFieldRadioGroup"
+          :options="sortOptions.field"
+          :value="sort.field"
+        />
+        <!--
+          @name radio group
+          @model {Object} sort.direction
+        -->
+        <RadioGroup
+          v-model="sort.direction"
+          class="orderDirectionRadioGroup"
+          :options="sortOptions.direction"
+          :value="sort.direction"
+        />
+      </fieldset>
     </div>
-
-    <p v-if="filterChanged">
+    <p
+      v-if="filterChanged"
+      role="status"
+    >
       {{ $t("ContributionList.ContributionListFilter.filterChanges") }}
     </p>
-
+    <!--
+      @name dipas button
+      @fires click applyFilters
+    -->
     <DipasButton
       :text="$t('ContributionList.ContributionListFilter.useFilter')"
       class="blue angular"
       @click="applyFilters"
     />
-
+    <!--
+      @name dipas button
+      @fires click resetFilters
+    -->
     <DipasButton
       :text="$t('ContributionList.ContributionListFilter.resetFilter')"
       class="grey angular"
@@ -230,16 +300,16 @@ export default {
     section.filter button.blue {
         margin-bottom: 20px;
     }
-    section.filter p.headline {
-        font-size: 24px;
+    section.filter h3.headline {
+        font-size: 1.5rem;
         font-weight: bold;
         color: #003063;
     }
 
-    section.filter p.headline .material-icons {
+    section.filter h3.headline .material-icons {
         position: relative;
         top: 8px;
-        font-size: 40px;
+        font-size: 2.5rem;
         line-height: 20px;
         margin-right: 20px;
     }
@@ -264,12 +334,24 @@ export default {
 
     section.filter div.orderSection p.headline {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     #app.mobile div.customModal.filterModal.modalMobile div.modalContent {
         height: calc(var(--vh, 1vh) * 100);
         overflow-y: auto;
         padding-bottom: 100px;
+    }
+
+
+    section.filter div.orderSection div.radiogroup div.radio-wrapper input:focus-visible + label {
+      outline: 3px solid #005CA9;
+      outline-offset: 5px;
+      opacity: 1;
+    }
+
+    section.filter button.dipasButton.blue.angular:focus-visible {
+        outline: 3px solid #ffffff;
+        outline-offset: -5px;
     }
 </style>

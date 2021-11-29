@@ -3,11 +3,17 @@
  */
 
 <script>
+/**
+ * Shows the contact data page
+ * @displayName ContentPageNodeConception
+ */
 import _ from "underscore";
-
 export default {
   name: "ContentPageNodeConception",
   props: {
+  /**
+    * The conception content from node.
+    */
     content: {
       type: Object,
       default () {
@@ -16,6 +22,10 @@ export default {
     }
   },
   computed: {
+  /**
+    * Serves wether a image is available or not
+    * @type {Boolean} useResponsiveImage
+    */
     useResponsiveImage () {
       return !_.isUndefined(this.content.field_conception_image.html);
     }
@@ -32,14 +42,13 @@ export default {
       v-if="useResponsiveImage"
       v-html="content.field_conception_image.html"
     />
-
-    <p class="headline">
+    <h3 class="headline">
       {{ content.title }}
-    </p>
-
+    </h3>
     <img
       v-if="!useResponsiveImage"
-      :src="content.field_conception_image.url"
+      :src="content.field_conception_image.url ? content.field_conception_image.url : content.field_conception_image"
+      alt=""
     />
   </router-link>
 </template>
@@ -51,14 +60,15 @@ export default {
 
     .conceptionTeaser > img {
         width: 100%;
+        border: 1px solid #777777
     }
 
-    .conceptionTeaser > p.headline {
-        font-size: 18px;
-        line-height: 18px;
+    .conceptionTeaser > h3.headline {
+        font-size: 1rem;
+        line-height: 1.2rem;
         font-weight: bold;
         margin: 0;
-        padding: 10px 10px 5px;
-        color: black;
+        padding: 10px 0 5px;
+        color: #003063;
     }
 </style>

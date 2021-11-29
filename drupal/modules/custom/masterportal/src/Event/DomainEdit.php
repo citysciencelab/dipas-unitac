@@ -3,7 +3,7 @@
 namespace Drupal\masterportal\Event;
 
 use Drupal\domain\DomainInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class DomainEdit.

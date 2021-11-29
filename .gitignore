@@ -66,3 +66,13 @@ package-lock.json
 
 # Ignore local vue config
 vue.config.local.js
+/.csslintrc
+/.ht.router.php
+/INSTALL.txt
+/README.txt
+/autoload.php
+/example.gitignore
+/index.php
+/robots.txt
+/update.php
+/web.config

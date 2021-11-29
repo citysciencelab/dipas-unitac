@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\Masterportal\LayerStyle;
 
+use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\PluginSystem\LayerStylePluginInterface;
 use Drupal\taxonomy\TermInterface;
 
@@ -20,6 +21,8 @@ use Drupal\taxonomy\TermInterface;
  * @package Drupal\dipas\Plugin\Masterportal\LayerStyle
  */
 class ContributionStyles implements LayerStylePluginInterface {
+
+  use DomainAwareTrait;
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -134,9 +137,18 @@ class ContributionStyles implements LayerStylePluginInterface {
   protected function getAllCategoryTerms() {
     $allTerms = drupal_static('dipas_categories');
     if (is_null($allTerms)) {
-      $allTerms = $this->termStorage->loadByProperties([
-        'vid' => 'categories',
-      ]);
+      $entityQuery = $this->termStorage->getQuery();
+      $entityQuery->condition('vid', 'categories', '=');
+
+      if ($this->isDomainModuleInstalled()) {
+        $conditionGroup = $entityQuery->orConditionGroup();
+        $conditionGroup->condition('field_domain_access', $this->getActiveDomain(), '=');
+        $conditionGroup->condition('field_domain_all_affiliates', TRUE, '=');
+        $entityQuery->condition($conditionGroup);
+      }
+
+      $termIDs = $entityQuery->execute();
+      $allTerms = $this->termStorage->loadMultiple($termIDs);
     }
     return $allTerms;
   }

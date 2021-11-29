@@ -2,7 +2,7 @@ uuid: 52eaa2e2-827d-4478-bbdd-d40c45a9c006
 langcode: en
 status: true
 dependencies: {  }
-name: Rubrics
+name: Types
 vid: rubrics
 description: ''
 weight: 0

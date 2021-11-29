@@ -41,4 +41,15 @@ interface RestApiInterface {
    */
   public function requestPDSEndpoint($proj_ID, $type, $contr_ID, $comments);
 
+   /**
+   * Generates a JSONd output of the requested dataType for the participation cockpit.
+   *
+   * @param string $dataType
+   *   The data type of the required data.
+   *
+   * @return string
+   *   The JSONd contents of the key requested.
+   */
+  public function requestCockpitDataEndpoint($dataType);
+
 }

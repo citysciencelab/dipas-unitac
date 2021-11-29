@@ -4,6 +4,11 @@
 
 export const ContentPageDynamicContentElement = {
   methods: {
+    /**
+     * @name getComponent serves the component name
+     * @param {Object} element the component element object
+     * @returns {String} elementName
+     */
     getComponent (element) {
       const elementType = element.type.substring(0, 1).toUpperCase() + element.type.substring(1).toLowerCase();
       let elementBundle = element.bundle.split("_"),

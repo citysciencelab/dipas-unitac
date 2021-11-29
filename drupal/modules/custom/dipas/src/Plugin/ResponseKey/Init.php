@@ -58,7 +58,6 @@ class Init extends ResponseKeyBase {
    * {@inheritdoc}
    */
   public function getPluginResponse() {
-
     if (!$this->isDomainDefined()) {
       $domain_settings = \Drupal::config('domain.settings');
       $redirect_url = "https://www.hamburg.de/stadtwerkstatt";
@@ -98,9 +97,14 @@ class Init extends ResponseKeyBase {
       'conception_comments_state' => (bool) $this->dipasConfig->get('ProjectSchedule/allow_conception_comments') ? 'open' : 'closed',
       'display_existing_conception_comments' => (bool) $this->dipasConfig->get('ProjectSchedule/display_existing_conception_comments'),
       'projecttitle' => $this->dipasConfig->get('ProjectInformation/site_name'),
-      'footertext' => $this->dipasConfig->get('ProjectInformation/footer_text'),
-      'projectlogo' => $logopath,
-      'modallogo' => $modallogo,
+      'projectlogo' => [
+        'path' => $logopath,
+        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_logo')),
+      ],
+      'modallogo' => [
+        'path' => $modallogo,
+        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_logo')),
+      ],
       'projectowner' => [
         'name' => $this->dipasConfig->get('ProjectInformation/department'),
         'street1' => $this->dipasConfig->get('ProjectInformation/street1'),
@@ -114,7 +118,10 @@ class Init extends ResponseKeyBase {
       'welcomemodal' => [
         'headline' => $this->dipasConfig->get('ProjectInformation/headline'),
         'text' => $this->dipasConfig->get('ProjectInformation/text'),
-        'image' => $modalimage,
+        'image' => [
+          'path' => $modalimage,
+          'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_image')),
+        ],
       ],
       'partnerlogos' => $partnerlogos,
       'menus' => [
@@ -133,13 +140,18 @@ class Init extends ResponseKeyBase {
             array_filter(
               $this->dipasConfig->get('MenuSettings/mainmenu'),
               function ($item) {
+                if (isset($item['overwriteFrontpage'])) {
+                  if (!($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled')))) {
+                    return;
+                  }
+                }
                 return $item['enabled'];
               }
             ),
             array_filter(
               [
                 'conceptionlist' => [
-                  'name' => $this->t('Compare conceptions', [], ['context' => 'DIPAS']),
+                  'name' => $this->dipasConfig->get('MenuSettings/mainmenu/conceptionlist/name'),
                   'icon' => 'compare_arrows',
                 ],
               ],
@@ -209,18 +221,42 @@ class Init extends ResponseKeyBase {
       'downloads' => $downloadData,
       'sidebar' => $this->dipasConfig->get('SidebarSettings/blocks'),
       'keyword_service_enabled' => $this->dipasConfig->get('KeywordSettings/enabled'),
-      'frontpage' => $this->dipasConfig->get('ProjectSchedule/overwriteFrontpage') && ($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled'))) ? 'conceptionlist' : $this->dipasConfig->get('MenuSettings/frontpage'),
+      'frontpage' => $this->dipasConfig->get('MenuSettings/mainmenu/conceptionlist/overwriteFrontpage') && ($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled'))) ? 'conceptionlist' : $this->dipasConfig->get('MenuSettings/frontpage'),
     ];
 
     return $settings;
   }
-
 
   /**
    * {@inheritdoc}
    */
   protected function getResponseKeyCacheTags() {
     return [];
+  }
+
+  /**
+   * Helper function to retrieve the ALT text from a media entity.
+   *
+   * @param int $id
+   *   The ID of the media entity.
+   *
+   * @return string
+   *   The alternative text
+   */
+  protected function getAlternativeTextForMediaItem($id) {
+    if (
+      !is_null($id) &&
+      is_numeric($id) &&
+      $media_entity = $this->entityTypeManager
+        ->getStorage('media')
+        ->load($id)
+    ) {
+      return $media_entity->get('field_media_image')
+        ->first()
+        ->get('alt')
+        ->getString();
+    }
+    return '';
   }
 
   /**
@@ -240,9 +276,9 @@ class Init extends ResponseKeyBase {
    */
   protected function getImagePathFromMediaItemId($id, $image_style = FALSE) {
     if (
-      !is_null($id)
-      && is_numeric($id)
-      && $media_entity = $this->entityTypeManager
+      !is_null($id) &&
+      is_numeric($id) &&
+      $media_entity = $this->entityTypeManager
         ->getStorage('media')
         ->load($id)
     ) {
@@ -319,8 +355,8 @@ class Init extends ResponseKeyBase {
        * domain assignment.
        */
       if ($this->domainModulePresent && count($terms) && $this->activeDomain !== NULL) {
-        $hasDomainAccessField = reset($terms)->hasField(DOMAIN_ACCESS_FIELD);
-        $hasDomainAllAccessField = reset($terms)->hasField(DOMAIN_ACCESS_ALL_FIELD);
+        $hasDomainAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD);
+        $hasDomainAllAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD);
         $terms = array_filter(
           $terms,
           function (TermInterface $term) use ($hasDomainAccessField, $hasDomainAllAccessField) {
@@ -329,12 +365,12 @@ class Init extends ResponseKeyBase {
                 function ($assignment) {
                   return $assignment['target_id'];
                 },
-                $term->get(DOMAIN_ACCESS_FIELD)->getValue()
+                $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD)->getValue()
               );
             }
 
             $accessOnAllDomains = $hasDomainAllAccessField
-              ? (bool) $term->get(DOMAIN_ACCESS_ALL_FIELD)->getString()
+              ? (bool) $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD)->getString()
               : FALSE;
 
             if ($accessOnAllDomains || in_array($this->activeDomain->id(), $assignedDomains)) {
@@ -377,8 +413,17 @@ class Init extends ResponseKeyBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getDownloadPathFromEntities() {
-    $media_entity_id_list = $this->entityTypeManager->getStorage('media')
-      ->loadByProperties(['bundle' => 'download']);
+    $entityQuery = $this->entityTypeManager->getStorage('media')->getQuery();
+    $entityQuery->condition('bundle', 'download', '=');
+
+    if ($this->isDomainModuleInstalled()) {
+      $conditionGroup = $entityQuery->orConditionGroup();
+      $conditionGroup->condition('field_domain_access', $this->getActiveDomain(), '=');
+      $conditionGroup->condition('field_domain_all_affiliates', TRUE, '=');
+      $entityQuery->condition($conditionGroup);
+    }
+
+    $media_entity_id_list = $entityQuery->execute();
 
     $file_urls = [];
 

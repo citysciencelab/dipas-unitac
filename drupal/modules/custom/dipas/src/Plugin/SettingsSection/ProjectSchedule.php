@@ -9,7 +9,6 @@ namespace Drupal\dipas\Plugin\SettingsSection;
 use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\masterportal\DomainAwareTrait;
-use Drupal\node\NodeInterface;
 
 /**
  * Class ProjectSchedule.
@@ -124,12 +123,6 @@ class ProjectSchedule extends SettingsSectionBase {
             'style' => 'margin-left: 25px;',
           ],
         ],
-        'overwriteFrontpage' => [
-          '#title' => $this->t('Override Front page', [], ['context' => 'DIPAS']),
-          '#description' => $this->t('Use Conceptions page instead of frontpage setting from menus section. It will only be overridden after phase 2 has started.', [], ['context' => 'DIPAS']),
-          '#type' => 'checkbox',
-          '#default_value' => isset($this->overwriteFrontpage) ? $this->overwriteFrontpage : static::getDefaults()['overwriteFrontpage'],
-        ],
         'phasemix_enabled' => [
           '#type' => 'radios',
           '#title' => $this->t('Contribution form status', [], ['context' => 'DIPAS']),
@@ -211,7 +204,6 @@ class ProjectSchedule extends SettingsSectionBase {
       'display_existing_conception_comments' => (bool) $plugin_values['phase_2_settings']['allow_conception_comments'] === FALSE
                                                   ? (bool) $plugin_values['phase_2_settings']['display_existing_conception_comments']
                                                   : TRUE,
-      'overwriteFrontpage' => (bool) $plugin_values['phase_2_settings']['overwriteFrontpage'],
     ];
   }
 }

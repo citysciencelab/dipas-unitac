@@ -28,7 +28,9 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the sidebar data
+     * @name sidebar
+     * @returns {Array} sidebar
      */
     sidebar () {
       return this.$store.getters.sidebar;
@@ -56,8 +58,8 @@ export default {
         margin-top: 20px;
     }
 
-    section.block p.headline {
-        font-size: 24px;
+    section.block h3.headline {
+        font-size: 1.5rem;
         font-weight: bold;
         color: #003063;
     }
@@ -65,7 +67,7 @@ export default {
     section.block .material-icons {
         vertical-align: middle;
         padding-bottom: 3px;
-        font-size: 16px;
-        color: #003063;
+        font-size: 1rem;
+        color: #005CA9;
     }
 </style>

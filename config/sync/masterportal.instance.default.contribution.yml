@@ -5,9 +5,8 @@ dependencies: {  }
 _core:
   default_config_hash: Vgu0lJ3GQGlP67A7bPNzdgZOaNp20ixXO2ble5hXj2I
 id: default.contribution
-domain: default
-instance_name: contribution
 uid: '0'
+instance_name: contribution
 label: Contribution
 domain: default
 hidden: false
@@ -15,9 +14,8 @@ settings:
   BackgroundLayerSettings:
     layer:
       -
-        id: '["717","718","719","720","13709","13712","13714","13716"]'
+        id: '19969'
         custom:
-          name: 'GeoBasisKarten Hamburg'
           visibility: true
           gfiTheme: default
   DesignSettings:
@@ -71,7 +69,6 @@ settings:
         resolution: 0.13229159522921
         scale: 500
         zoomLevel: 9
-    resolution: 15.874991427505
     zoomLevel: 6
     epsg: 'EPSG:25832'
   MenuSettings:
@@ -133,4 +130,4 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
         name: Draw
         glyphicon: glyphicon-info-sign
-        visibleInMenu: false
+        visibleInMenu: 0

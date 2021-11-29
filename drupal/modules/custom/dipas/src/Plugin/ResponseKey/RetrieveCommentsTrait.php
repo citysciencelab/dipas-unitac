@@ -72,8 +72,10 @@ trait RetrieveCommentsTrait {
     if ($format_type === 'dipas') {
       $return_value = [
         'cid' => $comment->id(),
-        'subject' => $subject !== $this->t('(No subject)', [], ['context' => 'DIPAS'])->__toString() ? $subject : '',
-        'comment' => $comment->get('field_comment')->first()->getString(),
+        'subject' => $subject !== $this->t('(No subject)', [], ['context' => 'DIPAS'])->__toString()
+          ? html_entity_decode($subject, ENT_QUOTES, 'UTF-8')
+          : '',
+        'comment' => html_entity_decode($comment->get('field_comment')->first()->getString(), ENT_QUOTES, 'UTF-8'),
         'created' => $this->convertTimestampToUTCDateTimeString($comment->getCreatedTime(), FALSE),
         'replies' => $this->loadCommentsForEntity($comment, $format_type),
       ];
@@ -84,7 +86,6 @@ trait RetrieveCommentsTrait {
         'dateCreated' => $this->convertTimestampToUTCDateTimeString($comment->getCreatedTime(), FALSE),
         'title' => $subject !== $this->t('(No subject)', [], ['context' => 'DIPAS'])->__toString() ? $subject : '',
         'commentContent' => $comment->get('field_comment')->first()->getString(),
-
         'commentedBy' => $this->loadCommentsForEntity($comment, $format_type),
       ];
     }

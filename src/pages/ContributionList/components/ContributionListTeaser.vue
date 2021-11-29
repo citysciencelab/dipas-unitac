@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * The contribution list teaser
+ * @displayName ContributionListTeaser
+ */
 import moment from "moment";
 import RatingWidget from "../../../basicComponents/RatingWidget.vue";
 
@@ -12,6 +16,9 @@ export default {
     RatingWidget
   },
   props: {
+    /**
+     * holds the teaser data object
+     */
     teaser: {
       type: Object,
       default () {
@@ -19,19 +26,44 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      rndid: "id" + Math.floor(Math.random() * 100000000)
+    };
+  },
   computed: {
+    /**
+     * serves the link to details
+     * @returns {String}
+     */
     detaillink () {
       return "/contribution/" + this.teaser.nid;
     },
+    /**
+     * serves the category icon
+     * @returns {String}
+     */
     categoryIcon () {
       return this.$store.getters.categoryIcon(this.teaser.category);
     },
+    /**
+     * serves the category name
+     * @returns {String}
+     */
     categoryName () {
       return this.$store.getters.categoryName(this.teaser.category);
     },
+    /**
+     * serves the rubric name
+     * @returns {String}
+     */
     rubricName () {
       return this.$store.getters.rubricName(this.teaser.rubric);
     },
+    /**
+     * serves initally the date and time when the teaser was created
+     * @returns {String} date and time when the teaser was created
+     */
     created () {
       return moment(this.teaser.created).format("DD.MM.YYYY | HH:mm") + " Uhr";
     }
@@ -45,19 +77,31 @@ export default {
   >
     <div
       class="inner"
+      tabindex="0"
+      role="link"
       @click="$router.push(detaillink)"
+      @keyup.enter="$router.push(detaillink)"
     >
       <img
         class="categoryIcon"
         :src="categoryIcon"
+        :alt="categoryName"
       />
 
       <p class="rubric">
         {{ rubricName }}
       </p>
       <div class="textContent">
-        <h2>{{ teaser.title }}</h2>
-        <p class="detailLink">
+        <h2
+          :id="rndid"
+        >
+          {{ teaser.title }}
+        </h2>
+        <p
+          :aria-describedby="rndid"
+          class="detailLink"
+          role="link"
+        >
           {{ $t("ContributionList.ContributionListTeaser.routeToEntry") }}<i class="material-icons">play_arrow</i>
         </p>
         <hr />
@@ -72,6 +116,9 @@ export default {
           </div>
 
           <div class="activity">
+            <!--
+              @name RatingWidget
+            -->
             <RatingWidget
               class="rating"
               entityType="node"
@@ -111,14 +158,19 @@ export default {
     article.contributionteaser div.inner p.rubric {
         position: absolute;
         top: 20px;
-        right: 20px;
-        font-size: 10px;
+        right: 32px;
+        font-size: 0.8rem;
         margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    article.contributionteaser div.inner div.textContent h2 {
+      margin-top: -5px;
     }
 
     article.contributionteaser div.inner div.textContent h2 {
         height: 50px;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: bold;
     }
 
@@ -126,8 +178,9 @@ export default {
     article.contributionteaser div.inner div.textContent p.detailLink i {
         vertical-align: middle;
         text-align: right;
-        line-height: 12px;
-        font-size: 12px;
+        line-height: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
         margin: 0;
         padding: 0;
         white-space: nowrap;
@@ -135,11 +188,7 @@ export default {
 
     article.contributionteaser div.inner div.textContent p.detailLink {
         cursor: pointer;
-        color: #2573B4;
-    }
-
-    article.contributionteaser div.inner div.textContent p.detailLink:hover {
-        text-decoration: underline;
+        color: #005CA9;
     }
 
     article.contributionteaser div.inner div.textContent hr {
@@ -150,6 +199,7 @@ export default {
     article.contributionteaser div.inner div.textContent div.subline {
         display: flex;
         vertical-align: top;
+        margin-top: 10px;
     }
 
     article.contributionteaser div.inner div.textContent div.subline > div {
@@ -168,9 +218,13 @@ export default {
         margin-bottom: -8px;
     }
 
+    article.contributionteaser div.inner div.textContent div.subline > div.activity p.comments {
+      display: inline-block;
+    }
+
     article.contributionteaser div.inner div.textContent div.subline div p {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 0.8rem;
+        line-height: 1rem;
         margin: 0 0 5px 0;
         padding: 0;
         white-space: nowrap;

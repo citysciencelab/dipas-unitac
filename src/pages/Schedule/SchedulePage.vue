@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves the data of the project schedule page
+ * @displayName SchedulePage
+ */
 import moment from "moment";
 import {requestBroker} from "../../mixins/requestBroker.js";
 import ScheduleItem from "./components/ScheduleItem.vue";
@@ -35,6 +39,10 @@ export default {
     }
   },
   beforeMount () {
+    /**
+     * loads initally the schedule data object from requestbroker drupal api
+     * @returns {void}
+     */
     this.loadSchedule();
   }
 };
@@ -47,6 +55,10 @@ export default {
         <h1>{{ $t("Schedule.headline") }}</h1>
 
         <div class="scheduleList">
+          <!--
+            @name ScheduleItem
+            @property {Array} activeAppointments
+          -->
           <ScheduleItem
             v-for="appointment in activeAppointments"
             :key="appointment.nid"
@@ -60,7 +72,9 @@ export default {
       </div>
 
       <div class="col-md-1 col-1"></div>
-
+      <!--
+        @name RightColumn
+      -->
       <RightColumn class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" />
     </div>
   </div>
@@ -72,7 +86,7 @@ export default {
     }
 
     div.schedule h1 {
-        font-size: 36px;
+        font-size: 2.25rem;
         font-weight: bold;
         color: #003063;
         word-break: break-word;

@@ -9,6 +9,10 @@ services:
     class: Drupal\Core\Logger\LoggerChannels
     factory: logger.factory:get
     arguments: ['dipas']
+  plugin.manager.dipas.cockpitData_response:
+    class: Drupal\dipas\PluginSystem\CockpitDataResponsePluginManager
+    parent: default_plugin_manager
+    arguments: []
   plugin.manager.dipas.setting_sections:
     class: Drupal\dipas\PluginSystem\SettingsSectionPluginManager
     parent: default_plugin_manager
@@ -30,7 +34,7 @@ services:
     arguments: ['@entity_type.manager', '@entity_type.bundle.info', '@entity_field.manager', '@entity_type.repository', '@entity_display.repository', '@string_translation']
   dipas.restapi:
     class: Drupal\dipas\Service\RestApi
-    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@plugin.manager.dipas.response_key', '@request_stack', '@cache.data', '@cache_tags.invalidator', '@plugin.manager.dipas.pds_response']
+    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@plugin.manager.dipas.response_key', '@request_stack', '@cache.data', '@cache_tags.invalidator', '@plugin.manager.dipas.pds_response', '@plugin.manager.dipas.cockpitData_response']
   dipas.cookie:
     class: Drupal\dipas\Service\DipasCookie
     arguments: ['@request_stack']

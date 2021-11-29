@@ -52,13 +52,17 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the relative icon position
+     * @name iconpos
+     * @returns {String{left|right}} position
      */
     iconpos () {
       return this.iconposition;
     },
     /**
-     * computed ToDo
+     * serves the title text
+     * @name titleText
+     * @returns {String|Null}
      */
     titleText () {
       return this.disabled ? this.disabledText : null;
@@ -69,6 +73,7 @@ export default {
 
 <template>
   <!--
+    @name button
     triggered on click
     @event click
   -->
@@ -98,8 +103,8 @@ export default {
     button.dipasButton {
         display: block;
         text-align: center;
-        font-size: 18px;
-        line-height: 30px;
+        font-size: 1.25rem;
+        line-height: 1rem;
         font-weight: bold;
         cursor: pointer;
         border: none;
@@ -108,7 +113,7 @@ export default {
         height: 50px;
     }
 
-    button.dipasButton:focus {
+    button.dipasButton:focus:not(:focus-visible) {
         outline: none;
     }
 
@@ -149,16 +154,16 @@ export default {
 
     button.dipasButton.round {
         border-radius: 25px;
-        padding: 10px 30px 10px 30px;
+        padding: 0.3rem 0;
         -webkit-box-shadow: 6px 6px 16px -2px rgba(0, 0, 0, 0.6);
         -moz-box-shadow: 6px 6px 16px -2px rgba(0, 0, 0, 0.6);
         box-shadow: 6px 6px 16px -2px rgba(0, 0, 0, 0.6);
     }
 
     button.dipasButton .customIcon {
-        font-size: 40px;
+        font-size: 1.5rem;
         font-weight: bold;
-        line-height: 30px;
+        line-height: 1rem;
         vertical-align: middle;
     }
 

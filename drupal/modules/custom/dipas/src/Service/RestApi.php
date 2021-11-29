@@ -88,6 +88,13 @@ class RestApi implements RestApiInterface {
    */
   protected $pdsResponsePluginManager;
 
+  /**
+   * Custom cockpitData response plugin manager.
+   *
+   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   */
+  protected $cockpitdataResponsePluginManager;
+
 
   /**
    * RestApi constructor.
@@ -106,6 +113,8 @@ class RestApi implements RestApiInterface {
    *   Drupal's cache tags invalidation service.
    * @param \Drupal\Component\Plugin\PluginManagerInterface $pds_response_plugin_manager
    *   Custom plugin manager for pds response plugins.
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $cockpitdata_response_plugin_manager
+   *   Custom plugin manager for cockpitData response plugins.
    */
   public function __construct(
     DipasConfig $config_factory,
@@ -114,7 +123,8 @@ class RestApi implements RestApiInterface {
     RequestStack $request_stack,
     CacheBackendInterface $cache,
     CacheTagsInvalidatorInterface $cache_tags_invalidator,
-    PluginManagerInterface $pds_response_plugin_manager
+    PluginManagerInterface $pds_response_plugin_manager,
+    PluginManagerInterface $cockpitdata_response_plugin_manager
   ) {
     $this->config = $config_factory;
     $this->logger = $logger;
@@ -123,6 +133,7 @@ class RestApi implements RestApiInterface {
     $this->cache = $cache;
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->pdsResponsePluginManager = $pds_response_plugin_manager;
+    $this->cockpitdataResponsePluginManager = $cockpitdata_response_plugin_manager;
 
     $this->domainCachePrefix = $this->getActiveDomain();
   }
@@ -173,7 +184,7 @@ class RestApi implements RestApiInterface {
             404
           );
         }
-        catch (Exception $e) {
+        catch (\Exception $e) {
           $this->logger->error("Unexpected error: {$e->getCode()} - {$e->getMessage()}");
           $content = new ResponseContent(
             ResponseContent::RESPONSE_STATUS_ERROR,
@@ -261,7 +272,7 @@ class RestApi implements RestApiInterface {
           404
         );
       }
-      catch (Exception $e) {
+      catch (\Exception $e) {
         $this->logger->error("Unexpected error: {$e->getCode()} - {$e->getMessage()}");
         $content = new ResponseContent(
           ResponseContent::RESPONSE_STATUS_ERROR,
@@ -311,5 +322,79 @@ class RestApi implements RestApiInterface {
     $response->setEncodingOptions(static::JSON_OUTPUT_OPTIONS);
 
     return $response;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function requestCockpitDataEndpoint($data) {
+    $response = new JsonResponse();
+    $cacheId = "participation_cockpit/{$data}";
+
+    try {
+      $pluginDefinition = $this->cockpitdataResponsePluginManager->getDefinition(strtolower($data));
+      if (
+        $pluginDefinition['isCacheable'] &&
+        !$this->request->query->has('noCache') &&
+        $cache = $this->cache->get($cacheId)
+      ) {
+        $content = $cache->data;
+      }
+      elseif (!in_array($this->request->getMethod(), $pluginDefinition['requestMethods'])) {
+        $content = new ResponseContent(
+          ResponseContent::RESPONSE_STATUS_ERROR,
+          'The requested resource cannot be found on this server.',
+          404
+        );
+      }
+      else {
+        /* @var \Drupal\dipas\PluginSystem\CockpitDataResponsePluginInterface $plugin */
+        $plugin = new $pluginDefinition['class']($pluginDefinition, $this->request, $response);
+        try {
+          $content = new ResponseContent(
+            ResponseContent::RESPONSE_STATUS_SUCCESS,
+            $plugin->getResponseData()
+          );
+
+          $this->cache->set($cacheId, $content, \Drupal::time()->getRequestTime()  + ($pluginDefinition['maxAge'] * 60), $plugin->getCacheTags());
+          if (!empty($cookies = $plugin->getCookies())) {
+            foreach ($cookies as $cookie) {
+              $response->headers->setCookie($cookie);
+            }
+          }
+        }
+        catch (NotFoundHttpException $e) {
+          $content = new ResponseContent(
+            ResponseContent::RESPONSE_STATUS_ERROR,
+            'The requested resource cannot be found on this server.',
+            404
+          );
+        }
+        catch (Exception $e) {
+          $this->logger->error("Unexpected error: {$e->getCode()} - {$e->getMessage()}");
+          $content = new ResponseContent(
+            ResponseContent::RESPONSE_STATUS_ERROR,
+            $e->getMessage(),
+            ($e->getCode() !== 0 ? $e->getCode() : 500)
+          );
+        }
+      }
+    }
+    catch (PluginNotFoundException $e) {
+      $this->logger->notice("Undefined endpoint: {$data}");
+      $content = new ResponseContent(
+        ResponseContent::RESPONSE_STATUS_ERROR,
+        "Unknown key: {$data}",
+        500
+      );
+    }
+
+    $response->setData($content->getResponseContent());
+    if ($content->isError()) {
+      $response->setStatusCode($content->getResponseStatusCode());
+    }
+    $response->setEncodingOptions(static::JSON_OUTPUT_OPTIONS);
+    return $response;
+
   }
 }

@@ -77,7 +77,7 @@ class MasterportalGeofieldLatLng extends GeofieldLatLon {
 
     // Check each contained fields for errors.
     $subErrorsFound = [];
-    foreach (static::$components as $key => $component) {
+    foreach (static::getComponents() as $key => $component) {
       $suberror = $form_state->getError($element[$key]);
       if (!empty($suberror)) {
         $subErrorsFound[] = $suberror;

@@ -38,18 +38,43 @@ export default {
     }
   },
   computed: {
+    /**
+     * serves the selected keywords
+     * @name selectedKeywords
+     * @returns {Array} keywords
+     */
     selectedKeywords: function () {
       return this.value.step2.selectedKeywords;
     },
+    /**
+     * serves the choosen category name
+     * @name chosenCategoryName
+     * @returns {String} category name
+     */
     chosenCategoryName () {
       return this.$store.getters.categoryName(this.value.step2.category.toString());
     },
+    /**
+     * serves the choosen mdi-icon
+     * @name chosenCategoryIcon
+     * @returns {String} mdi-icon
+     */
     chosenCategoryIcon () {
       return this.$store.getters.categoryIcon(this.value.step2.category.toString());
     },
+    /**
+     * serves the choosen rubric
+     * @name chosenRubric
+     * @returns {String} rubric
+     */
     chosenRubric () {
       return this.$store.getters.rubricName(this.value.step3.rubric.toString());
     },
+    /**
+     * serves the masterportal source
+     * @name masterportalSrc
+     * @returns {String} masterportal source
+     */
     masterportalSrc: function () {
       const src = this.$store.getters.createcontributionmap,
         geodata = this.value.step4.geodata ? JSON.parse(this.value.step4.geodata) : null,
@@ -86,16 +111,26 @@ export default {
 
       return src + "?" + valueToAdd;
     },
+    /**
+     * serves the masterportal geometry
+     * @name masterportalGeom
+     * @returns {String} masterportal geometry
+     */
     masterportalGeom: function () {
       return this.value.step4.geodata;
     },
+    /**
+     * serves the masterportal geometry type
+     * @name masterportalGeomType
+     * @returns {String} geometry type
+     */
     masterportalGeomType: function () {
       return this.value.step4.geodata ? JSON.parse(this.value.step4.geodata).type : "point";
     }
   },
   methods: {
     /**
-     * Saves the choosen rubric
+     * Jumps to the step
      * @event jumpTo
      * @param {Number} step step to jump into
      */
@@ -109,9 +144,9 @@ export default {
 <template>
   <div class="createContributionStep5">
     <div class="row">
-      <p class="headline col-4">
+      <h3 class="headline col-4">
         {{ $t("CreateContributionModal.StepOverview.headline") }}
-      </p>
+      </h3>
       <p
         v-if="$store.getters.isKeywordServiceEnabled"
         class="col-8 d-flex justify-content-end"
@@ -123,29 +158,57 @@ export default {
         </span>
       </p>
     </div>
+    <p class="summaryheadline sm1">
+      Beitragstitel
+    </p>
     <p
       class="greyBox editIcon contributionHeadline"
+      tabindex="0"
+      role="button"
       @click="jumpTo(1)"
+      @keyup.enter="jumpTo(1)"
     >
       {{ value.step1.headline }}
     </p>
+    <p class="summaryheadline  sm2">
+      Beschreibung
+    </p>
     <div
       class="greyBox editIcon contributionText"
+      tabindex="0"
+      role="button"
       @click="jumpTo(1)"
+      @keyup.enter="jumpTo(1)"
     >
       <p>{{ value.step1.text }}</p>
     </div>
     <div class="taxonomy">
+      <p class="summaryheadline sm3">
+        Kategorie
+      </p>
       <p
         class="greyBox editIcon inline contributionCategory"
+        tabindex="0"
+        role="button"
         @click="jumpTo(2)"
+        @keyup.enter="jumpTo(2)"
       >
-        <img :src="chosenCategoryIcon" />{{ chosenCategoryName }}
+        <img
+          :src="chosenCategoryIcon"
+          alt=""
+        />
+        {{ chosenCategoryName }}
+      </p>
+      <p class="summaryheadline sm4">
+        Beitragstyp
       </p>
       <p
         v-if="useRubrics"
         class="greyBox editIcon inline contributionRubric"
+        tabindex="0"
+        role="button"
         @click="jumpTo(3)"
+        @keyup.enter="jumpTo(3)"
       >
         {{ chosenRubric }}
       </p>
@@ -153,9 +216,15 @@ export default {
     <div class="locationWidget">
       <div
         class="clickCatcher editIcon"
+        tabindex="0"
+        role="button"
         @click="jumpTo(4)"
+        @keyup.enter="jumpTo(4)"
       >
       </div>
+      <!--
+        @name Masterportal
+      -->
       <Masterportal
         :src="masterportalSrc"
         :geodata="masterportalGeom"
@@ -174,7 +243,7 @@ export default {
         cursor: pointer;
     }
     div.createContributionStep5 .greyBox {
-        font-size: 14px;
+        font-size: 0.875rem;
         position: relative;
         background-color: #F0F0F0;
         padding: 5px;
@@ -194,7 +263,7 @@ export default {
         padding: 0 2px 2px 0;
         content: "edit";
         font-family: "Material Icons";
-        font-size: 20px;
+        font-size: 1.25rem;
         color: black;
         position: absolute;
         right: 0;
@@ -227,28 +296,30 @@ export default {
     }
 
     div.createContributionStep5 div.taxonomy {
-        display: flex;
-        flex-direction: row;
+      display: grid;
+      grid-template-columns: 0fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-column-gap: 20px;
+      column-gap: 20px;
+      grid-row-gap: 0;
     }
 
     #app.mobile div.createContributionStep5 div.taxonomy {
         display: block;
     }
 
-    div.createContributionStep5 div.taxonomy p {
-        flex: 1 1 0px;
+    #app.mobile div.createContributionStep5 div.taxonomy {
+        grid-column: unset;
+        grid-row: unset;
     }
 
-    #app.mobile div.createContributionStep5 div.taxonomy p {
-        flex: unset;
-    }
-
-    div.createContributionStep5 div.taxonomy p.contributionCategory,
-    div.createContributionStep5 div.taxonomy p.contributionRubric {
+    div.createContributionStep5 p.summaryheadline {
+        font-weight: bold;
+        margin-top: 5px;
+        margin-bottom: 3px;
     }
 
     div.createContributionStep5 div.taxonomy p.contributionCategory {
-        margin-right: 5px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -282,7 +353,7 @@ export default {
     }
 
     #app.mobile div.createContributionStep5 div.locationWidget div.masterportal {
-        height: calc((var(--vh, 1vh) * 100) - 390px);
+        height: calc((var(--vh, 1vh) * 100) - 475px);
     }
 
     div.createContributionStep5 div.locationWidget div.clickCatcher {
@@ -303,6 +374,14 @@ export default {
 
     #app.mobile div.createContributionStep5 div.locationWidget div.masterportal div.aspectRatioWrapper {
         height: 100%;
+    }
+    #app.mobile div.createContributionStep5 div.locationWidget .masterportal iframe,
+    #app.mobile div.createContributionStep5 div.locationWidget div.clickCatcher {
+        height: 85%;
+    }
+
+    div.createContributionStep5 .editIcon:focus-visible {
+      outline: 3px solid #005CA9;
     }
 </style>
 

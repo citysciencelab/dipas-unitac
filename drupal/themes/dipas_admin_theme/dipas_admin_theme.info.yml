@@ -1,7 +1,7 @@
 name: 'DIPAS Admin theme'
 type: 'theme'
 description: 'This is a special admin theme for DIPAS project admins'
-core: '8.x'
+core_version_requirement: ^8.8 || ^9
 base theme: 'seven'
 libraries:
   - dipas_admin_theme/global-styling

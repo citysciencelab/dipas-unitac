@@ -6,6 +6,10 @@ import _ from "underscore";
 
 export const requestBroker = {
   methods: {
+    /**
+     * Load initial dipas settings for the app and contribution into the vuex store
+     * @returns {Function()} the returned function for doing the initial request on API and writes the response data in $tore
+     */
     initialize: function () {
       return this.doRequest({
         method: "GET",
@@ -16,7 +20,11 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
-
+    /**
+     * Loads REST endpoints and commit it into the vuex store
+     * @param {String} endpoint eg. "contributions" to load contributions
+     * @returns {void}
+     */
     loadEndpoint: function (endpoint) {
       const ttl = 60 * 60 * 1000,
         data = this.$store.getters.endpoint(endpoint);
@@ -36,7 +44,10 @@ export const requestBroker = {
         this.pageContent = data.content;
       }
     },
-
+    /**
+     * Load schedule data and commit it into the vuex store
+     * @returns {void}
+     */
     loadSchedule: function () {
       const ttl = 5 * 60 * 1000,
         list = this.$store.getters.schedule;
@@ -56,7 +67,10 @@ export const requestBroker = {
         this.schedule = list.data;
       }
     },
-
+    /**
+     * Load contribution area (extent) data
+     * @returns {void}
+     */
     loadContributionsExtend: function () {
       this.doRequest({
         method: "GET",
@@ -67,7 +81,11 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
-
+    /**
+     * Load contribution data, creates a list and commit it to the vuex store
+     * @param {Object} options options Object
+     * @returns {void}
+     */
     loadContributionList: function (options = {}) {
       // Time to live for an already loaded list (in milliseconds)
       const ttl = 2 * 60 * 1000,
@@ -114,7 +132,11 @@ export const requestBroker = {
         this.showNodes = true;
       }
     },
-
+    /**
+     * Load the detailed data for a single contribution (id) and commit it to the vuex store
+     * @param {String} id Contribution ID
+     * @returns {void}
+     */
     loadContribution: function (id) {
       if (_.isUndefined(this.$store.getters.contributionDetails(id))) {
         this.doRequest({
@@ -131,7 +153,11 @@ export const requestBroker = {
         this.contribution = this.$store.getters.contributionDetails(id);
       }
     },
-
+    /**
+     * Load conception data and commit it to the vuex store
+     * @param {String} id Conception ID
+     * @returns {void}
+     */
     loadConception: function (id) {
       if (_.isUndefined(this.$store.getters.conceptionDetails(id))) {
         this.doRequest({
@@ -148,7 +174,11 @@ export const requestBroker = {
         this.pageContent = this.$store.getters.conceptionDetails(id);
       }
     },
-
+    /**
+     * Load related contributions data and commit it to the vuex store
+     * @param {String} id Contribution ID
+     * @returns {void}
+     */
     loadRelatedContributions: function (id) {
       const ttl = 5 * 60 * 1000,
         cache = this.$store.getters.relatedContributions(id);
@@ -168,7 +198,12 @@ export const requestBroker = {
         this.relatedContributions = cache.data.related;
       }
     },
-
+    /**
+     * Load some other similar and corresponding conceptions data
+     * to show it in the right sidebar
+     * @param {String} id conception ID
+     * @returns {void}
+     */
     loadOtherConceptions: function (id) {
       const ttl = 60 * 60 * 1000,
         cache = this.$store.getters.otherConceptions(id);
@@ -188,7 +223,11 @@ export const requestBroker = {
         this.otherConceptions = cache.data.otherConceptions;
       }
     },
-
+    /**
+     * Saves a contribution dataset in drupal backend and redirect to the contribution detail page
+     * @param {Object} data contribution dataset
+     * @returns {void}
+     */
     saveContribution: function (data) {
       this.doRequest({
         method: "POST",
@@ -201,7 +240,11 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
-
+    /**
+     * Saves a rating dataset in drupal backend
+     * @param {Object} data rating dataset
+     * @returns {void}
+     */
     addRating: function (data) {
       this.doRequest({
         method: "POST",
@@ -217,7 +260,11 @@ export const requestBroker = {
         this.savingInProgress = false;
       });
     },
-
+    /**
+     * Loads all comments to a given contribution id and store it in vuex store
+     * @param {String} contributionID Contibution ID
+     * @returns {void}
+     */
     loadComments: function (contributionID) {
       const ttl = 1 * 60 * 1000,
         comments = this.$store.getters.contributionComments(contributionID);
@@ -239,7 +286,11 @@ export const requestBroker = {
         this.comments = comments.data;
       }
     },
-
+    /**
+     * Adds and saves a comments to the contribution, sets it to vuex store and reload the comments
+     * @param {Object} data comment dataset
+     * @returns {void}
+     */
     addComment: function (data) {
       this.doRequest({
         method: "POST",
@@ -257,6 +308,11 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
+    /**
+     * Request Keywords from natural language processing API and serves it for 2nd step of the contribution wizard
+     * @param {String} data the whole textarea (step 1) content written by client
+     * @returns {void}
+     */
     requestKeywords: function (data) {
       this.doRequest({
         method: "POST",
@@ -282,6 +338,10 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
+    /**
+     * Loads the statistical data and commit it to the vuex store
+     * @returns {void}
+     */
     loadStatisticalData: function () {
       // Time to live for an already loaded list (in milliseconds)
       const ttl = 10 * 60 * 1000,
@@ -302,7 +362,10 @@ export const requestBroker = {
         this.statistics = list.data;
       }
     },
-
+    /**
+     * Saves the confirmed cockies true
+     * @returns {void}
+     */
     confirmCookies: function () {
       this.doRequest({
         method: "POST",
@@ -314,7 +377,11 @@ export const requestBroker = {
         this.handleError(response);
       });
     },
-
+    /**
+     * Just do the single request to the backend
+     * @param {Object{method: {GET|POST} | endpoint: {String}}} request the request object
+     * @returns {Object|Boolean} respose dataset or return false if error
+     */
     doRequest: function (request) {
       if (!_.isUndefined(request.method) && !_.isUndefined(this.$http[request.method.toLowerCase()])) {
         let url = "drupal/dipas/" + request.endpoint;
@@ -332,7 +399,12 @@ export const requestBroker = {
       console.error("Unknown request method!");
       return false;
     },
-
+    /**
+     * Handles the error cases and shows the corresponding modal
+     * @param {Object} response the request object
+     * @param {String} customErrorMessage the custom error message
+     * @returns {void}
+     */
     handleError: function (response, customErrorMessage) {
       let errorMessage;
 

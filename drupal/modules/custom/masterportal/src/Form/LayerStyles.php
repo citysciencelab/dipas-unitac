@@ -103,8 +103,9 @@ class LayerStyles extends MasterportalSettingsBase {
         return $row;
 
       case preg_match('~^rules_~', $property) === 1:
-        $conditionsection = sprintf('condition_%d', $delta);
-        $stylesection = sprintf('style_%d', $delta);
+        list($rdelta) = sscanf($property, 'rules_%d');
+        $conditionsection = sprintf('condition_%d_%d', $rdelta, $delta);
+        $stylesection = sprintf('style_%d_%d', $rdelta, $delta);
         $row = [
           'conditions' => [
             '#type' => 'details',
@@ -182,21 +183,24 @@ class LayerStyles extends MasterportalSettingsBase {
         ];
         foreach ($style['rulescontainer'] as $rindex => $rule) {
           list($rdelta) = sscanf($rindex, 'rules_%d');
-          $styles_processed[$delta][$rdelta] = [
-            'conditions' => [],
-            'styles' => [],
-          ];
-          foreach ($rule['multivaluePart']['rows'] as $row) {
-            $styles_processed[$delta][$rdelta]['conditions'] = [];
-            foreach ($row['row']['conditions']['value']["condition_$rdelta"]['multivaluePart']['rows'] as $condition) {
-              $styles_processed[$delta][$rdelta]['conditions'][] = [
+
+          foreach ($rule['multivaluePart']['rows'] as $rowindex => $row) {
+            $styles_processed[$delta][$rowindex] = [
+              'conditions' => [],
+              'styles' => [],
+            ];
+            $styles_processed[$delta][$rowindex]['conditions'] = [];
+            $cond_index = 'condition_'.$rdelta.'_'.$rowindex;
+            foreach ($row['row']['conditions']['value'][$cond_index]['multivaluePart']['rows'] as $condition) {
+              $styles_processed[$delta][$rowindex]['conditions'][] = [
                 'property_name' => $condition['row']['property_name']['value'],
                 'property_value' => $condition['row']['property_value']['value'],
               ];
             }
-            $styles_processed[$delta][$rdelta]['styles'] = [];
-            foreach ($row['row']['styles']['value']["style_$rdelta"]['multivaluePart']['rows'] as $styleProp) {
-              $styles_processed[$delta][$rdelta]['styles'][] = [
+            $styles_processed[$delta][$rowindex]['styles'] = [];
+            $style_index = 'style_'.$rdelta.'_'.$rowindex;
+            foreach ($row['row']['styles']['value'][$style_index]['multivaluePart']['rows'] as $styleProp) {
+              $styles_processed[$delta][$rowindex]['styles'][] = [
                 'style_property' => $styleProp['row']['style_property']['value'],
                 'property_value' => $styleProp['row']['property_value']['value'],
                 'property_is_json' => (bool) $styleProp['row']['property_is_json']['value'],

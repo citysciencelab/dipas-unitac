@@ -1,0 +1,133 @@
+/*
+ * This file contains and imports less variables, mixins, and functions.
+ * It is also used to override default styling to design custom styles.
+ *
+ * ⚠️ This file must not contain any css rules. It is imported in many places,
+ * and css rules in this file would result in a copy of all of the rules per import.
+ */
+/*
+ * Imports from Bootstrap
+ */
+/*
+ * Masterportal Default Style (Override of Bootstrap)
+ */
+/* PRIMARY: Map Interaction
+ * Used for control elements placed directly on the map.
+ * Elements: Buttons and button-like elements.
+ * Examples: ZoomButtons, MousePosition, ...
+ */
+/* SECONDARY: Navigation
+ * Used for the nav bar, its children, and going back and forth within elements.
+ * Elements: Navigation bars and togglers, overall content.
+ * Examples: NavBar, open/close tool, layer list, change tabs, back button, next entry ...
+ * NOTE Bootstrap 3 has some colours for "NavBar" and "Panels" - use instead of a secondary?
+ */
+/* ACCENT: Action
+ * Action color for windows to trigger actions like saving or sending.
+ * Elements: Buttons.
+ * Examples: start search (for e.g. parcels), save something, draw something, send a message, ...
+ */
+/* NOTIFICATION COLOURS
+ * Notification colours can and should be used directly from Bootstrap 3.
+ * Keywords: success, info, warning, danger
+ */
+/* ICON SIZES */
+/* FONT STYLES
+ * TODO why is Arial Narrow an alternative to MPF Bold?
+ */
+/* NOTE if three sizes suffice, we could move this to bootstrap 3 variables */
+/* Should something like this be supported for windows resp. buttons? TODO discuss */
+/* other */
+/*
+ * Customer Style. In this place, all previously mentioned variables may be overwritten
+ * to achieve a different look and feel from the default Masterportal design.
+ *
+ * Please note that the theme is currently under development and only used in some parts of the
+ * application - changes will have limited effects.
+ */
+.h-seperator[data-v-0404efb4] {
+  margin: 12px 0 12px 0;
+  border: 1px solid #DDDDDD;
+}
+input[type="file"][data-v-0404efb4] {
+  display: none;
+}
+input[type="button"][data-v-0404efb4] {
+  display: none;
+}
+.upload-button-wrapper[data-v-0404efb4] {
+  border: 2px solid #DDDDDD;
+  background-color: #FFFFFF;
+  display: block;
+  text-align: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin: 12px 0 0 0;
+  font-size: 14px;
+  transition: background 0.25s;
+}
+.upload-button-wrapper[data-v-0404efb4]:hover {
+  background-color: #EEEEEE;
+}
+.cta[data-v-0404efb4] {
+  margin-bottom: 12px;
+  max-width: 300px;
+}
+.drop-area-fake[data-v-0404efb4] {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  border: 2px dashed #7aa9d0;
+  padding: 24px;
+  transition: background 0.25s, border-color 0.25s;
+}
+.drop-area-fake.dzReady[data-v-0404efb4] {
+  background-color: #286090;
+  border-color: transparent;
+}
+.drop-area-fake.dzReady p.caption[data-v-0404efb4] {
+  color: #FFFFFF;
+}
+.drop-area-fake p.caption[data-v-0404efb4] {
+  margin: 0;
+  text-align: center;
+  transition: color 0.35s;
+  font-family: "MasterPortalFont Bold", "Arial Narrow", Arial, sans-serif;
+  font-size: 16px;
+  color: #7aa9d0;
+}
+.drop-area[data-v-0404efb4] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.vh-center-outer-wrapper[data-v-0404efb4] {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  position: relative;
+}
+.vh-center-outer-wrapper[data-v-0404efb4]:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
+}
+.vh-center-inner-wrapper[data-v-0404efb4] {
+  text-align: left;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.successfullyImportedLabel[data-v-0404efb4] {
+  font-weight: bold;
+}
+.introDrawTool[data-v-0404efb4] {
+  font-style: italic;
+}
+

@@ -22,6 +22,7 @@ export default {
   props: {
     /**
      * The content object of the actual step
+     * @name value
      */
     value: {
       type: Object,
@@ -31,7 +32,7 @@ export default {
     },
     /**
      * Provides the boolean whether you use rubrics in contribution.
-     * @values true, false
+     * @name useRubrics
      */
     useRubrics: {
       type: Boolean
@@ -44,11 +45,16 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * serves the rubrics
+     * @returns {Object} rubrics
      */
     rubrics () {
       return this.$store.getters.allRubrics;
     },
+    /**
+     * serves the rubrics options
+     * @returns {Object} rubric options
+     */
     rubricOptions () {
       const options = {};
 
@@ -75,19 +81,53 @@ export default {
 </script>
 
 <template>
-  <div class="createContributionStep1">
-    <p class="headline">
+  <div class="createContributionStep3">
+    <h3 class="headline">
       {{ $t("CreateContributionModal.StepType.headline") }}
-    </p>
+    </h3>
+    <fieldset>
+      <legend class="sr-only">
+        {{ $t("CreateContributionModal.StepType.headline") }}
+      </legend>
 
-    <RadioGroup
-      v-if="useRubrics"
-      v-model="rubric"
-      :options="rubricOptions"
-      :value="rubric"
-    />
-    <div v-else>
-      {{ $t("CreateContributionModal.StepType.no_rubrics_text") }}
-    </div>
+      <RadioGroup
+        v-if="useRubrics"
+        v-model="rubric"
+        :options="rubricOptions"
+        :value="rubric"
+      />
+      <div v-else>
+        {{ $t("CreateContributionModal.StepType.no_rubrics_text") }}
+      </div>
+    </fieldset>
   </div>
 </template>
+
+<style>
+    div.createContributionStep3 div.radiogroup label.withIcon {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 95%;
+    }
+
+    #app.mobile div.createContributionStep2 div.radiogroup {
+        padding-bottom: 25%;
+    }
+
+    div.createContributionStep3 div.radio-wrapper {
+        margin-bottom: 0;
+        height: 2rem;
+    }
+
+    div.createContributionStep3 div.radio-wrapper label:before {
+        margin-bottom: 2px;
+    }
+
+    div.createContributionStep3 div.radio-wrapper input:focus-visible + label {
+        outline: 3px solid #005CA9;
+        outline-offset: 5px;
+        opacity: 1;
+    }
+  </style>

@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Shows the contact data page
+ * @displayName ContactPage
+ */
 import {requestBroker} from "../../mixins/requestBroker.js";
 import ContentPage from "../ContentPage/ContentPage.vue";
 import ContactBlock from "../../basicComponents/ContactBlock.vue";
@@ -15,6 +19,10 @@ export default {
   extends: ContentPage,
   mixins: [requestBroker],
   beforeMount () {
+    /**
+     * load data "contact" via request broker
+     * @returns {void}
+     */
     this.loadEndpoint("contact");
   }
 };
@@ -25,7 +33,10 @@ export default {
     <div class="row">
       <div class="col-sm-7 col7">
         <h1>{{ pageContent.title }}</h1>
-
+        <!--
+          serves a dynamic component via :is
+          @param {String} element comes via for from pageContent.content
+        -->
         <component
           :is="getComponent(element)"
           v-for="element in pageContent.content"
@@ -50,17 +61,17 @@ export default {
 
     .contactComponent .headline,
     .contactComponent .projectOwner {
-        font-size: 32px;
+        font-size: 2rem;
         color: #003063;
         font-weight: bold;
     }
 
     .contactComponent .projectOwner {
-        font-size: 20px;
+        font-size: 1.25rem;
     }
 
     div.row h1 {
-        font-size: 36px;
+        font-size: 2.25rem;
         font-weight: bold;
         color: #003063;
     }

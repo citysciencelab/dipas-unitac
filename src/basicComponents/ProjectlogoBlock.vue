@@ -16,7 +16,9 @@ export default {
   name: "ProjectlogoBlock",
   computed: {
     /**
-     * computed ToDo
+     * holds the project logo
+     * @name projectlogo
+     * @returns {String} projectlogo
      */
     projectlogo () {
       return this.$store.getters.projectlogo;
@@ -26,7 +28,10 @@ export default {
 </script>
 
 <template>
-  <section v-if="projectlogo">
-    <img :src="projectlogo" />
+  <section v-if="projectlogo.path">
+    <img
+      :src="projectlogo.path"
+      :alt="projectlogo.alttext"
+    />
   </section>
 </template>

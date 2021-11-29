@@ -57,7 +57,9 @@ export default {
       contributionData: {
         step1: {
           headline: "",
-          text: ""
+          text: "",
+          headlineMinLength: 5,
+          contributionMinLength: 10
         },
         step2: {
           category: 0,
@@ -81,12 +83,24 @@ export default {
     contributionMustBeLocalized () {
       return this.$store.getters.contributionsMustBeLocalized;
     },
+    /**
+     * @name useRubrics
+     * @returns {Boolean}
+     */
     useRubrics () {
       return this.$store.getters.useRubrics;
     },
+    /**
+     * @name backButtonDisabled
+     * @returns {Boolean}
+     */
     backButtonDisabled () {
       return this.saving;
     },
+    /**
+     * @name nextButtonDisabled
+     * @returns {Boolean}
+     */
     nextButtonDisabled () {
       switch (this.step) {
         case 1:
@@ -153,10 +167,38 @@ export default {
   beforeDestroy () {
     this.contributionData = {};
   },
+  mounted () {
+    const focusableElements = "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+      modal = document.querySelector("#modalWizard"),
+      firstFocusableElement = modal.querySelectorAll(focusableElements)[0],
+      focusableContent = modal.querySelectorAll(focusableElements),
+      lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+    modal.focus();
+    document.addEventListener("keydown", function (e) {
+      const isTabPressed = e.key === "Tab" || e.keyCode === 9;
+
+      if (!isTabPressed) {
+        return;
+      }
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          lastFocusableElement.focus();
+          e.preventDefault();
+        }
+      }
+      else if (document.activeElement === lastFocusableElement) {
+        firstFocusableElement.focus();
+        e.preventDefault();
+      }
+    });
+  },
   methods: {
     /**
      * Sets the step value one times backward or trigger the CreateContributionModal
      * @public
+     * @returns {void}
      */
     backAction () {
       if (this.step > 1) {
@@ -169,6 +211,7 @@ export default {
     /**
      * Renders the step specific form
      * @public
+     * @returns {void}
      */
     nextAction () {
       switch (this.step) {
@@ -204,6 +247,7 @@ export default {
      * Saves the step value
      * @param {Number} step Step of wizard
      * @public
+     * @returns {void}
      */
     jumpTo (step) {
       this.step = Number(step);
@@ -213,16 +257,28 @@ export default {
 </script>
 
 <template>
+  <!--
+    @name ModalElement
+    @fire closeModal
+  -->
   <ModalElement
+    id="modalWizard"
     class="createContributionModal"
     @closeModal="$root.showCreateContributionModal = false"
   >
     <div class="createWizard">
+      <!--
+        @name CreateContributionModalStepIndicator
+        @fire jumpTo
+      -->
       <CreateContributionModalStepIndicator
         :activeStep="step"
         @jumpTo="jumpTo"
       />
-
+      <!--
+        @name CreateContributionModalStepContents
+        @fire jumpTo
+      -->
       <CreateContributionModalStepContents
         v-model="stepvalue"
         :class="'step' + step"
@@ -233,6 +289,10 @@ export default {
       />
 
       <div class="actions">
+        <!--
+          @name DipasButton
+          @fire click backAction
+        -->
         <DipasButton
           :text="step === 1 ? $t('CreateContributionModal.cancel') : $t('CreateContributionModal.backward')"
           :icon="step > 1 ? 'chevron_left' : ''"
@@ -240,12 +300,10 @@ export default {
           :disabled="backButtonDisabled"
           @click="backAction"
         />
-        <span
-          v-if="nextButtonDisabled && step===1 && !$root.isMobile"
-          class="infoTextZuKurz"
-        >
-          Titel (min {{ headlineMinLength }}) oder Text (min {{ contributionMinLength }}) sind zu kurz.
-        </span>
+        <!--
+          @name DipasButton
+          @fire click nextAction
+        -->
         <DipasButton
           :text="step < 5 ? $t('CreateContributionModal.forward') : $t('CreateContributionModal.complete')"
           icon="chevron_right"
@@ -255,12 +313,6 @@ export default {
           :disabled="nextButtonDisabled"
           @click="nextAction"
         />
-      </div>
-      <div
-        v-if="$root.isMobile"
-        class="infoTextZuKurz"
-      >
-        <span v-if="nextButtonDisabled && step===1">Titel (min {{ headlineMinLength }}) od. Text (min {{ contributionMinLength }}) zu kurz.</span>
       </div>
     </div>
   </ModalElement>
@@ -284,17 +336,20 @@ export default {
         display: flex;
         flex-flow: row;
         justify-content: space-between;
-    }
+        margin-top: 1rem;
+     }
 
     div.createContributionModal div.createWizard .infoTextZuKurz{
-        line-height: 40px;
-        font-size: 14px;
-        color: #767676;
+        line-height: 1rem;
+        font-size: 0.8rem;
+        color: #595959;
+        display: inline-block;
+        padding-bottom: 1rem;
     }
 
     div.createContributionModal div.createWizard div.infoTextZuKurz{
         width: 100%;
-        text-align: center;
+        text-align: left;
     }
 
     #app.mobile div.createContributionModal div.createWizard div.createContributionStep {
@@ -311,17 +366,17 @@ export default {
         right: 4%;
         bottom: 3%;
         left: 4%;
+        margin-top:15px;
     }
 
     div.createContributionModal div.createWizard div.actions button {
         display: inline-block;
-        width: 140px;
+        width: 150px;
         height: 40px;
-        font-size: 14px;
     }
 
     div.createContributionModal div.createWizard div.actions button.dipasButton .customIcon {
-        font-size: 26px;
+        font-size: 1.625rem;
         vertical-align: bottom;
         font-weight: normal;
     }

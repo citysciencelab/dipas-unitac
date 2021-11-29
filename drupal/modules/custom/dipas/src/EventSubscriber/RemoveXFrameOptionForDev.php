@@ -7,7 +7,7 @@
 namespace Drupal\dipas\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -31,7 +31,7 @@ class RemoveXFrameOptionForDev implements EventSubscriberInterface {
   /**
    * Event subscriber handler method.
    */
-  public function onResponse(FilterResponseEvent $event) {
+  public function onResponse(ResponseEvent $event) {
     global $config;
 
     if (isset($config['x_frame_options']) && $config['x_frame_options'] === FALSE) {

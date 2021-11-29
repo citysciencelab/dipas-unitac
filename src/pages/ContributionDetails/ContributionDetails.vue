@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Holds the content for the paragraph planning subarea
+ * @displayName ContentPageParagraphPlanningSubarea
+ */
 import {requestBroker} from "../../mixins/requestBroker.js";
 import moment from "moment";
 import Masterportal from "../../basicComponents/Masterportal.vue";
@@ -22,6 +26,9 @@ export default {
   },
   mixins: [requestBroker],
   props: {
+    /**
+     * holds the contibution id
+     */
     id: {
       type: String,
       default: ""
@@ -35,21 +42,37 @@ export default {
     };
   },
   computed: {
+    /**
+     * serves the contribution date
+     * @returns {String} date of the contribution creation
+     */
     created () {
       return moment(this.contribution.created).format("DD.MM.YYYY | HH:mm:ss") + "&nbsp;" + this.$t("ContributionDetails.oClock");
     },
+    /**
+     * serves the contribution category
+     * @returns {String} category name
+     */
     category () {
       if (this.contribution.category) {
         return this.$store.getters.categoryName(this.contribution.category.toString());
       }
       return "";
     },
+    /**
+     * serves the contribution category icon
+     * @returns {String} category icon
+     */
     categoryIcon () {
       if (this.contribution.category) {
         return this.$store.getters.categoryIcon(this.contribution.category.toString());
       }
       return "";
     },
+    /**
+     * serves the contribution category rubric
+     * @returns {String} category rubric
+     */
     rubric () {
       if (this.contribution.rubric) {
         return this.$store.getters.rubricName(this.contribution.rubric.toString());
@@ -57,9 +80,17 @@ export default {
 
       return "";
     },
+    /**
+     * serves the boolean wether geodata is allready there or not
+     * @returns {Boolean} has geodata
+     */
     hasGeodata () {
       return Object.keys(this.contribution.geodata).length > 0;
     },
+    /**
+     * serves the masterportal source
+     * @returns {String} src
+     */
     masterportalSrc () {
       let src = this.$store.getters.singlecontributionmap.url;
 
@@ -68,11 +99,19 @@ export default {
       }
       return src;
     },
+    /**
+     * serves the map center
+     * @returns {String|Boolean}
+     */
     mapCenter () {
       return this.hasGeodata && this.contribution.geodata.geometry.type === "Point"
         ? this.contribution.geodata.geometry.coordinates[0] + "," + this.contribution.geodata.geometry.coordinates[1]
         : false;
     },
+    /**
+     * serves the map extent
+     * @returns {String|Boolean}
+     */
     mapExtent () {
       if (this.hasGeodata && this.contribution.geodata.geometry.type !== "Point") {
         const extent = {
@@ -106,29 +145,64 @@ export default {
       }
       return false;
     },
+    /**
+     * serves the boolean wether comments open or not
+     * @returns {Boolean}
+     */
     commentsOpen () {
       return this.$store.getters.contributionCommentsState === "open";
     },
+    /**
+     * serves the boolean wether comments shown or not
+     * @returns {Boolean}
+     */
     displayComments () {
       return this.$store.getters.displayContributionComments;
     },
+    /**
+     * serves the boolean wether rating is allowed or not
+     * @returns {Boolean}
+     */
     ratingsAllowed () {
       return this.$store.getters.ratingsAllowed;
     }
   },
+
   created () {
     this.loadContribution(this.id);
+    /**
+     * Event will be triggered if the form visibility is set to false (hidden)
+     * @event hideCommentForm
+     */
     this.$root.$on("hideCommentForm", () => this.setFormVisibility(false));
+    /**
+     * Event will be triggered if the form visibility is set to true (shown)
+     * @event showCommentForm
+     */
     this.$root.$on("showCommentForm", () => this.setFormVisibility(true));
+    /**
+     * Event will be triggered if the form visibility is set to true (shown)
+     * @event resetCommentForm
+     */
     this.$root.$on("resetCommentForms", () => this.setFormVisibility(true));
   },
   methods: {
+    /**
+     * Reload the comments and shows the new comment
+     * @param {String|Number} newCommentID The ID of the new comment
+     * @returns {void}
+     */
     reloadComments: function (newCommentID) {
       this.commentsTimestamp = new Date().getTime();
       this.$nextTick(function () {
         this.$scrollTo("#comment-" + newCommentID, 500, {container: "section.content"});
       });
     },
+    /**
+     * Set the form visibility
+     * @param {Boolean} show
+     * @returns {void}
+     */
     setFormVisibility: function (show) {
       this.showForm = show;
     }
@@ -150,6 +224,10 @@ export default {
 
         <p>{{ contribution.text }}</p>
 
+        <!--
+          Dipas button component
+          @event click acceptCookies
+        -->
         <Masterportal
           v-if="contribution.nid && hasGeodata"
           :src="masterportalSrc"
@@ -174,6 +252,7 @@ export default {
               <img
                 class="categoryIcon"
                 :src="categoryIcon"
+                alt=""
               />
               {{ category }}
             </p>
@@ -211,7 +290,7 @@ export default {
           @reloadComments="reloadComments"
         />
 
-        <p>
+        <p class="contributionDetailsLink">
           <router-link to="/contributionlist">
             {{ $t("ContributionDetails.backToList") }}
           </router-link>
@@ -256,7 +335,7 @@ export default {
     }
 
     #app.mobile  div.contribution div.metaline div.meta {
-        font-size: 14px;
+        font-size: 0.875rem
     }
 
     div.contribution div.metaline div.rating {
@@ -270,9 +349,19 @@ export default {
 
     div.contribution div.metaline p {
         display: block;
-        font-size: 14px;
+        font-size: 0.875rem;
         line-height: 25px;
         margin: 0;
+    }
+
+    div.contribution p.contributionDetailsLink a {
+      color: #005CA9;
+      font-weight: bold;
+    }
+
+    div.contribution p.contributionDetailsLink a:focus-visible {
+      outline: 3px solid #005CA9;
+      outline-offset: 2px;
     }
 
     div.contribution div.metaline p img.categoryIcon {

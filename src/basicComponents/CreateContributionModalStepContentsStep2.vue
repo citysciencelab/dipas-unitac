@@ -39,11 +39,16 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * @name categories
+     * @returns {Object} all categories
      */
     categories () {
       return this.$store.getters.allCategories;
     },
+    /**
+     * @name categoryOptions
+     * @returns {Object} options
+     */
     categoryOptions () {
       const options = {};
 
@@ -55,6 +60,10 @@ export default {
       });
       return options;
     },
+    /**
+     * @name categoryIcons
+     * @returns {Object} icons
+     */
     categoryIcons () {
       const icons = {};
 
@@ -68,6 +77,10 @@ export default {
     }
   },
   watch: {
+    /**
+     * @name category
+     * @event input category
+     */
     category (val) {
       this.$emit("input", Object.assign(this.value, {category: val}));
     }
@@ -76,19 +89,57 @@ export default {
 </script>
 
 <template>
-  <div class="createContributionStep1">
+  <div class="createContributionStep2">
+    <!--
+      @name KeywordSelector
+    -->
     <KeywordSelector
       v-if="$store.getters.isKeywordServiceEnabled"
       :value="value"
     />
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("CreateContributionModal.StepCategory.headline") }}
-    </p>
-    <RadioGroup
-      v-model="category"
-      :options="categoryOptions"
-      :icons="categoryIcons"
-      :value="category"
-    />
+    </h3>
+    <fieldset>
+      <legend class="sr-only">
+        {{ $t("CreateContributionModal.StepCategory.headline") }}
+      </legend>
+
+      <RadioGroup
+        v-model="category"
+        :options="categoryOptions"
+        :icons="categoryIcons"
+        :value="category"
+      />
+    </fieldset>
   </div>
 </template>
+
+<style>
+    div.createContributionStep2 div.radiogroup label.withIcon {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 95%;
+    }
+
+    #app.mobile div.createContributionStep2 div.radiogroup {
+        padding-bottom: 25%;
+    }
+
+    div.createContributionStep2 div.radio-wrapper {
+        margin-bottom: 0;
+        height: 2rem;
+    }
+
+    div.createContributionStep2 div.radio-wrapper label:before {
+        margin-bottom: 2px;
+    }
+
+    div.createContributionStep2 div.radio-wrapper input:focus-visible + label {
+        outline: 3px solid #005CA9;
+        outline-offset: 5px;
+        opacity: 1;
+    }
+</style>

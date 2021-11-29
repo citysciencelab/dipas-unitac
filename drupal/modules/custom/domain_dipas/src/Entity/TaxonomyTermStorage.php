@@ -35,14 +35,14 @@ class TaxonomyTermStorage extends TermStorage {
        * prevent further errors because of missing tree elements.
        */
       if ($term instanceof TermInterface) {
-        $accessAllField = $term->get(DOMAIN_ACCESS_ALL_FIELD);
+        $accessAllField = $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD);
 
         if (($first = $accessAllField->first()) && (bool) $first->getValue()['value']) {
           // The term is marked as "available for all domains".
           return TRUE;
         }
 
-        $accessField = $term->get(DOMAIN_ACCESS_FIELD);
+        $accessField = $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD);
 
         foreach ($accessField->getValue() as $domainId) {
           if ($domainId['target_id'] === $activeDomainId) {

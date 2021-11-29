@@ -81,7 +81,7 @@ trait ContributionDetailsTrait {
       'COUNT(DISTINCT upvotes.id)' => 'upVotes',
       'COUNT(DISTINCT downvotes.id)' => 'downVotes',
       'COUNT(DISTINCT upvotes.id) + COUNT(DISTINCT downvotes.id)' => 'numVotes',
-      'ROUND((100 * COUNT(DISTINCT upvotes.id) / (CASE COUNT(DISTINCT upvotes.id) + COUNT(DISTINCT downvotes.id) WHEN 0 THEN 1 ELSE COUNT(DISTINCT upvotes.id) + COUNT(DISTINCT downvotes.id) END)) / 100.0, 4)' => 'rating',
+      'COUNT(DISTINCT upvotes.id) - COUNT(DISTINCT downvotes.id)' => 'rating',
     ];
   }
 

@@ -34,13 +34,20 @@ export default {
       isExtURL: false
     };
   },
-  /**
-   * computed ToDo
-   */
   computed: {
+    /**
+     * serves the link icon
+     * @name linkicon
+     * @returns {String|Boolean} linkicon
+     */
     linkicon () {
       return _.isObject(this.text) ? this.text.icon : false;
     },
+    /**
+     * serves the link icon
+     * @name linktext
+     * @returns {String} linktext
+     */
     linktext () {
       return _.isObject(this.text) ? this.text.name : this.text;
     }
@@ -54,10 +61,14 @@ export default {
       <span
         v-if="linkicon"
         class="material-icons"
+        :aria-label="linktext"
       >
         {{ linkicon }}
       </span>
-      <span class="linktext">
+      <span
+        class="linktext"
+        aria-hidden="true"
+      >
         {{ linktext }}
       </span>
     </router-link>

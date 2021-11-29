@@ -7,7 +7,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -53,15 +53,17 @@ class AnonymousRedirectToLogin implements EventSubscriberInterface {
   /**
    * Event subscriber handler method.
    */
-  public function onRequest(GetResponseEvent $event) {
+  public function onRequest(RequestEvent $event) {
     if (
       ($route = $this->currentRequest->attributes->get('_route')) &&
       !(
         in_array($route, [
           'dipas.restapi.endpoint',
           'dipas.pdsapi.endpoint',
+          'dipas.cockpitdataapi.endpoint',
           'user.login',
           'image.style_public',
+          'entity.user.canonical',
         ]) ||
         preg_match('~^masterportal\.~', $route)
       ) &&

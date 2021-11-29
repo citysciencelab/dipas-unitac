@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Holds and devides the planning contribution subareas
+ * @displayName ContentPageParagraphDivisionInPlanningSubareas
+ */
 import _ from "underscore";
 import ContentPageParagraphPlanningSubarea from "./ContentPageParagraphPlanningSubarea.vue";
 
@@ -12,6 +16,9 @@ export default {
     ContentPageParagraphPlanningSubarea
   },
   props: {
+    /**
+     * holds the content object
+     */
     content: {
       type: Object,
       default () {
@@ -26,11 +33,20 @@ export default {
     };
   },
   computed: {
+    /**
+     * serves the subareas to filter
+     * @returns {Array}
+     */
     subareas () {
       return this.filter === "all"
         ? this.content.field_content
         : _.filter(this.content.field_content, element => element.field_name === this.filter);
     },
+
+    /**
+     * serves subarea options
+     * @returns {Object} options
+     */
     subareaOptions () {
       const options = {"all": this.$t("ParagraphDivisionInPlanningSubareas.Filter.optionAll")};
 
@@ -39,6 +55,11 @@ export default {
       });
       return options;
     },
+
+    /**
+     * serves wether more as one subareas available or not
+     * @returns {Boolean}
+     */
     showSubareaFilter () {
       return Object.keys(this.subareaOptions).length > 2;
     }
@@ -52,7 +73,7 @@ export default {
       v-if="showSubareaFilter"
       class="filter"
     >
-      <label for="uniqId">{{ $t('ParagraphDivisionInPlanningSubareas.Filter.label') }}:</label>
+      <label :for="uniqId">{{ $t('ParagraphDivisionInPlanningSubareas.Filter.label') }}:</label>
 
       <select
         :id="uniqId"
@@ -69,6 +90,10 @@ export default {
     </div>
 
     <div class="planningSubAreaConceptions">
+      <!--
+        ContentPageParagraphPlanningSubarea component
+        @property {Array} subareas
+      -->
       <ContentPageParagraphPlanningSubarea
         v-for="(element, index) in subareas"
         :key="index"

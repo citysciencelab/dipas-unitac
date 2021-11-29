@@ -1,0 +1,27 @@
+uuid: aad5640c-70e0-4e26-b4ea-f19f4d5af040
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_file
+    - media.type.custom_layer_files
+  module:
+    - file
+id: media.custom_layer_files.field_media_file
+field_name: field_media_file
+entity_type: media
+bundle: custom_layer_files
+label: File
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: customlayerfiles
+  file_extensions: 'geojson json png geotiff jpeg'
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

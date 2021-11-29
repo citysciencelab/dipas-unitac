@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * The contribution list filter term select
+ * @displayName ContributionListFilterTermSelect
+ */
 import CheckboxWithLabel from "../../../basicComponents/CheckboxWithLabel.vue";
 import DipasButton from "../../../basicComponents/DipasButton.vue";
 
@@ -13,28 +17,46 @@ export default {
     DipasButton
   },
   props: {
+    /**
+     * the headline
+     */
     headline: {
       type: String,
       default: ""
     },
+    /**
+     * the term title
+     */
     termTitle: {
       type: String,
       default: ""
     },
+    /**
+     * the term title in plural
+     */
     termTitlePlural: {
       type: String,
       default: ""
     },
+    /**
+     * the terms
+     */
     terms: {
       type: Object,
       default () {
         return {};
       }
     },
+    /**
+     * the icon
+     */
     icon: {
       type: String,
       default: ""
     },
+    /**
+     * value array
+     */
     value: {
       type: Array,
       default () {
@@ -50,30 +72,64 @@ export default {
     };
   },
   computed: {
+    /**
+     * holds the count number of selected terms
+     * @returns {Number}
+     */
     selected () {
       return this.selectedTerms.length;
     },
+    /**
+     * holds the count number
+     * @returns {Number}
+     */
     count () {
       return Object.keys(this.terms).length;
     }
   },
   watch: {
+    /**
+     * if selected terms changes
+     * @returns {void}
+     */
     selectedTerms (val) {
+      /**
+       * @event input
+       */
       this.$emit("input", val);
     },
+    /**
+     * if value changes
+     * @returns {void}
+     */
     value (val) {
       this.intermediateSelection = val;
       this.selectedTerms = val;
     }
   },
   methods: {
+    /**
+     * shows the modal
+     * @name openSelection
+     * @returns {void}
+     */
     openSelection: function () {
       this.showModal = true;
     },
+    /**
+     * cancel the selection and hides the modal
+     * @name cancel
+     * @returns {void}
+     */
     cancel: function () {
       this.intermediateSelection = this.selectedTerms;
       this.showModal = false;
     },
+    /**
+     * set selectedTerms and hides the modal
+     * @name ok
+     * @returns {void}
+     */
     ok: function () {
       this.selectedTerms = this.intermediateSelection.sort();
       this.showModal = false;
@@ -87,11 +143,15 @@ export default {
     <div
       class="selectionOverview"
       @click="openSelection"
+      @keyup.enter="openSelection"
     >
       <p class="title">
         {{ termTitle }}
       </p>
-      <p class="selection">
+      <p
+        class="selection"
+        tabindex="0"
+      >
         <template v-if="selected">
           ({{ $t("ContributionList.ContributionListFilter.selection.selected", {'selected': selected, 'count': count}) }})
         </template>
@@ -100,36 +160,53 @@ export default {
         </template>
       </p>
     </div>
-
+    <!--
+      @name ModalElement
+      @fire closeModal
+    -->
     <ModalElement
       v-if="showModal"
       class="selectionModal"
       :class="{selectionModalMobile: $root.isMobile}"
       @closeModal="cancel"
     >
-      <p class="headline">
+      <h3 class="headline">
         {{ headline }}
-      </p>
-
-      <CheckboxWithLabel
-        v-for="(term, val) in terms"
-        :key="val"
-        v-model="intermediateSelection"
-        :label="term.label"
-        :value="term.val"
-        :icon="term[icon]"
-      />
-
+      </h3>
+      <fieldset>
+        <legend class="sr-only">
+          {{ headline }}
+        </legend>
+        <!--
+          @name CheckboxWithLabel
+          @property [Array] terms
+        -->
+        <CheckboxWithLabel
+          v-for="(term, val) in terms"
+          :key="val"
+          v-model="intermediateSelection"
+          :label="term.label"
+          :value="term.val"
+          :icon="term[icon]"
+        />
+      </fieldset>
       <div
         v-if="!$root.isMobile"
         class="actions"
       >
+        <!--
+          @name DipasButton
+          @event click cancel
+        -->
         <DipasButton
           text="Abbrechen"
           class="grey angular"
           @click="cancel"
         />
-
+        <!--
+          @name DipasButton
+          @event click ok
+        -->
         <DipasButton
           text="Auswahl übernehmen"
           class="blue angular"
@@ -140,11 +217,19 @@ export default {
         v-if="$root.isMobile"
         class="actionsMobile"
       >
+        <!--
+          @name DipasButton
+          @event click ok
+        -->
         <DipasButton
           text="Auswahl übernehmen"
           class="blue angular mobileButton"
           @click="ok"
         />
+        <!--
+          @name DipasButton
+          @event click cancel
+        -->
         <DipasButton
           text="Abbrechen"
           class="grey angular mobileButton"
@@ -157,7 +242,8 @@ export default {
 
 <style>
     div.termselect div.selectionOverview {
-        border: solid 2px #2B88D8;
+        border: solid 2px #005CA9;
+        font-weight: bold;
         padding: 10px;
         cursor: pointer;
     }
@@ -173,12 +259,13 @@ export default {
     }
 
     div.termselect div.selectionOverview p.selection {
-        font-size: 12px;
-        color: #2B88D8;
+        font-size: 0.75rem;
+        font-weight: bold;
+        color: #005CA9;
     }
 
-    div.termselect div.selectionModal p.headline {
-        font-size: 20px;
+    div.termselect div.selectionModal h3.headline {
+        font-size: 1.25rem;
         font-weight: bold;
         color: black;
     }

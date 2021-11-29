@@ -3,6 +3,10 @@
  */
 
 <script>
+/**
+ * Serves comments list comment
+ * @displayName CommentsListComment
+ */
 import moment from "moment";
 import CommentsForm from "./CommentsForm.vue";
 
@@ -12,21 +16,36 @@ export default {
     CommentsForm
   },
   props: {
+    /**
+     * holds the root entity bundle, initial undefined
+     */
     rootEntityBundle: undefined,
+    /**
+     * holds the root entity ID
+     */
     rootEntityID: {
       type: String,
       default: ""
     },
+    /**
+     * holds the parent type
+     */
     parentType: {
       type: String,
       default: ""
     },
+    /**
+     * holds the parent data object
+     */
     parent: {
       type: Object,
       default () {
         return {};
       }
     },
+    /**
+     * serves the comment data object
+     */
     comment: {
       type: Object,
       default () {
@@ -47,15 +66,35 @@ export default {
     };
   },
   computed: {
+    /**
+     * serves the date/time when the comment was created
+     * @returns {String}
+     */
     created () {
       return moment(this.comment.created).format("DD.MM.YYYY | HH:mm:ss") + " Uhr";
     },
+    /**
+     * serves the comments state is open as boolean
+     * @returns {Boolean}
+     */
     commentsOpen () {
       return this.$store.getters[this.rootEntityBundle + "CommentsState"] === "open";
     }
   },
+  /**
+   * handles the comment highlighting and scrolls on its position.
+   * hides and resets the comment form
+   * @returns {void}
+   */
   created () {
+    /**
+     * @event highlight
+     * @param {String} id comment id
+     */
     this.$root.$on("highlightComment", (id) => this.$emit("highlight", id));
+    /**
+     * @fires scrollTo
+     */
     this.$on("highlight", function (id) {
       if (id === this.comment.cid) {
         this.$scrollTo(
@@ -63,7 +102,7 @@ export default {
           300,
           {
             container: "section.content",
-            onDone: function () {
+            onStart: function () {
               this.cssCommentClasses.push("highlighted");
               setTimeout(function (comp) {
                 comp.cssCommentClasses.splice(comp.cssCommentClasses.length - 1, 1);
@@ -73,30 +112,52 @@ export default {
         );
       }
     });
+    /**
+     * @event hideForm
+     * @param {String} id comment id
+     */
     this.$root.$on("hideCommentForm", (id) => this.$emit("hideForm", id));
     this.$on("hideForm", function (id) {
       if (id !== this.comment.cid) {
         this.showForm = false;
       }
     });
+    /**
+     * @event resetForm
+     */
     this.$root.$on("resetCommentForms", () => this.$emit("resetForm"));
     this.$on("resetForm", function () {
       this.showForm = false;
     });
   },
   methods: {
+    /**
+     * adds the new comment
+     * @param {String} entityID id of the entity
+     */
     addComment: function (entityID) {
       if (!this.showForm) {
         this.commentFormHeadline = this.$t("CommentsList.Comment.replyNoPlural") + entityID;
         this.commentSubject = this.$t("CommentsList.Comment.replyNo") + entityID;
+        /**
+         * @event hideCommitForm
+         * @param cid comment id
+         */
         this.$root.$emit("hideCommentForm", this.comment.cid);
         this.$nextTick(() => this.$scrollTo("#" + this.formID, 200, {container: "section.content"}));
       }
       else {
+        /**
+         * @event showCommentForm show the comment form
+         */
         this.$root.$emit("showCommentForm");
       }
       this.showForm = !this.showForm;
     },
+    /**
+     * @event highlightComment
+     * @param {String} subject comment subject
+     */
     highlightComment: function (subject) {
       this.$root.$emit("highlightComment", subject.replace(/^\D+/g, ""));
     }
@@ -112,7 +173,9 @@ export default {
     <p class="text">
       <span
         v-if="comment.subject"
+        tabindex="0"
         class="subject"
+        @keydown.enter="highlightComment(comment.subject)"
         @click="highlightComment(comment.subject)"
       >
         {{ comment.subject }}:
@@ -128,12 +191,19 @@ export default {
       <p
         v-if="commentsOpen"
         class="addComment"
+        tabindex="0"
+        role="link"
+        :aria-describedby="'comment-' + comment.cid"
         @click="addComment(comment.cid)"
+        @keyup.enter="addComment(comment.cid)"
       >
-        {{ !showForm ? $t("CommentsList.Comment.comment") : $t("CommentsList.Comment.cancel") }}
+        {{ !showForm ? $t("CommentsList.Comment.comment") : "" }}
       </p>
     </div>
-
+    <!--
+      @name CommentsForm
+      @event reloadComments event
+    -->
     <CommentsForm
       v-if="commentsOpen && showForm"
       :formID="formID"
@@ -149,6 +219,9 @@ export default {
       v-if="comment.replies.length"
       class="replies"
     >
+      <!--
+        @name CommentsListComment
+      -->
       <CommentsListComment
         v-for="reply in comment.replies"
         :key="reply.cid"
@@ -192,6 +265,7 @@ export default {
 
     div.reply p.text span.subject {
         color: #005CA9;
+        font-weight: bold;
         cursor: pointer;
     }
 
@@ -206,12 +280,12 @@ export default {
     }
 
     div.commentWrapper div.subline p.meta {
-        font-size: 13px;
+        font-size: 0.813rem;
     }
 
     div.commentWrapper div.subline p.addComment {
         color: #005CA9;
-        text-decoration: underline;
+        font-weight: bold;;
     }
 
     div.commentWrapper div.subline p.addComment {

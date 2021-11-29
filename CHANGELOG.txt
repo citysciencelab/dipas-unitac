@@ -5,6 +5,45 @@ This file contains all valuable change to the DIPAS project.
 
 We use semantic versioning.
 
+Version 2.0.0 - 22-01-07
+=========================
+
+** Story
+    * update to drupal 9
+    * drupal core & module updates
+	* update npm versions
+	* improve contribution ranking and statistics
+	* use DIPAS logo in online frontend
+	* improve JsDoc frontend documentation
+	* accessibility
+	* use some libraries and fonts locally (vue-multiselect.js, cesium.js, material icons)
+	* allow renaming of menu item "compare conceptions"
+	* media-type for custom layer files
+	* contributions view: grant permission to projektadmin
+	* update media-link in dashboard
+	* styling of main menu
+	* add hint and check for special characters in wizard and comments
+	* rename taxonomie "rubric" in backend
+	* NLP-Dashboard: refresh listview and add description for "relevance"
+	* domainmodule: change image upload to be domain specific
+	* domainmodule: change image upload domain access accessibility
+	* domainmodule: change downloads to be domain specific
+	* set up docker environment for development
+	* update text for geolocation in wizard
+	* masterportal update
+
+** Bug
+    * domainmodul "redirect bug"
+	* odd order of conception images
+	* allow editing layerstyles in DIPAS
+	* allow saving of rest-services.json
+	* map does not automatically zoom to project area
+	* layer "project area" does to update automatically
+	* PDS-API crash when no NLP data available
+	* wizard geolocation problem when moving initially set point
+	* masterportal did not work when domain contains hyphen
+
+
 Version 1.0.0 - 2021-02-19
 ==========================
 First open source version of DIPAS released

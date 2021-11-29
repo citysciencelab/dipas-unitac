@@ -3,36 +3,27 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.dipas_projectarea
-domain: default
-instance_name: dipas_projectarea
 uid: '0'
+instance_name: dipas_projectarea
 label: 'DIPAS Projectarea'
 domain: default
 hidden: true
 settings:
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '19969'
+        custom:
+          visibility: true
+          gfiTheme: default
   DesignSettings:
     uiStyle: simple
     treeType: light
     scaleLine: 0
     simpleMap: 0
     backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
-    renderToDOM: ''
-    quickHelp: false
   ForegroundLayerSection:
     layer: {  }
-  BackgroundLayerSettings:
-    layer:
-      -
-        id: '["717","718","719","720","13709","13712","13714","13716"]'
-        custom:
-          name: 'GeoBasisKarten Hamburg'
-          visibility: true
-          gfiTheme: default
   MapSettings:
     startCenter: '[566263,5934768]'
     options:
@@ -110,12 +101,18 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Controls\InputWidgetMap:
         setMarker: false
         setCenter: false
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Suche nach Adresse/Thema'
+    renderToDOM: ''
+    quickHelp: false
   SearchPluginSettings:
     activePlugins:
-      - Tree
       - Gazetteer
+      - Tree
     plugins:
-      Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
       Drupal\masterportal\Plugin\Masterportal\SearchBar\Gazetteer:
         serviceId: '6'
         searchStreets: true
@@ -123,6 +120,7 @@ settings:
         searchDistricts: true
         searchParcels: true
         searchStreetKey: true
+      Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
   ToolSettings:
     activePlugins:
       - Draw

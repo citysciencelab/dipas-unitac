@@ -5,6 +5,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     # if WHOLE path not exists as file
     RewriteCond %{REQUEST_FILENAME} !-f
+    # no subdomain was already given
+    RewriteCond %{HTTP_HOST} ^(?:www\.)?([a-z0-9\-_]+\.[a-z]+)$ [NC]
     # THEN rewrite rule
-    RewriteRule ^([^/]*?)/(.*) http://$1.%{HTTP_HOST}/dipas/$2
+    RewriteRule ^([a-z0-9\-_]+) https://$1.%1/dipas [R=301,NC,QSA,L]
 </IfModule>

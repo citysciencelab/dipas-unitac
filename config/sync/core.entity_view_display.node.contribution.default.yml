@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.contribution.field_domain_access
     - field.field.node.contribution.field_domain_all_affiliates
     - field.field.node.contribution.field_geodata
-    - field.field.node.contribution.field_localization
     - field.field.node.contribution.field_rating
     - field.field.node.contribution.field_rubric
     - field.field.node.contribution.field_tags
@@ -90,6 +89,5 @@ content:
 hidden:
   field_domain_access: true
   field_domain_all_affiliates: true
-  field_localization: true
   langcode: true
   links: true

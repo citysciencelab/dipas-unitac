@@ -16,7 +16,7 @@ export default {
   name: "DownloadLink",
   props: {
     /**
-     * The link object
+     * holds the link object
      */
     link: {
       type: Object,
@@ -24,17 +24,46 @@ export default {
         return {};
       }
     }
+  },
+  computed: {
+  /**
+    * Adds the extension to the fileName for more user transparency
+    * @type {String} fileNameWithExtension
+    */
+    linkFileName () {
+      const pointIndex = this.link.url.lastIndexOf("."),
+        extension = this.link.url.substr(pointIndex + 1);
+
+      if (pointIndex > 0) {
+        return this.link.name + " (" + extension.toUpperCase() + ")";
+      }
+
+      return this.link.name;
+    }
   }
 };
 </script>
 
 <template>
   <div class="download">
-    <i class="material-icons">get_app</i>&nbsp;
+    <i
+      class="material-icons"
+      :aria-label="$t('DownloadsBlock.headline')"
+    >
+      get_app
+    </i>&nbsp;
     <a
       :href="link.url"
       target="_blank"
-    >{{ link.name }}
+    >{{ linkFileName }}
     </a>
   </div>
 </template>
+
+<style>
+  div.download a {
+    color: #005CA9;
+    font-weight: bold;
+  }
+</style>
+

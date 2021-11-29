@@ -33,6 +33,10 @@ export default {
       type: String,
       default: ""
     },
+    textAlternative: {
+      type: String,
+      default: ""
+    },
     showOverlay: {
       type: Boolean,
       default: false
@@ -48,16 +52,18 @@ export default {
             {
               data: this.donutData,
               backgroundColor: this.colors,
-              borderWidth: 2
+              borderWidth: 6,
+              borderColor: "#f0f0f0"
             }
           ]
         },
         options: {
           responsive: true,
           legend: {
-            display: false
+            display: true,
+            position: "left"
           },
-          cutoutPercentage: 80,
+          cutoutPercentage: 50,
           tooltips: {
             callbacks: {
               label: function (tooltipItem, data) {
@@ -111,13 +117,19 @@ export default {
       class="chart"
       @click="openModal"
     >
-      <p class="headline">
+      <h3
+        aria-hidden="true"
+        class="headline"
+      >
         {{ headline }}
-      </p>
+      </h3>
       <canvas
         :id="keyId"
+        role="img"
         height="220px"
-      />
+      >
+        {{ textAlternative }}
+      </canvas>
     </div>
     <ModalElement
       v-if="showModal && showOverlay"
@@ -125,13 +137,19 @@ export default {
       @hook:mounted="drawChartModal"
     >
       <div class="chart">
-        <p class="headline">
+        <p
+          aria-hidden="true"
+          class="headline"
+        >
           {{ headline }}
         </p>
         <canvas
           :id="keyId + 'Modal'"
+          role="img"
           height="300px"
-        />
+        >
+          {{ textAlternative }}
+        </canvas>
       </div>
     </ModalElement>
   </div>

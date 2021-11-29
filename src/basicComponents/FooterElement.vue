@@ -24,12 +24,11 @@ export default {
   },
   computed: {
     /**
-     * computed ToDo
+     * spreads the properties from the vuex store
      */
     ...mapGetters([
       "mainmenu",
       "footermenu",
-      "footertext",
       "projectRunning",
       "takesNewContributions"
     ])
@@ -38,43 +37,63 @@ export default {
 </script>
 
 <template>
-  <section
-    class="footer"
-    :style="{'backgroundColor': ($root.isMobile ? this.$store.getters.leadingColor : '')}"
-  >
-    <div
-      v-if="!$root.isMobile"
-      class="row"
+  <footer>
+    <section
+      class="footer"
+      :style="{'backgroundColor': ($root.isMobile ? this.$store.getters.leadingColor : '')}"
     >
-      <NavigationElement
-        :links="footermenu"
-        class="col-xl-6 col-lg-6 col-md-6 footermenu"
-      />
-
-      <p class="col-xl-6 col-lg-6 col-md-6 footertext">
-        {{ footertext }}
-      </p>
-    </div>
-
-    <div v-if="$root.isMobile">
-      <!--
-        triggered on click
-        @event click
+      <div
+        v-if="!$root.isMobile"
+        class="row"
+      >
+        <!--
+        @name NavigationElement
       -->
-      <DipasButton
-        v-if="$route.meta.hasCreateButton && projectRunning && takesNewContributions"
-        class="red angular"
-        icon="add"
-        text="Beitrag erstellen"
-        @click="$root.$emit('createContribution')"
-      />
+        <NavigationElement
+          :links="footermenu"
+          class="col-xl-6 col-lg-6 col-md-6 footermenu"
+        />
+        <div class="col-xl-6 col-lg-6 col-md-6">
+          <p class="col-xl-12 col-lg-12 col-md-12 footertext">
+            {{ $t("Site.footerText") }}
+          </p>
+          <a
+            href="https://dipas.org"
+            class="footerlink"
+            target="_blank"
+            :title="$t('Site.footerDipasLogoTitle')"
+          >
+            <img
+              src="../../dipaslogo.svg"
+              class="footerlogo"
+              :alt="$t('Site.footerDipasLogoAltText')"
+            >
+          </a>
+        </div>
+      </div>
 
-      <NavigationElement
-        class="quicklinks"
-        :links="mainmenu"
-      />
-    </div>
-  </section>
+      <div v-if="$root.isMobile">
+        <!--
+          @name DipasButton
+          @event click createContribution
+        -->
+        <DipasButton
+          v-if="$route.meta.hasCreateButton && projectRunning && takesNewContributions"
+          class="red angular"
+          icon="add"
+          text="Beitrag erstellen"
+          @click="$root.$emit('createContribution')"
+        />
+        <!--
+          @name NavigationElement
+        -->
+        <NavigationElement
+          class="quicklinks"
+          :links="mainmenu"
+        />
+      </div>
+    </section>
+  </footer>
 </template>
 
 <style>
@@ -93,12 +112,28 @@ export default {
     #app.desktop section.footer p.footertext {
         display: inline-block;
         text-align: right;
-        padding-right: 40px;
+        padding-right: 4.8rem;
+        font-size: 0.9rem;
+    }
+
+    #app.desktop section.footer img.footerlogo {
+        width: 2.15rem;
+        padding-top: 0px;
+    }
+
+    #app.desktop section.footer a.footerlink{
+        position: absolute;
+        top: 0;
+        right: 50px;
     }
 
     #app.mobile section.footer {
         margin: 0;
         padding: 0;
     }
-</style>
 
+    #app.mobile footer button.dipasButton:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: -5px;
+    }
+</style>

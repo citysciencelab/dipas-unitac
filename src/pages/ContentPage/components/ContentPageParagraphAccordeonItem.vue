@@ -3,9 +3,16 @@
  */
 
 <script>
+/**
+ * Shows the single accordeon item
+ * @displayName ContentPageParagraphAccordeonItem
+ */
 export default {
   name: "ContentPageParagraphAccordeonItem",
   props: {
+    /**
+     * holds the content for the single accordeon item
+     */
     content: {
       type: Object,
       default () {
@@ -25,7 +32,11 @@ export default {
   <div class="accordeonItem">
     <div
       class="textHeadline"
+      tabindex="0"
+      role="button"
+      :aria-expanded="!hideTextField ? 'true' : 'false'"
       @click="hideTextField = !hideTextField"
+      @keyup.enter="hideTextField = !hideTextField"
     >
       <span>{{ content.field_headline }}</span>
       <i class="material-icons customIcon">{{ hideTextField ? "add" : "remove" }}</i>
@@ -43,7 +54,7 @@ export default {
     .accordeonItem .textHeadline {
         background-color: #F0F0F0;
         text-align: left;
-        font-size: 16px;
+        font-size: 1rem;
         line-height: 24px;
         font-weight: bold;
         letter-spacing: 0;
@@ -55,7 +66,7 @@ export default {
     }
 
     .accordeonItem .textHeadline .customIcon {
-        font-size: 22px;
+        font-size: 1.375rem;
         font-weight: bold;
         color: #E10019;
         width: 30px;
@@ -68,7 +79,13 @@ export default {
     }
 
     .accordeonItem .textParagraphContent {
-        font-size: 16px;
+        font-size: 1rem;
         padding: 10px 0 0 10px;
     }
+
+    div.accordeonItem .textParagraphContent a {
+      color: #005CA9;
+      font-weight: bold;
+    }
+
 </style>

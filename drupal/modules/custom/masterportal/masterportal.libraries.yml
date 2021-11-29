@@ -20,9 +20,8 @@ configform:
     libraries/configform/selectmenu.js: { minified: false }
   dependencies:
     - core/drupal
-    - core/jquery.ui
-    - core/jquery.ui.sortable
-    - core/jquery.ui.selectmenu
+    - jquery_ui_sortable/sortable
+    - jquery_ui_selectmenu/selectmenu
 
 configmap:
   js:

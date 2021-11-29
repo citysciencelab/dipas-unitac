@@ -68,7 +68,7 @@ masterportal.settings.testpage:
     aspectratio: aspect_ratio_16_9
   requirements:
     _permission: 'administer masterportal'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:
@@ -105,7 +105,7 @@ masterportal.fullscreen:
       - url
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:
@@ -125,7 +125,7 @@ masterportal.table:
       - url
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     overwrites:
       uiStyle: table
@@ -140,7 +140,7 @@ masterportal.download.instance:
     _controller: 'masterportal.downloadservice:createZip'
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:
@@ -160,7 +160,7 @@ masterportal.javascript:
       - url
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:
@@ -175,7 +175,7 @@ masterportal.json:
     preprocess: generateJsonSettingsObject
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:
@@ -247,7 +247,7 @@ masterportal.layerdefinitions.instance:
     preprocess: enrichLayerDefinitions
   requirements:
     _permission: 'access content'
-    masterportal_instance: \w+(?:\.\w+)?
+    masterportal_instance: '[A-Za-z0-9_-]+(?:\.\w+)?'
   options:
     parameters:
       masterportal_instance:

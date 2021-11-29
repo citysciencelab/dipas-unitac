@@ -10,7 +10,6 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\dipas\Controller\DipasConfig;
 use Drupal\Core\Database\Connection;
 use GuzzleHttp\ClientInterface;
-use \Exception;
 use Drupal\dipas\Exception\StatusException;
 
 /**

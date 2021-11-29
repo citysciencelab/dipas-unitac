@@ -363,7 +363,7 @@ class MasterportalInstanceEditForm extends EntityForm {
     );
 
     // Set a confirmation notice.
-    drupal_set_message(
+    \Drupal::messenger()->addMessage(
       $this->t(
         'Instance %instance was successfully %action.',
         [
@@ -372,8 +372,7 @@ class MasterportalInstanceEditForm extends EntityForm {
             ? $this->t('created', [], ['context' => 'Masterportal'])
             : $this->t('updated', [], ['context' => 'Masterportal']),
         ]
-      ),
-      'status'
+      )
     );
 
     // Redirect back to the list view.

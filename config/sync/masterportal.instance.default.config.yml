@@ -5,36 +5,27 @@ dependencies: {  }
 _core:
   default_config_hash: 7OL3-iSadqY1BCLWxK11KMX6PzQVipkNPXKK9XpncN4
 id: default.config
-domain: default
-instance_name: config
 uid: '0'
+instance_name: config
 label: Config
 domain: default
 hidden: true
 settings:
+  BackgroundLayerSettings:
+    layer:
+      -
+        id: '19969'
+        custom:
+          visibility: true
+          gfiTheme: default
   DesignSettings:
     uiStyle: default
     treeType: light
     scaleLine: 0
     simpleMap: 0
     backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
-    renderToDOM: '#searchbarInMap'
-    quickHelp: false
   ForegroundLayerSection:
     layer: {  }
-  BackgroundLayerSettings:
-    layer:
-      -
-        id: '["717","718","719","720","13709","13712","13714","13716"]'
-        custom:
-          name: 'GeoBasisKarten Hamburg'
-          visibility: true
-          gfiTheme: default
   MapSettings:
     startCenter: '[566296,5935086]'
     options:
@@ -108,6 +99,13 @@ settings:
     tooltip: 'Landesbetrieb Geoinformation und Vermessung'
     activePlugins: {  }
     plugins: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Suche nach Adresse/Thema'
+    renderToDOM: '#searchbarInMap'
+    quickHelp: false
   SearchPluginSettings:
     activePlugins:
       - Tree

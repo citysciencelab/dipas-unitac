@@ -1,0 +1,11 @@
+uuid: 8c3491bb-e202-42fd-9b6d-70e12ae740a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.custom_layer_files
+id: media.custom_layer_files
+target_entity_type_id: media
+target_bundle: custom_layer_files
+default_langcode: site_default
+language_alterable: false

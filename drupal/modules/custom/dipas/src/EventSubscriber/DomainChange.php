@@ -157,7 +157,7 @@ class DomainChange implements EventSubscriberInterface {
       // Always exclude default and domain spanning instances.
       $query->condition(
         'instance_name',
-        ['default', 'config', 'dipas_projectarea'],
+        ['default', 'config', 'dipas_projectarea', 'cockpit_map'],
         'NOT IN'
       );
       $query->condition('domain', 'default', '=');

@@ -59,37 +59,50 @@ export default {
       "frontpage"
     ]),
     /**
-     * ToDo
+     * @name projectStarted
+     * @returns {String} date of project start
      */
     projectStarted () {
       return moment().utc() >= moment(this.projectperiod.start);
     },
     /**
-     * ToDo
+     * @name projectEnded
+     * @returns {String} date of project end
      */
     projectEnded () {
       return moment().utc() > moment(this.projectperiod.end);
     },
     /**
-     * ToDo
+     * @name filterHash
+     * @returns {String} SHA256 styled hash value
      */
     filterHash () {
       return JSum.digest(this.filterSettings, "SHA256", "hex");
     },
     /**
-     * ToDo
+     * @name filteraApplied
+     * @returns {Number} rubric or category length
      */
     filtersApplied () {
       return this.filterSettings.filters.category.length || this.filterSettings.filters.rubric.length;
     }
   },
   created () {
+    /**
+     * shows load more... if the bottom is reached
+     * @fire scrollBottomReached
+     * @returns {void}
+     */
     this.$root.$on("scrollBottomReached", () => {
       if (this.$route.fullPath === "/contributionlist" ||
         (this.$route.fullPath === "/" && this.frontpage === "contributionlist")) {
         this.loadMore();
       }
     });
+    /**
+     * @fire routeChange
+     * @returns {void}
+     */
     this.$root.$on("routeChange", function (change) {
       if (!(
         (change.from.fullPath === "/contributionlist" && (/^\/contribution\/\d+$/).test(change.to.fullPath))
@@ -183,6 +196,7 @@ export default {
           <p
             v-if="!contributionList.nodes.length"
             class="col-xs-12 col-12 noContributions"
+            role="status"
           >
             <template v-if="projectRunning && filtersApplied">
               {{ $t('ContributionList.noContributionsForCriteria') }}
@@ -197,7 +211,10 @@ export default {
               {{ $t('ContributionList.endsWithoutContributions') }}
             </template>
           </p>
-
+          <!--
+            @name ContributionListTeaser
+            @property {Object} contribution list
+          -->
           <ContributionListTeaser
             v-for="contribution in contributionList.nodes"
             :key="contribution.nid"
@@ -243,9 +260,13 @@ export default {
       >
         <!--
           triggered on click
-           @event click
+          @event click
         -->
         <div class="inner">
+          <!--
+            @name Dipas Button
+            @event click createContribution
+          -->
           <DipasButton
             v-if="projectRunning && takesNewContributions"
             :text="$t('ContributionList.addNew')"
@@ -253,7 +274,11 @@ export default {
             icon="add"
             @click="$root.$emit('createContribution')"
           />
-
+          <!--
+            @name ContributionListFilter
+            @fire filter apply the filters
+            @fire resetFilters
+          -->
           <ContributionListFilter
             :key="filterHash"
             :filtersApplied="filterSettings"
@@ -262,12 +287,20 @@ export default {
           />
         </div>
       </div>
-
+      <!--
+        @name ModalElement
+        @fire closeModal
+      -->
       <ModalElement
         v-if="$root.showFilter"
         class="filterModal"
         @closeModal="cancel"
       >
+        <!--
+          @name ContributionListFilter
+          @fire filter apply the filters
+          @fire resetFilters
+        -->
         <ContributionListFilter
           :key="filterHash"
           :filtersApplied="filterSettings"
@@ -285,7 +318,7 @@ export default {
     }
 
     section.contributionlist h1 {
-        font-size: 36px;
+        font-size: 2.25rem;
         font-weight: bold;
         color: #003063;
         word-break: break-word;
@@ -301,15 +334,15 @@ export default {
     }
 
     section.contributionlist div.sidebar div.inner > button.dipasButton {
-        width: 230px;
-        height: 50px;
+        height: 3.125rem;
+        width: 14.375rem;
         padding-left: 21px;
-        font-size: 18px;
+        line-height: 1rem;
         margin-bottom: 40px;
     }
 
     section.contributionlist div.sidebar div.inner button.createContributionButton .customIcon {
-        font-size: 24px;
+        font-size: 1.5rem;
     }
 
     section.contributionlist p.noMoreEntries,

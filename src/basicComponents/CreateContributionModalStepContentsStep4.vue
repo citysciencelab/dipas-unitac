@@ -26,6 +26,7 @@ export default {
   props: {
     /**
      * The content object of the actual step
+     * @name value
      */
     value: {
       type: Object,
@@ -39,10 +40,16 @@ export default {
       geodata: this.value.geodata,
       showInfotext: false,
       geometryType: Object.keys(JSON.parse(this.value.geodata)).length ? JSON.parse(this.value.geodata).geometry.type.toLowerCase() : this.$store.getters.contributionGeometryType[0],
-      extent: {}
+      extent: {},
+      timestamp: null
     };
   },
   computed: {
+    /**
+     * serves the masterportal settings for the contribution map
+     * @name masterportalSrc
+     * @returns {String} settings
+     */
     masterportalSrc () {
       let src = this.$store.getters.createcontributionmap;
 
@@ -51,6 +58,11 @@ export default {
       }
       return src;
     },
+    /**
+     * serves the geometry options
+     * @name geometryOptions
+     * @returns {Object} geometry options
+     */
     geometryOptions () {
       const options = {},
         geomTypes = this.$store.getters.contributionGeometryType;
@@ -64,50 +76,20 @@ export default {
 
       return options;
     },
+    /**
+     * serves the extent of the contribution on map
+     * @name mapExtent
+     * @returns {Object} extent
+     */
     mapExtent () {
-      const geodata = JSON.parse(this.geodata);
+      const projectExtent = {
+        minLon: this.extent.lon_min,
+        minLat: this.extent.lat_min,
+        maxLon: this.extent.lon_max,
+        maxLat: this.extent.lat_max
+      };
 
-      if (Object.keys(geodata).length && geodata.geometry.type !== "Point") {
-        const extent = {
-            minLon: 999999999,
-            minLat: 999999999,
-            maxLon: 0,
-            maxLat: 0
-          },
-          latall = [],
-          lonall = [];
-        let coord = [];
-
-        if (geodata.geometry.type === "LineString") {
-          coord = geodata.geometry.coordinates;
-        }
-        else if (geodata.geometry.type === "Polygon") {
-          coord = geodata.geometry.coordinates[0];
-        }
-
-        coord.forEach(function (coordinate) {
-          latall.push(coordinate[1]);
-          lonall.push(coordinate[0]);
-        });
-
-        extent.minLon = Math.min(...lonall);
-        extent.minLat = Math.min(...latall);
-        extent.maxLon = Math.max(...lonall);
-        extent.maxLat = Math.max(...latall);
-
-        return extent;
-      }
-      else if (!Object.keys(geodata).length && (this.extent.lon_diff > 0 && this.extent.lat_diff > 0)) {
-        const projectExtent = {
-          minLon: this.extent.lon_min,
-          minLat: this.extent.lat_min,
-          maxLon: this.extent.lon_max,
-          maxLat: this.extent.lat_max
-        };
-
-        return projectExtent;
-      }
-      return false;
+      return projectExtent;
     }
   },
   watch: {
@@ -117,15 +99,37 @@ export default {
        * Saves the choosen geolocation
        * @event input
        * @param {String} geodata geolocation
+       * @returns {void}
        */
       handler: function (val) {
         this.$emit("input", {geodata: val});
       }
     },
+    /**
+     * set geometry type to empty object
+     * @name geometryType
+     * @returns {void}
+     */
     geometryType () {
       this.geodata = "{}";
+    },
+    /**
+     * update the time stamp for the map extent after changing
+     * @name mapExtent
+     * @returns {void}
+     */
+    mapExtent: {
+      deep: true,
+      handler: function () {
+        this.timestamp = Date.now();
+      }
     }
   },
+  /**
+   * load initially the contribution extent via requestbroker from drupal api
+   * @name geometryType
+   * @returns {void}
+   */
   beforeMount () {
     this.loadContributionsExtend();
   }
@@ -134,17 +138,25 @@ export default {
 
 <template>
   <div class="createContributionStep4">
-    <p class="headline">
+    <h3 class="headline">
       {{ $t("CreateContributionModal.StepMap.headline") }}
-    </p>
-
-    <RadioGroup
+    </h3>
+    <p
       v-if="Object.keys(geometryOptions).length > 1"
-      v-model="geometryType"
-      :options="geometryOptions"
-      :value="geometryType"
-      horizontal="true"
-    />
+    >
+      {{ $t("CreateContributionModal.StepMap.geometry") }}
+    </p>
+    <fieldset v-if="Object.keys(geometryOptions).length > 1">
+      <legend class="sr-only">
+        {{ $t("CreateContributionModal.StepMap.geometry") }}
+      </legend>
+      <RadioGroup
+        v-model="geometryType"
+        :options="geometryOptions"
+        :value="geometryType"
+        horizontal="true"
+      />
+    </fieldset>
     <!--
       triggered on click
       @event showInfotext
@@ -152,7 +164,9 @@ export default {
     <p
       class="usageHint"
       :class="[!showInfotext ? 'infotextHidden' : '']"
+      tabindex="0"
       @click="showInfotext = !showInfotext"
+      @keyup.enter="showInfotext = !showInfotext"
     >
       <i
         class="material-icons"
@@ -161,8 +175,13 @@ export default {
       </i>
       <span class="infotext">{{ $t("CreateContributionModal.StepMap.infotext_" + geometryType) }}</span>
     </p>
+    <!--
+      @name Masterportal
+      @model geodata
+    -->
     <Masterportal
       ref="map"
+      :key="timestamp"
       v-model="geodata"
       :src="masterportalSrc"
       :geodata="geodata"
@@ -208,6 +227,11 @@ export default {
 
     #app.mobile div.createContributionStep4 div.masterportal div.aspectRatioWrapper {
         padding: 0;
-        height: 100%;
+        height: 85%;
+    }
+    div.createContributionStep4 div.radio-wrapper input:focus-visible + label {
+        outline: 3px solid #005CA9;
+        outline-offset: 5px;
+        opacity: 1;
     }
 </style>

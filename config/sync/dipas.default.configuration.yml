@@ -19,18 +19,19 @@ ProjectInformation:
   headline: 'Herzlich Willkommen!'
   text: 'Hier können Sie teilnehmen!'
   data_responsible: ''
+  allow_conception_comments: false                                
 ContributionSettings:
-  contribution_status: open
+  contribution_status: closed
   maximum_character_count_per_contribution: 1000
   contributor_must_be_logged_in: false
   contributions_must_be_localized: true
   rubrics_use: true
   geometry:
     - point
-  comments_allowed: true
+  comments_allowed: false
   comments_maxlength: 500
   display_existing_comments: true
-  rating_allowed: true
+  rating_allowed: false
   masterportal_instances:
     contributionmap: default.default
     singlecontribution:
@@ -127,3 +128,4 @@ ProjectSchedule:
   allow_conception_comments: true
   display_existing_conception_comments: true
   overwriteFrontpage: false
+langcode: en

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Config\Config;
 use Drupal\Core\Queue\DatabaseQueue;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_entity_insert().
@@ -19,6 +20,7 @@ use Drupal\Core\Queue\DatabaseQueue;
 function dipas_entity_insert(EntityInterface $entity) {
   dipas_invalidate_entity_cachetags($entity);
   dipas_nlp_request_queue($entity, 'insert');
+  _dipas_cockpit_data_generation($entity);
 }
 
 /**
@@ -292,21 +294,6 @@ function dipas_theme($existing, $type, $theme, $path) {
 }
 
 /**
-  * Implements hook_user_login().
-  */
-
-function dipas_user_login($account) {
-
-  if ($account->isAuthenticated() && in_array('project_admin', $account->getRoles())) {
-    $url = "admin/dipas/dashboard";
-    $response = new RedirectResponse(base_path() . $url);
-    $response->send();
-  }
-
-  return;
-}
-
-/**
  * Implements hook_form_alter().
  *
  * Implemented to set a default domain on taxonomy term forms.
@@ -327,7 +314,27 @@ function dipas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
         ->translate("You are editing the default configuration, the changes will be reflected in all new proceedings.");
       \Drupal::service('messenger')->addWarning($warning);
     }
+  }
+  if ($form_id === 'user_login_form') {
+    $form['#submit'][] = 'dipas_redirect_project_admins_after_login';
+  }
+}
 
+/**
+ * Custom submit handler for the user login form.
+ *
+ * @param array $form
+ *   The form definition.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state interface.
+ */
+function dipas_redirect_project_admins_after_login(array $form, FormStateInterface $form_state) {
+  $user = \Drupal::currentUser();
+  if (
+    $user->isAuthenticated() &&
+    in_array('project_admin', $user->getRoles())
+  ) {
+    $form_state->setRedirect('dipas.dashboard');
   }
 }
 
@@ -348,4 +355,226 @@ function dipas_apply_phase_config(Config $config, array $phaseConfig) {
     $config->set($key, $value);
   }
   return $config;
+}
+
+/**
+ * Generates the data for the DIPAS Cockpit.
+ *
+ * By counting contributions or comments.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The interface for the Drupal entity object.
+ */
+function _dipas_cockpit_data_generation(EntityInterface $entity) {
+  // Get active domain
+  // $activeDomain = Drupal::service('domain.negotiator')->getActiveDomain();
+  // Create database connection.
+  $database = Database::getConnection();
+  // Check if entity is a node and a contribution.
+  if ($entity->getEntityTypeId() == 'node' && $entity->getType() == 'contribution') {
+    // Get the date.
+    // For 10.3.2021 this wold be 10, 3, 2021.
+    $date = explode(',', date('j, n, Y'));
+    $month = ltrim($date[1]);
+    $year = ltrim($date[2]);
+    $record = _dipas_cockpit_get_contribution_data($year, $month, $database);
+    if (is_null($record)) {
+      _dipas_cockpit_initiate_contribution_data($year, $month, 1, $database);
+    }
+    else {
+      $new_count = $record[0] + 1;
+      _dipas_cockpit_update_contribution_data($year, $month, $new_count, $database);
+    }
+  }
+
+  if ($entity->getEntityTypeId() == 'comment') {
+    // Get the date.
+    // For 10.3.2021 this wold be 10, 3, 2021.
+    $date = explode(',', date('j, n, Y'));
+    $month = ltrim($date[1]);
+    $year = ltrim($date[2]);
+    $record = _dipas_cockpit_get_comment_data($year, $month, $database);
+    if (is_null($record)) {
+      _dipas_cockpit_initiate_comment_data($year, $month, 1, $database);
+    }
+    else {
+      $new_count = $record[0] + 1;
+      _dipas_cockpit_update_comment_data($year, $month, $new_count, $database);
+    }
+  }
+};
+
+/**
+ * Looksup the contribution count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_get_contribution_data($year, $month, $database) {
+  // Get the entry of the current month and year.
+  try {
+    $query = $database->select('dipas_cockpit_data', 'dcd')
+      ->fields('dcd')
+      ->condition('year', $year, '=')
+      ->condition('month', $month, '=');
+    $result = $query->execute();
+    foreach ($result as $row) {
+      // Get the count of contributions.
+      $record[] = $row->contributions;
+    }
+    return $record;
+  }
+  catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
+}
+
+/**
+ * Initiates the contribution count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param int $new_count
+ *   The new count value of contributions.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_initiate_contribution_data($year, $month, $new_count, $database) {
+  try {
+    $result = $database->insert('dipas_cockpit_data')
+                        ->fields([
+                          'year' => $year,
+                          'month' => $month,
+                          'contributions' => $new_count
+                        ])
+                        ->execute();
+  } catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
+}
+
+/**
+ * Updates the contribution count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param int $new_count
+ *   The new count value of contributions.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_update_contribution_data($year, $month, $new_count, $database) {
+  try {
+    $query = $database->update('dipas_cockpit_data')
+      ->fields(['contributions' => $new_count])
+      ->condition('year', $year, '=')
+      ->condition('month', $month, '=');
+    $result = $query->execute();
+    return $result;
+  }
+  catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
+}
+
+/**
+ * Looksup the comment count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_get_comment_data($year, $month, $database) {
+  // Get the entry of the current month and year.
+  try {
+    $query = $database->select('dipas_cockpit_data', 'dcd')
+      ->fields('dcd')
+      ->condition('year', $year, '=')
+      ->condition('month', $month, '=');
+    $result = $query->execute();
+    foreach ($result as $row) {
+      // Get the count of Comments.
+      $record[] = $row->comments;
+    }
+    return $record;
+  }
+  catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
+}
+
+/**
+ * Initiates the comment count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param int $new_count
+ *   The new count value of contributions.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_initiate_comment_data($year, $month, $new_count, $database) {
+  try {
+    $result = $database->insert('dipas_cockpit_data')
+      ->fields([
+        'year' => $year,
+        'month' => $month,
+        'comments' => $new_count,
+      ])
+      ->execute();
+  }
+  catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
+}
+
+/**
+ * Updates the comment count data.
+ *
+ * By querying the dipas_cockpit_data table.
+ *
+ * @param int $year
+ *   The year.
+ * @param int $month
+ *   The month.
+ * @param int $new_count
+ *   The new count value of contributions.
+ * @param Drupal\Core\Database\Connection $database
+ *   The database connection object.
+ */
+function _dipas_cockpit_update_comment_data($year, $month, $new_count, $database) {
+  try {
+    $query = $database->update('dipas_cockpit_data')
+      ->fields(['comments' => $new_count])
+      ->condition('year', $year, '=')
+      ->condition('month', $month, '=');
+    $result = $query->execute();
+    return $result;
+  }
+  catch (Exception $e) {
+    \Drupal::logger('dipas')->error($e);
+  }
 }

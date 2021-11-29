@@ -33,7 +33,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer nodes'
+          perm: 'administer dipas'
       cache:
         type: none
         options: {  }
@@ -78,8 +78,9 @@ display:
             field_geodata: field_geodata
             created: created
             dipas_nlp_relevance_score: dipas_nlp_relevance_score
-            dipas_nlp_mutuality_score: dipas_nlp_mutuality_score
             dipas_nlp_response_score: dipas_nlp_response_score
+            dipas_nlp_content_score: dipas_nlp_content_score
+            dipas_nlp_mutuality_score: dipas_nlp_mutuality_score
             edit_node: edit_node
           info:
             nid:
@@ -131,14 +132,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            dipas_nlp_mutuality_score:
+            dipas_nlp_response_score:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            dipas_nlp_response_score:
+            dipas_nlp_content_score:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            dipas_nlp_mutuality_score:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -553,7 +561,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Relevance
+          label: 'Relevance (*)'
           exclude: false
           alter:
             alter_text: false
@@ -596,56 +604,6 @@ display:
           hide_alter_empty: true
           entity_type: node
           plugin_id: dipas_nlp_relevance_score
-        dipas_nlp_mutuality_score:
-          id: dipas_nlp_mutuality_score
-          table: node
-          field: dipas_nlp_mutuality_score
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Mutuality
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          entity_type: node
-          plugin_id: dipas_nlp_mutuality_score
         dipas_nlp_response_score:
           id: dipas_nlp_response_score
           table: node
@@ -696,6 +654,106 @@ display:
           hide_alter_empty: true
           entity_type: node
           plugin_id: dipas_nlp_response_score
+        dipas_nlp_content_score:
+          id: dipas_nlp_content_score
+          table: node
+          field: dipas_nlp_content_score
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Content
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          entity_type: node
+          plugin_id: dipas_nlp_content_score
+        dipas_nlp_mutuality_score:
+          id: dipas_nlp_mutuality_score
+          table: node
+          field: dipas_nlp_mutuality_score
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Mutuality
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          entity_type: node
+          plugin_id: dipas_nlp_mutuality_score
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -970,7 +1028,20 @@ display:
           expose:
             label: ''
           granularity: second
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: '<blockquote><strong>(*) The relevance-score is composed of: 25 % content-score, 25 % mutuality-score, 50 % response-score</strong></blockquote>'
+            format: filtered_html
+          plugin_id: text
       footer: {  }
       empty:
         area:

@@ -22,6 +22,7 @@ export default {
   props: {
     /**
      * Object of navigation items
+     * @name links
      */
     links: undefined
   },
@@ -35,17 +36,22 @@ export default {
 
 <template>
   <section class="navigation">
-    <ul :class="'navigation-length-' + Object.keys(links).length">
-      <li
-        v-for="(text, endpoint) in links"
-        :key="endpoint"
-      >
-        <NavigationLink
-          :text="text"
-          :endpoint="endpoint"
-        />
-      </li>
-    </ul>
+    <nav>
+      <ul :class="'navigation-length-' + Object.keys(links).length">
+        <li
+          v-for="(text, endpoint) in links"
+          :key="endpoint"
+        >
+          <!--
+          @name NavigationLink
+          -->
+          <NavigationLink
+            :text="text"
+            :endpoint="endpoint"
+          />
+        </li>
+      </ul>
+    </nav>
   </section>
 </template>
 
@@ -61,94 +67,123 @@ export default {
         list-style-image: none;
         margin: 0;
         padding: 0;
+        text-transform: uppercase;
     }
 
     section.navigation ul li {
         display: inline-block;
         margin: 0;
-        padding: 0;
     }
 
-    section.navigation ul li a {
-        font-size: 16px;
-        color: #BFCBD8;
-        text-decoration: none;
-    }
-
-    section.header section.navigation ul li a {
-        font-family: 'Roboto Condensed', sans-serif;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    section.navigation ul li a span.material-icons {
-        font-size: 16px;
-        position: relative;
-        top: 2px;
-        margin-right: 5px;
-    }
-
-    #app.desktop section.navigation.headermenu ul {
-        margin-left: 60px;
-        text-transform: uppercase;
-    }
-
-    #app.desktop section.headermenu ul li a.router-link-active {
-        color: #ffffff;
-    }
-
-    #app.desktop section.navigation.footermenu ul {
-        margin-left: 120px;
+    #app.desktop section.navigation.headermenu ul li {
+        padding-top: 14px;
+        height: 46px;
     }
 
     #app.mobile section.navigation ul li {
         display: block;
     }
 
-    #app.desktop section.navigation.headermenu ul li {
-        margin: 4px 40px 4px 0;
-    }
-
-    #app.desktop section.navigation.footermenu ul li {
-        margin-right: 20px;
-    }
-
-    #app.desktop section.navigation.footermenu ul li a {
-        color: #005CA9;
-    }
-
-    #app.desktop section.navigation.footermenu ul li a.router-link-active {
-        font-weight: 600;
-    }
-
-    #app.mobile section.navigation ul li a {
-        display: block;
-        padding: 1px 0 12px 20px;;
-        color: black;
-        font-size: 21px;
-        text-transform: none;
-    }
-
-    #app.mobile section.footermenu ul li {
-        padding-top: 7px;
-    }
-
-    #app.mobile section.navigation ul li a span.material-icons {
-        color: #071849;
-        font-size: 36px;
-        top: 10px;
-    }
-
-    #app.mobile section.navigation.headermenu ul li a {
-        font-weight: bold;
+    #app.mobile section.navigation.headermenu ul li {
+        background-color: rgb(0, 48, 100);
     }
 
     #app.mobile section.navigation ul li:not(:last-child) {
         border-bottom: solid 1px #EEEEEE;
     }
 
-    #app.mobile section.navigation.headermenu ul li:last-child {
+    #app.mobile section.navigation ul li:last-child {
         border-bottom: solid 1px #071849;
+    }
+
+    #app.mobile section.navigation ul li:first-child {
+        border-top: solid 1px #EEEEEE;
+    }
+
+    section.navigation ul li a {
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+    }
+
+    #app.mobile section.navigation ul li a {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 1.313rem;
+        padding: 1px 0 12px 20px;
+        display: block;
+    }
+
+    section.navigation.headermenu ul li a {
+        padding: 16px 12px 11px 9px;
+    }
+
+    section.navigation.headermenu ul li a:hover,
+    section.navigation.headermenu ul li a:focus-visible {
+        outline: 3px solid #ffffff;
+        outline-offset: -3px;
+    }
+
+    section.navigation ul li a.router-link-active {
+        color: #003064;
+        background-color: #ffffff;
+    }
+
+    #app.desktop section.navigation ul li a.router-link-active {
+        padding: 16px 12px 11px 9px;
+    }
+
+    section.navigation ul li a.router-link-active:hover,
+    section.navigation ul li a.router-link-active:focus-visible {
+        outline: 2px solid #003063;
+        outline-offset: -4px;
+    }
+
+    section.navigation ul li a span.material-icons {
+        font-size: 1rem;
+        position: relative;
+        top: 2px;
+        margin-right: 5px;
+    }
+
+    #app.mobile section.navigation ul li a span.material-icons {
+        font-size: 2.25rem;
+        top: 10px;
+    }
+
+    #app.desktop section.navigation.footermenu ul {
+        margin-left: 25px;
+    }
+
+    #app.mobile section.navigation.footermenu ul {
+        text-transform: none;
+    }
+
+    #app.desktop section.navigation.footermenu ul li {
+        margin-right: 20px;
+    }
+
+    section.navigation.footermenu ul li a {
+        color: #005CA9;
+        font-weight: bold;
+    }
+
+    #app.mobile section.navigation.footermenu ul li a {
+        padding-top: 10px;
+    }
+
+    #app.desktop section.navigation.footermenu ul li a.router-link-active {
+        outline: 1px solid #005CA9;
+        outline-offset: 2px;
+        padding: 0 0 0 0;
+    }
+
+
+    #app.desktop section.navigation.footermenu ul li a.router-link-active:hover,
+    #app.desktop section.navigation.footermenu ul li a.router-link-active:focus-visible {
+        outline: 3px solid #003063;
+        outline-offset: 1px;
+        padding: 0 0 0 0;
     }
 
     #app.mobile section.navigation.quicklinks,
@@ -183,16 +218,21 @@ export default {
         line-height: 50px;
     }
 
+    #app.mobile section.navigation.quicklinks ul li a span.linktext {
+        display: none;
+    }
+
     #app.mobile section.navigation.quicklinks ul li a span.material-icons {
-        font-size: 30px;
+        font-size: 1.875rem;
         color: #FFFFFF;
     }
 
     #app.mobile section.navigation.quicklinks ul li a.router-link-active span.material-icons {
-        color: #2B88D8;
+        color: #003064;
     }
-
-    #app.mobile section.navigation.quicklinks ul li a span.linktext {
-        display: none;
+    #app.mobile section.navigation.quicklinks ul li a.router-link-active {
+        background-color: #ffffff;
+        outline: 1px solid #005CA9;
+        outline-offset: -2px;
     }
 </style>

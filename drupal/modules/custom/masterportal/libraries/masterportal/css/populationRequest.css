@@ -1,0 +1,49 @@
+div.toggleCheckboxComponent[data-v-d2d06d8e] {
+  width: 63px;
+}
+
+.PopulationRequest[data-v-4aaa9dd4] {
+  max-width: 500px;
+}
+div.result[data-v-4aaa9dd4] {
+  margin-top: 10px;
+}
+.result .table[data-v-4aaa9dd4] {
+  margin-bottom: 20px;
+}
+.result .table td[data-v-4aaa9dd4] {
+  padding: 8px;
+  border-top: 1px solid #ddd;
+}
+.checkbox-container .form-inline[data-v-4aaa9dd4] {
+  font-size: 15px;
+}
+@media (max-width: 767px) {
+.checkbox-container .form-inline[data-v-4aaa9dd4] {
+    font-size: 12px;
+}
+}
+.checkbox-container .form-inline .title-checkbox[data-v-4aaa9dd4] {
+  width: 100%;
+}
+.checkbox-container .form-inline .title-checkbox label[data-v-4aaa9dd4] {
+  white-space: normal;
+  padding-left: 5px;
+}
+
+#tooltip-overlay {
+  position: relative;
+  background: rgba(51, 153, 204, 0.8);
+  color: #fff;
+  max-width: 200px;
+  padding: 4px 8px;
+}
+#circle-overlay {
+  position: relative;
+  top: -20px;
+  background: rgba(51, 153, 204, 0.8);
+  color: #fff;
+  max-width: 70px;
+  padding: 4px 8px;
+}
+

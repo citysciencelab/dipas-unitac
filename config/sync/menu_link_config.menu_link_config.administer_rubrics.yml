@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: administer_rubrics
-title: 'Administer rubrics'
+title: 'Administer types'
 route_name: entity.taxonomy_vocabulary.overview_form
 route_parameters:
   taxonomy_vocabulary: 52eaa2e2-827d-4478-bbdd-d40c45a9c006

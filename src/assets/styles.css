@@ -1,16 +1,30 @@
-@import "https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css";
-@import "https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap";
-@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
-
+/* roboto-regular - latin */
 @font-face {
     font-family: 'Roboto';
-    src: url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-}
-
-@font-face {
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/roboto-v27-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('fonts/roboto-v27-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('fonts/roboto-v27-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('fonts/roboto-v27-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('fonts/roboto-v27-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('fonts/roboto-v27-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+  }
+  
+  /* roboto-condensed-regular - latin */
+  @font-face {
     font-family: 'Roboto Condensed';
-    src: url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
-}
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/roboto-condensed-v19-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('fonts/roboto-condensed-v19-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('fonts/roboto-condensed-v19-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('fonts/roboto-condensed-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('fonts/roboto-condensed-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('fonts/roboto-condensed-v19-latin-regular.svg#RobotoCondensed') format('svg'); /* Legacy iOS */
+  }
 
 body, p, a {
     font-family: Roboto, sans-serif;
@@ -27,9 +41,9 @@ section.content {
 }
 
 #app.desktop section.content {
-    height: calc(100vh - 145px);
-    margin: 115px 0 0 0;
-    padding: 40px 50px 40px;
+    height: calc(100vh - 7.0rem);
+    margin: 5.3rem 0 0 0;
+    padding: 4rem 2rem 0.5rem;
 }
 
 #app.desktop section.content.contributionmap.noFooterCreateButton {
@@ -59,6 +73,18 @@ section.content {
     color: #000000;
     background-color: #E3E3E3;
 }
+body {
+    color: #000000;
+}
 h2 {
-    color: #003064;
+    color: #003063;
+}
+
+
+*:focus:not(:focus-visible) {
+    outline: none
+}
+
+*:focus-visible {
+    outline: 3px solid #005CA9;
 }

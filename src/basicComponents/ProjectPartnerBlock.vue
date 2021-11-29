@@ -16,7 +16,9 @@ export default {
   name: "ProjectPartnerBlock",
   computed: {
     /**
-     * computed ToDo
+     * holds the project partner logos
+     * @name partnerlogos
+     * @returns {String} partnerlogos
      */
     partnerlogos () {
       return this.$store.getters.partnerlogos;
@@ -30,7 +32,7 @@ export default {
     v-if="partnerlogos.length"
     class="partnerlogos"
   >
-    <p>{{ $t("ProjectPartnerBlock.headline") }}</p>
+    <h2>{{ $t("ProjectPartnerBlock.headline") }}</h2>
     <div class="row logolist">
       <ul>
         <li
@@ -59,8 +61,8 @@ export default {
         padding-top: 45px;
     }
 
-    .partnerlogos p {
-        font-size: 24px;
+    .partnerlogos h2 {
+        font-size: 1.875em;
         line-height: 30px;
         color: #003063;
         font-weight: bold;
@@ -82,7 +84,7 @@ export default {
     }
 
     section.partnerlogos ul li a {
-        font-size: 16px;
+        font-size: 1rem;
         color: #BFCBD8;
         text-transform: uppercase;
         text-decoration: none;
