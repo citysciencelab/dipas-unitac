@@ -64,8 +64,9 @@ Check if it was successful by typing in a console window:
 composer -version
 ```
 
-Please do not use a default "cmd"-shell of the windows system nor the so called "powershell".
-With both console systems problems are known with the automated application of software-patches by composer.
+We use git bash for our local development environment.
+If you prefer to use a different shell, check if the automated application of software-patches by composer is working correctly.
+Probably patch.exe must be available in the PATH environment variable.
 
 ### Installation of drush library
 

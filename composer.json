@@ -63,7 +63,7 @@
     "drupal/select2": "^1.1",
     "drupal/stage_file_proxy": "^1.0@alpha",
     "drupal/token": "^1.5",
-    "drupal/transliterate_filenames": "^1.2",
+    "drupal/transliterate_filenames": "1.8",
     "drupal/twig_tweak": "^2.6",
     "drupal/video_embed_field": "^2.0",
     "drupal/votingapi": "^3.0@beta",
@@ -71,7 +71,7 @@
     "drupal/x_frame_options": "^1.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.0",
+    "phpunit/phpunit": "^9.0",
     "mikey179/vfsstream": "^1.6",
     "drupal/masquerade": "^2.0@beta"
   },

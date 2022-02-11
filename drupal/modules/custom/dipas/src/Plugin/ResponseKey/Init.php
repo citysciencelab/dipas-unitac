@@ -60,7 +60,7 @@ class Init extends ResponseKeyBase {
   public function getPluginResponse() {
     if (!$this->isDomainDefined()) {
       $domain_settings = \Drupal::config('domain.settings');
-      $redirect_url = "https://www.hamburg.de/stadtwerkstatt";
+      $redirect_url = "https://dipas.org";
 
       if ($domain_settings->get('redirect_url') && $domain_settings->get('redirect_url') != '') {
         $redirect_url = $domain_settings->get('redirect_url');
