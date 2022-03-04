@@ -143,17 +143,19 @@ class DataExport implements DataExportInterface {
         );
         $nodes = array_map(
           function ($item) use ($categories, $rubrics, $nlp_scores) {
-            $scores_index = array_search($item['nid'], array_column($nlp_scores['result'], 'id'));
+            $item_scores = (object) [
+              'content' => '-',
+              'relevance' => '-',
+              'response' => '-',
+            ];
 
-            if ($scores_index !== FALSE) {
-              $item_scores = $nlp_scores['result'][$scores_index]->scores;
-            }
-            else {
-              $item_scores = (object) [
-                'content' => '-',
-                'relevance' => '-',
-                'response' => '-',
-              ];
+            if ($nlp_scores && $nlp_scores['result']) {
+
+              $scores_index = array_search($item['nid'], array_column($nlp_scores['result'], 'id'));
+
+              if ($scores_index !== FALSE) {
+                $item_scores = $nlp_scores['result'][$scores_index]->scores;
+              }
             }
 
             return [

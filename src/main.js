@@ -270,7 +270,7 @@ new Vue({
   },
 
   mounted () {
-    this.isMobile = this.$mediaBreakpointBetween("xs", "sm");
+    this.isMobile = this.$mediaBreakpointBetween("xs", "md");
     window.addEventListener("resize", this.handleResize);
   },
 

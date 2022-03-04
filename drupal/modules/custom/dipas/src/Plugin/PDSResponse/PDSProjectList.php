@@ -210,7 +210,7 @@ class PDSProjectList extends PDSResponseBase {
     $project_description = '';
     $menuitem = $dipasConfigDomain->get('MenuSettings.mainmenu.projectinfo');
 
-    if ($menuitem['enabled'] && $menuitem['node'] !== '') {
+    if ($menuitem && $menuitem['enabled'] && $menuitem['node'] !== '') {
       $node = $this->entityTypeManager->getStorage('node')->load($menuitem['node']);
 
       $result = $this->parseEntityContent($node);

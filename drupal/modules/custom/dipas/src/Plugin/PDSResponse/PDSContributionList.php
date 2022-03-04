@@ -243,20 +243,23 @@ class PDSContributionList extends PDSResponseBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getNLPScoresList($domain_id) {
-    $nlp_scores = $this->state->get('dipas.nlp.score.result:'.$domain_id);
-    $scores_index = array_search($this->node_id, array_column($nlp_scores['result'], 'id'));
+    $item_scores = (object) [
+      'content' => '-',
+      'relevance' => '-',
+      'response' => '-',
+      'mutuality' => '-',
+      'sentiment' => '-',
+    ];
 
-    if ($scores_index !== FALSE) {
-      $item_scores = $nlp_scores['result'][$scores_index]->scores;
-    }
-    else {
-      $item_scores = (object) [
-        'content' => '-',
-        'relevance' => '-',
-        'response' => '-',
-        'mutuality' => '-',
-        'sentiment' => '-',
-      ];
+    $nlp_scores = $this->state->get('dipas.nlp.score.result:'.$domain_id);
+
+    if ($nlp_scores && $nlp_scores['result']) {
+
+      $scores_index = array_search($this->node_id, array_column($nlp_scores['result'], 'id'));
+
+      if ($scores_index !== FALSE) {
+        $item_scores = $nlp_scores['result'][$scores_index]->scores;
+      }
     }
 
     return (object) ['nlp_scores' => $item_scores];

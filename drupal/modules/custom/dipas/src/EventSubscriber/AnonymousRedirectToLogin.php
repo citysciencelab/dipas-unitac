@@ -64,6 +64,7 @@ class AnonymousRedirectToLogin implements EventSubscriberInterface {
           'user.login',
           'image.style_public',
           'entity.user.canonical',
+          'system.cron',
         ]) ||
         preg_match('~^masterportal\.~', $route)
       ) &&
@@ -75,7 +76,7 @@ class AnonymousRedirectToLogin implements EventSubscriberInterface {
         ], $this->currentUser->getRoles()))
       )
     ) {
-      // Reset the destination to prevent drupal from overriding the reidrect.
+      // Reset the destination to prevent drupal from overriding the redirect.
       $this->currentRequest->query->set('destination', NULL);
 
       $url = new Url('user.login', [], ['absolute' => TRUE]);

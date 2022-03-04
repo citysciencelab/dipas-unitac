@@ -419,6 +419,7 @@ function _dipas_cockpit_data_generation(EntityInterface $entity) {
 function _dipas_cockpit_get_contribution_data($year, $month, $database) {
   // Get the entry of the current month and year.
   try {
+    $record = [];
     $query = $database->select('dipas_cockpit_data', 'dcd')
       ->fields('dcd')
       ->condition('year', $year, '=')
