@@ -5,7 +5,21 @@ This file contains all valuable change to the DIPAS project.
 
 We use semantic versioning.
 
-Version 2.1.0 - 22.02.11
+Version 2.1.1 22-03-07
+=========================
+
+** Story
+    * update project admin rights
+    * drupal core & module updates
+	* update UPDATE.md for upgrade from drupal8 (DIPAS 1.x) to drupal9 (DIPAS 2.x)
+
+** Bug
+    * fix export of phase 1 contributions
+    * fix pds api error due to missing NLP data
+    * allow anonymous cron calls
+
+
+Version 2.1.0 - 22-02-11
 =========================
 
 ** Story
