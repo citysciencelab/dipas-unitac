@@ -12,10 +12,6 @@
 - [composer](https://getcomposer.org/) as PHP package manager
 - [drush](https://github.com/drush-ops/drush-launcher/releases) as Drupal Shell (not neccessary but recommended)
 
-## docker
-We can provide a docker configuration file for the development environment. Please contact stadtwerkstatt@bsw.hamburg.de to get further information.
-
-Without docker follow these setup instructions.
 
 
 ## Prerequisits
