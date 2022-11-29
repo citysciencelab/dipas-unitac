@@ -32,6 +32,8 @@ The general procedure works as follows:
   3.3. go to *"Tool plugins"* and enable *"Draw"*-tool, then uncheck *"Draw-Tool is visible in Masterportal menu"*
 4. flush all caches
 
+There are new required fields project owners and topics which you will find in the dipas configuration form. You have to create data for these taxonomies. Details can be found here https://wiki.dipas.org/.
+
 For proceedings that need to edit appointments, go to the masterportal instance "Create-Appointment" and click edit then select the tab "Portal Settings". The checkmarks for "Center map at marker" and "'use setMarker' should be set to inactive (no checkmark)." You also need to do the following, under the Tool Plugins tab, set the "Drawing" tool to active (checkmark) and the "Drawing tool visible in the masterportal menu" setting to not active (no checkmark).
 
 **Masterportal Filter**
