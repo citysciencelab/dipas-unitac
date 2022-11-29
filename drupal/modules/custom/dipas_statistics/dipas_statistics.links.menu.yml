@@ -1,0 +1,6 @@
+dipas_statistics.config:
+  title: 'DIPAS statistic'
+  description: 'Provides an interface to configure the DIPAS statistic tool.'
+  route_name: dipas_statistics.configform
+  parent: system.admin_config_ui
+  menu_name: admin

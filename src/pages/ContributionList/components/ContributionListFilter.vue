@@ -204,7 +204,12 @@ export default {
 <template>
   <section class="filter">
     <h3 class="headline">
-      <i class="material-icons">filter_list</i>
+      <i
+        aria-hidden="true"
+        class="material-icons"
+      >
+        filter_list
+      </i>
       {{ $t("ContributionList.ContributionListFilter.filterOptions") }}
     </h3>
 
@@ -237,7 +242,10 @@ export default {
     />
 
     <div class="orderSection">
-      <p class="headline">
+      <p
+        id="radioheadline"
+        class="headline"
+      >
         {{ $t('ContributionList.ContributionListFilter.sortBy') }}
       </p>
       <fieldset>

@@ -5,6 +5,13 @@ This file contains all valuable change to the DIPAS project.
 
 We use semantic versioning.
 
+Version 2.2.0 22-11-29
+=========================
+
+** Story
+    * update appointment from localization
+    * masterportal adoption to new filter tool
+
 Version 2.1.1 22-03-07
 =========================
 

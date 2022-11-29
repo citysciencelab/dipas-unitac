@@ -3,11 +3,9 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.dipas_projectarea
-uid: '0'
 instance_name: dipas_projectarea
-label: 'DIPAS Projectarea'
 domain: default
-hidden: true
+label: 'DIPAS Projectarea'
 settings:
   BackgroundLayerSettings:
     layer:
@@ -72,14 +70,11 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
-      name: Katgorieauswahl
-      glyphicon: glyphicon-filter
+      name: Kategorieauswahl
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -89,7 +84,6 @@ settings:
       predefinedQueries: '[]'
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: ''
@@ -127,5 +121,6 @@ settings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
         name: Draw
-        glyphicon: glyphicon-info-sign
         visibleInMenu: 0
+uid: '0'
+hidden: true

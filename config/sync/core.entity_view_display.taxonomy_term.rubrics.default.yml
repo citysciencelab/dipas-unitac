@@ -14,12 +14,12 @@ bundle: rubrics
 mode: default
 content:
   description:
-    label: hidden
     type: text_default
-    weight: 0
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   field_domain_access: true
   field_domain_all_affiliates: true

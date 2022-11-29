@@ -5,11 +5,9 @@ dependencies: {  }
 _core:
   default_config_hash: tnU5euBQb88SNAlRszk7RFuht8Pnshen_zQwvpN-BuU
 id: default.default
-uid: '0'
 instance_name: default
-label: Default
 domain: default
-hidden: false
+label: Default
 settings:
   BackgroundLayerSettings:
     layer:
@@ -80,24 +78,33 @@ settings:
   MenuSettings:
     tree:
       name: Theme
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Tools
-      glyphicon: glyphicon-wrench
     filter:
       name: Filter
-      glyphicon: glyphicon-filter
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: true
-      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
+      predefinedQueries: |-
+        [
+            {
+                "layerId": "contributions",
+                "isActive": true,
+                "isSelected": true,
+                "name": "Alle",
+                "liveZoomToFeatures": false,
+                "attributeWhiteList": [
+                    "Thema",
+                    "Rubric"
+                ]
+            }
+        ]
     legend:
       name: Legend
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: ''
@@ -135,6 +142,7 @@ settings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
         name: 'Information query'
-        glyphicon: glyphicon-info-sign
         active: true
         isVisibleInMenu: false
+uid: '0'
+hidden: false

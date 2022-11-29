@@ -231,6 +231,13 @@ abstract class ResponseKeyBase implements ResponseKeyPluginInterface {
   /**
    * {@inheritdoc}
    */
+  public static function postProcessResponse(array $responsedata) {
+    return $responsedata;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   final public function getCacheTags() {
     $commonCacheTags = ['dipasRestEndpoint', "dipasRestEndpoint:{$this->pluginDefinition['id']}"];
     $pluginCacheTags = $this->getResponseKeyCacheTags();

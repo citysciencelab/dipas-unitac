@@ -199,14 +199,11 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
       name: Katgorieauswahl
-      glyphicon: glyphicon-filter
       deactivateGFI: false
       isGeneric: false
       isInitOpen: true
@@ -216,7 +213,6 @@ settings:
       predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: '{{library_path}}/img/Logo_Masterportal.svg'
@@ -280,21 +276,16 @@ settings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
         name: 'Zeichnen / Schreiben'
-        glyphicon: glyphicon-pencil
         visibleInMenu: 1
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
         name: 'Informationen abfragen'
-        glyphicon: glyphicon-info-sign
         isActive: true
         isVisibleInMenu: false
       Drupal\masterportal\Plugin\Masterportal\Tools\Measure:
         name: 'Strecke / Fläche messen'
-        glyphicon: glyphicon-resize-horizontal
       Drupal\masterportal\Plugin\Masterportal\Tools\Populationquery:
         name: 'Einwohneranzahl abfragen'
-        glyphicon: glyphicon-wrench
         onlyDesktop: 0
         populationReqServiceId: '2'
       Drupal\masterportal\Plugin\Masterportal\Tools\Shadow:
         name: 'Schatten einstellen'
-        glyphicon: glyphicon-resize-full

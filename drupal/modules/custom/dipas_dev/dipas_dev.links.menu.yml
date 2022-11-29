@@ -1,0 +1,6 @@
+dipas_dev.config:
+  title: 'DIPAS Dev Tools'
+  description: 'Provides tools for managing a DIPAS development environment.'
+  route_name: dipas_dev.modifyDomainRecordsForDev
+  parent: system.admin_config_ui
+  menu_name: admin

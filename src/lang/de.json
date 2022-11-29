@@ -19,7 +19,12 @@
     "linktext": "Datenschutzinformation",
     "text": "Mit Klick auf \"Cookies akzeptieren\" stimmen Sie zu, dass Cookies gemäß unserer Cookie Policy",
     "text_2ndLine": "auf dieser Webseite verwendet werden dürfen.",
-    "buttontext": "Cookies akzeptieren"
+    "buttontext": "Cookies akzeptieren",
+    "closeButton": "Schließen"
+  },
+  "MobileView": {
+    "closeButton": "Menü schließen",
+    "threeDots": "Menü anzeigen"
   },
   "ContributionMap": {
     "addContributionButton": "Beitrag erstellen",
@@ -34,6 +39,8 @@
     "noContributions": "Keine weiteren Beiträge vorhanden",
     "loadMore": "Weitere Beiträge laden",
     "addNew": "Beitrag erstellen",
+    "itemCount": "Anzahl Beiträge",
+    "filtered": "gefiltert",
     "ContributionListFilter": {
       "filterOptions": "Filteroptionen",
       "termSelectHeadlineCat": "Kategorie wählen",
@@ -54,7 +61,7 @@
         "asc": "aufsteigend"
       },
       "selection": {
-        "selected": "{{selected}} von {{count}} ausgewählt",
+        "selected": "{{selected}} von {{count}} {{termTitlePlural}} ausgewählt",
         "all": "alle {{termTitlePlural}} werden angezeigt"
       }
     },
@@ -76,6 +83,8 @@
     "backward": "Zurück",
     "forward": "Weiter",
     "complete": "Fertigstellen",
+    "select": "Bitte auswählen",
+    "processDescription": "Schritte zur Erstellung eines Beitrags",
     "StepIndicator": {
       "content": "Inhalt",
       "category": "Kategorie",
@@ -97,7 +106,9 @@
         "proposals": "Vorschläge:",
         "placeholder": "Eigenes Schlagwort?",
         "tag-placeholder": "Markieren Sie als neues Schlagwort",
-        "note": "Wir haben Ihnen Schlagworte empfohlen, damit andere Nutzer von Ihrem Beitrag profitieren und diesen finden können. Sie können die empfohlenen Schlagworte ablehnen oder eigene hinzufügen. Diese Funktion befindet sich aktuell noch in der Entwicklung."
+        "note": "Wir haben Ihnen Schlagworte empfohlen, damit andere Nutzer von Ihrem Beitrag profitieren und diesen finden können. Sie können die empfohlenen Schlagworte ablehnen oder eigene hinzufügen. Diese Funktion befindet sich aktuell noch in der Entwicklung.",
+        "declineKeyword": "Schlagwort ablehnen",
+        "addKeyword": "Schlagwort hinzufügen"
       }
     },
     "StepType": {
@@ -107,6 +118,7 @@
     "StepMap": {
       "headline": "Beitrag verorten",
       "geometry": "Wählen Sie ein Werkzeug",
+      "infoSymbol": "Information",
       "infotext_point": "Um einen Punkt zu setzen, klicken Sie an gewünschter Stelle in die Karte. Anschließend können Sie den gesetzten Punkt noch verschieben.",
       "infotext_linestring": "Um eine Linie zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
       "infotext_polygon": "Um ein Polygon zu zeichnen, klicken Sie am gewünschten Startpunkt in die Karte. Klicken Sie für weitere Stützpunkte. Doppelklick zum Abschluss.",
@@ -141,7 +153,13 @@
     "headline": "Weitere Entwürfe"
   },
   "DownloadsBlock": {
-    "headline": "Downloads"
+    "headline": "Downloads",
+    "documentationFiles": "Verfahrensauswertung",
+    "allFiles": "Allgemeine Dokumente",
+    "firstPage": "Erste Seite",
+    "lastPage": "Letzte Seite",
+    "goBack": "Zurück",
+    "goForward": "Vor"
   },
   "NewsletterBlock": {
     "headline": "Newsletter"
@@ -155,7 +173,8 @@
     "iconThumbUp": "Mit Daumen hoch bewertet",
     "iconThumbDown": "Mit Daumen runter bewertet",
     "iconVoteThumbUp": "Bewertung Daumen hoch vergeben",
-    "iconVoteThumbDown": "Bewertung Daumen runter vergeben"
+    "iconVoteThumbDown": "Bewertung Daumen runter vergeben",
+    "votedThanks": "Vielen Dank für Ihre Bewertung"
   },
   "CommentsForm": {
     "remainingChars": "Sie haben noch {{remaining}} Zeichen übrig.",
@@ -205,8 +224,8 @@
       "headlineCountComments": "Anzahl Kommentare"
     },
     "StatisticsDonut": {
-      "headlineCat": "Verteilung der Beiträge nach Kategorien",
-      "headlineType": "Verteilung der Beiträge nach Typ"
+      "headlineCat": "Beiträge nach Kategorie",
+      "headlineType": "Beiträge nach Typ"
     }
   },
   "Schedule": {

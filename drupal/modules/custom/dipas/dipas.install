@@ -425,3 +425,92 @@ function dipas_update_8107() {
   // CREATE TABLE dipas_cockpit_data
   $schema->createTable('dipas_cockpit_data', $spec);
 }
+
+/**
+ * Calculating and adding centerpoints for project areas
+ */
+function dipas_update_8108() {
+  $configNames = \Drupal::service('config.storage')->listAll('dipas.');
+  $configNames = array_filter($configNames, function($item){return preg_match('~^dipas\..+?\.configuration$~i', $item) && $item !== 'dipas.default.configuration';});
+
+  foreach ($configNames as $configFile) {
+    $config = \Drupal::configFactory()->getEditable($configFile);
+
+    $geodata = json_decode($config->get('ProjectArea')['project_area']);
+
+    $boundingbox = [
+      'xmin' => 9999999,
+      'xmax' => 0,
+      'ymin' => 9999999,
+      'ymax' => 0,
+    ];
+
+    foreach($geodata->coordinates as $polygon) {
+      foreach($polygon as $point) {
+        if ($point[0] < $boundingbox['xmin']) {
+          $boundingbox['xmin'] = $point[0];
+        };
+
+        if ($point[1] < $boundingbox['ymin']) {
+          $boundingbox['ymin'] = $point[1];
+        };
+
+        if ($point[0] > $boundingbox['xmax']) {
+          $boundingbox['xmax'] = $point[0];
+        };
+
+        if ($point[1] > $boundingbox['ymax']) {
+          $boundingbox['ymax'] = $point[1];
+        };
+      }
+    }
+
+    $centerpoint = [
+      $boundingbox['xmin'] + ($boundingbox['xmax'] - $boundingbox['xmin']) / 2,
+      $boundingbox['ymin'] + ($boundingbox['ymax'] - $boundingbox['ymin']) / 2,
+    ];
+
+    $config->set('ProjectArea.project_area_centerpoint', implode(', ', $centerpoint));
+    $config->save();
+  }
+}
+
+
+/**
+ * Migrate geodata from GeoField to text field for appointments.
+ */
+function dipas_update_9101() {
+  /* @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
+  $entityTypeManager = \Drupal::getContainer()->get('entity_type.manager');
+  /* @var \Drupal\Core\Entity\EntityStorageInterface $nodeStorage */
+  $nodeStorage = $entityTypeManager->getStorage('node');
+
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $nodeStorage->loadByProperties([
+    'type' => 'appointment',
+  ]);
+
+  foreach ($nodes as $node) {
+    $localization = $node->get('field_localization');
+    if ($fieldValue = $localization->first()) {
+      $geodata = [
+        'geometry' => [
+          'type' => 'Point',
+          'coordinates' => [
+            $fieldValue->get('lon')->getValue(),
+            $fieldValue->get('lat')->getValue(),
+          ]
+        ],
+        'centerPoint' => [
+          'type' => 'Point',
+          'coordinates' => [
+            $fieldValue->get('lon')->getValue(),
+            $fieldValue->get('lat')->getValue(),
+          ]
+        ],
+      ];
+      $node->set('field_geodata', json_encode($geodata));
+      $node->save();
+    }
+  }
+}

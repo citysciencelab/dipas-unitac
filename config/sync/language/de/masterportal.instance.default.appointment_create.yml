@@ -5,8 +5,6 @@ settings:
       name: Themen
     tools:
       name: Werkzeuge
-    filter:
-      name: Katgorieauswahl
     legend:
       name: Legende
   SearchBarSettings:

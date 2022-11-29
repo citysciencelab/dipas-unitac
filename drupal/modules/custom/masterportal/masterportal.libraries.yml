@@ -14,10 +14,8 @@ configform:
   css:
     component:
       libraries/configform/configformstyles.css: { minified: false }
-      libraries/masterportal/css/style-glyphicons.css: { minified: false }
   js:
     libraries/configform/rowsort.js: { minified: false }
-    libraries/configform/selectmenu.js: { minified: false }
   dependencies:
     - core/drupal
     - jquery_ui_sortable/sortable

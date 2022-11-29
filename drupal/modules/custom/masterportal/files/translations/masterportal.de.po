@@ -414,11 +414,6 @@ msgstr "Reihe entfernen"
 msgid "Weight"
 msgstr "Gewichtung"
 
-#: src/GlyphiconTrait.php:129
-msgctxt "Masterportal"
-msgid "Glyphicon"
-msgstr "Glyphicon"
-
 #: src/ListBuilder/MasterportalInstances.php:180
 msgctxt "Masterportal"
 msgid "Show hidden entities"
@@ -1065,7 +1060,7 @@ msgstr "Karten-Einstellungen"
 msgid "Settings related to the map integration of the Masterportal."
 msgstr "Einstellungen im Zusammenhang mit der Kartenintegration des Masterportals."
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:94
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:89
 msgctxt "Masterportal"
 msgid "Tree options"
 msgstr "Themenbaumoptionen"
@@ -1105,40 +1100,35 @@ msgctxt "Masterportal"
 msgid "Name"
 msgstr "Name"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:144
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:133
 msgctxt "Masterportal"
 msgid "Deactivate GFI"
 msgstr "GFI deaktivieren"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:150
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:139
 msgctxt "Masterportal"
-msgid "Is generic"
-msgstr "Ist generisch"
+msgid "Is active"
+msgstr "Ist aktiv"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:156
-msgctxt "Masterportal"
-msgid "Initially opened?"
-msgstr "Initial geöffnet?"
-
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:162
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:145
 msgctxt "Masterportal"
 msgid "Live zoom to feature"
 msgstr "Direktzoom auf Filterergebnisse"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:168
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:151
 msgctxt "Masterportal"
-msgid "Allow multiple queries per layer?"
-msgstr "Mehrere Abfragen pro Layer zulassen?"
+msgid "Display a selector for the layers?"
+msgstr "Verwenden des Auswahl-Selektors für die Layer?"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:174
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:157
 msgctxt "Masterportal"
 msgid "Visible in menu?"
 msgstr "Sichtbar im Menü?"
 
-#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:180
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:163
 msgctxt "Masterportal"
-msgid "Predefined queries"
-msgstr "Vordefinierte Abfragen"
+msgid "Predefined layers"
+msgstr "Vordefinierte Layers"
 
 #: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:191
 msgctxt "Masterportal"

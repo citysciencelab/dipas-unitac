@@ -1,0 +1,8 @@
+name: 'DIPAS Statistics'
+description: 'Provides very basic statistics for a temporary access measurement.'
+type: module
+package : DIPAS
+core_version_requirement: ^9
+version: 9.x-1.0-alpha
+dependencies:
+  - drupal:dipas

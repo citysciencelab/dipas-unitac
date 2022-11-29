@@ -20,7 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   requestMethods = {
  *     "POST",
  *   },
- *   isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey

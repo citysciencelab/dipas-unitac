@@ -14,7 +14,7 @@ services:
     arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@request_stack', '@plugin.manager.masterportal.layer', '@http_client', '@state', '@cache_tags.invalidator', '@masterportal.instanceservice']
   masterportal.servicesmanager:
     class: Drupal\masterportal\Service\ServiceManager
-    arguments: ['@masterportal.tokens', '@masterportal.config']
+    arguments: ['@masterportal.tokens', '@masterportal.config', '@logger.channel.masterportal']
   masterportal.instanceservice:
     class: Drupal\masterportal\Service\InstanceService
     arguments: ['@entity_type.manager', '@logger.channel.masterportal', '@config.factory']

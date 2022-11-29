@@ -30,11 +30,15 @@ interface InstanceConfigSectionInterface {
    *
    * @param FormStateInterface $form_state
    *   The FormStateInterface object of the whole form.
+   * @param array $settings
+   *   Default setting data for this section
+   * @param String $pluginIdentifier
+   *   String identifying the plugin that is being invoked
    *
    * @return array
    *   The form definition for the current section.
    */
-  public function getFormSectionElements(FormStateInterface $form_state);
+  public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier);
 
   /**
    * Returns the formatted plugin data for the instance configuration.

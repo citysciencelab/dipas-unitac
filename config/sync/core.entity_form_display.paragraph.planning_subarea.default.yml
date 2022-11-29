@@ -16,7 +16,9 @@ bundle: planning_subarea
 mode: default
 content:
   field_content:
+    type: paragraphs
     weight: 1
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -33,23 +35,21 @@ content:
         duplicate: '0'
     third_party_settings:
       paragraphs_features:
-        delete_confirmation: true
         add_in_between: false
+        delete_confirmation: true
         split_text: false
       paragraphs_ee:
         paragraphs_ee:
           dialog_off_canvas: false
           dialog_style: tiles
-    type: paragraphs
-    region: content
   field_name:
+    type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
 hidden:
   created: true
   status: true

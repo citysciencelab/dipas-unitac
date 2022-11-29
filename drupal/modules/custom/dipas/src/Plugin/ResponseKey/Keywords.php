@@ -18,7 +18,8 @@ use Drupal\dipas\Exception\MalformedRequestException;
  *   requestMethods = {
  *     "POST",
  *   },
- *  isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey

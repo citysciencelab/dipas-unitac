@@ -10,13 +10,13 @@ id: sidebar_image
 label: 'Sidebar Image'
 image_style_mappings:
   -
-    breakpoint_id: responsive_image.viewport_sizing
-    multiplier: 1x
     image_mapping_type: sizes
     image_mapping:
       sizes: '(min-width: 900px) 800w, (min-width: 600px) 500w, 40vw'
       sizes_image_styles:
         - content_image_sm
         - content_image_xs
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
 breakpoint_group: responsive_image
 fallback_image_style: sidebar_logo

@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.appointment_create
-uid: '0'
 instance_name: appointment_create
-label: 'Create Appointment'
 domain: default
-hidden: false
+label: 'Create Appointment'
 settings:
+  DesignSettings:
+    uiStyle: simple
+    treeType: custom
+    scaleLine: 0
+    simpleMap: 1
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
@@ -16,14 +20,6 @@ settings:
         custom:
           visibility: true
           gfiTheme: default
-  DesignSettings:
-    uiStyle: simple
-    treeType: custom
-    scaleLine: 0
-    simpleMap: 1
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
-    layer: {  }
   MapSettings:
     startCenter: '[566744,5935307]'
     options:
@@ -72,24 +68,20 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
-    filter:
-      name: Katgorieauswahl
-      glyphicon: glyphicon-filter
+    filterGeneral:
+      name: Kategorieauswahl
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
-      isVisibleInMenu: true
-      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
+      isVisibleInMenu: false
+      predefinedQueries: '[]'
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: Masterportal
     logo: ''
@@ -99,8 +91,11 @@ settings:
       - InputWidgetMap
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Controls\InputWidgetMap:
-        setMarker: true
-        setCenter: true
+        setMarker: false
+        setCenter: false
+  SearchPluginSettings:
+    activePlugins: {  }
+    plugins: {  }
   SearchBarSettings:
     minChars: 3
     zoomLevel: 9
@@ -108,9 +103,14 @@ settings:
     placeholder: 'Suche nach Adresse/Thema'
     renderToDOM: '#searchbarInMap'
     quickHelp: false
-  SearchPluginSettings:
-    activePlugins: {  }
-    plugins: {  }
+  ForegroundLayerSection:
+    layer: {  }
   ToolSettings:
-    activePlugins: {  }
-    plugins: {  }
+    activePlugins:
+      - Draw
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: 'Zeichnen / Schreiben'
+        visibleInMenu: 0
+uid: '0'
+hidden: false

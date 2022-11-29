@@ -1,0 +1,58 @@
+<?php
+
+function dipas_statistics_schema() {
+  $schema['dipas_statistics'] = [
+    'description' => 'Holds access log information',
+    'fields' => [
+      'id' => [
+        'description' => 'the unique id for the record',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'request_time' => [
+        'description' => 'The time the request took place in UNIX timestamp format.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'proceeding' => [
+        'description' => 'The proceeding the request points to.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => 'default',
+      ],
+      'api' => [
+        'description' => 'The API the endpoint belongs to.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'endpoint' => [
+        'description' => 'The endpoint this access was logged for.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'arguments' => [
+        'description' => 'The arguments provided to the endpoint.',
+        'type' => 'varchar',
+        'length' => 1024,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'indexes' => [
+      'api_endpoint' => ['api', 'endpoint'],
+    ],
+    'primary key' => [
+      'id',
+    ],
+  ];
+
+  return $schema;
+}

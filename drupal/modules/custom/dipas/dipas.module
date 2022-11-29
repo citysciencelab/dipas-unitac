@@ -213,6 +213,23 @@ function dipas_cron() {
     'contributionlist',
     'contributionmap',
   ]);
+
+  try {
+     // Purge the IPAdresses after 7 days
+    $database = \Drupal::database();
+    $query = $database->update('watchdog')
+                      ->fields(['hostname' => 'xxx.xxx.xxx.xxx'])
+                      ->condition('timestamp', REQUEST_TIME - 604800, '<=')
+                      ->condition('hostname', 'xxx.xxx.xxx.xxx', '<>');
+    $result = $query->execute();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('dipas')->error('Trying to excecute query (' . $query->__toString() . ') failed: ' . $e->getMessage());
+  }
+
+ 
+
+
 }
 
 /**

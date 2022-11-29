@@ -1,3 +1,6 @@
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
+langcode: en
 module:
   address: 0
   admin_toolbar: 0
@@ -20,6 +23,7 @@ module:
   datetime_range: 0
   dblog: 0
   dipas: 0
+  dipas_statistics: 0
   domain: 0
   domain_access: 0
   dynamic_page_cache: 0
@@ -63,6 +67,7 @@ module:
   paragraphs_features: 0
   path: 0
   path_alias: 0
+  pgsql: 0
   responsive_image: 0
   select2: 0
   serialization: 0
@@ -89,6 +94,3 @@ theme:
   seven: 0
   dipas_admin_theme: 0
 profile: minimal
-_core:
-  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
-langcode: en

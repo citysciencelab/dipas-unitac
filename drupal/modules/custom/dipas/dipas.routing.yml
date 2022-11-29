@@ -7,15 +7,26 @@ dipas.configform:
   requirements:
     _permission: 'administer dipas'
 
+dipas.cockpit.config:
+  path: '/admin/config/user-interface/navigator'
+  defaults:
+    _title: 'DIPAS navigator configuration'
+    _description: 'Provides an interface to configure DIPAS navigator related settings.'
+    _form: '\Drupal\dipas\Form\NavigatorSettings'
+  requirements:
+    _permission: 'administer dipas'
+
 dipas.cockpitdataapi.endpoint:
-  path: '/dipas/participation_cockpit/{data}'
+  path: '/dipas/navigator/{data}/{parameter}'
   defaults:
     _controller: 'dipas.restapi:requestCockpitDataEndpoint'
+    parameter: ''
   requirements:
     _permission: 'access content'
     data: \w+
+    parameter: .*
   options:
-    _maintenance_access: true    
+    _maintenance_access: true
 
 dipas.restapi.endpoint:
   path: '/dipas/{key}/{id}'

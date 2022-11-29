@@ -62,6 +62,6 @@ services:
     arguments: []
   dipas.domain_change:
     class: Drupal\dipas\EventSubscriber\DomainChange
-    arguments: ['@config.factory', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager', '@database']
     tags:
       - {name: event_subscriber}

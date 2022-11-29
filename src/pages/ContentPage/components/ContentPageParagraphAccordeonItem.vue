@@ -39,7 +39,10 @@ export default {
       @keyup.enter="hideTextField = !hideTextField"
     >
       <span>{{ content.field_headline }}</span>
-      <i class="material-icons customIcon">{{ hideTextField ? "add" : "remove" }}</i>
+      <i
+        class="material-icons customIcon"
+        aria-hidden="true"
+      >{{ hideTextField ? "add" : "remove" }}</i>
     </div>
 
     <div

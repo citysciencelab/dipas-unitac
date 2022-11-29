@@ -51568,6 +51568,14 @@ msgid "Data responsible organization"
 msgstr "Datenverantwortliche Stelle"
 
 msgctxt "DIPAS"
+msgid "Topic selection"
+msgstr "Themenauswahl"
+
+msgctxt "DIPAS"
+msgid "Choose at least one topic for your participation project. For further information hover the checkbox."
+msgstr "Wähle mindestens ein passendes Thema zu deinem Beteiligungsverfahren. Für weitere Informationen fahre über die Auswahlbox."
+
+msgctxt "DIPAS"
 msgid "Project contact"
 msgstr "Projektkontakt"
 
@@ -51579,6 +51587,12 @@ msgstr ""
 "Geben Sie die Kontaktdaten der projektverantwortlichen Stelle für "
 "dieses DIPAS-Projekt ein. Diese Informationen werden ausschließlich "
 "zu Anzeigezwecken/nicht funktional verwendet."
+
+msgctxt "DIPAS"
+msgid ""
+"Choose at least one main district or subarea for your participation project."
+msgstr ""
+"Wählen Sie mindestens einen Hauptbezirk für ihr Beteiligungsverfahren."
 
 msgctxt "DIPAS"
 msgid "Project logo"
@@ -56719,10 +56733,6 @@ msgid "Please choose"
 msgstr "Bitte wählen"
 
 msgctxt "Masterportal"
-msgid "Glyphicon"
-msgstr "Glyphicon"
-
-msgctxt "Masterportal"
 msgid "Open by default"
 msgstr "Standardmäßig geöffnet"
 
@@ -56743,8 +56753,8 @@ msgid "Deactivate GFI"
 msgstr "GFI deaktivieren"
 
 msgctxt "Masterportal"
-msgid "Is generic"
-msgstr "Ist generisch"
+msgid "Is active"
+msgstr "Ist aktiv"
 
 msgctxt "Masterportal"
 msgid "Initially opened?"
@@ -56755,8 +56765,8 @@ msgid "Live zoom to feature"
 msgstr "Direktzoom auf Filterergebnisse"
 
 msgctxt "Masterportal"
-msgid "Allow multiple queries per layer?"
-msgstr "Mehrere Abfragen pro Layer zulassen?"
+msgid "Display a selector for the layers?"
+msgstr "Verwenden des Auswahl-Selektors für die Layer?"
 
 msgctxt "Masterportal"
 msgid "Visible in menu?"
@@ -58825,9 +58835,6 @@ msgid ""
 msgstr ""
 "Sollen simpleMap-Links zum Auswahl speichern\"-Dialog hinzugefügt "
 "werden? (Nicht verfügbar bei Baumtyp Minimal\")"
-
-msgid "Allow multiple queries per layer?"
-msgstr "Mehrere Abfragen pro Layer zulassen?"
 
 msgid ""
 "Determines if the user has to actively activate this plugin or if it "

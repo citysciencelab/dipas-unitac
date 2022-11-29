@@ -21,22 +21,22 @@ widget_selector: tabs
 widget_selector_configuration: {  }
 widgets:
   6ca0f451-b6ab-49b7-a7e8-90c5e8d56ea0:
+    id: view
+    uuid: 6ca0f451-b6ab-49b7-a7e8-90c5e8d56ea0
+    label: 'Select existing'
+    weight: -10
     settings:
-      view: media_entity_browser
-      view_display: image_browser
       submit_text: 'Select entities'
       auto_select: false
-    uuid: 6ca0f451-b6ab-49b7-a7e8-90c5e8d56ea0
-    weight: -10
-    label: 'Select existing'
-    id: view
+      view: media_entity_browser
+      view_display: image_browser
   c55e4d6d-251a-423a-b184-45ac47d85d4c:
+    id: entity_form
+    uuid: c55e4d6d-251a-423a-b184-45ac47d85d4c
+    label: 'Upload new'
+    weight: 2
     settings:
+      submit_text: 'Save image'
       entity_type: media
       bundle: image
       form_mode: default
-      submit_text: 'Save image'
-    uuid: c55e4d6d-251a-423a-b184-45ac47d85d4c
-    weight: 2
-    label: 'Upload new'
-    id: entity_form

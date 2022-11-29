@@ -62,10 +62,10 @@ class ContributionStyles implements LayerStylePluginInterface {
     ];
 
     foreach ($this->getAllCategoryTerms() as $topic) {
-      $topicImageId = $topic->get('field_category_icon')->first()->get('target_id')->getValue();
-      $topicImage = $this->fileStorage->load($topicImageId);
+      $topicImageId = ($icon = $topic->get('field_category_icon')->first()) ? $icon->get('target_id')->getValue() : FALSE;
+      $topicImage = $topicImageId ? $this->fileStorage->load($topicImageId) : FALSE;
 
-      $topicColor = trim(strtolower($topic->get('field_color')->first()->getString()));
+      $topicColor = ($color = $topic->get('field_color')->first()) ? trim(strtolower($color->getString())) : 0;
       if (substr($topicColor, 0, 1) === '#') {
         $topicColor = substr($topicColor, 1);
       }
@@ -87,7 +87,7 @@ class ContributionStyles implements LayerStylePluginInterface {
         ],
         'style' => (object) [
           'type' => 'icon',
-          'imageName' => preg_replace('~^https?:~', '', file_create_url($topicImage->getFileUri())),
+          'imageName' => preg_replace('~^https?:~', '', $topicImage ? file_create_url($topicImage->getFileUri()) : ''),
           'imagePath' => '',
           'imageScale' => 0.5,
           'imageOffsetX' => 0.5,

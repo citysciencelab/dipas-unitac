@@ -52,11 +52,11 @@ class AddonRequestResolver implements EventSubscriberInterface {
    */
   public function onResponse(ResponseEvent $event) {
     $requestUriPattern = sprintf(
-      '~^%1$s%2$s/libraries/masterportal/(?:js|css)/~',
+      '~^%1$s%2$s/libraries/masterportal/(js|css)/~',
       base_path(),
       drupal_get_path('module', 'masterportal')
     );
-    if (preg_match($requestUriPattern, $this->currentRequest->getRequestUri())) {
+    if (preg_match($requestUriPattern, $this->currentRequest->getRequestUri(), $matches)) {
       $fileRequested = pathinfo(
         $this->currentRequest->getRequestUri(),
         PATHINFO_BASENAME
@@ -67,7 +67,13 @@ class AddonRequestResolver implements EventSubscriberInterface {
         $fileRequested
       );
       if (file_exists($libraries_path)) {
-        $event->setResponse(new BinaryFileResponse($libraries_path));
+        $event->setResponse(new BinaryFileResponse(
+          $libraries_path,
+          200,
+          [
+            'Content-Type'=> $matches[1] == 'js' ? 'application/javascript' : 'text/css'
+          ]
+        ));
       }
     }
   }

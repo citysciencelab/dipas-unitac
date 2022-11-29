@@ -10,8 +10,8 @@ field_name: field_rating
 entity_type: node
 type: voting_api_field
 settings:
-  vote_type: vote
   vote_plugin: useful
+  vote_type: vote
   status: ''
 module: votingapi_widgets
 locked: false

@@ -54,8 +54,10 @@ class DomainEdit extends DomainForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    $isNew = $this->entity->isNew();
+    $previousId = $isNew ? '':$form['id']['#default_value'];
     parent::save($form, $form_state);
-    $this->domainHandler->onDomainEdit($this->entity);
+    $this->domainHandler->onDomainEdit($this->entity, $isNew, $previousId);
   }
 
 }

@@ -272,7 +272,6 @@ export default {
             <StatisticsDonut
               :key="'categorydonut' + asyncRenderKey"
               :headline="$t('Statistics.StatisticsDonut.headlineCat')"
-              :aria-label="$t('Statistics.StatisticsDonut.headlineCat')"
               :keyId="'categorydonut' + asyncRenderKey"
               :labels="contributionCategoryLabels"
               :colors="contributionCategoryColors"
@@ -301,7 +300,6 @@ export default {
               v-if="useRubrics"
               :key="'rubricdonut' + asyncRenderKey"
               :headline="$t('Statistics.StatisticsDonut.headlineType')"
-              :aria-label="$t('Statistics.StatisticsDonut.headlineType')"
               :keyId="'rubricdonut' + asyncRenderKey"
               :labels="contributionRubricLabels"
               :donutData="contributionsByRubric"

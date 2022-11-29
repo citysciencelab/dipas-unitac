@@ -95,14 +95,20 @@ export default {
         <h2
           :id="rndid"
         >
-          {{ teaser.title }}
+          {{ teaser.title | truncate(75, '...') }}
         </h2>
         <p
           :aria-describedby="rndid"
           class="detailLink"
           role="link"
         >
-          {{ $t("ContributionList.ContributionListTeaser.routeToEntry") }}<i class="material-icons">play_arrow</i>
+          {{ $t("ContributionList.ContributionListTeaser.routeToEntry") }}
+          <i
+            aria-hidden="true"
+            class="material-icons"
+          >
+            play_arrow
+          </i>
         </p>
         <hr />
         <div class="subline">
@@ -144,14 +150,15 @@ export default {
     }
 
     article.contributionteaser div.inner {
-        background-color: #F0F0F0;
+        background-color: #ffffff;
+        border: 2px solid #707070;
         padding: 10px 32px 32px 32px;
     }
 
     article.contributionteaser div.inner img.categoryIcon {
         height: 40px;
         position: relative;
-        top: -20px;
+        top: -24px;
         margin: 0 0 -10px -10px
     }
 

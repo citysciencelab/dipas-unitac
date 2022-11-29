@@ -13,6 +13,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\dipas\Controller\DipasConfig;
+use Drupal\dipas\Exception\MalformedRequestException;
 use Drupal\dipas\ResponseContent;
 use Drupal\masterportal\DomainAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -139,6 +140,38 @@ class RestApi implements RestApiInterface {
   }
 
   /**
+   * Validates a token provided if needed and throws an exception if not available/faulty.
+   *
+   * @param array $pluginDefinition
+   *   The definition of the request plugin.
+   *
+   * @return void
+   * @throws \Drupal\dipas\Exception\MalformedRequestException
+   *   Exception is thrown if the token was not provided or does not match.
+   */
+  protected function shieldRequest(array $pluginDefinition) {
+    if ($pluginDefinition['shieldRequest']) {
+      [$cypher, $security_token, $passphrase, $initvector] = require_once(realpath(__DIR__ . '/../Plugin/ResponseKey/RestApiToken.php'));
+
+      if (
+        ($token = $this->request->query->get('token')) &&
+        ($decryptedToken = openssl_decrypt($token, $cypher, $passphrase, 0, $initvector)) &&
+        count($decryptedToken = explode(":|:", $decryptedToken)) === 2
+      ) {
+        $tokenTime = (int) $decryptedToken[1];
+        $decryptedToken = $decryptedToken[0];
+
+        if ($security_token !== $decryptedToken || time() > ($tokenTime + 5)) {
+          throw new MalformedRequestException();
+        }
+      }
+      else {
+        throw new MalformedRequestException();
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function requestEndpoint($key) {
@@ -147,6 +180,9 @@ class RestApi implements RestApiInterface {
 
     try {
       $pluginDefinition = $this->responsePluginManager->getDefinition(strtolower($key));
+
+      $this->shieldRequest($pluginDefinition);
+
       if (
         $pluginDefinition['isCacheable'] &&
         !$this->request->query->has('noCache') &&
@@ -194,6 +230,14 @@ class RestApi implements RestApiInterface {
         }
       }
     }
+    catch (MalformedRequestException $e) {
+      $this->logger->warning("Call to endpoint with faulty or without security token: {$key}");
+      $content = new ResponseContent(
+        ResponseContent::RESPONSE_STATUS_ERROR,
+        "Malformed request",
+        500
+      );
+    }
     catch (PluginNotFoundException $e) {
       $this->logger->notice("Undefined endpoint: {$key}");
       $content = new ResponseContent(
@@ -203,6 +247,10 @@ class RestApi implements RestApiInterface {
       );
     }
 
+    if (!$content->isError()) {
+      $content->updateContent($pluginDefinition['class']::postProcessResponse($content->getRawContent()));
+    }
+
     $response->setData($content->getResponseContent());
     if ($content->isError()) {
       $response->setStatusCode($content->getResponseStatusCode());
@@ -210,7 +258,6 @@ class RestApi implements RestApiInterface {
     $response->setEncodingOptions(static::JSON_OUTPUT_OPTIONS);
     return $response;
   }
-
 
   /**
    * {@inheritdoc}
@@ -327,9 +374,9 @@ class RestApi implements RestApiInterface {
   /**
    * {@inheritdoc}
    */
-  public function requestCockpitDataEndpoint($data) {
+  public function requestCockpitDataEndpoint($data, $parameter) {
     $response = new JsonResponse();
-    $cacheId = "participation_cockpit/{$data}";
+    $cacheId = "participation_cockpit/{$data}/{$parameter}";
 
     try {
       $pluginDefinition = $this->cockpitdataResponsePluginManager->getDefinition(strtolower($data));

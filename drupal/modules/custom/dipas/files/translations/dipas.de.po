@@ -408,6 +408,22 @@ msgstr "Beiträge"
 msgid "Settings related to the contributions users can create."
 msgstr "Einstellungen für die Beitragseingabe."
 
+msgctxt "DIPAS"
+msgid "Visibility settings"
+msgstr "Sichtbarkeitseinstellungen"
+
+msgctxt "DIPAS"
+msgid "Proceeding is internal"
+msgstr "Verfahren ist intern"
+
+msgctxt "DIPAS"
+msgid "If checked, this proceeding will not be exposed on public APIs (i.e. the PDS-API)."
+msgstr "Wenn gesetzt, wird dieses Verfahren auf öffentlich aufrufbaren APIs ausgeblendet (bspw PDS-API)."
+
+msgctxt "DIPAS"
+msgid "Data exports"
+msgstr "Datenexporte"
+
 #: src/Plugin/SettingsSection/Export.php:38
 msgctxt "DIPAS"
 msgid "Export contributions"
@@ -438,8 +454,8 @@ msgid "Data export"
 msgstr "Datenexport"
 
 #: src/Plugin/SettingsSection/Export.php:14
-msgid "Export user generated data as CSV."
-msgstr "Export von nutzergenerierten Daten als CSV."
+msgid "Proceeding visibility settings and CSV data exports."
+msgstr "Sichtbarkeitseinstellungen für Verfahren und CSV-Datenexporte von Verfahrensdaten."
 
 #: src/Plugin/SettingsSection/KeywordSettings.php:56
 msgctxt "DIPAS"
@@ -867,6 +883,9 @@ msgstr "NLP Einstellungen"
 #: src/Plugin/SettingsSection/NLPSettings.php:14
 msgid "Settings for the NLP service. A service providing extended statistical information on the contributions."
 msgstr "Einstellung des NLP Services. Dieser Service stellt Funktionen der automatisierten Textauswertung für die Beiträge bereit."
+
+msgid "Visibility settings / Export"
+msgstr "Sichtbarkeitseinstellungen / Datenexport"
 
 #: src/Plugin/SettingsSection/ProjectArea.php:13
 msgid "Project area"

@@ -73,7 +73,6 @@ class MasterportalDownloadService implements MasterportalDownloadServiceInterfac
 
     // Unlink unnecessary files (only used by the config ui).
     $this->fileSystem->unlink(sprintf('%s/css/masterportalAspectRatios.css', $tmpPath));
-    $this->fileSystem->unlink(sprintf('%s/css/style-glyphicons.css', $tmpPath));
 
     // Create dynamic files.
     $dynamicFiles = [

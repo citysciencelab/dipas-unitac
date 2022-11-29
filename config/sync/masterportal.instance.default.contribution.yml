@@ -5,11 +5,9 @@ dependencies: {  }
 _core:
   default_config_hash: Vgu0lJ3GQGlP67A7bPNzdgZOaNp20ixXO2ble5hXj2I
 id: default.contribution
-uid: '0'
 instance_name: contribution
-label: Contribution
 domain: default
-hidden: false
+label: Contribution
 settings:
   BackgroundLayerSettings:
     layer:
@@ -74,14 +72,11 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
-      name: Katgorieauswahl
-      glyphicon: glyphicon-filter
+      name: Kategorieauswahl
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -91,7 +86,6 @@ settings:
       predefinedQueries: '[]'
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: ''
@@ -129,5 +123,6 @@ settings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
         name: Draw
-        glyphicon: glyphicon-info-sign
         visibleInMenu: 0
+uid: '0'
+hidden: false

@@ -86,6 +86,7 @@ export default {
     <i
       v-if="icon && iconpos === 'left'"
       class="material-icons customIcon left"
+      aria-hidden="true"
     >
       {{ icon }}
     </i>
@@ -93,6 +94,7 @@ export default {
     <i
       v-if="icon && iconpos === 'right'"
       class="material-icons customIcon right"
+      aria-hidden="true"
     >
       {{ icon }}
     </i>

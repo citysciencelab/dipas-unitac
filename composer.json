@@ -33,20 +33,20 @@
     "drupal/core-recommended": "^9.0.0",
 
     "drupal/address": "^1.4",
-    "drupal/admin_toolbar": "3.0.3",
+    "drupal/admin_toolbar": "^3.1",
     "drupal/amswap": "^3.0.0",
     "drupal/color_field": "^2.0",
-    "drupal/config_filter": "^1.8",
+    "drupal/config_filter": "2.4.0",
     "drupal/config_ignore": "^2.2",
     "drupal/csv_serialization": "^2.0@beta",
-    "drupal/ctools": "^3.0",
+    "drupal/ctools": "4.0.2",
     "drupal/domain": "^1.0@beta",
     "drupal/entity": "^1.0@rc",
     "drupal/entity_browser": "^2.0",
     "drupal/entity_browser_enhanced": "^1.0@rc",
     "drupal/entity_reference_revisions": "^1.6",
     "drupal/environment_indicator": "^4.0",
-    "drupal/form_options_attributes": "^1.0",
+    "drupal/form_options_attributes": "2.0.2",
     "drupal/fpa": "3.0.2",
     "drupal/geofield": "^1.0",
     "drupal/image_effects": "^3.0",
@@ -58,26 +58,35 @@
     "drupal/menu_link_config": "^1.0@alpha",
     "drupal/module_filter": "^3.1",
     "drupal/optional_end_date": "^1.0@beta",
-    "drupal/paragraphs_ee": "^1.1",
+    "drupal/paragraphs_ee": "^2.0",
     "drupal/paragraphs_features": "^1.4",
     "drupal/select2": "^1.1",
     "drupal/stage_file_proxy": "^1.0@alpha",
     "drupal/token": "^1.5",
-    "drupal/transliterate_filenames": "1.8",
-    "drupal/twig_tweak": "^2.6",
+    "drupal/transliterate_filenames": "2.0.1",
+    "drupal/twig_tweak": "3.2.0",
     "drupal/video_embed_field": "^2.0",
     "drupal/votingapi": "^3.0@beta",
     "drupal/votingapi_widgets": "1.x-dev",
-    "drupal/x_frame_options": "^1.1"
+    "drupal/x_frame_options": "^1.1",
+    "symfony/finder": "^4.4",
+    "phpunit/php-code-coverage": "^9.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0",
     "mikey179/vfsstream": "^1.6",
-    "drupal/masquerade": "^2.0@beta"
+    "drupal/masquerade": "^2.0@beta",
+    "drupal/core-dev": "^9.3",
+    "phpspec/prophecy-phpunit": "^2"
   },
   "config": {
     "discard-changes": true,
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "cweagans/composer-patches": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -86,9 +95,14 @@
       "drupal/entity_browser": {
         "https://www.drupal.org/project/entity_browser/issues/2922885": "https://www.drupal.org/files/issues/entity_browser-media-file-upload-2922885-3.patch"
       },
-      "drupal/menu_link_config": {
-        "Solves several issues": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/be0e88b0d154525845335f327887b351ebeab2e7/menu_link_config/menu_link_config.patch",
-        "Missing config_export annotation": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/129415a72ccc9378dbfc9ab2d91b35f44d739a9e/menu_link_config/entity_menu_link_config.patch"
+      "drupal/address": {
+        "Changes the adress Organization field label": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/bdf0d5ee6ab822dc5b3dabd9f71bacd2773b9ff9/address/address_label_company_projectinformation.patch"
+      },
+	  "drupal/core": {
+        "https://www.drupal.org/project/drupal/issues/3291764 Create own patch because this was not complete": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/c6704ed1dab1729121a149534708cc9f76dd882a/core/misc/vertical_tabs_multiple_forms_issue.patch"
+      },
+      "drupal/jquery_ui_selectmenu": {
+        "Issues caused by jquery UI core update": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/f17310b7aaa27803b846dfb76f92afa8b4e30a44/jquery_ui_selectmenu/jquery_update_form_error.patch"
       }
     },
     "installer-types": [

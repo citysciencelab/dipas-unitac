@@ -31,13 +31,6 @@ class Draw extends PluginBase implements ToolPluginInterface {
   protected $name;
 
   /**
-   * The icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * Flag determining if this tool is listed in the Masterportal menu.
    *
    * @var boolean
@@ -50,7 +43,6 @@ class Draw extends PluginBase implements ToolPluginInterface {
   public static function getDefaults() {
     return [
       'name' => 'Zeichnen / Schreiben',
-      'glyphicon' => 'glyphicon-resize-full',
       'visibleInMenu' => TRUE,
     ];
   }
@@ -79,11 +71,6 @@ class Draw extends PluginBase implements ToolPluginInterface {
         '#default_value' => $this->name,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
     ];
   }
 
@@ -93,7 +80,6 @@ class Draw extends PluginBase implements ToolPluginInterface {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
       'visibleInMenu' => $this->visibleInMenu,
     ];
   }
@@ -103,7 +89,6 @@ class Draw extends PluginBase implements ToolPluginInterface {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->visibleInMenu = $this->visibleInMenu;
   }
 

@@ -12,6 +12,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\masterportal\Form\MultivalueRowTrait;
+use Drupal\dipas\TaxonomyTermFunctionsTrait;
+use Drupal\masterportal\DomainAwareTrait;
 
 /**
  * Class ProjectInformation.
@@ -30,6 +32,8 @@ class ProjectInformation extends SettingsSectionBase {
 
   use MultivalueRowTrait;
   use MediaSelectionTrait;
+  use TaxonomyTermFunctionsTrait;
+  use DomainAwareTrait;
 
   /**
    * Drupal's entity type manager.
@@ -46,6 +50,13 @@ class ProjectInformation extends SettingsSectionBase {
   protected $nodeStorage;
 
   /**
+   * Drupals taxonomy term storage service.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $termStorage;
+
+  /**
    * Media storage object.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -58,6 +69,7 @@ class ProjectInformation extends SettingsSectionBase {
   protected function setAdditionalDependencies(Container $container) {
     $this->entityTypeManager = $container->get('entity_type.manager');
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
+    $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
     $this->mediaStorage = $this->entityTypeManager->getStorage('media');
   }
 
@@ -74,6 +86,8 @@ class ProjectInformation extends SettingsSectionBase {
       'street2' => '',
       'zip' => '',
       'city' => '',
+      'topics' => [],
+      'districts' => [],
       'contact_email' => '',
       'contact_telephone' => '',
       'contact_website' => '',
@@ -85,6 +99,8 @@ class ProjectInformation extends SettingsSectionBase {
         'project_image' => '',
       ],
       'data_responsible' => '',
+      'data_topicselection' => [],
+      'data_districtselection' => [],
     ];
   }
 
@@ -92,6 +108,9 @@ class ProjectInformation extends SettingsSectionBase {
    * {@inheritdoc}
    */
   public function getForm(array $form, FormStateInterface $form_state) {
+    $topics = $this->getTermList('topics');
+    $districts = $this->getTermList('districts');
+    $project_owners = $this->getTermList('project_owner');
 
     $section = [
       'site_settings' => [
@@ -125,6 +144,16 @@ class ProjectInformation extends SettingsSectionBase {
         '#type' => 'fieldset',
         '#title' => $this->t('Project contact', [], ['context' => 'DIPAS']),
         '#description' => $this->t('Enter the contact details of the department responsible for this DIPAS project. This information will only be used visually/non-functional.', [], ['context' => 'DIPAS']),
+
+        'project_owners' => [
+          '#type' => 'select2',
+          '#multiple' => true,
+          '#title' => $this->t('Project Owner(s)'),
+          '#options' => array_map(function ($project_owners) { return $project_owners['name']; }, $project_owners),
+          '#description' => $this->t('Please select here all responible project owners.'),
+          '#required' => TRUE,
+          '#default_value' => $this->project_owners,
+        ],
 
         'contact_details' => [
           '#type' => 'address',
@@ -180,11 +209,30 @@ class ProjectInformation extends SettingsSectionBase {
           '#type' => 'fieldset',
           '#title' => $this->t('Additonal information (will be undisclosed)', [], ['context' => 'DIPAS']),
           '#description' => $this->t('Some additional information on the project which will not be displayed on the frontend.', [], ['context' => 'DIPAS']),
+
           'data_responsible' => [
             '#type' => 'textfield',
             '#title' => $this->t('Data responsible organization', [], ['context' => 'DIPAS']),
             '#required' => FALSE,
             '#default_value' => $this->data_responsible,
+          ],
+
+          'data_topicselection' => [
+            '#type' => 'checkboxes',
+            '#title' => $this->t('Topic selection', [], ['context' => 'DIPAS']),
+            '#description' => $this->t('Choose at least one topic for your participation project. For further information hover the checkbox.', [], ['context' => 'DIPAS']),
+            '#options' => array_map(function ($topic) { return $topic['name']; }, $topics),
+            '#default_value' => is_array($this->data_topicselection) ? $this->data_topicselection : [],
+            '#required' => TRUE,
+          ],
+
+          'data_districtselection' => [
+            '#type' => 'checkboxes',
+            '#title' => $this->t('District selection', [], ['context' => 'DIPAS']),
+            '#description' => $this->t('Choose at least one main district or subarea for your participation project.', [], ['context' => 'DIPAS']),
+            '#options' => array_map(function ($district) { return $district['name']; }, $districts),
+            '#default_value' => is_array($this->data_districtselection) ? $this->data_districtselection : [],
+            '#required' => TRUE,
           ],
         ],
       ],
@@ -262,7 +310,6 @@ class ProjectInformation extends SettingsSectionBase {
         ],
 
       ],
-
     ];
 
     $this->createMultivalueFormPortion(
@@ -272,6 +319,13 @@ class ProjectInformation extends SettingsSectionBase {
       $this->partner_logos ?: [],
       'No partner logos defined. Click the "Add logo" button to add a new logo.'
     );
+
+    foreach ($topics as $tid => $value) {
+      $section['project_contact']['additional_info']['data_topicselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description']));
+    }
+    foreach ($districts as $tid => $value) {
+      $section['project_contact']['additional_info']['data_districtselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description']));
+    }
 
     return $section;
   }
@@ -353,6 +407,9 @@ class ProjectInformation extends SettingsSectionBase {
       'headline' => $plugin_values["welcome_modal"]['headline'],
       'text' => $plugin_values["welcome_modal"]['text'],
       'data_responsible' => $plugin_values["project_contact"]['additional_info']['data_responsible'],
+      'data_topicselection' => array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_topicselection'])),
+      'data_districtselection' => array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_districtselection'])),
+      'project_owners' => array_keys(array_filter($plugin_values["project_contact"]['project_owners'])),
     ];
   }
 
@@ -360,5 +417,12 @@ class ProjectInformation extends SettingsSectionBase {
    * {@inheritdoc}
    */
   public function onSubmit() {}
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getTermStorage() {
+    return $this->termStorage;
+  }
 
 }

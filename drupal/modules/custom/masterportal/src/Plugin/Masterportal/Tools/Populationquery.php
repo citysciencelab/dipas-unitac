@@ -31,13 +31,6 @@ class Populationquery extends PluginBase implements ToolPluginInterface {
   protected $name;
 
   /**
-   * The icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * {@inheritdoc}
    */
   protected $onlyDesktop;
@@ -59,7 +52,6 @@ class Populationquery extends PluginBase implements ToolPluginInterface {
   public static function getDefaults() {
     return [
       'name' => 'Einwohneranzahl abfragen',
-      'glyphicon' => 'glyphicon-resize-full',
       'onlyDesktop' => FALSE,
       'populationReqServiceId' => "2",
     ];
@@ -79,11 +71,6 @@ class Populationquery extends PluginBase implements ToolPluginInterface {
         '#default_value' => $this->name,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
       'onlyDesktop' => [
         '#type' => 'checkbox',
         '#title' => $this->t('Desktop only?', [], ['context' => 'Masterportal']),
@@ -104,7 +91,6 @@ class Populationquery extends PluginBase implements ToolPluginInterface {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
       'onlyDesktop' => $this->onlyDesktop,
       'populationReqServiceId' => $this->populationReqServiceId,
     ];
@@ -115,7 +101,6 @@ class Populationquery extends PluginBase implements ToolPluginInterface {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->onlyDesktop = $this->onlyDesktop;
     $pluginSection->populationReqServiceId = $this->populationReqServiceId;
   }

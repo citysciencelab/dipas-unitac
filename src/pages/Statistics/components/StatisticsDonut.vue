@@ -118,7 +118,6 @@ export default {
       @click="openModal"
     >
       <h3
-        aria-hidden="true"
         class="headline"
       >
         {{ headline }}

@@ -1,0 +1,33 @@
+uuid: d3782d14-744e-444c-bd77-5ada19b544f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.project_owner
+  module:
+    - text
+id: taxonomy_term.project_owner.default
+targetEntityType: taxonomy_term
+bundle: project_owner
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  path: true
+  status: true

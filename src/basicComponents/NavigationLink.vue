@@ -56,18 +56,19 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div
+    :aria-label="linktext"
+  >
     <router-link :to="'/' + endpoint">
       <span
         v-if="linkicon"
         class="material-icons"
-        :aria-label="linktext"
+        aria-hidden="true"
       >
         {{ linkicon }}
       </span>
       <span
         class="linktext"
-        aria-hidden="true"
       >
         {{ linktext }}
       </span>

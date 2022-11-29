@@ -79,7 +79,7 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
   /**
    * {@inheritdoc}
    */
-  final public function getFormSectionElements(FormStateInterface $form_state) {
+  final public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
 
     // Prepare the container.
     $section = [];

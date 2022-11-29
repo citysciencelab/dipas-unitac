@@ -215,6 +215,8 @@ class MasterportalInstanceEditForm extends EntityForm {
     // Add each available config section.
     foreach ($availableConfigSections as $pluginId => $configSection) {
 
+      $pluginIdentifier = sprintf('%s/%s', $this->configSectionPluginManager->getPluginType(), $pluginId);
+
       // Prepare the container holding the section definition.
       $form['settings'][$pluginId] = [
         '#type' => 'details',
@@ -222,7 +224,7 @@ class MasterportalInstanceEditForm extends EntityForm {
         '#description' => $configSection['description'],
         '#weight' => $configSection['sectionWeight'],
         '#group' => 'vertical_tabs',
-        '#plugin' => sprintf('%s/%s', $this->configSectionPluginManager->getPluginType(), $pluginId),
+        '#plugin' => $pluginIdentifier,
       ];
 
       // Determine the plugin default values.
@@ -239,7 +241,11 @@ class MasterportalInstanceEditForm extends EntityForm {
 
       $form['settings'][$pluginId] = array_merge(
         $form['settings'][$pluginId],
-        $plugin->getFormSectionElements($form_state, !empty($instanceSettings[$pluginId]) ? $instanceSettings[$pluginId] : [])
+        $plugin->getFormSectionElements(
+          $form_state,
+          !empty($instanceSettings[$pluginId]) ? $instanceSettings[$pluginId] : [],
+          $pluginIdentifier
+        )
       );
 
     }
@@ -404,7 +410,6 @@ class MasterportalInstanceEditForm extends EntityForm {
    */
   public function __call($method, array $arguments) {
     switch ($method) {
-
       // Methods of the MultivalueRowTrait trait.
       case 'addRow':
       case 'removeRow':
@@ -413,6 +418,7 @@ class MasterportalInstanceEditForm extends EntityForm {
         /* @var array $form */
         /* @var FormStateInterface $form_state */
         $trigger = $form_state->getTriggeringElement();
+
         [, $property,] = explode(':', $trigger["#name"]);
 
         // Determine the form section that caused the method call.
@@ -420,7 +426,7 @@ class MasterportalInstanceEditForm extends EntityForm {
 
         // Do we have the information, which plugin actually triggered
         // the method call?
-        if (!empty($section["#plugin"])) {
+        if ($section !== FALSE && !empty($section["#plugin"])) {
 
           // Determine the plugin that caused the call.
           [$pluginType, $pluginID] = explode('/', $section["#plugin"]);
@@ -454,13 +460,23 @@ class MasterportalInstanceEditForm extends EntityForm {
           }
 
         }
+        else {
+          $this->logger->error(
+            'Unable to call method %method due to undefined plugin definition in file %file, triggered by %trigger.',
+            [
+              '%method' => $method,
+              '%file' => __FILE__,
+              '%trigger' => isset($trigger['#name']) ? $trigger['#name'] : 'unknown',
+            ]
+          );
+          break;
+        }
 
       /*
        * We do not know which plugin it was. The section property '#plugin'
        * is missing. So we simply omit to break this switch/case here and
        * let this method run into it's default logger.
        */
-
       default:
         $this->logger->error(
           'Call to undefined method %method in file %file, triggered by %trigger.',

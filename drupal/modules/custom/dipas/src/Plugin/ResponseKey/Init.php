@@ -4,9 +4,11 @@ namespace Drupal\dipas\Plugin\ResponseKey;
 
 use Drupal\Core\Url;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\taxonomy\TermInterface;
 use Drupal\masterportal\DomainAwareTrait;
+use Drupal\dipas\FileHelperFunctionsTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\dipas\TaxonomyTermFunctionsTrait;
+use Drupal\dipas\ProceedingListingMethodsTrait;
 
 /**
  * Class Init.
@@ -27,6 +29,9 @@ class Init extends ResponseKeyBase {
   use DateTimeTrait;
   use ProjectDataTrait;
   use DomainAwareTrait;
+  use TaxonomyTermFunctionsTrait;
+  use FileHelperFunctionsTrait;
+  use ProceedingListingMethodsTrait;
 
   /**
    * @var \Drupal\Core\Datetime\DateFormatterInterface
@@ -34,10 +39,18 @@ class Init extends ResponseKeyBase {
   protected $dateFormatter;
 
   /**
+   * Drupals taxonomy term storage service.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $termStorage;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
+    $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
   }
 
   /**
@@ -57,10 +70,18 @@ class Init extends ResponseKeyBase {
   /**
    * {@inheritdoc}
    */
+  protected function getConfig($domainid)
+  {
+    return $this->dipasConfig;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPluginResponse() {
     if (!$this->isDomainDefined()) {
       $domain_settings = \Drupal::config('domain.settings');
-      $redirect_url = "https://dipas.org";
+      $redirect_url = "https://www.hamburg.de/stadtwerkstatt";
 
       if ($domain_settings->get('redirect_url') && $domain_settings->get('redirect_url') != '') {
         $redirect_url = $domain_settings->get('redirect_url');
@@ -74,9 +95,13 @@ class Init extends ResponseKeyBase {
     $modalimage = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation/project_image'), 'modal_image');
 
     $partnerlogos = $this->dipasConfig->get('ProjectInformation/partner_logos');
-    array_walk($partnerlogos, function (&$item) {
-      $item['partner_logo'] = $this->getImagePathFromMediaItemId($item['partner_logo'], 'logo_image');
-    });
+
+    if (is_array($partnerlogos)) {
+      array_walk($partnerlogos, function (&$item) {
+        $item['partner_logo_alttext'] = $this->getAlternativeTextForMediaItem($item['partner_logo']);
+        $item['partner_logo'] = $this->getImagePathFromMediaItemId($item['partner_logo'], 'logo_image');
+      });
+    }
 
     $downloadData = $this->getDownloadPathFromEntities();
 
@@ -145,7 +170,7 @@ class Init extends ResponseKeyBase {
                     return;
                   }
                 }
-                return $item['enabled'];
+                return $item['enabled'] ?: FALSE;
               }
             ),
             array_filter(
@@ -166,7 +191,7 @@ class Init extends ResponseKeyBase {
             return $item['name'];
           },
           array_filter(
-            $this->dipasConfig->get('MenuSettings/footermenu'),
+            $this->dipasConfig->get('MenuSettings/footermenu') ?: [],
             function ($item) {
               return $item['enabled'];
             }
@@ -174,7 +199,7 @@ class Init extends ResponseKeyBase {
         ),
       ],
       'taxonomy' => [
-        'categories' => $this->getTermList(
+        'categories' => array_values($this->getTermList(
           'categories',
           [
             'field_category_icon' => function ($fieldvalue) {
@@ -185,10 +210,10 @@ class Init extends ResponseKeyBase {
               return $fieldvalue->getString();
             },
           ]
-        ),
+        )),
         'rubrics_use' => (bool) $this->dipasConfig->get('ContributionSettings/rubrics_use'),
-        'rubrics' => $this->getTermList('rubrics'),
-        'tags' => $this->getTermList('tags'),
+        'rubrics' => array_values($this->getTermList('rubrics')),
+        'tags' => array_values($this->getTermList('tags')),
       ],
       'image_styles' => $this->getContentImageStyleList(),
       'contributions' => [
@@ -225,6 +250,19 @@ class Init extends ResponseKeyBase {
     ];
 
     return $settings;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function postProcessResponse(array $responsedata) {
+    [$cypher, $security_token, $passphrase, $initvector] = require_once(realpath(__DIR__ . '/RestApiToken.php'));
+
+    $responsedata['checksum'] = openssl_encrypt($security_token, $cypher, $passphrase, 0, $initvector);
+    $responsedata['signature'] = $initvector;
+    $responsedata['timestamp'] = time();
+
+    return $responsedata;
   }
 
   /**
@@ -292,23 +330,6 @@ class Init extends ResponseKeyBase {
   }
 
   /**
-   * Extracts the wrapper uri from a file id.
-   *
-   * @param int $fid
-   *   The file id.
-   *
-   * @return string
-   *   The file wrapper URI.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getFileUriFromFileId($fid) {
-    $file = $this->entityTypeManager->getStorage('file')->load($fid);
-    return $file->get('uri')->first()->getString();
-  }
-
-  /**
    * Creates a fully qualified image url from a wrapper uri.
    *
    * @param string $wrapperUri
@@ -326,130 +347,9 @@ class Init extends ResponseKeyBase {
   }
 
   /**
-   * Returns a list of all terms contained in a vocabulary.
-   *
-   * @param string $vocab
-   *   The name of the vocabulary.
-   * @param array $include_fields
-   *   Include the contents of the given field names in the list.
-   *
-   * @return array|false
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * {@inheritdoc}
    */
-  protected function getTermList($vocab, array $include_fields = []) {
-    $termlist = drupal_static('dipas_termlist', []);
-
-    if (!isset($termlist[$vocab])) {
-
-      // Load all terms from the given vocabulary.
-      /* @var \Drupal\taxonomy\TermInterface[] $terms */
-      $terms = $this->entityTypeManager->getStorage('taxonomy_term')
-        ->loadByProperties([
-          'vid' => $vocab,
-        ]);
-
-      /*
-       * If the domain module is present, filter any terms retrieved by
-       * domain assignment.
-       */
-      if ($this->domainModulePresent && count($terms) && $this->activeDomain !== NULL) {
-        $hasDomainAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD);
-        $hasDomainAllAccessField = reset($terms)->hasField(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD);
-        $terms = array_filter(
-          $terms,
-          function (TermInterface $term) use ($hasDomainAccessField, $hasDomainAllAccessField) {
-            if ($hasDomainAccessField) {
-              $assignedDomains = array_map(
-                function ($assignment) {
-                  return $assignment['target_id'];
-                },
-                $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_FIELD)->getValue()
-              );
-            }
-
-            $accessOnAllDomains = $hasDomainAllAccessField
-              ? (bool) $term->get(\Drupal\domain_access\DomainAccessManagerInterface::DOMAIN_ACCESS_ALL_FIELD)->getString()
-              : FALSE;
-
-            if ($accessOnAllDomains || in_array($this->activeDomain->id(), $assignedDomains)) {
-              return TRUE;
-            }
-
-            return FALSE;
-          }
-        );
-      }
-
-      // Prepare the array to only contain name and label of the term.
-      $list = array_map(function ($term) {
-        return ['name' => $term->label(), 'id' => $term->id()];
-      }, $terms);
-
-      // Add any fields that ought to be included into the list array.
-      foreach ($include_fields as $field => $preprocess) {
-        array_walk($list, function (&$termdata, $tid) use ($terms, $field, $preprocess) {
-          $termdata[$field] = $preprocess($terms[$tid]->get($field)->first());
-        });
-      }
-
-      // Add the preprocessed list to the term container.
-      $termlist[$vocab] = $list;
-    }
-
-    return array_values($termlist[$vocab]);
+  protected function getTermStorage() {
+    return $this->termStorage;
   }
-
-  /**
-   * Returns a list of all files the user can download.
-   *
-   * List the name, the url, the mimetype and the size.
-   *
-   * @return array
-   *   array of all media entities of type 'download' with detail information
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getDownloadPathFromEntities() {
-    $entityQuery = $this->entityTypeManager->getStorage('media')->getQuery();
-    $entityQuery->condition('bundle', 'download', '=');
-
-    if ($this->isDomainModuleInstalled()) {
-      $conditionGroup = $entityQuery->orConditionGroup();
-      $conditionGroup->condition('field_domain_access', $this->getActiveDomain(), '=');
-      $conditionGroup->condition('field_domain_all_affiliates', TRUE, '=');
-      $entityQuery->condition($conditionGroup);
-    }
-
-    $media_entity_id_list = $entityQuery->execute();
-
-    $file_urls = [];
-
-    foreach ($media_entity_id_list as $media_entity_id => $value) {
-      $media_entity = $this->entityTypeManager->getStorage('media')
-        ->load($media_entity_id);
-
-      $file_fid = $media_entity->get('field_media_file')
-        ->first()
-        ->get('target_id')
-        ->getString();
-
-      $file_name = $media_entity->getName();
-      $file = $this->entityTypeManager->getStorage('file')->load($file_fid);
-
-      $file_data = [
-        'name' => $file_name,
-        'url' => file_create_url($this->getFileUriFromFileId($file_fid)),
-        'mimetype' => $file->getMimeType(),
-        'size' => $file->getSize(),
-      ];
-
-      $file_urls[] = $file_data;
-    }
-
-    return $file_urls;
-  }
-
 }

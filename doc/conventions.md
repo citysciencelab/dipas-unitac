@@ -131,8 +131,14 @@ We differ between error messages
 
 ### Definition of Done
 - Code follows these conventions
+- tests have been extended
+- a test protocl has been added
+- unit tests for new modules have been added
+- German translations have been added for new UI developments
 - function meets the requirements described in the ticket
 - function has been tested in established browsers (FF, Chrome, Edge)
 - function has been tested on mobile device or at least in mobile emulation of Chrome
 - function and all its elements have been tested on DSGVO compliance
+- function has been tested with "real life" data
+- function has been tested in 1920x1280 and 150% display zoom 
 - pull request contains a description how the function of the ticket can be tested and approved

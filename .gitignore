@@ -76,3 +76,6 @@ vue.config.local.js
 /robots.txt
 /update.php
 /web.config
+
+# ignore PHPUnit cache files
+.phpunit.*.cache

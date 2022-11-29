@@ -23,7 +23,8 @@ export default {
   mixins: [requestBroker],
   data () {
     return {
-      text: ""
+      text: "",
+      showBanner: true
     };
   },
   computed: {
@@ -59,7 +60,7 @@ export default {
 
 <template>
   <div
-    v-if="!hasCookie && !$root.cookieBannerConfirmed"
+    v-if="!hasCookie && !$root.cookieBannerConfirmed && showBanner"
     class="cookieBanner"
     role="dialog"
   >
@@ -70,9 +71,15 @@ export default {
     <button
       v-if="$root.isMobile"
       class="closebutton"
-      @click="$root.cookieBannerConfirmed = true"
+      :aria-label="$t('Cookiebar.closeButton')"
+      @click="showBanner = false"
     >
-      <i class="material-icons">close</i>
+      <i
+        aria-hidden="true"
+        class="material-icons"
+      >
+        close
+      </i>
     </button>
 
     <div class="text">
@@ -84,7 +91,9 @@ export default {
         <span
           class="dataPrivacyLink"
           role="link"
+          tabindex="0"
           @click="gotoToDataprivacyPage()"
+          @keyup.enter="gotoToDataprivacyPage()"
         >
           {{ $t('Cookiebar.linktext') }}
         </span>
@@ -173,6 +182,12 @@ export default {
 
     div.cookieBanner div.text span.dataPrivacyLink:hover {
         text-decoration: underline;
+    }
+
+    div.cookieBanner div.text span.dataPrivacyLink:focus-visible {
+      padding: 3px;
+      outline: 1px solid #ffffff;
+      margin: auto 4px;
     }
 
     div.cookieBanner div.text p,

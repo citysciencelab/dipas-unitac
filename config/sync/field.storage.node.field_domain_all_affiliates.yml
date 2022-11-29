@@ -2,11 +2,11 @@ uuid: 05ef2307-630e-4e9d-9d71-50e85c448c77
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - domain_access
-  module:
-    - node
 _core:
   default_config_hash: r9WVqyCC-OcWIvrMHvSqNavFjzjAVyVQCqTL7cXvwQo
 id: node.field_domain_all_affiliates

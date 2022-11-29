@@ -74,6 +74,7 @@ export default {
   <section
     class="appointment"
     tabindex="0"
+    role="link"
     @click="showDetails = true"
     @keyup.enter="showDetails = true"
   >
@@ -90,7 +91,13 @@ export default {
       role="link"
       :aria-describedby="rndid"
     >
-      {{ $t("Schedule.Item.details") }}<i class="material-icons">play_arrow</i>
+      {{ $t("Schedule.Item.details") }}
+      <i
+        aria-hidden="true"
+        class="material-icons"
+      >
+        play_arrow
+      </i>
     </p>
     <hr />
     <p class="address">
@@ -149,13 +156,14 @@ export default {
 
 <style>
     section.appointment {
-        background-color: #F0F0F0;
+        background-color: #ffffff;
+        border: 2px solid #707070;
         padding: 32px;
-        margin-bottom: 10px;
+        margin-bottom: 16px;
     }
 
     section.appointment h2 {
-        font-size: 1rem;
+        font-size: 1.5rem;
         font-weight: bold;
         color: #003063;
         padding: 0;

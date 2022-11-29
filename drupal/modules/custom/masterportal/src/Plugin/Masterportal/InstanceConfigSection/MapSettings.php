@@ -32,6 +32,20 @@ class MapSettings extends InstanceConfigSectionBase {
   protected $startCenter;
 
   /**
+   * Map panning with two fingers only?
+   *
+   * @var Boolean
+   */
+  protected $twoFingerPan;
+
+  /**
+   * Should scale options be integrated in config.json?
+   *
+   * @var Boolean
+   */
+  protected $useScaleOptions;
+
+  /**
    * A set of different detail levels.
    *
    * @var array
@@ -58,6 +72,8 @@ class MapSettings extends InstanceConfigSectionBase {
   public static function getDefaults() {
     return [
       'startCenter' => '[565874, 5934140]',
+      'twoFingerPan' => FALSE,
+      'useScaleOptions' => TRUE,
       'options' => [
         ['resolution' => 66.14579761460263, 'scale' => 250000, 'zoomLevel' => 0],
         ['resolution' => 26.458319045841044, 'scale' => 100000, 'zoomLevel' => 1],
@@ -79,8 +95,7 @@ class MapSettings extends InstanceConfigSectionBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormSectionElements(FormStateInterface $form_state) {
-
+  public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
     $center = json_decode($this->startCenter);
     $center = sprintf('%d,%d', $center[0], $center[1]);
 
@@ -149,11 +164,27 @@ class MapSettings extends InstanceConfigSectionBase {
           'style' => 'width: 700px;',
         ],
       ],
+      'twoFingerPan' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Use two finger pan', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('Should panning the map only be possible using two fingers?', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->twoFingerPan,
+      ],
+      'useScaleOptions' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Use map scale options', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('Should map scale options get included in the Masterportal configuration?.', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->useScaleOptions,
+      ],
       'options' => [
         '#type' => 'details',
         '#title' => $this->t('Map scale options', [], ['context' => 'Masterportal']),
         '#description' => $this->t('The scale options the map utilizes.', [], ['context' => 'Masterportal']),
         '#description_display' => 'before',
+        '#plugin' => $pluginIdentifier,
+        '#states' => [
+          'visible' => [':input[type="checkbox"][name="settings[MapSettings][useScaleOptions]"]' => ['checked' => TRUE]],
+        ],
       ],
     ];
 
@@ -180,10 +211,12 @@ class MapSettings extends InstanceConfigSectionBase {
         '#min' => 0.1,
         '#max' => 75,
         '#step' => 0.00000000000000001,
-        '#required' => TRUE,
         '#inline' => TRUE,
         '#attributes' => [
           'style' => 'width: 700px;',
+        ],
+        '#states' => [
+          'required' => [':input[type="checkbox"][name="settings[MapSettings][useScaleOptions]"]' => ['checked' => TRUE]],
         ],
       ],
       'scale' => [
@@ -191,16 +224,20 @@ class MapSettings extends InstanceConfigSectionBase {
         '#title' => $this->t('Map scale', [], ['context' => 'Masterportal']),
         '#default_value' => !empty($row_defaults['scale']) ? $row_defaults['scale'] : 2000,
         '#options' => array_combine(range(500, 250000, 500), range(500, 250000, 500)),
-        '#required' => TRUE,
         '#inline' => TRUE,
+        '#states' => [
+          'required' => [':input[type="checkbox"][name="settings[MapSettings][useScaleOptions]"]' => ['checked' => TRUE]],
+        ],
       ],
       'zoomLevel' => [
         '#type' => 'select',
         '#title' => $this->t('Zoom level', [], ['context' => 'Masterportal']),
         '#default_value' => !empty($row_defaults['zoomLevel']) ? $row_defaults['zoomLevel'] : 0,
         '#options' => array_combine(range(0, 15), range(0, 15)),
-        '#required' => TRUE,
         '#inline' => TRUE,
+        '#states' => [
+          'required' => [':input[type="checkbox"][name="settings[MapSettings][useScaleOptions]"]' => ['checked' => TRUE]],
+        ],
       ],
     ];
   }
@@ -247,7 +284,12 @@ class MapSettings extends InstanceConfigSectionBase {
     $data = [];
     foreach (self::getDefaults() as $property => $default) {
       if ($property !== 'options') {
-        $data[$property] = !empty($rawFormData[$property]) ? $rawFormData[$property] : $default;
+        if (!is_bool($default)) {
+          $data[$property] = !empty($rawFormData[$property]) ? $rawFormData[$property] : $default;
+        }
+        else {
+          $data[$property] = isset($rawFormData[$property]) ? (bool) $rawFormData[$property] : $default;
+        }
       }
       else {
         $data['options'] = self::getData('options', $form_state->getUserInput());
@@ -284,11 +326,14 @@ class MapSettings extends InstanceConfigSectionBase {
         $config->Portalconfig->mapView->startCenter = json_decode($this->startCenter, JSON_UNESCAPED_UNICODE + JSON_PRETTY_PRINT);
         $config->Portalconfig->mapView->startZoomLevel = $this->zoomLevel;
         $config->Portalconfig->mapView->epsg = $this->epsg;
+        $config->Portalconfig->mapView->twoFingerPan = $this->twoFingerPan;
 
         // Insert map scale options.
-        $config->Portalconfig->mapView->options = array_map(function ($option) {
-          return (object) $option;
-        }, $this->options);
+        if ($this->useScaleOptions) {
+          $config->Portalconfig->mapView->options = array_map(function ($option) {
+            return (object) $option;
+          }, $this->options);
+        }
         break;
     }
   }

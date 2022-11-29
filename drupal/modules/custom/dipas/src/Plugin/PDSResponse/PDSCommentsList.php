@@ -7,11 +7,8 @@
 namespace Drupal\dipas\Plugin\PDSResponse;
 
 use stdClass;
-use Drupal\Core\Url;
 use Drupal\masterportal\GeoJSONFeature;
-use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\dipas\Plugin\ResponseKey\RetrieveRatingTrait;
 use Drupal\dipas\Plugin\ResponseKey\RetrieveCommentsTrait;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
 
@@ -86,6 +83,10 @@ class PDSCommentsList extends PDSResponseBase {
     $contr_ID = '';
     $domain_id = $this->domainModulePresent ? $this->currentRequest->attributes->get('proj_ID'): 'default';
     $dipasConfigDomain = $this->dipasConfig->getEditable(sprintf('dipas.%s.configuration', $domain_id));
+
+    if ($dipasConfigDomain->get('Export.proceeding_is_internal')) {
+      return $features;
+    }
 
     if ($this->currentRequest->attributes->get('type') === 'contributions' &&
       $this->currentRequest->attributes->get('contr_ID') !== '0'){

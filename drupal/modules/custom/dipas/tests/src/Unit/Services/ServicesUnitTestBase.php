@@ -136,7 +136,7 @@ abstract class ServicesUnitTestBase extends UnitTestCase {
    * {@inheritdoc}
    */
 
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Mock Drupal core services.
@@ -153,10 +153,12 @@ abstract class ServicesUnitTestBase extends UnitTestCase {
     $this->routeMatchInterface = $this->prophesize(RouteMatchInterface::class);
     $this->languageManagerInterface = $this->prophesize(LanguageManagerInterface::class);
     $this->entityServicesInterface = $this->prophesize(EntityServicesInterface::class);
+    $this->entityViewDisplayStorage = $this->prophesize(EntityStorageInterface::class);
 
     // Set the return value of core service methods.
     $this->entityStorageInterface->getQuery(Argument::any())->willReturn($this->entityQueryInterface->reveal());
     $this->entityStorageInterface->loadMultiple(Argument::any())->willReturn(TRUE);
+    $this->entityStorageInterface->load(Argument::any())->willReturn();
 
     $this->entityTypeManager->getStorage(Argument::any())->willReturn($this->entityStorageInterface->reveal());
     $this->entityTypeManager->getViewBuilder(Argument::any())->willReturn($this->entityViewBuilderInterface->reveal());
@@ -166,7 +168,6 @@ abstract class ServicesUnitTestBase extends UnitTestCase {
 
     // Trigger implemented unit tests.
     $this->setUpTestObject();
-
   }
 
   /**

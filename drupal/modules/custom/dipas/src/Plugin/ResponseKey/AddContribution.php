@@ -22,7 +22,8 @@ use Drupal\dipas\Plugin\SettingsSection\ContributionSettings;
  *   requestMethods = {
  *     "POST",
  *   },
- *   isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey

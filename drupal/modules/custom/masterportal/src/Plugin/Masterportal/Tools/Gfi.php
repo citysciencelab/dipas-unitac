@@ -31,13 +31,6 @@ class Gfi extends PluginBase implements ToolPluginInterface {
   protected $name;
 
   /**
-   * The icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * Is this plugin active by default?
    *
    * @var bool
@@ -57,7 +50,6 @@ class Gfi extends PluginBase implements ToolPluginInterface {
   public static function getDefaults() {
     return [
       'name' => 'Informationen abfragen',
-      'glyphicon' => 'glyphicon-info-sign',
       'active' => TRUE,
       'isVisibleInMenu' => FALSE,
     ];
@@ -77,11 +69,6 @@ class Gfi extends PluginBase implements ToolPluginInterface {
         '#default_value' => $this->name,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
       'active' => [
         '#type' => 'checkbox',
         '#title' => $this->t('Active by default', [], ['context' => 'Masterportal']),
@@ -102,7 +89,6 @@ class Gfi extends PluginBase implements ToolPluginInterface {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
       'active' => (bool) $this->active,
       'isVisibleInMenu' => (bool) $this->isVisibleInMenu,
     ];
@@ -113,7 +99,6 @@ class Gfi extends PluginBase implements ToolPluginInterface {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->active = $this->active;
     $pluginSection->isVisibleInMenu = $this->isVisibleInMenu;
   }

@@ -384,16 +384,23 @@ export const requestBroker = {
      */
     doRequest: function (request) {
       if (!_.isUndefined(request.method) && !_.isUndefined(this.$http[request.method.toLowerCase()])) {
+        const paramString = [],
+          requestToken = this.$store.getters.requestToken("NYZM6QccC8f7pZEoN7U37TxyExfPBxIP");
+
         let url = "drupal/dipas/" + request.endpoint;
 
-        if (!_.isUndefined(request.params)) {
-          const paramString = [];
+        if (requestToken) {
+          paramString.push("token=" + requestToken);
+        }
 
+        if (!_.isUndefined(request.params)) {
           _.each(request.params, (value, key) => {
             paramString.push(key + "=" + value);
           });
-          url += "?" + paramString.join("&");
         }
+
+        url += "?" + paramString.join("&");
+
         return this.$http[request.method.toLowerCase()](url, request.payload ? request.payload : null);
       }
       console.error("Unknown request method!");
@@ -430,6 +437,5 @@ export const requestBroker = {
       }
       this.$root.showErrorModal(this.$t("ErrorMessages.unknown"), errorMessage);
     }
-
   }
 };

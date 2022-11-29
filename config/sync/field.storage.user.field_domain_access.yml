@@ -2,12 +2,12 @@ uuid: de3904d8-7e95-4601-99f1-f190d8dff0b0
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - domain_access
   module:
     - domain
     - user
+  enforced:
+    module:
+      - domain_access
 _core:
   default_config_hash: VQ8MqlapqrEiCu_rircuCTMq_BnHCZF6SQemk-zHXKs
 id: user.field_domain_access

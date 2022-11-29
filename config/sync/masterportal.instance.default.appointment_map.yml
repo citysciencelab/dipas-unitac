@@ -3,11 +3,9 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.appointment_map
-uid: '1'
 instance_name: appointment_map
-label: 'Appointment map'
 domain: default
-hidden: false
+label: 'Appointment map'
 settings:
   BackgroundLayerSettings:
     layer:
@@ -72,24 +70,33 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
-      name: Katgorieauswahl
-      glyphicon: glyphicon-filter
+      name: Kategorieauswahl
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: true
-      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
+      predefinedQueries: |-
+        [
+            {
+                "layerId": "contributions",
+                "isActive": true,
+                "isSelected": true,
+                "name": "Alle",
+                "liveZoomToFeatures": false,
+                "attributeWhiteList": [
+                    "Thema"
+                ],
+                "snippetType": "checkbox-classic"
+            }
+        ]
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: Masterportal
     logo: ''
@@ -110,3 +117,5 @@ settings:
   ToolSettings:
     activePlugins: {  }
     plugins: {  }
+uid: '1'
+hidden: false

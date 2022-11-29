@@ -8,10 +8,11 @@ namespace Drupal\dipas\Plugin\CockpitDataResponse;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\dipas\PluginSystem\CockpitDataResponsePluginInterface;
-use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\masterportal\DomainAwareTrait;
+use Drupal\dipas\ProceedingListingMethodsTrait;
 
 /**
  * Class CockpitDataResponseBase.
@@ -21,6 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInterface {
 
   use StringTranslationTrait;
+  use DomainAwareTrait;
+  use ProceedingListingMethodsTrait;
 
   /**
    * This plugins' defintion.
@@ -87,24 +90,9 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
   protected $moduleHandler;
 
   /**
-   * @var bool
-   */
-  protected $domainModulePresent;
-
-  /**
-   * @var bool
-   */
-  protected $isSubdomain;
-
-  /**
    * @var \Drupal\domain\DomainInterface|null
    */
   protected $activeDomain;
-
-  /**
-   * @var string
-   */
-  protected $domainSuffix;
 
   /**
    * CockpitDataResponseBase constructor.
@@ -135,7 +123,6 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
     $this->languageManager = $container->get('language_manager');
     $this->moduleHandler = $container->get('module_handler');
     $this->setAdditionalDependencies($container);
-
   }
 
   /**
@@ -155,6 +142,13 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
   /**
    * {@inheritdoc}
    */
+  protected function getDipasConfig() {
+    return $this->dipasConfig;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCookies() {
     return [];
   }
@@ -167,8 +161,6 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
     $pluginCacheTags = $this->getResponseKeyCacheTags();
     return array_unique(array_merge($commonCacheTags, $pluginCacheTags));
   }
-
-  
 
   /**
    * Returns the settings with maintenance message only.
@@ -184,6 +176,25 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
   }
 
   /**
+   * Helper function to retrieve the proceeding configuration object.
+   *
+   * @param string $domainid
+   *   The proceeding id.
+   *
+   * @return \Drupal\Core\Config\Config|\Drupal\Core\Config\ImmutableConfig
+   *   The desired configuration object.
+   */
+  protected function getConfig($domainid) {
+    $configs = drupal_static('dipas_domain_configs', []);
+
+    if (!isset($configs[$domainid])) {
+      $configs[$domainid] = $this->configFactory->get(sprintf('dipas.%s.configuration', $domainid));
+    }
+
+    return $configs[$domainid];
+  }
+
+  /**
    * {@inheritdoc}
    */
   final public function getResponseData() {
@@ -193,6 +204,13 @@ abstract class CockpitDataResponseBase implements CockpitDataResponsePluginInter
     else {
       return $this->getPluginResponse();
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function postProcessResponse(array $responsedata) {
+    return $responsedata;
   }
 
   /**
