@@ -245,9 +245,13 @@ class MenuSettings extends InstanceConfigSectionBase {
         // Inject the filter section.
         $config->Portalconfig->menu->filter->name = $this->filter["name"];
         $config->Portalconfig->menu->filter->deactivateGFI = $this->filter["deactivateGFI"];
-        $config->Portalconfig->menu->filter->active = $this->filter["active"];
+        $config->Portalconfig->menu->filter->active = !empty($this->filter["active"])
+          ? $this->filter["active"]
+          : FALSE;
         $config->Portalconfig->menu->filter->liveZoomToFeatures = $this->filter["liveZoomToFeatures"];
-        $config->Portalconfig->menu->filter->layerSelectorVisible = $this->filter["layerSelectorVisible"];
+        $config->Portalconfig->menu->filter->layerSelectorVisible = !empty($this->filter["layerSelectorVisible"])
+          ? $this->filter["layerSelectorVisible"]
+          : FALSE;
         $config->Portalconfig->menu->filter->isVisibleInMenu = $this->filter["isVisibleInMenu"];
         $config->Portalconfig->menu->filter->layers = !empty($this->filter["layers"])
           ? json_decode($this->filter["layers"])
