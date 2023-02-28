@@ -5,6 +5,80 @@ This file contains all valuable change to the DIPAS project.
 
 We use semantic versioning.
 
+Version 2.2.2 23-02-23
+=========================
+
+** Story
+    * Drupal Modulupdates & Bereitstellung RC
+    * Backend und Frontend für neues Feature "DIPAS Stories" vorbereiten
+    * Backend für neues Feature "DIPAS navigator" vorbereiten (noch nicht als OS released)
+    * Hard gecodete EPSG Codes konfigurierbar machen
+    * Prüfungsmechanik services.json
+    * .htaccess: Umleitung auf Unterordner /dipas/ rausnehmen
+    * verfahrenskarte mouseover funktioniert nicht
+    * Onlinetool Auswertungsseite: Chart Grafiken zu klein bei langen Texten
+    * Zugriffs-Counter für DIPAS navigator und Einzelverfahren
+    * Drupal Karteneinstellungen um Parameter twoFingerPan erweitern
+    * Onlinetool Sidebar / Downloads: Begriff "Verfahrensauswertung" ausblenden, wenn keine Verfahrensauswertung hochgeladen wurde
+    * Masterportal Version in Drupal aktualisieren 
+    * Übersetzungen im Backend vornehmen
+    * check drupal loggins configuration and increase number of stored entries
+    * update size of media type conception_md for concenption teazers
+    * change download type from "Dokumentation" to "Verfahrensauswertung"
+    * Schriftgröße Modalbuttons anpassen
+    * Backend: Verfahrensattribut "Absender" im DIPAS-Backend konfigurieren können
+    * Backend: "Verfahrensbezirk" im Backend konfigurierbar machen
+    * Themen-Auswahl im Backend
+    * Sicherheitsmaßnahme "Token" / "Shared Secret" implementieren
+    * Verfahren für PDS-API deaktivieren könnenn
+    * PDS-API: Beiträge ohne Verortung bekommen Projektgebietpolygon als Koordinate
+    * MasterportalAPI GeoJSON afterLoading-Event
+    * Adress Feld Bezeichnung Company umbennen
+    * Abfangen, dass Kommentare ausschließlich Leerzeichen enthalten
+    * Wizard-Buttons: Pfeile & Texte vertikal zentriert ausrichten
+    * Verbesserung der Barrierefreiheit
+    * Willkommensmodal bei 200% Textzoom (zoom textonly)
+    * Konturen um Beiträge in der Beitragsliste
+    * Kommentarfunktion Styling anpassen
+    * Dropdown statt Radiobutton bei mehr als 10 Kategorien
+    * "Graue Kasten" entfernen, Styling anpassen
+    * Auswertungsseite: Titel Charts anpassen
+    * IP-Adressen im Drupal automatisiert lösche
+    * Download-Typ: "Dokumentation" implementieren
+    * Anzahl gefilteter Beiträge
+    * Plugin zum Starten des MPs in 3D
+    * Feedback Beitragsbewertung
+    * Filter-Einstellungen im DIPAS-Backend anpassen
+    * Hartgecodete EPSG-Codes für Masterportal-Steuerung entfernen
+    * Update auf Drush 10   
+
+** Bug
+    * MapSettings-Widget: Beim entfernen eines Layers die LayerID aus visibleLayers löschen
+    * Löschen von rows im MultivalueRowTrait funktioniert nicht
+    * Filter im Masterportal auf neuen Filter anpassen
+    * MP Instanzkonfiguration: Portallogo Konfiguration buggy
+    * Hotfix neue Filtereinstellungen nicht null
+    * DIPAS-Frontend mobil: Abschlussdialog lässt sich nicht scrollen
+    * Masterportal: Parameter in der URL des config.json müssen erhalten bleiben
+    * Masterportal uiStyle Table funktioniert nicht
+    * Willkommensmodal mobil teilweise überdeckt
+    * allow deletion of proceedings
+    * allow renaming of proceedings (NOT default) and transfer all content
+    * fix broken buttons in mobile wizard
+    * glyphicons in masterportal konfigurationsoberfläche verschwunden
+    * DIPAS Admin-Backend: sidebar buggy
+    * Onlinetool: Burgermenü auf kleinen Bildschirmen -> Inhalte verdeckt
+    * Patch für vertical-tabs erzeugen
+    * Terminerstellung - Marker nicht setzbar
+    * Wenn GFI Tool mit isVisibleInMenu und sonst kein weiteres Tool konfigurirert
+    * Wizard - zurück von Step 2 zu Step 1 - values undefined
+    * PDS Documentation Response überprüfen! Only TAGGED files.
+    * masterportal.config.basic in config-ignore tab aufnehmen
+    * Fix Masterportal withoutGUIDraw
+    * free the tax lineItemCreator tied up from domain_access_all in Drupal
+    * Bewertung ohne Cookie mobil fehlerhaft
+
+
 Version 2.2.0 22-11-29
 =========================
 
