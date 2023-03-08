@@ -68,7 +68,7 @@ export default {
       if (cookie !== null && cookie.hasOwnProperty("splashModalLastShown") && cookie.splashModalLastShown !== undefined) {
         const modalTime = moment(cookie.splashModalLastShown);
 
-        modalTime.add(this.timeBetweenSplashModals, "Minute");
+        modalTime.add(this.timeBetweenSplashModals, this.$t("FirstModal.minute"));
         if (modalTime > moment()) {
           cookieForbidsModal = true;
         }

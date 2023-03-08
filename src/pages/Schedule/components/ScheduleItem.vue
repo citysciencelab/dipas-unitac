@@ -39,18 +39,21 @@ export default {
      * @returns {String} appointment date
      */
     appointmentDate () {
+      // TODO time
       let appointmentDate = moment(this.appointment.start).format("DD.MM.YYYY - HH:mm");
 
       if (this.appointment.end) {
         if (moment(this.appointment.start).get("day") === moment(this.appointment.end).get("day")) {
-          appointmentDate += " bis " + moment(this.appointment.end).format("HH:mm") + " Uhr";
+          // TODO time
+          appointmentDate += " " + this.$t("Schedule.Item.until") + " " + moment(this.appointment.end).format("HH:mm") + " " + this.$t("Schedule.Item.oClock");
         }
         else {
-          appointmentDate += " Uhr bis " + moment(this.appointment.end).format("DD.MM.YYYY - HH:mm") + " Uhr";
+          // TODO time
+          appointmentDate += " " + this.$t("Schedule.Item.oClock") + " " + this.$t("Schedule.Item.until") + " " + moment(this.appointment.end).format("DD.MM.YYYY - HH:mm") + " " + this.$t("Schedule.Item.oClock");
         }
       }
       else {
-        appointmentDate += " Uhr";
+        appointmentDate += " " + this.$t("Schedule.Item.oClock");
       }
       return appointmentDate;
     },

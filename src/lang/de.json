@@ -12,7 +12,8 @@
     "projectFinished": "Das Verfahren lief bis zum {{projectEnd}}.",
     "infoButton": "Jetzt informieren",
     "startButton": "Beitrag erstellen",
-    "conceptionsButton": "Entwürfe ansehen"
+    "conceptionsButton": "Entwürfe ansehen",
+    "minute": "Minute"
   },
   "Cookiebar": {
     "title": "Wir verwenden Cookies!",
@@ -35,6 +36,8 @@
     "loadMore": "Weitere Beiträge laden",
     "addNew": "Beitrag erstellen",
     "ContributionListFilter": {
+      "cancel": "Abbrechen",
+      "ok": "Auswahl übernehmen",
       "filterOptions": "Filteroptionen",
       "termSelectHeadlineCat": "Kategorie wählen",
       "termSelectTitleCat": "Kategorie",

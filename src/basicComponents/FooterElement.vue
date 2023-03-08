@@ -81,7 +81,7 @@ export default {
           v-if="$route.meta.hasCreateButton && projectRunning && takesNewContributions"
           class="red angular"
           icon="add"
-          text="Beitrag erstellen"
+          :text="$t('ContributionList.addNew')"
           @click="$root.$emit('createContribution')"
         />
         <!--
