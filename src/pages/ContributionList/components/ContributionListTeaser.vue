@@ -65,7 +65,7 @@ export default {
      * @returns {String} date and time when the teaser was created
      */
     created () {
-      return moment(this.teaser.created).format("DD.MM.YYYY | HH:mm") + " Uhr";
+      return moment(this.teaser.created).format(this.$t("ContributionList.ContributionListTeaser.datetimeFormat")) + " " + this.$t("ContributionList.ContributionListTeaser.oClock");
     }
   }
 };

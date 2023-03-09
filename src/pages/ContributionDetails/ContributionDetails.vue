@@ -47,7 +47,7 @@ export default {
      * @returns {String} date of the contribution creation
      */
     created () {
-      return moment(this.contribution.created).format("DD.MM.YYYY | HH:mm:ss") + "&nbsp;" + this.$t("ContributionDetails.oClock");
+      return moment(this.contribution.created).format(this.$t("ContributionDetails.datetimeFormat")) + " " + this.$t("ContributionDetails.oClock");
     },
     /**
      * serves the contribution category
