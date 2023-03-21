@@ -1,0 +1,5 @@
+pipelines:
+  custom:
+    open_source_deployment:
+      - step:
+          name: Deploy DIPAS OS to Open Code
