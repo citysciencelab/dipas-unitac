@@ -3,3 +3,12 @@ pipelines:
     open_source_deployment:
       - step:
           name: Deploy DIPAS OS to Open Code
+          script:
+            - git config --global user.name "DIPAS DEV"
+            - git config --global user.email "dipas-dev@gv.hamburg.de"
+            - git status
+            - ssh -T git@gitlab.opencode.de
+            - git remote remove origin
+            - git remote add origin git@gitlab.opencode.de:dipas/dipas-core/dipas-core.git
+            - git push -u -f origin --all
+            - git push -u -f origin --tags
