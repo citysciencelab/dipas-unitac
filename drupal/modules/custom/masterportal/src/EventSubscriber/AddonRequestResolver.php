@@ -6,6 +6,7 @@
 
 namespace Drupal\masterportal\EventSubscriber;
 
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -29,13 +30,22 @@ class AddonRequestResolver implements EventSubscriberInterface {
   protected $currentRequest;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * AddonRequestResolver constructor.
    *
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The currently processed request.
    */
-  public function __construct(RequestStack $request_stack) {
+  public function __construct(
+    RequestStack $request_stack,
+    ExtensionPathResolver $extension_path_resolver
+  ) {
     $this->currentRequest = $request_stack->getCurrentRequest();
+    $this->extensionPathResolver = $extension_path_resolver;
   }
 
   /**
@@ -54,7 +64,7 @@ class AddonRequestResolver implements EventSubscriberInterface {
     $requestUriPattern = sprintf(
       '~^%1$s%2$s/libraries/masterportal/(js|css)/~',
       base_path(),
-      drupal_get_path('module', 'masterportal')
+      $this->extensionPathResolver->getPath('module', 'masterportal')
     );
     if (preg_match($requestUriPattern, $this->currentRequest->getRequestUri(), $matches)) {
       $fileRequested = pathinfo(

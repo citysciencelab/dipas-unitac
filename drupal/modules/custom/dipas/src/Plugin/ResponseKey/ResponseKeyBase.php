@@ -138,7 +138,7 @@ abstract class ResponseKeyBase implements ResponseKeyPluginInterface {
     $this->state = $container->get('state');
     $this->configFactory = $container->get('config.factory');
     $this->logger = $container->get('logger.channel.dipas');
-    $this->dipasConfig = $container->get('dipasconfig.api');
+    $this->dipasConfig = $container->get('dipas.config');
     $this->entityTypeManager = $container->get('entity_type.manager');
     $this->serializer = $container->get('serializer');
     $this->database = $container->get('database');
@@ -253,7 +253,7 @@ abstract class ResponseKeyBase implements ResponseKeyPluginInterface {
   protected function getMaintenanceMessage() {
     return [
       'maintenanceMode' => TRUE,
-      'maintenanceMessage' => str_replace('@site', $this->dipasConfig->get('ProjectInformation/site_name'), $this->configFactory->get('system.maintenance')->get('message')),
+      'maintenanceMessage' => str_replace('@site', $this->dipasConfig->get('ProjectInformation.site_name'), $this->configFactory->get('system.maintenance')->get('message')),
     ];
   }
 

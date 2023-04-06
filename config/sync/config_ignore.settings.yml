@@ -3,8 +3,10 @@ _core:
 langcode: en
 ignored_config_entities:
   - 'dipas.*.configuration'
-  - 'masterportal.config.basic'
+  - masterportal.config.basic
   - 'masterportal.instance.*'
   - 'masterportal.config.*.layers'
+  - 'masterportal.config.*.projections'
   - 'domain.record.*'
   - 'system.action.domain_access_*'
+  - ~masterportal.instance.default.dipas_story_telling

@@ -1,0 +1,16 @@
+uuid: 4ab0726a-1409-4601-a25c-39513519e05e
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_ee
+third_party_settings:
+  paragraphs_ee:
+    paragraphs_categories:
+      content: content
+id: image_with_text
+label: 'Bild mit Text'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

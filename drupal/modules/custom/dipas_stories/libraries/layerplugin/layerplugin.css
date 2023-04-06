@@ -1,0 +1,77 @@
+.layerContainer span.select2 {
+  width: 100% !important;
+}
+
+.layerConfiguration .selectedLayerContainer {
+  padding: 10px;
+  background-color: #eeeeee;
+  border: solid 1px #000000;
+}
+
+.layerConfiguration .selectedLayerContainer.sortableList .layer {
+  cursor: ns-resize;
+}
+
+.layerConfiguration .selectedLayerContainer .layer {
+  margin-bottom: 5px;
+}
+
+.layerConfiguration .selectedLayerContainer .layer:last-child {
+  margin-bottom: 0;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner {
+  position: relative;
+  border: solid 1px #cccccc;
+  background-color: #f5f5f5;
+  padding: 5px;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .remove {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: red;
+  color: white;
+  padding: 1px 3px 0;
+  white-space: unset;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details {
+  margin-top: 10px;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details > label {
+  display: block;
+  cursor: pointer;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details > label:after {
+  display: inline-block;
+  cursor: pointer;
+  content: "\2039";
+  transform: rotate(180deg);
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details > label.opened:after {
+  transform: rotate(-90deg);
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details .inputs {
+  margin-top: 10px;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details .inputs > div:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details .inputs > div input,
+.layerConfiguration .selectedLayerContainer .layer .inner .details .inputs > div textarea {
+  width: 95%;
+}
+
+.layerConfiguration .selectedLayerContainer .layer .inner .details .inputs > div > label {
+  font-weight: normal;
+}

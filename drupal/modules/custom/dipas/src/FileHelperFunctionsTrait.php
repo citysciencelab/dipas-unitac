@@ -57,7 +57,7 @@ trait FileHelperFunctionsTrait {
 
       $file_data = [
         'name' => $file_name,
-        'url' => file_create_url($this->getFileUriFromFileId($file_fid)),
+        'url' => $this->getFileUrlGenerator()->generateAbsoluteString($this->getFileUriFromFileId($file_fid)),
         'mimetype' => $file->getMimeType(),
         'size' => $file->getSize(),
         'fordoc' => (boolean) (($flag = $media_entity->get('field_serve_for_documentation')->first()) ? $flag->get('value')->getString() : FALSE),
@@ -141,5 +141,10 @@ trait FileHelperFunctionsTrait {
   abstract protected function listingIsDomainSensitive($isSensitive = NULL);
 
   abstract protected function getProceedingIDs($onlyVisible = FALSE);
+
+  /**
+   * @return \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  abstract protected function getFileUrlGenerator();
 
 }

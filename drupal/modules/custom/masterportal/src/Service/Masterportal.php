@@ -14,7 +14,19 @@ use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Url;
 use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\Entity\MasterportalInstanceInterface;
+use Drupal\masterportal\Event\MasterportalCacheEvents;
+use Drupal\masterportal\Event\MasterportalCacheIdCreate;
+use Drupal\masterportal\Event\MasterportalCacheTagsCreate;
+use Drupal\masterportal\Event\MasterportalConfigEvents;
+use Drupal\masterportal\Event\MasterportalJavaScriptCreate;
+use Drupal\masterportal\Event\MasterportalJsonCreate;
+use Drupal\masterportal\Event\MasterportalLayerdefinitionsCreate;
+use Drupal\masterportal\Event\MasterportalLayerstylesCreate;
+use Drupal\masterportal\Event\MasterportalResponseBeforeSend;
+use Drupal\masterportal\Event\MasterportalResponseEvents;
 use Drupal\masterportal\PluginSystem\PluginManagerInterface;
+use stdClass;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -60,6 +72,11 @@ class Masterportal implements MasterportalInterface {
    * @var MasterportalTokenServiceInterface
    */
   protected $tokenService;
+
+  /**
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * The storage for nodes.
@@ -125,6 +142,11 @@ class Masterportal implements MasterportalInterface {
   protected $wfsStylePluginManager;
 
   /**
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
    * Masterportal constructor.
    *
    * @param \Drupal\masterportal\Service\MasterportalConfigInterface $config
@@ -159,20 +181,23 @@ class Masterportal implements MasterportalInterface {
     LayerServiceInterface $layer_service,
     PluginManagerInterface $instance_config_section_manager,
     PluginManagerInterface $wfs_style_plugin_manager,
-    PluginManagerInterface $layer_plugin_manager
+    PluginManagerInterface $layer_plugin_manager,
+    EventDispatcherInterface $event_dispatcher
   ) {
     $this->config = $config;
     $this->logger = $logger;
     $this->tokenService = $token_service;
-    $this->nodeStorage = $entity_type_manager->getStorage('node');
-    $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
-    $this->fileStorage = $entity_type_manager->getStorage('file');
+    $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $this->entityTypeManager->getStorage('node');
+    $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $this->fileStorage = $this->entityTypeManager->getStorage('file');
     $this->cacheBackend = $cache_backend;
     $this->currentRequest = $request_stack->getCurrentRequest();
     $this->layerService = $layer_service;
     $this->instanceConfigSectionManager = $instance_config_section_manager;
     $this->wfsStylePluginManager = $wfs_style_plugin_manager;
     $this->layerPluginManager = $layer_plugin_manager;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
   /**
@@ -255,8 +280,7 @@ class Masterportal implements MasterportalInterface {
    * {@inheritdoc}
    */
   public function createResponse($key, $content_type, $preprocess = NULL, MasterportalInstanceInterface $masterportal_instance = NULL) {
-
-    // Construct the cache ID of the current request.
+    // Get the cacheID for the current request
     $cacheID = sprintf(
       '%s:%s:%s',
       self::CACHE_ID_PREFIX,
@@ -294,6 +318,11 @@ class Masterportal implements MasterportalInterface {
       // Suffix the cache ID with the context hash.
       $cacheID .= ':' . hash('sha256', implode(':', $context_values));
     }
+
+    // Dispatch an event to allow extensions to modify the cache id.
+    $cacheIdEvent = new MasterportalCacheIdCreate($cacheID, $masterportal_instance);
+    $this->eventDispatcher->dispatch($cacheIdEvent, MasterportalCacheEvents::CacheIdCreate);
+    $cacheID = $cacheIdEvent->getConfiguration();
 
     // First, try to get a valid cache for the configuration requested.
     $cache = $this->cacheBackend->get($cacheID);
@@ -352,6 +381,7 @@ class Masterportal implements MasterportalInterface {
       }
 
       // Replace possible placeholder variables.
+      $this->tokenService->setFileSystemTokenReplacement(FALSE);
       $content = $this->tokenService->replaceTokens(
         $content,
         array_merge($this->tokenService->getTokens('path'), $this->tokenService->getTokens('layer'))
@@ -376,7 +406,14 @@ class Masterportal implements MasterportalInterface {
           });
           $cacheTags = array_merge($cacheTags, $routingCacheTags);
         }
+
         $cacheTags = array_merge($cacheTags, $preprocessCacheTags);
+
+        // Dispatch an event to allow possible extensions to modify the cache tags
+        $cacheTagsEvent = new MasterportalCacheTagsCreate($cacheTags, $masterportal_instance);
+        $this->eventDispatcher->dispatch($cacheTagsEvent, MasterportalCacheEvents::CacheTagsCreate);
+        $cacheTags = $cacheTagsEvent->getConfiguration();
+
         $this->cacheBackend->set($cacheID, $content, Cache::PERMANENT, $cacheTags);
       }
 
@@ -392,6 +429,31 @@ class Masterportal implements MasterportalInterface {
     // Build and return a response object.
     $response = new Response($content);
     $response->headers->set('Content-Type', $content_type);
+
+    // Allow requests from all subdomains
+    $baseHost = $this->currentRequest->getHost();
+
+    if (!preg_match('~localhost$~', $baseHost)) {
+      // Allow requests from all subdomains
+      $baseHost = explode('.', $baseHost);
+
+      while (count($baseHost) > 2) {
+        array_shift($baseHost);
+      }
+
+      $baseHost = implode('.', $baseHost);
+    }
+    else {
+      $baseHost = 'localhost';
+    }
+
+    $response->headers->set('Access-Control-Allow-Origin', sprintf('*.%s', $baseHost));
+
+    // Allow extensions to modify the raw response.
+    $beforeSendEvent = new MasterportalResponseBeforeSend($masterportal_instance);
+    $this->eventDispatcher->dispatch($beforeSendEvent, MasterportalResponseEvents::beforeSend);
+    $beforeSendEvent->modifyResponse($response);
+
     return $response;
   }
 
@@ -406,8 +468,8 @@ class Masterportal implements MasterportalInterface {
    * @param MasterportalInstanceInterface $masterportal_instance
    *   The masterportal instance configuration entity.
    *
-   * @return string
-   *   The completed javascript configuration object.
+   * @return array
+   *   The completed javascript configuration object and associated cache tags.
    */
   protected function generateJavascriptSettingsObject($content, MasterportalInstanceInterface $masterportal_instance) {
     // Decode the configuration object.
@@ -420,27 +482,39 @@ class Masterportal implements MasterportalInterface {
         : $this->currentRequest->getSchemeAndHttpHost(),
     ];
 
+    // Integrate map projections
+    $content->namedProjections = array_map(
+      function ($projection) {
+        return array_values($projection);
+      },
+      $this->config->get('projections')
+    );
+
     // Get the instance settings.
     $settings = $masterportal_instance->get('settings');
 
     // Process each configuration section.
     foreach ($settings as $configSectionPluginId => $configuration) {
-
       // Get the plugin definition.
       $configSectionPluginDefinition = $this->instanceConfigSectionManager->getPluginDefinitions($configSectionPluginId);
 
       // Instantiate the plugin.
-      $configSectionPlugin = new $configSectionPluginDefinition['class']($configuration);
+      $configSectionPlugin = new $configSectionPluginDefinition['class']($configuration, $this->config);
 
       // Let the plugin set it's configuration.
       $configSectionPlugin->injectSectionConfigurationSettings('config.js', $content);
-
     }
 
     // uiStyle overridden by URL?
     if ($this->currentRequest->query->has('uiStyle')) {
       $content->uiStyle = $this->currentRequest->query->get('uiStyle');
     }
+
+    // Dispatch the config event to enable extensions to act on the configuration.
+    $javascriptCreateEvent = new MasterportalJavaScriptCreate($content, $masterportal_instance);
+    $this->eventDispatcher->dispatch($javascriptCreateEvent, MasterportalConfigEvents::JavascriptCreate);
+    $content = $javascriptCreateEvent->getConfiguration();
+    $cache_tags = $javascriptCreateEvent->getCacheTags();
 
     // Encode the completed object as JSON.
     $output = json_encode($content, self::JSON_OUTPUT_OPTIONS);
@@ -449,7 +523,7 @@ class Masterportal implements MasterportalInterface {
     $output = preg_replace('~"(\w+?)":~', '\\1:', $output);
 
     // Return the adapted configuration object as a javascript constant.
-    return sprintf('const Config = %s;', $output);
+    return [sprintf('const Config = %s;', $output), $cache_tags];
   }
 
   /**
@@ -457,13 +531,13 @@ class Masterportal implements MasterportalInterface {
    *
    * Replaces actual configuration values and integrates the configured layers.
    *
-   * @param string $content
+   * @param stdClass $content
    *   The configured settings.
    * @param MasterportalInstanceInterface $masterportal_instance
    *   The masterportal instance configuration entity.
    *
-   * @return string
-   *   The completed json configuration object.
+   * @return array
+   *   The completed json configuration object and associated cache tags.
    */
   protected function generateJsonSettingsObject($content, MasterportalInstanceInterface $masterportal_instance) {
     // Get the instance settings.
@@ -474,7 +548,6 @@ class Masterportal implements MasterportalInterface {
 
     // Process each configuration section.
     foreach ($settings as $configSectionPluginId => $configuration) {
-
       // Get the plugin definition.
       $configSectionPluginDefinition = $this->instanceConfigSectionManager->getPluginDefinitions($configSectionPluginId);
 
@@ -489,7 +562,6 @@ class Masterportal implements MasterportalInterface {
       if ($configSectionPlugin->hasPostCompositionHook()) {
         $postCompositionPlugins[] = $configSectionPlugin;
       }
-
     }
 
     // Process each registered post-composition hook.
@@ -497,8 +569,14 @@ class Masterportal implements MasterportalInterface {
       $configSectionPlugin->postCompositionHook('config.json', $content);
     }
 
+    // Dispatch the config event to enable extensions to act on the configuration.
+    $jsonCreateEvent = new MasterportalJsonCreate($content, $masterportal_instance);
+    $this->eventDispatcher->dispatch($jsonCreateEvent, MasterportalConfigEvents::JsonCreate);
+    $content = $jsonCreateEvent->getConfiguration();
+    $cache_tags = $jsonCreateEvent->getCacheTags();
+
     // Return the adapted configuration object.
-    return json_encode($content, self::JSON_OUTPUT_OPTIONS);
+    return [json_encode($content, self::JSON_OUTPUT_OPTIONS), $cache_tags];
   }
 
   /**
@@ -516,6 +594,7 @@ class Masterportal implements MasterportalInterface {
    */
   protected function enrichLayerDefinitions(array $content, MasterportalInstanceInterface $masterportal_instance = NULL) {
     $cache_tags = [];
+
     if (empty($masterportal_instance)) {
       // Return all existing layers and their cache tags.
       $layerDefinitions = $this->layerService->getDefinitions();
@@ -528,6 +607,7 @@ class Masterportal implements MasterportalInterface {
           array_keys($layerDefinitions)
         )
       );
+
       return [
         json_encode(array_values($layerDefinitions), self::JSON_OUTPUT_OPTIONS),
         $cache_tags,
@@ -545,6 +625,7 @@ class Masterportal implements MasterportalInterface {
         )
       );
       $layerdefinitionsNeeded = [];
+
       foreach ($allLayerIds as $id) {
         // Get the basic layer definition.
         if ($layerdefinition = $this->layerService->getLayerDefinition($id)) {
@@ -559,10 +640,15 @@ class Masterportal implements MasterportalInterface {
 
           // Add the processed layerdefinition to the definitions array.
           $layerdefinitionsNeeded[] = $layerdefinition;
-
         }
-
       }
+
+      // Dispatch the config event to enable extensions to act on the configuration.
+      $layerdefinitionsEvent = new MasterportalLayerdefinitionsCreate($layerdefinitionsNeeded, $masterportal_instance);
+      $this->eventDispatcher->dispatch($layerdefinitionsEvent, MasterportalConfigEvents::LayerdefinitionsCreate);
+      $layerdefinitionsNeeded = $layerdefinitionsEvent->getConfiguration();
+      $cache_tags = array_unique(array_merge($cache_tags, $layerdefinitionsEvent->getCacheTags()));
+
       return [
         json_encode($layerdefinitionsNeeded, self::JSON_OUTPUT_OPTIONS),
         $cache_tags,
@@ -658,6 +744,12 @@ class Masterportal implements MasterportalInterface {
       // Insert the readily processed custom style.
       $styles[] = $style;
     }
+
+    // Dispatch the config event to enable extensions to act on the configuration.
+    $layerstylesEvent = new MasterportalLayerstylesCreate($styles);
+    $this->eventDispatcher->dispatch($layerstylesEvent, MasterportalConfigEvents::LayerstylesCreate);
+    $styles = $layerstylesEvent->getConfiguration();
+    $cacheTags = array_unique(array_merge($cacheTags, $layerstylesEvent->getCacheTags()));
 
     // Generate the complete style definition and return it in JSON format
     // as well as the cache tags.

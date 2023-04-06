@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,7 +40,7 @@ class ContributionMap extends ResponseKeyBase {
    */
   protected function setAdditionalDependencies(ContainerInterface $container) {
     $this->database = $container->get('database');
-    $this->dipasConfig = $container->get('dipasconfig.api');
+    $this->dipasConfig = $container->get('dipas.config');
   }
 
   /**
@@ -50,7 +51,7 @@ class ContributionMap extends ResponseKeyBase {
     // if a projectarea is defined, zoom the contributionmap to this area
 
     // get the project area from the dipas configuration
-    $projectarea = json_decode($this->dipasConfig->get('ProjectArea/project_area'));
+    $projectarea = json_decode($this->dipasConfig->get('ProjectArea.project_area'));
 
     // check if the projectarea is filled with data
     if ($projectarea && isset($projectarea->coordinates) && count($projectarea->coordinates) > 0) {

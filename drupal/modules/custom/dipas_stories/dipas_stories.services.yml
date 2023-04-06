@@ -1,0 +1,24 @@
+services:
+  logger.channel.dipas_stories:
+    class: Drupal\Core\Logger\LoggerChannels
+    factory: logger.factory:get
+    arguments: ['dipas_stories']
+  dipas_stories.api:
+    class: Drupal\dipas_stories\Service\DipasStoriesApi
+    arguments: ['@entity_type.manager', '@database', '@date.formatter', '@cache.data', '@request_stack', '@renderer', '@file_url_generator', '@config.factory', '@logger.channel.dipas_stories']
+  plugin.manager.dipas_stories.masterportal_settings_section:
+    class: Drupal\dipas_stories\PluginSystem\MasterportalSettingsSectionPluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  plugin.manager.dipas_stories.masterportal_map_features:
+    class: Drupal\dipas_stories\PluginSystem\MasterportalMapFeaturePluginManager
+    parent: default_plugin_manager
+    arguments: ['@entity_type.manager']
+  dipas_stories.story_form:
+    class: Drupal\dipas_stories\Service\StoryForm
+    arguments: ['@request_stack', '@entity_type.manager', '@database', '@renderer', '@dipas_stories.api']
+  dipas_stories.MasterportalEvents:
+    class: Drupal\dipas_stories\EventSubscriber\MasterportalEvents
+    arguments: ['@request_stack', '@entity_type.manager', '@plugin.manager.masterportal.tools', '@masterportal.layerservice', '@plugin.manager.dipas_stories.masterportal_map_features']
+    tags:
+      - { name: event_subscriber }

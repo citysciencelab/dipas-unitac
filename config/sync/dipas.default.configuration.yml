@@ -1,7 +1,7 @@
 id: default.configuration
 domain: default
 ProjectInformation:
-  site_name: 'DIPAS'
+  site_name: DIPAS
   footer_text: 'Onlinebeteiligung bereitgestellt durch die Stadtwerkstatt der Freien und Hansestadt Hamburg'
   site_email_name: ''
   site_email_address: ''
@@ -19,7 +19,7 @@ ProjectInformation:
   headline: 'Herzlich Willkommen!'
   text: 'Hier können Sie teilnehmen!'
   data_responsible: ''
-  allow_conception_comments: false                                
+  allow_conception_comments: false
 ContributionSettings:
   contribution_status: closed
   maximum_character_count_per_contribution: 1000

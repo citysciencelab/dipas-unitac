@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

@@ -26,9 +26,16 @@ masterportal.settings.layerstyles:
   menu_name: admin
   weight: 30
 
+masterportal.settings.mapprojections:
+  title: 'Map projections'
+  route_name: masterportal.settings.mapprojections
+  parent: masterportal.settings
+  menu_name: admin
+  weight: 40
+
 masterportal.settings.instances:
   title: 'Instance configurations'
   route_name: masterportal.settings.instances
   parent: masterportal.settings
   menu_name: admin
-  weight: 40
+  weight: 50

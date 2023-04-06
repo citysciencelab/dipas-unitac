@@ -50,6 +50,15 @@ export default {
         letter-spacing: 0;
     }
 
+    #app.mobile h2.headline,
+    #app.mobile div.textParagraph p {
+      max-width: 100%;
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+    }
+
     div.textParagraph a {
       color: #005CA9;
       font-weight: bold;

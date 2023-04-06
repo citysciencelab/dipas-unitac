@@ -185,7 +185,7 @@
           "changeLayerInfo": "Изменить информационный текст"
         },
         "mapMarker": {
-          "noStyleModel": "Не удалось найти стиль для указанного styleId: {{styleId}}. Пожалуйста, проверьте вашу конфигурацию."
+          "nostyleObject": "Не удалось найти стиль для указанного styleId: {{styleId}}. Пожалуйста, проверьте вашу конфигурацию."
         },
         "menu": {
             "layer": {
@@ -1017,7 +1017,7 @@
             "noInitialResults": "Первоначальный поиск не дал результатов."
         },
         "vectorStyle": {
-            "styleModel": {
+            "styleObject": {
                 "getGeometryTypeFromWFSFetchfailed": "Легенда не может быть создана в информации о слое!",
                 "getGeometryTypeFromWFSFetchfailedMessage": "Подробности: требуемый сервис не отвечает.",
                 "getGeometryTypeFromOAFFetchfailed": "Легенда не может быть создана в информации о слое!",

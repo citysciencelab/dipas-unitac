@@ -22,7 +22,6 @@ class MasterportalConfig implements MasterportalConfigInterface {
    */
   protected $configFactory;
 
-
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
    */
@@ -32,6 +31,11 @@ class MasterportalConfig implements MasterportalConfigInterface {
    * @var \Drupal\Core\Config\ImmutableConfig
    */
   protected $layerConfiguration;
+
+  /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $mapProjections;
 
   /**
    * MasterportalConfig constructor.
@@ -45,10 +49,10 @@ class MasterportalConfig implements MasterportalConfigInterface {
     // Basic config is common accross all instances.
     $this->basicConfiguration = $this->configFactory->get('masterportal.config.basic');
 
-    // The layers are defined per domain
+    // The layers and projections are defined per domain
     $activeDomain = $this->getActiveDomain();
-    $this->layerConfiguration = $this->configFactory->get('masterportal.config.' . $activeDomain . '.layers');
-
+    $this->layerConfiguration = $this->configFactory->get(sprintf('masterportal.config.%s.layers', $activeDomain));
+    $this->mapProjections = $this->configFactory->get(sprintf('masterportal.config.%s.projections', $activeDomain));
   }
 
   /**
@@ -59,6 +63,9 @@ class MasterportalConfig implements MasterportalConfigInterface {
       case 'Layerconfiguration':
       case 'LayerStyles':
         return $this->layerConfiguration->get($key);
+      case 'MapProjections':
+      case 'projections':
+        return $this->mapProjections->get('MapProjections.projections');
       default:
         return $this->basicConfiguration->get($key);
     }

@@ -25,6 +25,15 @@ masterportal.settings.layerdefinitions:
   requirements:
     _permission: 'administer masterportal'
 
+masterportal.settings.mapprojections:
+  path: '/admin/config/user-interface/masterportal/mapprojections'
+  defaults:
+    _title: 'Masterportal'
+    _description: 'Defines available map projections.'
+    _form: '\Drupal\masterportal\Form\MapProjections'
+  requirements:
+    _permission: 'administer masterportal'
+
 masterportal.settings.instances:
   path: '/admin/config/user-interface/masterportal/instances'
   defaults:

@@ -1,7 +1,31 @@
 uuid: 148c6029-52ed-4049-a655-1eccecde1fe8
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.filtered_html
+    - media.type.download
+    - media.type.image
+    - media.type.logo
+    - node.type.appointment
+    - node.type.conception
+    - node.type.contribution
+    - node.type.page
+  module:
+    - comment
+    - config_translation
+    - dipas
+    - domain
+    - domain_access
+    - entity_browser
+    - environment_indicator
+    - filter
+    - locale
+    - media
+    - node
+    - path
+    - system
+    - toolbar
 _core:
   default_config_hash: vv3S-fMdWMX_iecmCGWXsPh4Jd5hXlpBVbHEN1fPOtM
 id: project_admin
@@ -19,7 +43,6 @@ permissions:
   - 'access inactive domains'
   - 'access media overview'
   - 'access own webform configuration'
-  - 'access taxonomy overview'
   - 'access toolbar'
   - 'access webform overview'
   - 'access webform submission user'

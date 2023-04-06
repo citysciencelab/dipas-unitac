@@ -27,6 +27,10 @@ class DipasDevService {
   public function modifyDomainRecordsForDev() {
     $httpHost = $this->currentRequest->getHttpHost();
 
+    if (preg_match('~localhost~i', $httpHost)) {
+      $httpHost = sprintf('localhost%s', (int) $this->currentRequest->getPort() !== 80 ? ':' . $this->currentRequest->getPort() : '');
+    }
+
     $defaultHost = $this->database->select('config')
       ->fields('config')
       ->condition('name', 'domain.record.default', '=')

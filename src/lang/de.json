@@ -19,7 +19,8 @@
     "linktext": "Datenschutzinformation",
     "text": "Mit Klick auf \"Cookies akzeptieren\" stimmen Sie zu, dass Cookies gemäß unserer Cookie Policy",
     "text_2ndLine": "auf dieser Webseite verwendet werden dürfen.",
-    "buttontext": "Cookies akzeptieren",
+    "acceptButtonText": "Cookies akzeptieren",
+    "declineButtonText": "Cookies ablehnen",
     "closeButton": "Schließen"
   },
   "MobileView": {
@@ -133,6 +134,7 @@
     }
   },
   "ContributionDetails": {
+    "htmlTitlePrefix": "Beitrag",
     "backToList": "Zurück zur Beitragsliste",
     "comment": "Kommentieren",
     "oClock": "Uhr"
@@ -147,6 +149,7 @@
     "Tooltip": "im neuen Fenster öffnen"
   },
   "ConceptionDetails": {
+    "htmlTitlePrefix": "Entwurf",
     "commentsFormHeadline": "Kommentieren"
   },
   "ConceptionDetailsSidebar": {
@@ -174,7 +177,8 @@
     "iconThumbDown": "Mit Daumen runter bewertet",
     "iconVoteThumbUp": "Bewertung Daumen hoch vergeben",
     "iconVoteThumbDown": "Bewertung Daumen runter vergeben",
-    "votedThanks": "Vielen Dank für Ihre Bewertung"
+    "votedThanks": "Vielen Dank für Ihre Bewertung",
+    "notAllowed": "Eine Bewertung ist derzeit nicht möglich"
   },
   "CommentsForm": {
     "remainingChars": "Sie haben noch {{remaining}} Zeichen übrig.",
@@ -229,6 +233,7 @@
     }
   },
   "Schedule": {
+    "title": "Termine",
     "closeButton": "Schließen",
     "headline": "Termine",
     "nodeLength": "Derzeit gibt es keine anstehenden Termine oder Veranstaltungen.",

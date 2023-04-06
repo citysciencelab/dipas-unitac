@@ -11,8 +11,8 @@ use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\dipas\Controller\DipasConfig;
 use Drupal\dipas\Exception\MalformedRequestException;
 use Drupal\dipas\ResponseContent;
 use Drupal\masterportal\DomainAwareTrait;
@@ -96,11 +96,15 @@ class RestApi implements RestApiInterface {
    */
   protected $cockpitdataResponsePluginManager;
 
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
 
   /**
    * RestApi constructor.
    *
-   * @param \Drupal\dipas\Controller\DipasConfig $config_factory
+   * @param \Drupal\dipas\Service\DipasConfigInterface $config
    *   Custom config service.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   Custom logger channel.
@@ -118,16 +122,17 @@ class RestApi implements RestApiInterface {
    *   Custom plugin manager for cockpitData response plugins.
    */
   public function __construct(
-    DipasConfig $config_factory,
+    DipasConfigInterface $config,
     LoggerChannelInterface $logger,
     PluginManagerInterface $response_key_plugin_manager,
     RequestStack $request_stack,
     CacheBackendInterface $cache,
     CacheTagsInvalidatorInterface $cache_tags_invalidator,
     PluginManagerInterface $pds_response_plugin_manager,
-    PluginManagerInterface $cockpitdata_response_plugin_manager
+    PluginManagerInterface $cockpitdata_response_plugin_manager,
+    ModuleHandlerInterface $module_handler
   ) {
-    $this->config = $config_factory;
+    $this->config = $config;
     $this->logger = $logger;
     $this->responsePluginManager = $response_key_plugin_manager;
     $this->request = $request_stack->getCurrentRequest();
@@ -135,6 +140,7 @@ class RestApi implements RestApiInterface {
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->pdsResponsePluginManager = $pds_response_plugin_manager;
     $this->cockpitdataResponsePluginManager = $cockpitdata_response_plugin_manager;
+    $this->moduleHandler = $module_handler;
 
     $this->domainCachePrefix = $this->getActiveDomain();
   }
@@ -175,6 +181,12 @@ class RestApi implements RestApiInterface {
    * {@inheritdoc}
    */
   public function requestEndpoint($key) {
+    // Check, if any other module implements this key before lifting heavy weights.
+    $foreignApis = $this->moduleHandler->invokeAll('dipas_api_links');
+    if (in_array($key, $foreignApis)) {
+      return FALSE;
+    }
+
     $response = new JsonResponse();
     $cacheId = "{$this->domainCachePrefix}/{$key}/{$this->request->attributes->get('id')}" . json_encode($this->request->query->all());
 

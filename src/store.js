@@ -758,6 +758,11 @@ export default new Vuex.Store({
     ratingsAllowed: function (state) {
       return !_.isUndefined(state.basicApplicationSettings.initialized) ? state.basicApplicationSettings.contributions.ratings : false;
     },
+    displayRatings: function (state) {
+      return !_.isUndefined(state.basicApplicationSettings.initialized)
+        ? state.basicApplicationSettings.contributions.display_existing_ratings
+        : false;
+    },
     /**
      * Serves a number with the maximum length of a comment.
      * @name commentMaxlength

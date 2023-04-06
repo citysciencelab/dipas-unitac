@@ -185,7 +185,7 @@
           "changeLayerInfo": "Перемкнути інформаційний текст"
         },
         "mapMarker": {
-          "noStyleModel": "До вказаного styleId: {{styleId}} не вдалося знайти стиль. Будь ласка, перевірте свою конфігурацію."
+          "nostyleObject": "До вказаного styleId: {{styleId}} не вдалося знайти стиль. Будь ласка, перевірте свою конфігурацію."
         },
         "menu": {
             "layer": {
@@ -1016,7 +1016,7 @@
             "noInitialResults": "Початковий пошук не виявив збігів."
         },
         "vectorStyle": {
-            "styleModel": {
+            "styleObject": {
                 "getGeometryTypeFromWFSFetchfailed": "Не вдалося створити легенду в інформації про шар!",
                 "getGeometryTypeFromWFSFetchfailedMessage": "Деталі: необхідна служба не відповідає.",
                 "getGeometryTypeFromOAFFetchfailed": "Не вдалося створити легенду в інформації про шар!",

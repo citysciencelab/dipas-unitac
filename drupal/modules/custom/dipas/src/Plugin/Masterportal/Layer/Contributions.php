@@ -7,13 +7,13 @@
 
 namespace Drupal\dipas\Plugin\Masterportal\Layer;
 
+use Drupal\masterportal\Annotation\Layer;
 use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\GeoJSONFeature;
 use Drupal\masterportal\PluginSystem\LayerPluginInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Request;
-
 
 /**
  * Implements a layer plugin for the Masterportal.
@@ -58,6 +58,11 @@ class Contributions implements LayerPluginInterface {
   protected $cacheTags;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(Request $current_request) {
@@ -67,6 +72,7 @@ class Contributions implements LayerPluginInterface {
     $entityTypeManager = $serviceContainer->get('entity_type.manager');
     $this->nodeStorage = $entityTypeManager->getStorage('node');
     $this->termStorage = $entityTypeManager->getStorage('taxonomy_term');
+    $this->extensionPathResolver = $serviceContainer->get('extension.path.resolver');
     $this->currentRequest = $current_request;
     $this->cacheTags = drupal_static('DipasContributionStreamCacheTags', ['Layer:ContributionGeoJSON']);
   }
@@ -92,10 +98,10 @@ class Contributions implements LayerPluginInterface {
         'name' => 'dipas',
         'params' => (object) [
           'gfiIconPath' => Url::fromUri(
-            'base:/' . drupal_get_path('module', 'dipas') .'/assets/09_grau.png',
+            'base:/' . $this->extensionPathResolver->getPath('module', 'dipas') .'/assets/09_grau.png',
             ['absolute' => TRUE]
           )->toString(),
-        ] 
+        ]
       ],
       'legend' => TRUE,
       'layerAttribution' => 'nicht vorhanden',
@@ -163,6 +169,9 @@ class Contributions implements LayerPluginInterface {
       }
     }
 
+    //Sort by node created
+    $query->sort('created', 'DESC');
+
     // Load all published contributions.
     $nodeIds = $query->execute();
     $contributionNodes = $this->nodeStorage->loadMultiple($nodeIds);
@@ -225,6 +234,8 @@ class Contributions implements LayerPluginInterface {
           $featureObject->setGeometry($geodata);
         }
       }
+
+      $featureObject->setId($node->id());
 
       // Add the node information to it.
       $featureObject->addProperty('nid', $node->id());

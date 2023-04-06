@@ -55,8 +55,8 @@ class AddComment extends GetComments {
     // First, determine what bundle should get commented on.
     $commentedNode = $this->getNode($sanitizedFields['rootEntityID']);
     $dipasSettingToCheck = $commentedNode->bundle() === 'contribution'
-      ? 'ContributionSettings/comments_allowed'
-      : 'ProjectSchedule/allow_conception_comments';
+      ? 'ContributionSettings.comments_allowed'
+      : 'ProjectSchedule.allow_conception_comments';
 
     if ($this->dipasConfig->get($dipasSettingToCheck)) {
       $commentEntity = Comment::create([

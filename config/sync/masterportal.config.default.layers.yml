@@ -4,8 +4,7 @@ Layerconfiguration:
   custom_layers: ''
   preview: null
 LayerStyles:
-  layerstyles: { }
+  layerstyles: {  }
 _core:
   default_config_hash: 78v04nzMFZ5lfgYXYq367k7kxfQ6IgAiXj7EzZRoTU8
 langcode: en
-

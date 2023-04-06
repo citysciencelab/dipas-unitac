@@ -40,11 +40,17 @@ class Page extends CockpitDataResponseBase {
   protected $dateFormatter;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   protected function setAdditionalDependencies(ContainerInterface $container) {
     $this->state = $container->get('state');
     $this->dateFormatter = $container->get('date.formatter');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
   }
 
   /**
@@ -152,6 +158,13 @@ class Page extends CockpitDataResponseBase {
    */
   protected function getEntityTypeManager() {
     return $this->entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
   }
 
 }

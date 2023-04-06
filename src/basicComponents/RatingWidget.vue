@@ -75,6 +75,9 @@ export default {
      */
     ratingsAllowed: {
       type: Boolean
+    },
+    displayRatings: {
+      type: Boolean
     }
   },
   data () {
@@ -184,7 +187,7 @@ export default {
      * @returns {Boolean} canVote
      */
     canVote () {
-      return this.cookiesAccepted && !this.hasVoted && !this.savingInProgress;
+      return this.cookiesAccepted && this.ratingsAllowed && !this.hasVoted && !this.savingInProgress;
     },
     /**
      * serves wether tooltip is disabled or not
@@ -192,9 +195,13 @@ export default {
      * @returns {Boolean} disabledTooltip
      */
     disabledTooltip () {
-      return !_.isNull(this.cookieData)
-        ? this.$t("RatingWidget.already")
-        : this.$t("RatingWidget.acceptedCookies");
+      if (this.ratingsAllowed) {
+        return !_.isNull(this.cookieData)
+          ? this.$t("RatingWidget.already")
+          : this.$t("RatingWidget.acceptedCookies");
+      }
+
+      return this.$t("RatingWidget.notAllowed");
     }
   },
   methods: {
@@ -243,7 +250,7 @@ export default {
 <template>
   <div :class="['ratingwidget', displayStyle]">
     <div
-      v-if="displayStyle === 'full' && ratingsAllowed"
+      v-if="displayStyle === 'full' && displayRatings"
       class="ratingActions"
     >
       <!--
@@ -262,6 +269,7 @@ export default {
           {{ $t("RatingWidget.votedThanks") }}
         </div>
       </transition>
+
       <DipasButton
         class="angular lightgreen rateButton"
         :disabled="!canVote"
@@ -271,6 +279,7 @@ export default {
         @click="voteUp(); fadeMe()"
         @keyup.enter="voteUp(); fadeMe()"
       />
+
       <!--
         triggered on click
         @event click

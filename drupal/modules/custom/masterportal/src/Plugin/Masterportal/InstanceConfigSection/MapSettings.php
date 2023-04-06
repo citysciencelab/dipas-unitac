@@ -8,6 +8,7 @@ namespace Drupal\masterportal\Plugin\Masterportal\InstanceConfigSection;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\masterportal\Annotation\InstanceConfigSection;
 use Drupal\masterportal\Form\MultivalueRowTrait;
 
 /**
@@ -60,7 +61,7 @@ class MapSettings extends InstanceConfigSectionBase {
   protected $zoomLevel;
 
   /**
-   * The map projection (can not be configured!).
+   * The map projection.
    *
    * @var string
    */
@@ -98,6 +99,13 @@ class MapSettings extends InstanceConfigSectionBase {
   public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
     $center = json_decode($this->startCenter);
     $center = sprintf('%d,%d', $center[0], $center[1]);
+
+    $projectionOptions = array_map(
+      function ($projection) {
+        return $projection['name'];
+      },
+      $this->masterportalConfigService->get('projections')
+    );
 
     $section = [
       'mapWidget' => [
@@ -142,8 +150,8 @@ class MapSettings extends InstanceConfigSectionBase {
         '#type' => 'textfield',
         '#title' => $this->t('Center coordinates', [], ['context' => 'Masterportal']),
         '#description' => $this->t(
-          'The @projection (UTM) center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values.',
-          ['@projection' => $this->epsg],
+          'The center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values.',
+          [],
           ['context' => 'Masterportal']
         ),
         '#default_value' => $this->startCenter,
@@ -164,6 +172,14 @@ class MapSettings extends InstanceConfigSectionBase {
           'style' => 'width: 700px;',
         ],
       ],
+      'epsg' => [
+        '#type' => 'select',
+        '#title' => $this->t('Used map projection', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('The projection that the map engine of the Masterportal uses internally when dealing with coordinates', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->epsg,
+        '#options' => array_combine($projectionOptions, $projectionOptions),
+        '#required' => TRUE,
+      ],
       'twoFingerPan' => [
         '#type' => 'checkbox',
         '#title' => $this->t('Use two finger pan', [], ['context' => 'Masterportal']),
@@ -173,7 +189,7 @@ class MapSettings extends InstanceConfigSectionBase {
       'useScaleOptions' => [
         '#type' => 'checkbox',
         '#title' => $this->t('Use map scale options', [], ['context' => 'Masterportal']),
-        '#description' => $this->t('Should map scale options get included in the Masterportal configuration?.', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('Should map scale options get included in the Masterportal configuration?', [], ['context' => 'Masterportal']),
         '#default_value' => $this->useScaleOptions,
       ],
       'options' => [

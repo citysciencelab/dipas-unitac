@@ -1,0 +1,17 @@
+.image_left > .field--name-field-image {
+  float: left;
+  padding: 1rem;
+  width: 33%;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+}
+
+.image_right > .field--name-field-image {
+  float: right;
+  padding: 1rem;
+  width: 33%;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+}

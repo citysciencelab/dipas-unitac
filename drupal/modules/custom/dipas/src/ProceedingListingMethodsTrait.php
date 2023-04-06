@@ -66,8 +66,8 @@ trait ProceedingListingMethodsTrait {
         $proceedingids['active'] = [];
 
         $defaultConfig = $this->getConfig('dipas.default.configuration');
-        $start = strtotime($defaultConfig->get('ProjectSchedule/project_start'));
-        $end = strtotime($defaultConfig->get('ProjectSchedule/project_end'));
+        $start = strtotime($defaultConfig->get('ProjectSchedule.project_start'));
+        $end = strtotime($defaultConfig->get('ProjectSchedule.project_end'));
 
         if (!$defaultConfig->get('Export.proceeding_is_internal')) {
           $proceedingids['visible'][] = 'default';
@@ -103,10 +103,10 @@ trait ProceedingListingMethodsTrait {
             $proceedingids['visible'][] = $proceedingid;
           }
 
-          $start = strtotime($proceedingConfig->get('ProjectSchedule/project_start'));
-          $end = strtotime($proceedingConfig->get('ProjectSchedule/project_end'));
+          $start = strtotime($proceedingConfig->get('ProjectSchedule.project_start'));
+          $end = strtotime($proceedingConfig->get('ProjectSchedule.project_end'));
 
-          if ($start <= $now && $now < $end) {
+          if ($start && $end && $start <= $now && $now < $end) {
             $proceedingids['active'][] = $proceedingid;
           }
         }
@@ -118,6 +118,9 @@ trait ProceedingListingMethodsTrait {
 
   abstract protected function getDatabase();
 
+  /**
+   * @return \Drupal\dipas\Service\DipasConfigInterface
+   */
   abstract protected function getDipasConfig();
 
   abstract protected function getConfig($domainid);

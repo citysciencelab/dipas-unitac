@@ -42,6 +42,9 @@ export default {
     };
   },
   computed: {
+    htmlPageTitle () {
+      return this.$t("ContributionDetails.htmlTitlePrefix") + ": " + this.contribution.title;
+    },
     /**
      * serves the contribution date
      * @returns {String} date of the contribution creation
@@ -157,7 +160,7 @@ export default {
      * @returns {Boolean}
      */
     displayComments () {
-      return this.$store.getters.displayContributionComments;
+      return this.commentsOpen || this.$store.getters.displayContributionComments;
     },
     /**
      * serves the boolean wether rating is allowed or not
@@ -165,9 +168,11 @@ export default {
      */
     ratingsAllowed () {
       return this.$store.getters.ratingsAllowed;
+    },
+    displayRatings () {
+      return this.ratingsAllowed || this.$store.getters.displayRatings;
     }
   },
-
   created () {
     this.loadContribution(this.id);
     /**
@@ -259,12 +264,14 @@ export default {
           </div>
 
           <RatingWidget
+            v-if="displayRatings"
             class="rating"
             entityType="node"
             bundle="contribution"
             :entityID="contribution.nid"
             :rating="contribution.rating"
             :ratingsAllowed="ratingsAllowed"
+            :displayRatings="displayRatings"
           />
         </div>
 

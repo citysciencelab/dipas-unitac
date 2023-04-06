@@ -65,16 +65,16 @@ export default {
       const pixelRatio = window.devicePixelRatio;
 
       switch (true) {
-        case pixelRatio >= 1.25 && pixelRatio < 1.50:
+        case !this.$root.isMobile && pixelRatio >= 1.25 && pixelRatio < 1.50:
           this.zoom = "zoom125";
           break;
-        case pixelRatio >= 1.50 && pixelRatio < 1.75:
+        case !this.$root.isMobile && pixelRatio >= 1.50 && pixelRatio < 1.75:
           this.zoom = "zoom150";
           break;
-        case pixelRatio >= 1.75 && pixelRatio < 2:
+        case !this.$root.isMobile && pixelRatio >= 1.75 && pixelRatio < 2:
           this.zoom = "zoom175";
           break;
-        case pixelRatio >= 2:
+        case !this.$root.isMobile && pixelRatio >= 2:
           this.zoom = "zoom200";
           break;
         default:
@@ -161,7 +161,8 @@ export default {
       border: none 0 transparent;
       width: fit-content;
       height: fit-content;
-      overflow-x: hidden;
+      max-height: calc(100vh - 50px);
+      overflow-x: auto;
       overflow-y: auto;
       padding: 30px;
       z-index: 1001;
@@ -230,10 +231,10 @@ export default {
       line-height: 0.8rem;
   }
   div.modalContent.zoom125 {
-    zoom: 0.8;
+    zoom: 0.9;
   }
   div.modalContent.zoom150 {
-    zoom: 0.75;
+    zoom: 0.8;
   }
   div.modalContent.zoom175 {
     zoom: 0.7;

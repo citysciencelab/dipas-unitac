@@ -20,7 +20,9 @@
     "text": "By clicking on \"Accept Cookies\" you agree that cookies may be used in accordance with our ",
     "text_2ndLine": "on this website.",
     "buttontext": "Accept Cookies",
-    "closeButton": "Close"        
+    "acceptButtonText": "Accept Cookies",
+    "declineButtonText": "Decline Cookies",
+    "closeButton": "Close"
   },
   "MobileView": {
     "closeButton": "Close menu",
@@ -133,6 +135,7 @@
     }
   },
   "ContributionDetails": {
+    "htmlTitlePrefix": "Contribution",
     "backToList": "Back to contribution list",
     "comment": "Comment",
     "oClock": "o'clock"
@@ -147,6 +150,7 @@
     "Tooltip": "open in new window"
   },
   "ConceptionDetails": {
+    "htmlTitlePrefix": "Conception",
     "commentsFormHeadline": "Comment"
   },
   "ConceptionDetailsSidebar": {
@@ -174,7 +178,8 @@
     "iconThumbDown": "Thumb down votes",
     "iconVoteThumbUp": "Vote thumb up",
     "iconVoteThumbDown": "Vote thumb down",
-    "votedThanks": "Thank you for your rating"
+    "votedThanks": "Thank you for your rating",
+    "notAllowed": "Currently casting a vote is not allowed"
   },
   "CommentsForm": {
     "remainingChars": "You have {{remaining}} chars left.",
@@ -229,6 +234,7 @@
     }
   },
   "Schedule": {
+    "title": "Schedule",
     "closeButton": "Close",
     "headline": "Appointments",
     "nodeLength": "There are no appointments right now.",

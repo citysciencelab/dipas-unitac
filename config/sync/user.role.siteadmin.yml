@@ -1,7 +1,58 @@
 uuid: 6c0ee90d-8188-4de1-aa5d-9f3cebeee0dd
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.filtered_html
+    - filter.format.full_html
+    - media.type.custom_layer_files
+    - media.type.download
+    - media.type.image
+    - media.type.logo
+    - node.type.appointment
+    - node.type.conception
+    - node.type.contribution
+    - node.type.page
+    - taxonomy.vocabulary.categories
+    - taxonomy.vocabulary.districts
+    - taxonomy.vocabulary.project_owner
+    - taxonomy.vocabulary.rubrics
+    - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.topics
+  module:
+    - amswap
+    - block
+    - comment
+    - config
+    - config_translation
+    - dipas
+    - domain
+    - domain_access
+    - entity_browser
+    - entity_reference_revisions
+    - environment_indicator
+    - field_ui
+    - file
+    - filter
+    - image
+    - language
+    - locale
+    - masterportal
+    - media
+    - module_filter
+    - node
+    - paragraphs
+    - paragraphs_ee
+    - path
+    - responsive_image
+    - system
+    - taxonomy
+    - textarea_limit
+    - toolbar
+    - video_embed_field
+    - votingapi
+    - votingapi_widgets
+    - vuejs
 id: siteadmin
 label: 'Site administrator'
 weight: 4
@@ -18,6 +69,7 @@ permissions:
   - 'access media overview'
   - 'access site in maintenance mode'
   - 'access site reports'
+  - 'access story step overview'
   - 'access taxonomy overview'
   - 'access toolbar'
   - 'access user profiles'
@@ -66,10 +118,15 @@ permissions:
   - 'administer rest resources'
   - 'administer site configuration'
   - 'administer software updates'
+  - 'administer story step'
+  - 'administer story_step display'
+  - 'administer story_step fields'
+  - 'administer story_step form display'
   - 'administer taxonomy'
   - 'administer taxonomy_term display'
   - 'administer taxonomy_term fields'
   - 'administer taxonomy_term form display'
+  - 'administer textarea_limit'
   - 'administer themes'
   - 'administer url aliases'
   - 'administer user display'
@@ -79,6 +136,7 @@ permissions:
   - 'administer views'
   - 'administer vote types'
   - 'administer voting api'
+  - 'administer vuejs configuration'
   - 'assign domain administrators'
   - 'assign domain editors'
   - 'assign editors to any domain'
@@ -103,9 +161,15 @@ permissions:
   - 'create new masterportal instances'
   - 'create page content'
   - 'create page content on assigned domains'
+  - 'create story content'
+  - 'create story content on assigned domains'
+  - 'create story step'
   - 'create terms in categories'
+  - 'create terms in districts'
+  - 'create terms in project_owner'
   - 'create terms in rubrics'
   - 'create terms in tags'
+  - 'create terms in topics'
   - 'create url aliases'
   - 'delete all revisions'
   - 'delete any appointment content'
@@ -118,6 +182,7 @@ permissions:
   - 'delete any masterportal instance'
   - 'delete any media'
   - 'delete any page content'
+  - 'delete any story content'
   - 'delete appointment content on assigned domains'
   - 'delete appointment revisions'
   - 'delete assigned domains'
@@ -136,11 +201,19 @@ permissions:
   - 'delete own image media'
   - 'delete own logo media'
   - 'delete own page content'
+  - 'delete own story content'
   - 'delete page content on assigned domains'
   - 'delete page revisions'
+  - 'delete story content on assigned domains'
+  - 'delete story revisions'
+  - 'delete story step'
   - 'delete terms in categories'
+  - 'delete terms in districts'
+  - 'delete terms in project_owner'
   - 'delete terms in rubrics'
   - 'delete terms in tags'
+  - 'delete terms in topics'
+  - 'delete votes'
   - 'download masterportal instances'
   - 'edit any appointment content'
   - 'edit any conception content'
@@ -151,6 +224,7 @@ permissions:
   - 'edit any logo media'
   - 'edit any masterportal instances'
   - 'edit any page content'
+  - 'edit any story content'
   - 'edit assigned domains'
   - 'edit behavior plugin settings'
   - 'edit domain content'
@@ -163,11 +237,16 @@ permissions:
   - 'edit own image media'
   - 'edit own logo media'
   - 'edit own page content'
+  - 'edit own story content'
   - 'edit own vote on node:conception:field_rating'
   - 'edit own vote on node:contribution:field_rating'
+  - 'edit story step'
   - 'edit terms in categories'
+  - 'edit terms in districts'
+  - 'edit terms in project_owner'
   - 'edit terms in rubrics'
   - 'edit terms in tags'
+  - 'edit terms in topics'
   - 'edit voting status on node:conception:field_rating'
   - 'edit voting status on node:contribution:field_rating'
   - 'export and import menu links'
@@ -184,6 +263,7 @@ permissions:
   - 'revert conception revisions'
   - 'revert contribution revisions'
   - 'revert page revisions'
+  - 'revert story revisions'
   - 'select account cancellation method'
   - 'skip comment approval'
   - 'synchronize configuration'
@@ -195,6 +275,7 @@ permissions:
   - 'update contribution content on assigned domains'
   - 'update media'
   - 'update page content on assigned domains'
+  - 'update story content on assigned domains'
   - 'use dipas dashboard'
   - 'use dipas data export'
   - 'use domain nav block'
@@ -212,8 +293,11 @@ permissions:
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view page revisions'
+  - 'view story revisions'
+  - 'view story step'
   - 'view the administration theme'
   - 'view unpublished domain content'
   - 'view unpublished paragraphs'
+  - 'view user email addresses'
   - 'vote on node:conception:field_rating'
   - 'vote on node:contribution:field_rating'

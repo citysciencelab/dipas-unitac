@@ -52,6 +52,11 @@ abstract class PluginBase implements PluginInterface {
   protected $tokenService;
 
   /**
+   * @var \Drupal\masterportal\Service\MasterportalConfigInterface
+   */
+  protected $masterportalConfigService;
+
+  /**
    * PluginBase constructor.
    *
    * @param array $values
@@ -71,6 +76,7 @@ abstract class PluginBase implements PluginInterface {
     /* @var \Drupal\Core\DependencyInjection\Container $container */
     $container = \Drupal::getContainer();
     $this->tokenService = $container->get('masterportal.tokens');
+    $this->masterportalConfigService = $container->get('masterportal.config');;
     $this->setAdditionalDependencies($container);
     $this->preparePlugin();
   }

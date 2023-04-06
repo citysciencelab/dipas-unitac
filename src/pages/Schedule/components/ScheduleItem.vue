@@ -195,7 +195,7 @@ export default {
         vertical-align: middle;
         text-align: right;
         line-height: 2rem;
-        font-size: 0.8rem;
+        font-size: 1rem;
         margin: 0;
         padding: 0;
         white-space: nowrap;

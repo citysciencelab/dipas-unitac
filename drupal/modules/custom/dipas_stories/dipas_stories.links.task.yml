@@ -1,0 +1,22 @@
+entity.story_step.settings:
+  title: Settings
+  route_name: entity.story_step.settings
+  base_route: entity.story_step.settings
+entity.story_step.view:
+  title: View
+  route_name: entity.story_step.canonical
+  base_route: entity.story_step.canonical
+entity.story_step.edit_form:
+  title: Edit
+  route_name: entity.story_step.edit_form
+  base_route: entity.story_step.canonical
+entity.story_step.delete_form:
+  title: Delete
+  route_name: entity.story_step.delete_form
+  base_route: entity.story_step.canonical
+  weight: 10
+entity.story_step.collection:
+  title: Story step
+  route_name: entity.story_step.collection
+  base_route: system.admin_content
+  weight: 10

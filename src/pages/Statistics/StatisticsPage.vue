@@ -42,6 +42,9 @@ export default {
       "allRubrics",
       "useRubrics"
     ]),
+    htmlPageTitle () {
+      return this.$t("Statistics.headline");
+    },
     /**
      * @name topContributionsByCommentCount
      * @returns {Array}
@@ -217,6 +220,16 @@ export default {
       rubricTextAlt += "</tbody></table>";
 
       return rubricTextAlt;
+    },
+    /**
+     * serves the boolean wether rating is allowed or not
+     * @returns {Boolean}
+     */
+    ratingsAllowed () {
+      return this.$store.getters.ratingsAllowed;
+    },
+    displayRatings () {
+      return this.ratingsAllowed || this.$store.getters.displayRatings;
     }
   },
   watch: {
@@ -331,8 +344,10 @@ export default {
               routerlink="/contribution/"
             />
           </div>
-
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 statisticsContainer nodeTopList nodeTopListRating">
+          <div
+            v-if="displayRatings"
+            class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 statisticsContainer nodeTopList nodeTopListRating"
+          >
             <!--
               @name StatisticsTopNodeList
             -->

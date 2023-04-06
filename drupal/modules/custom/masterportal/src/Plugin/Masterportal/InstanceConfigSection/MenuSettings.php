@@ -63,14 +63,15 @@ class MenuSettings extends InstanceConfigSectionBase {
       'filter' => [
         'name' => 'Katgorieauswahl',
         'deactivateGFI' => FALSE,
-        'active' => TRUE,
+        'active' => FALSE,
         'liveZoomToFeatures' => FALSE,
         'layerSelectorVisible' => FALSE,
         'isVisibleInMenu' => TRUE,
-        'layers' => '[{"layerId": "contributions", "strategy": "active", "showHits": false, "snippetTags": false, "snippets": [{"type": "dropdown","attrName": "Thema","operator": "IN","display": "list","multiselect": true,"addSelectAll": false,"renderIcons": "fromLegend","info": false}]}]',
+        'layers' => '',
       ],
       'legend' => [
         'name' => 'Legende',
+        'showLegend' => FALSE,
       ],
     ];
   }
@@ -79,10 +80,8 @@ class MenuSettings extends InstanceConfigSectionBase {
    * {@inheritdoc}
    */
   public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
-
     // The section definition array.
     return [
-
       'tree' => [
         '#type' => 'details',
         '#open' => TRUE,
@@ -137,7 +136,7 @@ class MenuSettings extends InstanceConfigSectionBase {
         'active' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Is active', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['active'],
+          '#default_value' => isset($this->filter['active']) ? $this->filter['active'] : FALSE,
         ],
 
         'liveZoomToFeatures' => [
@@ -149,7 +148,7 @@ class MenuSettings extends InstanceConfigSectionBase {
         'layerSelectorVisible' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Display a selector for the layers?', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['layerSelectorVisible'],
+          '#default_value' => isset($this->filter['layerSelectorVisible']) ? $this->filter['layerSelectorVisible'] : FALSE,
         ],
 
         'isVisibleInMenu' => [
@@ -161,7 +160,7 @@ class MenuSettings extends InstanceConfigSectionBase {
         'layers' => [
           '#type' => 'textarea',
           '#title' => $this->t('Predefined layers', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['layers'],
+          '#default_value' => isset($this->filter['layers']) ? $this->filter['layers'] : '',
           '#element_validate' => [[$this, 'validateJsonInput']],
           '#json_pretty_print' => TRUE,
         ],
@@ -179,17 +178,21 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#default_value' => $this->legend['name'],
           '#required' => TRUE,
         ],
+
+        'showLegend' => [
+          '#type' => 'checkbox',
+          '#title' => $this->t('Open by default', [], ['context' => 'Masterportal']),
+          '#description' => $this->t('Should the Legend be initially opened?', [], ['context' => 'Masterportal']),
+          '#default_value' => $this->legend['showLegend'] ?? FALSE,
+        ],
       ],
-
     ];
-
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSectionConfigArray(array $rawFormData, FormStateInterface $form_state) {
-
     // Prepare possible predefined layers (must be an array).
     $layers = !empty($rawFormData["filter"]["layers"])
       ? json_decode($rawFormData["filter"]["layers"])
@@ -219,6 +222,7 @@ class MenuSettings extends InstanceConfigSectionBase {
       ],
       'legend' => [
         'name' => $rawFormData["legend"]["name"],
+        'showLegend' => (bool) $rawFormData["legend"]["showLegend"],
       ],
     ];
   }
@@ -259,6 +263,7 @@ class MenuSettings extends InstanceConfigSectionBase {
 
         // Inject the legend section.
         $config->Portalconfig->menu->legend->name = $this->legend["name"];
+        $config->Portalconfig->menu->legend->showLegend = $this->legend["showLegend"] ?? FALSE;
         break;
     }
   }

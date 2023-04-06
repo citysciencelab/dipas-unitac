@@ -15,11 +15,11 @@ trait ProjectDataTrait {
    *   The project phase identifier (unstarted | phase1 | phase2 | phasemix | frozen).
    */
   protected function getProjectPhase() {
-    $project_start = strtotime($this->getDipasConfig()->get('ProjectSchedule/project_start'));
-    $project_end = strtotime($this->getDipasConfig()->get('ProjectSchedule/project_end')) + 86399;
-    $phase_2_enabled = $this->getDipasConfig()->get('ProjectSchedule/phase_2_enabled');
-    $phase_2_start = $this->getDipasConfig()->get('ProjectSchedule/phase_2_start');
-    $phasemix_enabled = $this->getDipasConfig()->get('ProjectSchedule/phasemix_enabled');
+    $project_start = strtotime($this->getDipasConfig()->get('ProjectSchedule.project_start'));
+    $project_end = strtotime($this->getDipasConfig()->get('ProjectSchedule.project_end')) + 86399;
+    $phase_2_enabled = $this->getDipasConfig()->get('ProjectSchedule.phase_2_enabled');
+    $phase_2_start = $this->getDipasConfig()->get('ProjectSchedule.phase_2_start');
+    $phasemix_enabled = $this->getDipasConfig()->get('ProjectSchedule.phasemix_enabled');
     $now = time();
     $project_phase = 'unstarted';
 
@@ -40,7 +40,7 @@ trait ProjectDataTrait {
   /**
    * Returns the commentStorage.
    *
-   * @return \Drupal\Core\Entity\EntityStorageInterface
+   * @return \Drupal\dipas\Service\DipasConfigInterface
    */
   abstract protected function getDipasConfig();
 }

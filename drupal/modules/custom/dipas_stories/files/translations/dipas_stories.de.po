@@ -1,0 +1,259 @@
+msgid "Total story steps: @total"
+msgstr "Story Steps insgesamt: @total"
+
+msgid "New story step %label has been created."
+msgstr "Ein neuer Story Step wurde erzeugt."
+
+msgid "The story step %label has been updated."
+msgstr "Der Story Step wurde aktualisiert."
+
+msgid "Settings form for a story step entity type."
+msgstr "Einstellungsformular für den Entitätstypen \"Story Step\"."
+
+msgctxt "dipas_stories"
+msgid "Widget mode"
+msgstr "Modus des Eingabeformulars"
+
+msgctxt "dipas_stories"
+msgid "Story"
+msgstr "Story"
+
+msgctxt "dipas_stories"
+msgid "Story Step"
+msgstr "Story Step"
+
+msgctxt "dipas_stories"
+msgid "Omitted widget sections"
+msgstr "Ausgeblendete Abschnitte des Eingabeformulars"
+
+msgctxt "dipas_stories"
+msgid "Should any sections be excluded from the widget?"
+msgstr "Sollen Abschnitte des Eingabeformulars ausgeblendet werden?"
+
+msgctxt "dipas_stories"
+msgid "Widget mode: @widgetMode"
+msgstr "Modus des Eingabeformulars: @widgetMode"
+
+msgctxt "dipas_stories_widget_sections"
+msgid "none"
+msgstr "keine"
+
+msgctxt "dipas_stories"
+msgid "Select Layer to add"
+msgstr "Kartenebene zum hinzufügen auswählen"
+
+msgctxt "dipas_stories"
+msgid "Available tool plugins"
+msgstr "Verfügbare Werkzeug-Plugins"
+
+msgctxt "dipas_stories"
+msgid "Select active tool plugin for this step"
+msgstr "Aktives Werkzeug-Plugin für diesen Step auswählen"
+
+msgctxt "dipas_stories"
+msgid "The selected tool plugin will automatically be set to an active, usable state when displaying this story step"
+msgstr "Das ausgewählte Werkzeug wird automatisch in einen aktiven, zur Benutzung bereiten Status versetzt, wenn dieser Story Step angezeigt wird"
+
+msgctxt "dipas_stories"
+msgid "No automatic tool activation"
+msgstr "Keine automatische Werkzeug-Aktivierung"
+
+msgctxt "dipas_stories"
+msgid "Autoplay referenced story?"
+msgstr "Referenzierte Story automatisch abspielen?"
+
+msgctxt "dipas_stories"
+msgid "Name of the GET-Parameter containing the URL to the Story JSON"
+msgstr "Name des GET-Parameters, der die URL zum Story-JSON enthält"
+
+msgctxt "dipas_stories"
+msgid "Story Loader"
+msgstr "Story Wiedergabe"
+
+msgctxt "dipas_stories"
+msgid "Story overview JSON"
+msgstr "Storyübersichts-JSON"
+
+msgctxt "dipas_stories"
+msgid "URL of the resource providing the story overview JSON"
+msgstr "URL der Seite, die das JSON der Story-Übersicht enthält"
+
+msgctxt "dipas_stories"
+msgid "Tool-Plugin \"DIPAS Story Selector\": The value of the URL to the Story overview JSON must be a valid URL starting with http(s)!"
+msgstr "Werkzeug-Plugin \"DIPAS Story Auswahlwerkzeug\": Die URL der Storyübersicht muss mit http(s) beginnen!"
+
+msgctxt "dipas_stories"
+msgid "Story Selector"
+msgstr "Story Auswahlwerkzeug"
+
+msgctxt "dipas_stories"
+msgid "The values entered here will be applied to all story steps"
+msgstr "Die hier eingegebenen Werte finden in der gesamten Story Anwendung"
+
+msgctxt "dipas_stories"
+msgid "It is not possible to edit these values here"
+msgstr "Es ist nicht möglich, diese Werte hier zu verändern"
+
+msgctxt "dipas_stories"
+msgid "Initially visible"
+msgstr "Sichtbar (Voreinstellung)"
+
+msgctxt "dipas_stories"
+msgid "Visible"
+msgstr "Sichtbar"
+
+msgctxt "dipas_stories"
+msgid "Override layer name"
+msgstr "Übersteuerter Ebenenname"
+
+msgctxt "dipas_stories"
+msgid "Add layer"
+msgstr "Kartenebene hinzufügen"
+
+msgctxt "dipas_stories"
+msgid "Reading time"
+msgstr "Lesezeit"
+
+msgctxt "dipas_stories"
+msgid "minutes"
+msgstr "Minuten"
+
+msgctxt "dipas_stories"
+msgid "Layer-specific JSON settings"
+msgstr "Ebenenspezifische Einstellungen im JSON-Format"
+
+msgctxt "dipas_stories"
+msgid "No layers defined"
+msgstr "Keine Kartenebenen ausgewählt"
+
+msgctxt "dipas_stories"
+msgid "Layer"
+msgstr "Kartenebene"
+
+msgctxt "dipas_stories"
+msgid "Details"
+msgstr "Details"
+
+msgctxt "dipas_stories"
+msgid "The center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values."
+msgstr "Die initialen Mittelpunktkoordinaten. Die Eingabe muss in validem JSON erfolgen als Array aus 2 ganzzahligen Werten."
+
+msgctxt "dipas_stories"
+msgid "Excluded widget sections: @excludedSections"
+msgstr "Ausgeblendete Einstellungsabschnitte: @excludedSections"
+
+msgid "Masterportal Map Settings"
+msgstr "Masterportal Karteneinstellungen"
+
+msgid "Background layers"
+msgstr "Hintergrundkarten"
+
+msgid "Choose and configure background layers for the DIPAS story Masterportal"
+msgstr "Wählen und konfigurieren Sie Karten für die Hintergrundebene des DIPAS Story Masterportals"
+
+msgid "Foreground layers"
+msgstr "Vordergrundkarten"
+
+msgid "Choose and configure foreground layers for the DIPAS story Masterportal"
+msgstr "Wählen und konfigurieren Sie Karten für die vorderen Ebenen des DIPAS Story Masterportals"
+
+msgid "Tools"
+msgstr "Werkzeuge"
+
+msgid "Choose and configure tool plugins for the DIPAS story Masterportal"
+msgstr "Wählen und konfigurieren Sie die Werkzeuge für das DIPAS Story Masterportal"
+
+msgid "Viewpoint configuration"
+msgstr "Einstellungen für die sichtbare Karte"
+
+msgid "Configure the initial viewport and zoom level for the DIPAS story Masterportal"
+msgstr "Konfigurieren Sie den initialen Kartenausschnitt und die Zoomstufe des DIPAS Story Masterportals"
+
+msgid "The title of the story step entity."
+msgstr "Der Titel dieses Story Steps."
+
+msgctxt "dipas_stories"
+msgid "Title of the new Story Step"
+msgstr "Titel des neuen Story Schrittes"
+
+msgctxt "dipas_stories"
+msgid "Story Step Title"
+msgstr "Story Schritt Titel"
+
+msgctxt "dipas_stories"
+msgid "No story steps defined at this time. Use the button below to add a new story step."
+msgstr "Es sind bisher keine Story Schritte definiert. Bitte nutzen Sie den untenstehenden Button, um einen neuen Story Schritt zu erstellen."
+
+msgid "Map Features"
+msgstr "Kartenoptionen"
+
+msgid "Choose and configure map features for the DIPAS story Masterportal"
+msgstr "Wählen und konfigurieren Sie die Kartenoptionen für das DIPAS stories Masterportal"
+
+msgctxt "dipas_stories"
+msgid "Enabled map features"
+msgstr "Ausgewählte Kartenoptionen"
+
+msgctxt "dipas_stories"
+msgid "Select the Masterportal features you want to make available for activation in the story steps of this story"
+msgstr "Wählen Sie die Kartenoptionen, die Sie in den Story Steps zur Aktivierung auswählbar machen wollen"
+
+msgctxt "dipas_stories"
+msgid "Activated map features"
+msgstr "Aktivierte Kartenoptionen"
+
+msgctxt "dipas_stories"
+msgid "Select the Masterportal features you want to activate when viewing this story step"
+msgstr "Wählen Sie die Kartenoptionen, die Sie bei Betrachtung dieses Story Steps aktivieren möchten"
+
+msgctxt "dipas_stories"
+msgid "Camera position"
+msgstr "Kameraposition"
+
+msgctxt "dipas_stories"
+msgid "The camera position coordinates for the map to start with. Must be entered in a valid JSON format as an array of 3 numeric values."
+msgstr "Die Kamerapositionskoordinaten für die Starteinstellung der Karte. Muss in einem validen JSON-Format als Array mit 3 numerischen Werten angegeben werden."
+
+msgctxt "dipas_stories"
+msgid "Camera heading"
+msgstr "Kamerarichtung"
+
+msgctxt "dipas_stories"
+msgid "The heading the camera is pointing to."
+msgstr "Die Richtung, in der die Kamera initial zeigt."
+
+msgctxt "dipas_stories"
+msgid "Camera pitch"
+msgstr "Kameraneigung"
+
+msgctxt "dipas_stories"
+msgid "The pitch for the camera viewport."
+msgstr "Die Neigung des Kameraausschnitts."
+
+msgctxt "dipas_stories"
+msgid "Parent ID"
+msgstr "Übergeordnete ID"
+
+msgctxt "dipas_stories"
+msgid "Add Story Step"
+msgstr "Story Step hinzufügen"
+
+msgctxt "dipas_stories"
+msgid "Maximum nesting depth"
+msgstr "Maximale Verschachtelungstiefe"
+
+msgctxt "dipas_stories"
+msgid "Unlimited"
+msgstr "Unbeschränkt"
+
+msgctxt "dipas_stories"
+msgid "No nesting allowed"
+msgstr "Keine Verschachtelung zugelassen"
+
+msgctxt "dipas_stories"
+msgid "@limit level(s)"
+msgstr "@limit Ebene(n)"
+
+msgctxt "dipas_stories"
+msgid "Maximum nesting depth: @maxNestingDepth"
+msgstr "Maximale Verschachtelungstiefe: @maxNestingDepth"

@@ -21,6 +21,7 @@ use Drupal\masterportal\FindFormSectionTrait;
 use Drupal\masterportal\PluginSystem\PluginManagerInterface;
 use Drupal\masterportal\Service\Masterportal;
 use Drupal\masterportal\Exception\UnknownPluginMethodException;
+use Drupal\masterportal\Service\MasterportalConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -79,6 +80,11 @@ class MasterportalInstanceEditForm extends EntityForm {
   protected $configSectionPluginManager;
 
   /**
+   * @var \Drupal\masterportal\Service\MasterportalConfigInterface
+   */
+  protected $masterportalConfigService;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -89,7 +95,7 @@ class MasterportalInstanceEditForm extends EntityForm {
       $container->get('entity_type.manager'),
       $container->get('cache_tags.invalidator'),
       $container->get('plugin.manager.masterportal.instance_config_section'),
-      $container->get('module_handler')
+      $container->get('masterportal.config')
     );
   }
 
@@ -120,7 +126,8 @@ class MasterportalInstanceEditForm extends EntityForm {
     AccountInterface $current_user,
     EntityTypeManagerInterface $entity_type_manager,
     CacheTagsInvalidatorInterface $cache_tags_invalidator,
-    PluginManagerInterface $config_section_manager
+    PluginManagerInterface $config_section_manager,
+    MasterportalConfigInterface $masterportal_config_service
   ) {
     $this->container = $container;
     $this->logger = $logger;
@@ -128,6 +135,7 @@ class MasterportalInstanceEditForm extends EntityForm {
     $this->entityStorage = $entity_type_manager->getStorage('masterportal_instance');
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->configSectionPluginManager = $config_section_manager;
+    $this->masterportalConfigService = $masterportal_config_service;
   }
 
   /**
@@ -234,10 +242,13 @@ class MasterportalInstanceEditForm extends EntityForm {
 
       // Instantiate the plugin.
       /* @var \Drupal\masterportal\PluginSystem\InstanceConfigSectionInterface $plugin */
-      $plugin = new $configSection['class'](array_merge(
-        $pluginDefaults,
-        ['_entity' => $this->entity, '_definition' => $configSection]
-      ));
+      $plugin = new $configSection['class'](
+        array_merge(
+          $pluginDefaults,
+          ['_entity' => $this->entity, '_definition' => $configSection]
+        ),
+        $this->masterportalConfigService
+      );
 
       $form['settings'][$pluginId] = array_merge(
         $form['settings'][$pluginId],

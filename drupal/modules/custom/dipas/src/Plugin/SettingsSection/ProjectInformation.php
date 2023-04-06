@@ -11,6 +11,7 @@ use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\dipas\Annotation\SettingsSection;
 use Drupal\masterportal\Form\MultivalueRowTrait;
 use Drupal\dipas\TaxonomyTermFunctionsTrait;
 use Drupal\masterportal\DomainAwareTrait;
@@ -321,10 +322,10 @@ class ProjectInformation extends SettingsSectionBase {
     );
 
     foreach ($topics as $tid => $value) {
-      $section['project_contact']['additional_info']['data_topicselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description']));
+      $section['project_contact']['additional_info']['data_topicselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description'] ?? ''));
     }
     foreach ($districts as $tid => $value) {
-      $section['project_contact']['additional_info']['data_districtselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description']));
+      $section['project_contact']['additional_info']['data_districtselection'][$tid]['#attributes'] = array('title' => strip_tags($value['description'] ?? ''));
     }
 
     return $section;
@@ -407,9 +408,9 @@ class ProjectInformation extends SettingsSectionBase {
       'headline' => $plugin_values["welcome_modal"]['headline'],
       'text' => $plugin_values["welcome_modal"]['text'],
       'data_responsible' => $plugin_values["project_contact"]['additional_info']['data_responsible'],
-      'data_topicselection' => array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_topicselection'])),
-      'data_districtselection' => array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_districtselection'])),
-      'project_owners' => array_keys(array_filter($plugin_values["project_contact"]['project_owners'])),
+      'data_topicselection' => !is_null($plugin_values["project_contact"]['additional_info']['data_topicselection']) ? array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_topicselection'])) : '',
+      'data_districtselection' => !is_null($plugin_values["project_contact"]['additional_info']['data_districtselection']) ? array_keys(array_filter($plugin_values["project_contact"]['additional_info']['data_districtselection'])) : '',
+      'project_owners' => !is_null($plugin_values["project_contact"]['project_owners']) ? array_keys(array_filter($plugin_values["project_contact"]['project_owners'])) : '',
     ];
   }
 

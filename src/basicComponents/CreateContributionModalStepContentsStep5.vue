@@ -251,6 +251,7 @@ export default {
 </template>
 
 <style>
+
     .selected-keyword {
         color: #ffffff;
         background-color: #005CA9;
@@ -353,7 +354,6 @@ export default {
     #app.mobile div.createContributionStep5 {
         overflow-y: auto;
         overflow-x: hidden;
-        height: calc((var(--vh, 1vh) * 100));
     }
 
     div.createContributionStep5 div.taxonomy p.contributionCategory img {
@@ -363,6 +363,7 @@ export default {
 
     div.createContributionStep5 div.locationWidget {
         position: relative;
+        min-height: 50px;
     }
 
     div.createContributionStep5 div.locationWidget div.clickCatcher,
@@ -373,8 +374,9 @@ export default {
         height: 100%;
     }
 
-    #app.mobile div.createContributionStep5 div.locationWidget div.masterportal {
-        height: calc((var(--vh, 1vh) * 100) - 515px);
+     #app.mobile div.createContributionStep5 div.locationWidget div.masterportal {
+        height: calc((var(--vh, 1vh) * 100) - 390px);
+        min-height: 175px;
     }
 
     div.createContributionStep5 div.locationWidget div.clickCatcher {

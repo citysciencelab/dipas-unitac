@@ -1,0 +1,19 @@
+_core:
+  default_config_hash: casoi_a5ESF6FDenNpENLcLqbSQccDxmNmUAvYRI64c
+langcode: en
+libraries:
+  vue:
+    installation: local
+    development: false
+    version: 2.6.11
+    url: ''
+  vue_router:
+    installation: local
+    development: false
+    version: 3.3.4
+    url: ''
+  vue_resource:
+    installation: local
+    development: false
+    version: 1.5.1
+    url: ''

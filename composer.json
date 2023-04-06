@@ -29,6 +29,7 @@
     "composer/installers": "v2.0.1",
     "cweagans/composer-patches": "^1.0",
     "drush/drush": "^10.0.0",
+    "antennaio/jquery-bar-rating": "1.2.2",
 
     "drupal/core-recommended": "^9.0.0",
 
@@ -39,15 +40,17 @@
     "drupal/config_filter": "2.4.0",
     "drupal/config_ignore": "^2.2",
     "drupal/csv_serialization": "^2.0@beta",
-    "drupal/ctools": "4.0.2",
+    "drupal/ctools": "^4.0.2",
     "drupal/domain": "^1.0@beta",
+    "drupal/element_class_formatter": "^1.5",
     "drupal/entity": "^1.0@rc",
     "drupal/entity_browser": "^2.0",
     "drupal/entity_browser_enhanced": "^1.0@rc",
     "drupal/entity_reference_revisions": "^1.6",
     "drupal/environment_indicator": "^4.0",
+    "drupal/field_group": "^3.4",
     "drupal/form_options_attributes": "2.0.2",
-    "drupal/fpa": "3.0.2",
+    "drupal/fpa": "^3.0.2",
     "drupal/geofield": "^1.0",
     "drupal/image_effects": "^3.0",
     "drupal/inline_entity_form": "^1.0@rc",
@@ -62,12 +65,14 @@
     "drupal/paragraphs_features": "^1.4",
     "drupal/select2": "^1.1",
     "drupal/stage_file_proxy": "^1.0@alpha",
+    "drupal/textarea_limit": "^3.0",
     "drupal/token": "^1.5",
     "drupal/transliterate_filenames": "2.0.1",
-    "drupal/twig_tweak": "3.2.0",
+    "drupal/twig_tweak": "^3.2.0",
     "drupal/video_embed_field": "^2.0",
     "drupal/votingapi": "^3.0@beta",
     "drupal/votingapi_widgets": "1.x-dev",
+    "drupal/vuejs": "^1.0@rc",
     "drupal/x_frame_options": "^1.1",
     "symfony/finder": "^4.4",
     "phpunit/php-code-coverage": "^9.2"
@@ -103,6 +108,10 @@
       },
       "drupal/jquery_ui_selectmenu": {
         "Issues caused by jquery UI core update": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/f17310b7aaa27803b846dfb76f92afa8b4e30a44/jquery_ui_selectmenu/jquery_update_form_error.patch"
+      },
+      "drupal/field_group": {
+        "https://www.drupal.org/project/field_group/issues/3032426": "https://www.drupal.org/files/issues/2020-12-18/3032426-10.patch",
+        "Suppress processing of deleted groups": "https://bitbucket.org/geowerkstatt-hamburg/patches/raw/7854e727979e45da184525e67f83992f75b12e4c/field_group/suppress_warnings.patch"
       }
     },
     "installer-types": [

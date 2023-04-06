@@ -7,7 +7,6 @@
 namespace Drupal\dipas\Service;
 
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\dipas\Controller\DipasConfig;
 use Drupal\Core\Database\Connection;
 use GuzzleHttp\ClientInterface;
 use Drupal\dipas\Exception\StatusException;
@@ -65,15 +64,17 @@ class DipasKeywords implements DipasKeywordsInterface {
   /**
    * DipasKeywords constructor.
    *
-   * @param \Drupal\dipas\Controller\DipasConfig $config_factory
+   * @param \Drupal\dipas\Service\DipasConfigInterface $config_factory
    *   Custom config service.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   Custom logger channel.
    * @param \GuzzleHttp\ClientInterface $guzzle
    *   The guzzle ClientInterface.
+   * @param \Drupal\Core\Database\Connection $db_connection
+   * @param \Drupal\dipas\Service\EntityServicesInterface $entity_services
    */
   public function __construct(
-    DipasConfig $config_factory,
+    DipasConfigInterface $config_factory,
     LoggerChannelInterface $logger,
     ClientInterface $guzzle,
     Connection $db_connection,
@@ -90,7 +91,7 @@ class DipasKeywords implements DipasKeywordsInterface {
    * {@inheritdoc}
    */
   public function getRequestKeywords($description) {
-    if ($this->dipasConfig->get('KeywordSettings/enabled') === TRUE) {
+    if ($this->dipasConfig->get('KeywordSettings.enabled') === TRUE) {
 
       if ($description && strlen($description) > 2) {
 
@@ -98,14 +99,14 @@ class DipasKeywords implements DipasKeywordsInterface {
 
         $keywords = $this->guzzle->request(
           'POST',
-          $this->dipasConfig->get('KeywordSettings/service_url'),
+          $this->dipasConfig->get('KeywordSettings.service_url'),
           [
             'json' => [
               'description' => $description,
-              'mode' => $this->dipasConfig->get('KeywordSettings/mode'),
-              'externalService' => $this->dipasConfig->get('KeywordSettings/externalService'),
+              'mode' => $this->dipasConfig->get('KeywordSettings.mode'),
+              'externalService' => $this->dipasConfig->get('KeywordSettings.externalService'),
               'url' => 'http://keywordset.net', // Somehow this value must be set, seems not to be used at all...
-              'num' => $this->dipasConfig->get('KeywordSettings/number_of_keywords'),
+              'num' => $this->dipasConfig->get('KeywordSettings.number_of_keywords'),
             ]
           ]
         );

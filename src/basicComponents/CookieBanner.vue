@@ -46,6 +46,14 @@ export default {
       this.confirmCookies();
     },
     /**
+     * Gets called when user clicks "rejet cookies" or closes the Cookie Banner
+     * @returns {void}
+     */
+    declineCookies: function () {
+      this.$root.cookieBannerConfirmed = false;
+      this.showBanner = false;
+    },
+    /**
      * Gets called when the user clicks "inform"
      * @returns {void}
      */
@@ -69,10 +77,9 @@ export default {
     @event click
     -->
     <button
-      v-if="$root.isMobile"
-      class="closebutton"
       :aria-label="$t('Cookiebar.closeButton')"
-      @click="showBanner = false"
+      class="closeButton"
+      @click="declineCookies"
     >
       <i
         aria-hidden="true"
@@ -110,11 +117,22 @@ export default {
         @event click accept cookies
       -->
       <DipasButton
-        :text="$t('Cookiebar.buttontext')"
+        :text="$t('Cookiebar.acceptButtonText')"
         class="blue angular"
         role="button"
         tabindex="0"
         @click="acceptCookies"
+      />
+      <!--
+        @name DipasButton
+        @event click decline cookies, cloose banner
+      -->
+      <DipasButton
+        :text="$t('Cookiebar.declineButtonText')"
+        class="red angular"
+        role="button"
+        tabindex="0"
+        @click="declineCookies"
       />
     </div>
   </div>
@@ -133,7 +151,12 @@ export default {
         display: flex;
     }
 
-    div.cookieBanner button.closebutton {
+    #app.mobile div.cookieBanner button.closeButton {
+        background: #FFFFFF;
+        color:#003063;
+    }
+
+    div.cookieBanner button.closeButton {
         position: absolute;
         top: 5px;
         right: 5px;
@@ -144,11 +167,11 @@ export default {
         width: 30px;
         height: 30px;
         line-height: 42px;
-        background: #FFFFFF;
         border-radius: 15px;
+        color:white;
     }
 
-    div.cookieBanner button.closebutton:focus:not(:focus-visible) {
+    div.cookieBanner button.closeButton:focus:not(:focus-visible) {
         outline: none;
     }
 
@@ -221,16 +244,22 @@ export default {
 
     div.cookieBanner div.buttons {
         width: auto;
-        margin-left: 20px;
+        margin: 0 25px;
+        display: flex;
+        gap: 1rem;
     }
 
     #app.mobile div.cookieBanner div.buttons {
-        margin-left: 0;
+        margin-left:0;
         width: 100%;
         position: absolute;
         bottom: 0;
         left: 0;
-        padding: 40px;
+        padding:1rem;
+    }
+
+    #app.mobile div.cookieBanner div.buttons button:first-child {
+      margin-bottom:1rem;
     }
 
     div.cookieBanner div.buttons button {

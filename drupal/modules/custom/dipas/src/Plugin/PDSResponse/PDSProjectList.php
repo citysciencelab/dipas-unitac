@@ -7,6 +7,7 @@
 namespace Drupal\dipas\Plugin\PDSResponse;
 
 use Drupal\Core\Url;
+use Drupal\dipas\Annotation\PDSResponse;
 use Drupal\masterportal\GeoJSONFeature;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\dipas\Plugin\ResponseKey\ProjectDataTrait;
@@ -31,7 +32,7 @@ use Drupal\masterportal\DomainAwareTrait;
  */
 class PDSProjectList extends PDSResponseBase {
 
-  use NodeContentTrait{
+  use NodeContentTrait {
     NodeContentTrait::getPluginResponse as protected traitPluginResponse;
   }
   use DateTimeTrait;
@@ -52,11 +53,16 @@ class PDSProjectList extends PDSResponseBase {
   protected $nodeStorage;
 
   /**
- * Drupals taxonomy term storage service.
- *
- * @var \Drupal\Core\Entity\EntityStorageInterface
- */
+   * Drupals taxonomy term storage service.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
   protected $termStorage;
+
+  /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
 
   /**
    * {@inheritdoc}
@@ -65,6 +71,7 @@ class PDSProjectList extends PDSResponseBase {
     $this->dateFormatter = $container->get('date.formatter');
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
   }
 
   /**
@@ -89,11 +96,10 @@ class PDSProjectList extends PDSResponseBase {
     $domain_configs = [];
     if ($this->currentRequest->attributes->get('proj_ID') !== '0') {
       // return data of a single project
-      $domain_id = $this->domainModulePresent ? $this->currentRequest->attributes->get('proj_ID'): 'default';
+      $domain_id = $this->domainModulePresent ? $this->currentRequest->attributes->get('proj_ID') : 'default';
 
       $domain_configs[] = sprintf('dipas.%s.configuration', $domain_id);
-    }
-    else {
+    } else {
       $domain_configs = $this->dipasConfig->getIds();
     }
 
@@ -121,32 +127,39 @@ class PDSProjectList extends PDSResponseBase {
       // Add the geolocation information to it.
       if (!empty($project_area->geometry)) {
         $featureObject->setGeometry($project_area->geometry);
-      }
-      elseif ($project_area) {
+      } elseif ($project_area) {
         $featureObject->setGeometry($project_area);
       }
-
       // Add the node information to it.
       $featureObject->addProperty('id', $domain_id);
       $featureObject->addProperty('nameFull', $dipasConfigDomain->get('ProjectInformation.site_name'));
       $featureObject->addProperty('description', $this->loadProjectDescription($dipasConfigDomain, ''));
       $featureObject->addProperty('dateStart', $this->convertTimestampToUTCDateTimeString(
-            strtotime($dipasConfigDomain->get('ProjectSchedule.project_start')),
-            TRUE
-          ));
+        strtotime($dipasConfigDomain->get('ProjectSchedule.project_start')),
+        TRUE
+      ));
       $featureObject->addProperty('dateEnd', $this->convertTimestampToUTCDateTimeString(
-            strtotime($dipasConfigDomain->get('ProjectSchedule.project_end')),
-            TRUE
-          ));
+        strtotime($dipasConfigDomain->get('ProjectSchedule.project_end')),
+        TRUE
+      ));
       $featureObject->addProperty('dipasPhase', $this->getDipasPhase($dipasConfigDomain));
       $replace_string = "://$domain_id.";
       $featureObject->addProperty('website', preg_replace('/:\/\//', $replace_string, preg_replace('/\/drupal\/.*$/', '/#', Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString())));
       $featureObject->addProperty('owner', $dipasConfigDomain->get('ProjectInformation.department'));
       $featureObject->addProperty('projectOwner', $this->getAssignedTerms('project_owner', [], $dipasConfigDomain->get('ProjectInformation.project_owners')));
       $featureObject->addProperty('publisher', $dipasConfigDomain->get('ProjectInformation.data_responsible'));
-      $featureObject->addProperty('standardCategories', $this->getTermList('categories'));
-      $featureObject->addProperty('projectContributionType', $this->getTermList('rubrics'));
-      $featureObject->addProperty('dipasMainDistrict', $this->getAssignedTerms('districts', ['field_color' => function ($fieldvalue) { return $fieldvalue->getString(); }], $dipasConfigDomain->get('ProjectInformation.data_districtselection')));
+
+      ($domain_id === 'default') ?
+        $featureObject->addProperty('standardCategories', $this->getTermList('categories')) :
+        $featureObject->addProperty('standardCategories', $this->getTermList('categories', [], FALSE, $domain_id));
+
+        ($domain_id === 'default') ?
+        $featureObject->addProperty('projectContributionType', $this->getTermList('rubrics')) :
+        $featureObject->addProperty('projectContributionType', $this->getTermList('rubrics', [], FALSE, $domain_id));
+
+      $featureObject->addProperty('dipasMainDistrict', $this->getAssignedTerms('districts', ['field_color' => function ($fieldvalue) {
+        return $fieldvalue->getString();
+      }], $dipasConfigDomain->get('ProjectInformation.data_districtselection')));
       $featureObject->addProperty('projectTopics', $this->getAssignedTerms('topics', [], $dipasConfigDomain->get('ProjectInformation.data_topicselection')));
       $featureObject->addProperty('referenceSystem', "4326");
       $featureObject->addProperty('hasParticipatoryText', $this->getNodeList($domain_id));
@@ -178,14 +191,14 @@ class PDSProjectList extends PDSResponseBase {
 
         // nur ein Feld in der Node vorhanden
         if (array_key_exists('bundle', $result['field_content'])) {
-          if ($result['field_content']['bundle'] === 'text'){
+          if ($result['field_content']['bundle'] === 'text') {
             $project_description = $result['field_content']['field_text'];
           }
         }
         // mehrere Felder in der Node vorhanden
         else {
           foreach ($result['field_content'] as $definition) {
-            if ($definition['bundle'] === 'text'){
+            if ($definition['bundle'] === 'text') {
               $project_description = $project_description . ' ' . $definition['field_text'];
             }
           }
@@ -209,9 +222,9 @@ class PDSProjectList extends PDSResponseBase {
    */
   protected function getNodeList($domain_id) {
     $node_query = $this->nodeStorage->getQuery()
-                  ->condition('type', 'contribution', '=')
-                  ->condition('status', 1, '=')
-                  ->condition('field_domain_access', $domain_id, '=');
+      ->condition('type', 'contribution', '=')
+      ->condition('status', 1, '=')
+      ->condition('field_domain_access', $domain_id, '=');
     // Load all published contributions.
     $nodeIds = $node_query->execute();
 
@@ -230,9 +243,9 @@ class PDSProjectList extends PDSResponseBase {
    * @return array|false
    */
   protected function getClusterList($domain_id) {
-    $nlp_cluster = $this->state->get('dipas.nlp.clustering.result:'.$domain_id);
+    $nlp_cluster = $this->state->get('dipas.nlp.clustering.result:' . $domain_id);
 
-    if ( $nlp_cluster && $nlp_cluster['result']) {
+    if ($nlp_cluster && $nlp_cluster['result']) {
       $list = array_map(function ($cluster) {
         return $cluster->title;
       }, $nlp_cluster['result']);
@@ -285,5 +298,10 @@ class PDSProjectList extends PDSResponseBase {
     return $this->termStorage;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
+  }
 }
-

@@ -1,0 +1,24 @@
+entity.story_step.settings:
+  path: '/admin/structure/story-step'
+  defaults:
+    _form: '\Drupal\dipas_stories\Form\StoryStepSettingsForm'
+    _title: 'Story step'
+  requirements:
+    _permission: 'administer story step'
+
+dipas_stories.stories:
+  path: '/dipas/stories/{storyID}/{chapter}/{chapterID}'
+  defaults:
+    _controller: 'dipas_stories.api:requestResolver'
+    storyID: null
+    chapterID: null
+    chapter: null
+  methods: [GET]
+  requirements:
+    _permission: 'access content'
+    storyID: \d+
+    chapter: chapter
+    chapterID: \d+\.html
+  options:
+    _maintenance_access: false
+    no_cache: TRUE

@@ -5,7 +5,7 @@ namespace Drupal\masterportal\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\domain\DomainForm;
+use Drupal\domain\Form\DomainForm;
 use Drupal\domain\DomainStorageInterface;
 use Drupal\domain\DomainValidatorInterface;
 use Drupal\masterportal\Service\DomainHandlerInterface;

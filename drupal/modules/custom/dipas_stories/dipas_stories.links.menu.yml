@@ -1,0 +1,10 @@
+entity.story_step.settings:
+  title: Story step
+  description: Configure a Story step entity type
+  route_name:  entity.story_step.settings
+  parent: system.admin_structure
+entity.story_step.collection:
+  title: Story steps
+  description: List of story steps
+  route_name: entity.story_step.collection
+  parent: system.admin_content

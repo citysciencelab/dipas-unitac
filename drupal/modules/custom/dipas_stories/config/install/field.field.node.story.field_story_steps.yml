@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_story_steps
+    - node.type.story
+  module:
+    - dipas_stories
+id: node.story.field_story_steps
+field_name: field_story_steps
+entity_type: node
+bundle: story
+label: 'Story Steps'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: story_step_entity_reference_field

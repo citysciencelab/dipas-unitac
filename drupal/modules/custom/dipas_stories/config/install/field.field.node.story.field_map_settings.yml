@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_map_settings
+    - node.type.story
+id: node.story.field_map_settings
+field_name: field_map_settings
+entity_type: node
+bundle: story
+label: 'Map Settings'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

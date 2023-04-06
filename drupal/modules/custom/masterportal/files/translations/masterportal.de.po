@@ -444,7 +444,7 @@ msgctxt "Masterportal"
 msgid "1 foreground layer"
 msgid_plural "@count foreground layers"
 msgstr[0] "1 Vordergrundebene"
-msgstr[1] "@count Hintergrundebenen"
+msgstr[1] "@count Vordergrundebenen"
 
 #: src/ListBuilder/MasterportalInstances.php:223
 msgctxt "Masterportal"
@@ -736,8 +736,8 @@ msgstr "Steuerelement, das die Anzeige des Masterportals auf Vollbild umschaltet
 
 #: src/Plugin/Masterportal/Controls/InputWidgetMap.php:55
 msgctxt "Masterportal"
-msgid "Use setMarker (only for GeofieldLatLonWidgets)?"
-msgstr "'setMarker' benutzen (nur für Felder mit GeofieldLatLonWidgets)"
+msgid "Use setMarker?"
+msgstr "'setMarker' benutzen?"
 
 #: src/Plugin/Masterportal/Controls/InputWidgetMap.php:56
 msgctxt "Masterportal"
@@ -1014,8 +1014,8 @@ msgstr "Mittelpunktkoordinaten"
 
 #: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:138
 msgctxt "Masterportal"
-msgid "The @projection (UTM) center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values."
-msgstr "Die initialen @projection (UTM) Mittelpunktkoordinaten. Die Eingabe muss in validem JSON erfolgen als Array aus 2 ganzzahligen Werten."
+msgid "The center coordinates for the map to start with. Must be entered in a valid JSON format as an array of 2 integer values."
+msgstr "Die initialen Mittelpunktkoordinaten. Die Eingabe muss in validem JSON erfolgen als Array aus 2 ganzzahligen Werten."
 
 #: src/Plugin/Masterportal/InstanceConfigSection/MapSettings.php:150
 msgctxt "Masterportal"
@@ -1079,6 +1079,11 @@ msgstr "Standardmäßig geöffnet"
 msgctxt "Masterportal"
 msgid "Should the menu tree be initially opened?"
 msgstr "Soll der Themenbaum standardmäßig geöffnet sein?"
+
+#: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:187
+msgctxt "Masterportal"
+msgid "Should the Legend be initially opened?"
+msgstr "Soll die Legende standardmäßig geöffnet sein?"
 
 #: src/Plugin/Masterportal/InstanceConfigSection/MenuSettings.php:116
 msgctxt "Masterportal"
@@ -1593,6 +1598,16 @@ msgstr "Deaktivieren, um dieses Werkzeug im Menu des Masterportals zu verstecken
 
 #: src/Plugin/Masterportal/Tools/Draw.php:78
 msgctxt "Masterportal"
+msgid "Draw-Tool opens in a seperate window"
+msgstr "Zeichnen-Werkzeug öffnet sich in einem neuen Fenster."
+
+#: src/Plugin/Masterportal/Tools/Draw.php:79
+msgctxt "Masterportal"
+msgid "Check, to open this tool in a seperate window."
+msgstr "Aktivieren, um dieses Werkzeug in einem neuen Fenster zu öffnen."
+
+#: src/Plugin/Masterportal/Tools/Draw.php:84
+msgctxt "Masterportal"
 msgid "Name"
 msgstr "Name"
 
@@ -1731,3 +1746,65 @@ msgstr "Ein Plugin, das Gebäude-Schatten im 3D-Modus simuliert."
 msgctxt "Masterportal"
 msgid "Available tokens"
 msgstr "Verfügbare Tokens"
+
+msgctxt "Masterportal"
+msgid "Configured Map projections"
+msgstr "Konfigurierte Kartenprojektionen"
+
+msgctxt "Masterportal"
+msgid "No map projections defined. Click the \"Add projection\" button to add a new map projection."
+msgstr "Keine Kartenprojektionen definiert. Klicken Sie auf \"Projektion hinzufügen\", um eine neue Projektion anzulegen."
+
+msgctxt "Masterportal"
+msgid "Projection name"
+msgstr "Projektionsname"
+
+msgctxt "Masterportal"
+msgid "The name this projection will be listed with in selections"
+msgstr "Der Name der Projektion, mit dem diese bei Auswahlen angeboten wird"
+
+msgctxt "Masterportal"
+msgid "Projection definition"
+msgstr "Projektionsdefinition"
+
+msgctxt "Masterportal"
+msgid "The definition string of this projection that will get provided to the Masterportal"
+msgstr "Der Definitions-/Konfigurationswert dieser Projektion, der in der Konfiguration des Masterportals verwendet wird"
+
+msgid "Add projection"
+msgstr "Projektion hinzufügen"
+
+msgctxt "Masterportal"
+msgid "Used map projection"
+msgstr "Verwendete Kartenprojektion"
+
+msgctxt "Masterportal"
+msgid "The projection that the map engine of the Masterportal uses internally when dealing with coordinates"
+msgstr "Die Kartenprojektion, die das Masterportal verwendet, wenn es intern Koordinaten verwendet"
+
+msgid "Map projections"
+msgstr "Kartenprojektionen"
+
+msgctxt "Masterportal"
+msgid "Use two finger pan"
+msgstr "Zwei Finger zur Kartenverschiebung"
+
+msgctxt "Masterportal"
+msgid "Should panning the map only be possible using two fingers?"
+msgstr "Soll das Verschieben des sichtbaren Kartenausschnittes nur mit zwei Fingern möglich sein?"
+
+msgctxt "Masterportal"
+msgid "Use map scale options"
+msgstr "Kartenskalierungsoptionen verwenden"
+
+msgctxt "Masterportal"
+msgid "Should map scale options get included in the Masterportal configuration?"
+msgstr "Sollen Kartenskalierungsoptionen in die Masterportalkonfiguration übernommen werden?"
+
+msgctxt "Masterportal"
+msgid "Target map projection"
+msgstr "Zielkartenprojektion"
+
+msgctxt "Masterportal"
+msgid "The projection that the coordinates should utilize when being transferred from the Masterportal"
+msgstr "Die Kartenprojektion, die die Korrdinaten verwenden sollen, die vom Masterportal übergeben werden"

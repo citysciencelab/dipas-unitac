@@ -1,9 +1,13 @@
 services:
+  logger.channel.dipas_domain:
+    class: Drupal\Core\Logger\LoggerChannels
+    factory: logger.factory:get
+    arguments: [ 'dipas_domain' ]
   dipas_domain.access_check.domain:
     class: Drupal\domain_dipas\Access\DomainAccessCheck
     tags:
       - { name: access_check, applies_to: _domain}
-    arguments: ['@domain.negotiator', '@config.factory', '@path.matcher', '@domain_access.manager']
+    arguments: ['@domain.negotiator', '@config.factory', '@path.matcher', '@domain_access.manager', '@logger.channel.dipas_domain']
   dipas_domain.toolbar_switcher:
     class: Drupal\domain_dipas\ToolbarBuilder
     arguments: ['@entity_type.manager', '@domain.negotiator', '@domain_access.manager', '@current_user']

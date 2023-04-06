@@ -8,8 +8,6 @@ namespace Drupal\masterportal\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\geofield\GeoPHP\GeoPHPInterface;
-use Drupal\geofield\WktGeneratorInterface;
 use Drupal\masterportal\Service\InstanceServiceInterface;
 use Drupal\masterportal\Service\MasterportalInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -48,8 +46,6 @@ trait MasterportalWidgetTrait {
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('geofield.geophp'),
-      $container->get('geofield.wkt_generator'),
       $container->get('request_stack'),
       $container->get('masterportal.instanceservice'),
       $container->get('masterportal.renderer')
@@ -65,8 +61,6 @@ trait MasterportalWidgetTrait {
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    GeoPHPInterface $geophp_wrapper,
-    WktGeneratorInterface $wkt_generator,
     RequestStack $request_stack,
     InstanceServiceInterface $instance_service,
     MasterportalInterface $masterportal_renderer
@@ -76,9 +70,7 @@ trait MasterportalWidgetTrait {
       $plugin_definition,
       $field_definition,
       $settings,
-      $third_party_settings,
-      $geophp_wrapper,
-      $wkt_generator
+      $third_party_settings
     );
     $this->currentRequest = $request_stack->getCurrentRequest();
     $this->instanceService = $instance_service;
@@ -173,7 +165,7 @@ trait MasterportalWidgetTrait {
    */
   public function settingsSummary() {
     $aspectRatios = static::getAspectRatios();
-    $chosenInstance = $this->instanceService->getInstanceOptions(['config'])[$this->getSetting('masterportal_instance')];
+    $chosenInstance = $this->instanceService->getInstanceOptions(['config'])[sprintf('%s.%s', $this->getActiveDomain(), $this->getSetting('masterportal_instance'))];
     return [
       $this->t('Map instance: @instance', ['@instance' => $chosenInstance], ['context' => 'Masterportal']),
       $this->t('Map width: @width@unit', ['@width' => $this->getSetting('width'), '@unit' => $this->getSetting('unit')], ['context' => 'Masterportal']),
@@ -201,5 +193,7 @@ trait MasterportalWidgetTrait {
   abstract protected static function ensureConfigPath(&$config, $path);
 
   abstract public function getSetting($key);
+
+  abstract protected function getActiveDomain();
 
 }

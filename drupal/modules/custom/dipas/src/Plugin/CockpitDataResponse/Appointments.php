@@ -4,6 +4,7 @@ namespace Drupal\dipas\Plugin\CockpitDataResponse;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\dipas\Annotation\CockpitDataResponse;
 use Drupal\dipas\Plugin\ResponseKey\NodeListingTrait;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
 use Drupal\dipas\TaxonomyTermFunctionsTrait;

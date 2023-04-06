@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[153],{3633:function(e){e.exports=JSON.parse('{"modules":{"tools":{"dipasStorySelector":{"text":"Klicken auf eine Story um diese zu \xF6ffnen","title":"Dipas Story Auswahl","readingtime":"Lesezeit","timeunits":"Minuten"}}}}')}}]);

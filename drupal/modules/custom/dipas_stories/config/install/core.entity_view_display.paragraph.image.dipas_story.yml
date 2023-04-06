@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.dipas_story
+    - field.field.paragraph.image.field_image
+    - paragraphs.paragraphs_type.image
+id: paragraph.image.dipas_story
+targetEntityType: paragraph
+bundle: image
+mode: dipas_story
+content:
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: dipas_story
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

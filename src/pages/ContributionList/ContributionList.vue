@@ -58,6 +58,9 @@ export default {
       "takesNewContributions",
       "frontpage"
     ]),
+    htmlPageTitle () {
+      return this.$t("ContributionList.title");
+    },
     /**
      * @name projectStarted
      * @returns {String} date of project start

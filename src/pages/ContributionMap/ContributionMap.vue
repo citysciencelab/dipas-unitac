@@ -36,6 +36,9 @@ export default {
       "projectRunning",
       "takesNewContributions"
     ]),
+    htmlPageTitle () {
+      return this.$t("ContributionMap.title");
+    },
     /**
      * serves the map with the contribution extend
      * @returns {String|Boolean}

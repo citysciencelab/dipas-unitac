@@ -3,6 +3,7 @@
 namespace Drupal\dipas\Plugin\ResponseKey;
 
 use Drupal\Core\Url;
+use Drupal\dipas\Annotation\ResponseKey;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\masterportal\DomainAwareTrait;
 use Drupal\dipas\FileHelperFunctionsTrait;
@@ -46,11 +47,17 @@ class Init extends ResponseKeyBase {
   protected $termStorage;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
   }
 
   /**
@@ -90,11 +97,11 @@ class Init extends ResponseKeyBase {
       return ['redirect_url' => $redirect_url];
     }
 
-    $logopath = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation/project_logo'), 'sidebar_logo');
-    $modallogo = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation/project_logo'), 'modal_logo');
-    $modalimage = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation/project_image'), 'modal_image');
+    $logopath = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation.project_logo'), 'sidebar_logo');
+    $modallogo = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation.project_logo'), 'modal_logo');
+    $modalimage = $this->getImagePathFromMediaItemId($this->dipasConfig->get('ProjectInformation.project_image'), 'modal_image');
 
-    $partnerlogos = $this->dipasConfig->get('ProjectInformation/partner_logos');
+    $partnerlogos = $this->dipasConfig->get('ProjectInformation.partner_logos');
 
     if (is_array($partnerlogos)) {
       array_walk($partnerlogos, function (&$item) {
@@ -108,44 +115,44 @@ class Init extends ResponseKeyBase {
     $settings = [
       'maintenanceMode' => FALSE,
       'projectphase' => $this->getProjectPhase(),
-      'enabledPhase2' => $this->dipasConfig->get('ProjectSchedule/phase_2_enabled'),
+      'enabledPhase2' => $this->dipasConfig->get('ProjectSchedule.phase_2_enabled'),
       'projectperiod' => [
         'start' => $this->convertTimestampToUTCDateTimeString(
-          strtotime($this->dipasConfig->get('ProjectSchedule/project_start')),
+          strtotime($this->dipasConfig->get('ProjectSchedule.project_start')),
           TRUE
         ),
         'end' => $this->convertTimestampToUTCDateTimeString(
-          strtotime($this->dipasConfig->get('ProjectSchedule/project_end')),
+          strtotime($this->dipasConfig->get('ProjectSchedule.project_end')),
           TRUE
         ),
       ],
-      'conception_comments_state' => (bool) $this->dipasConfig->get('ProjectSchedule/allow_conception_comments') ? 'open' : 'closed',
-      'display_existing_conception_comments' => (bool) $this->dipasConfig->get('ProjectSchedule/display_existing_conception_comments'),
-      'projecttitle' => $this->dipasConfig->get('ProjectInformation/site_name'),
+      'conception_comments_state' => (bool) $this->dipasConfig->get('ProjectSchedule.allow_conception_comments') ? 'open' : 'closed',
+      'display_existing_conception_comments' => (bool) $this->dipasConfig->get('ProjectSchedule.display_existing_conception_comments'),
+      'projecttitle' => $this->dipasConfig->get('ProjectInformation.site_name'),
       'projectlogo' => [
         'path' => $logopath,
-        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_logo')),
+        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation.project_logo')),
       ],
       'modallogo' => [
         'path' => $modallogo,
-        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_logo')),
+        'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation.project_logo')),
       ],
       'projectowner' => [
-        'name' => $this->dipasConfig->get('ProjectInformation/department'),
-        'street1' => $this->dipasConfig->get('ProjectInformation/street1'),
-        'street2' => $this->dipasConfig->get('ProjectInformation/street2'),
-        'zip' => $this->dipasConfig->get('ProjectInformation/zip'),
-        'city' => $this->dipasConfig->get('ProjectInformation/city'),
-        'telephone' => $this->dipasConfig->get('ProjectInformation/contact_telephone'),
-        'email' => $this->dipasConfig->get('ProjectInformation/contact_email'),
-        'website' => $this->dipasConfig->get('ProjectInformation/contact_website'),
+        'name' => $this->dipasConfig->get('ProjectInformation.department'),
+        'street1' => $this->dipasConfig->get('ProjectInformation.street1'),
+        'street2' => $this->dipasConfig->get('ProjectInformation.street2'),
+        'zip' => $this->dipasConfig->get('ProjectInformation.zip'),
+        'city' => $this->dipasConfig->get('ProjectInformation.city'),
+        'telephone' => $this->dipasConfig->get('ProjectInformation.contact_telephone'),
+        'email' => $this->dipasConfig->get('ProjectInformation.contact_email'),
+        'website' => $this->dipasConfig->get('ProjectInformation.contact_website'),
       ],
       'welcomemodal' => [
-        'headline' => $this->dipasConfig->get('ProjectInformation/headline'),
-        'text' => $this->dipasConfig->get('ProjectInformation/text'),
+        'headline' => $this->dipasConfig->get('ProjectInformation.headline'),
+        'text' => $this->dipasConfig->get('ProjectInformation.text'),
         'image' => [
           'path' => $modalimage,
-          'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation/project_image')),
+          'alttext' => $this->getAlternativeTextForMediaItem($this->dipasConfig->get('ProjectInformation.project_image')),
         ],
       ],
       'partnerlogos' => $partnerlogos,
@@ -163,10 +170,10 @@ class Init extends ResponseKeyBase {
           },
           array_merge(
             array_filter(
-              $this->dipasConfig->get('MenuSettings/mainmenu'),
+              $this->dipasConfig->get('MenuSettings.mainmenu'),
               function ($item) {
                 if (isset($item['overwriteFrontpage'])) {
-                  if (!($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled')))) {
+                  if (!($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule.phase_2_enabled')))) {
                     return;
                   }
                 }
@@ -176,12 +183,12 @@ class Init extends ResponseKeyBase {
             array_filter(
               [
                 'conceptionlist' => [
-                  'name' => $this->dipasConfig->get('MenuSettings/mainmenu/conceptionlist/name'),
+                  'name' => $this->dipasConfig->get('MenuSettings.mainmenu.conceptionlist.name'),
                   'icon' => 'compare_arrows',
                 ],
               ],
               function () {
-                return $this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled'));
+                return $this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule.phase_2_enabled'));
               }
             )
           )
@@ -191,7 +198,7 @@ class Init extends ResponseKeyBase {
             return $item['name'];
           },
           array_filter(
-            $this->dipasConfig->get('MenuSettings/footermenu') ?: [],
+            $this->dipasConfig->get('MenuSettings.footermenu') ?: [],
             function ($item) {
               return $item['enabled'];
             }
@@ -211,42 +218,53 @@ class Init extends ResponseKeyBase {
             },
           ]
         )),
-        'rubrics_use' => (bool) $this->dipasConfig->get('ContributionSettings/rubrics_use'),
+        'rubrics_use' => (bool) $this->dipasConfig->get('ContributionSettings.rubrics_use'),
         'rubrics' => array_values($this->getTermList('rubrics')),
         'tags' => array_values($this->getTermList('tags')),
       ],
       'image_styles' => $this->getContentImageStyleList(),
       'contributions' => [
-        'status' => $this->dipasConfig->get('ContributionSettings/contribution_status'),
-        'maxlength' => $this->dipasConfig->get('ContributionSettings/maximum_character_count_per_contribution'),
-        'geometry' => $this->dipasConfig->get('ContributionSettings/geometry'),
+        'status' => $this->dipasConfig->get('ContributionSettings.contribution_status'),
+        'maxlength' => $this->dipasConfig->get('ContributionSettings.maximum_character_count_per_contribution'),
+        'geometry' => $this->dipasConfig->get('ContributionSettings.geometry'),
         'comments' => [
-          'form' => $this->dipasConfig->get('ContributionSettings/comments_allowed') ? 'open' : 'closed',
-          'maxlength' => $this->dipasConfig->get('ContributionSettings/comments_maxlength'),
-          'display' => $this->dipasConfig->get('ContributionSettings/display_existing_comments'),
+          'form' => $this->dipasConfig->get('ContributionSettings.comments_allowed') ? 'open' : 'closed',
+          'maxlength' => $this->dipasConfig->get('ContributionSettings.comments_maxlength'),
+          'display' => $this->dipasConfig->get('ContributionSettings.display_existing_comments'),
         ],
-        'ratings' => $this->dipasConfig->get('ContributionSettings/rating_allowed'),
+        'ratings' => $this->dipasConfig->get('ContributionSettings.rating_allowed'),
+        'display_existing_ratings' => $this->dipasConfig->get('ContributionSettings.display_existing_ratings') ?? TRUE,
       ],
       'masterportal_instances' => [
-        'contributionmap' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings/masterportal_instances/contributionmap')], ['absolute' => TRUE])
+        'contributionmap' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings.masterportal_instances.contributionmap')], ['absolute' => TRUE])
           ->toString()),
         'singlecontribution' => [
-          'url' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings/masterportal_instances/singlecontribution/instance')], ['absolute' => TRUE])
+          'url' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings.masterportal_instances.singlecontribution.instance')], ['absolute' => TRUE])
             ->toString()),
-          'other_contributions' => $this->dipasConfig->get('ContributionSettings/masterportal_instances/singlecontribution/other_contributions'),
+          'other_contributions' => $this->dipasConfig->get('ContributionSettings.masterportal_instances.singlecontribution.other_contributions'),
         ],
         'createcontribution' => [
-          'url' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings/masterportal_instances/createcontribution')], ['absolute' => TRUE])
+          'url' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('ContributionSettings.masterportal_instances.createcontribution')], ['absolute' => TRUE])
             ->toString()),
-          'must_be_localized' => (bool) $this->dipasConfig->get('ContributionSettings/contributions_must_be_localized'),
+          'must_be_localized' => (bool) $this->dipasConfig->get('ContributionSettings.contributions_must_be_localized'),
         ],
-        'schedule' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('MenuSettings/mainmenu/schedule/mapinstance')], ['absolute' => TRUE])
+        'schedule' => preg_replace('~^https?:~i', '', Url::fromRoute('masterportal.fullscreen', ['masterportal_instance' => $this->dipasConfig->get('MenuSettings.mainmenu.schedule.mapinstance')], ['absolute' => TRUE])
           ->toString()),
       ],
       'downloads' => $downloadData,
-      'sidebar' => $this->dipasConfig->get('SidebarSettings/blocks'),
-      'keyword_service_enabled' => $this->dipasConfig->get('KeywordSettings/enabled'),
-      'frontpage' => $this->dipasConfig->get('MenuSettings/mainmenu/conceptionlist/overwriteFrontpage') && ($this->getProjectPhase() === 'phase2' || $this->getProjectPhase() === 'phasemix' || ($this->getProjectPhase() === 'frozen' && $this->dipasConfig->get('ProjectSchedule/phase_2_enabled'))) ? 'conceptionlist' : $this->dipasConfig->get('MenuSettings/frontpage'),
+      'sidebar' => $this->dipasConfig->get('SidebarSettings.blocks'),
+      'keyword_service_enabled' => $this->dipasConfig->get('KeywordSettings.enabled'),
+      'frontpage' => $this->dipasConfig->get('MenuSettings.mainmenu.conceptionlist.overwriteFrontpage')
+        && (
+          $this->getProjectPhase() === 'phase2'
+          || $this->getProjectPhase() === 'phasemix'
+          || (
+            $this->getProjectPhase() === 'frozen'
+            && $this->dipasConfig->get('ProjectSchedule.phase_2_enabled')
+          )
+      )
+        ? 'conceptionlist'
+        : $this->dipasConfig->get('MenuSettings.frontpage'),
     ];
 
     return $settings;
@@ -343,7 +361,7 @@ class Init extends ResponseKeyBase {
   protected function createImageUrl($wrapperUri, $image_style = FALSE) {
     return $image_style !== FALSE
       ? ImageStyle::load($image_style)->buildUrl($wrapperUri)
-      : file_create_url($wrapperUri);
+      : $this->fileUrlGenerator->generateAbsoluteString($wrapperUri);
   }
 
   /**
@@ -351,5 +369,12 @@ class Init extends ResponseKeyBase {
    */
   protected function getTermStorage() {
     return $this->termStorage;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
   }
 }

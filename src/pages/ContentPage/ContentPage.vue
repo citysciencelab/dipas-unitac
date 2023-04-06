@@ -9,6 +9,7 @@ import {requestBroker} from "../../mixins/requestBroker.js";
 import ContentPageParagraphText from "./components/ContentPageParagraphText.vue";
 import ContentPageParagraphImage from "./components/ContentPageParagraphImage.vue";
 import ContentPageParagraphVideo from "./components/ContentPageParagraphVideo.vue";
+import ContentPageParagraphImageWithText from "./components/ContentPageParagraphImageWithText.vue";
 import ContentPageParagraphAccordeon from "./components/ContentPageParagraphAccordeon.vue";
 import ContentPageParagraphDivisionInPlanningSubareas from "./components/ContentPageParagraphDivisionInPlanningSubareas.vue";
 import ContentPageParagraphConception from "./components/ContentPageParagraphConception.vue";
@@ -30,6 +31,7 @@ export default {
     ContentPageParagraphImage,
     ContentPageParagraphVideo,
     ContentPageParagraphAccordeon,
+    ContentPageParagraphImageWithText,
     ContentPageParagraphDivisionInPlanningSubareas,
     ContentPageParagraphConception,
     ContentPageNodeConception,
@@ -71,6 +73,9 @@ export default {
     };
   },
   computed: {
+    htmlPageTitle () {
+      return this.pageContent.title;
+    },
     /**
      * holds the dynamic variable
      * @returns {Boolean} wether to show the "Accept Cookies"- button
@@ -182,7 +187,6 @@ export default {
           :key="getComponent(element).name"
           :content="element"
         />
-
         <!--
           Dipas button component
           @event click acceptCookies
@@ -270,6 +274,11 @@ export default {
 <style>
     #app.mobile div.contentPage h1 {
         padding-top: 35px;
+        max-width: 100%;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
     }
 
     #app.desktop div.container {

@@ -28,6 +28,7 @@ module:
   domain_access: 0
   dynamic_page_cache: 0
   editor: 0
+  element_class_formatter: 0
   entity_browser: 0
   entity_browser_enhanced: 0
   entity_browser_entity_form: 0
@@ -35,6 +36,7 @@ module:
   environment_indicator: 0
   environment_indicator_ui: 0
   field: 0
+  field_group: 0
   field_ui: 0
   file: 0
   file_mdm: 0
@@ -74,6 +76,7 @@ module:
   system: 0
   taxonomy: 0
   text: 0
+  textarea_limit: 0
   token: 0
   toolbar: 0
   transliterate_filenames: 0
@@ -84,6 +87,7 @@ module:
   votingapi: 0
   votingapi_widgets: 0
   menu_link_content: 1
+  vuejs: 0
   views: 10
   paragraphs: 11
   domain_dipas: 15

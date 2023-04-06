@@ -44,32 +44,6 @@ export default {
       sort: {
         field: this.filtersApplied.sort.field,
         direction: this.filtersApplied.sort.direction
-      },
-      sortOptions: {
-        field: {
-          0: {
-            val: "created",
-            label: this.$t("ContributionList.ContributionListFilter.sortOptions.date")
-          },
-          1: {
-            val: "rating",
-            label: this.$t("ContributionList.ContributionListFilter.sortOptions.rating")
-          },
-          2: {
-            val: "comments",
-            label: this.$t("ContributionList.ContributionListFilter.sortOptions.comments")
-          }
-        },
-        direction: {
-          0: {
-            val: "DESC",
-            label: this.$t("ContributionList.ContributionListFilter.sortOptions.desc")
-          },
-          1: {
-            val: "ASC",
-            label: this.$t("ContributionList.ContributionListFilter.sortOptions.asc")
-          }
-        }
       }
     };
   },
@@ -147,6 +121,45 @@ export default {
       });
 
       return options;
+    },
+    /**
+     * serves the boolean wether rating is allowed or not
+     * @returns {Boolean}
+     */
+    allowFilterByRatings () {
+      return this.$store.getters.ratingsAllowed || this.$store.getters.displayRatings;
+    },
+    sortOptions () {
+      const field = {},
+        direction = {
+          0: {
+            val: "DESC",
+            label: this.$t("ContributionList.ContributionListFilter.sortOptions.desc")
+          },
+          1: {
+            val: "ASC",
+            label: this.$t("ContributionList.ContributionListFilter.sortOptions.asc")
+          }
+        };
+
+      field[0] = {
+        val: "created",
+        label: this.$t("ContributionList.ContributionListFilter.sortOptions.date")
+      };
+
+      if (this.allowFilterByRatings) {
+        field[1] = {
+          val: "rating",
+          label: this.$t("ContributionList.ContributionListFilter.sortOptions.rating")
+        };
+      }
+
+      field[2] = {
+        val: "comments",
+        label: this.$t("ContributionList.ContributionListFilter.sortOptions.comments")
+      };
+
+      return {field: field, direction: direction};
     }
   },
   methods: {

@@ -336,12 +336,14 @@ class Settings extends ConfigFormBase {
             '%trigger' => isset($trigger['#name']) ? $trigger['#name'] : 'unknown',
           ]
         );
-        throw new UnknownPluginMethodException('unknown', sprintf(
-          'Call to undefined method %s in file %s, triggered by %s.',
-          $method,
-          __FILE__,
-          (isset($trigger['#name']) ? $trigger['#name'] : 'unknown')
-        ));
+        if (isset($trigger['#name'])) {
+          throw new UnknownPluginMethodException('unknown', sprintf(
+            'Call to undefined method %s in file %s, triggered by %s.',
+            $method,
+            __FILE__,
+            (isset($trigger['#name']) ? $trigger['#name'] : 'unknown')
+          ));
+        }
     }
   }
 

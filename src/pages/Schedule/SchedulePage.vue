@@ -34,6 +34,9 @@ export default {
     };
   },
   computed: {
+    htmlPageTitle () {
+      return this.$t("Schedule.title");
+    },
     activeAppointments () {
       return this.schedule.nodes.filter(appointment => moment(appointment.expires).isSameOrAfter(moment()));
     }

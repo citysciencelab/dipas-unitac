@@ -6,6 +6,7 @@
 
 namespace Drupal\masterportal\Service;
 
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Url;
 use Drupal\masterportal\Entity\MasterportalInstanceInterface;
@@ -45,6 +46,11 @@ class MasterportalDownloadService implements MasterportalDownloadServiceInterfac
   protected $renderer;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * MasterportalDownloadService constructor.
    *
    * @param FileSystemInterface $file_system
@@ -57,11 +63,13 @@ class MasterportalDownloadService implements MasterportalDownloadServiceInterfac
   public function __construct(
     FileSystemInterface $file_system,
     RequestStack $request_stack,
-    MasterportalInterface $masterportal_renderer
+    MasterportalInterface $masterportal_renderer,
+    ExtensionPathResolver $extension_path_resolver
   ) {
     $this->fileSystem = $file_system;
     $this->currentRequest = $request_stack->getCurrentRequest();
     $this->renderer = $masterportal_renderer;
+    $this->extensionPathResolver = $extension_path_resolver;
   }
 
   /**
@@ -125,7 +133,7 @@ class MasterportalDownloadService implements MasterportalDownloadServiceInterfac
     if (empty($src)) {
       $src = sprintf(
         '%s/libraries/masterportal',
-        drupal_get_path('module', 'masterportal')
+        $this->extensionPathResolver->getPath('module', 'masterportal')
       );
     }
     if (empty($dst)) {

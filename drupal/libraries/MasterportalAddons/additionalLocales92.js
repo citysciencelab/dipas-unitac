@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[203],{3712:function(e){e.exports=JSON.parse('{"modules":{"tools":{"verkehrsfunctions":{"bicycleHeaderSuffix":"Anzahl Fahrr\xE4der","carsHeaderSuffix":"Anzahl Kfz","trucksHeaderSuffix":"Anzahl SV"}}}}')}}]);

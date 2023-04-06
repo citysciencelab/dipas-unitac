@@ -2,6 +2,7 @@
 
 namespace Drupal\dipas\Plugin\CockpitDataResponse;
 
+use Drupal\dipas\Annotation\CockpitDataResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\dipas\FileHelperFunctionsTrait;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
@@ -50,12 +51,18 @@ class Documentations extends CockpitDataResponseBase {
   protected $termStorage;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
     $this->configFactory = $container->get('config.factory');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
 
     // Set the node listing to ignore domains at the earliest possible point in
     // time.
@@ -109,6 +116,13 @@ class Documentations extends CockpitDataResponseBase {
    */
   protected function getTermStorage() {
     return $this->termStorage;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
   }
 
 }

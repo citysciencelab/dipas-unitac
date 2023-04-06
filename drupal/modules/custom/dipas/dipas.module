@@ -8,7 +8,6 @@
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Config\Config;
 use Drupal\Core\Queue\DatabaseQueue;
@@ -149,21 +148,12 @@ function dipas_cron() {
   $configs = [
     'phase1' => [
       'ContributionSettings.contribution_status' => 'open',
-      'ContributionSettings.comments_allowed' => TRUE,
-      'ContributionSettings.rating_allowed' => TRUE,
-      'ProjectInformation.allow_conception_comments' => TRUE,
     ],
     'phase2' => [
       'ContributionSettings.contribution_status' => 'closed',
-      'ContributionSettings.comments_allowed' => TRUE,
-      'ContributionSettings.rating_allowed' => TRUE,
-      'ProjectInformation.allow_conception_comments' => TRUE,
     ],
     'frozen' => [
       'ContributionSettings.contribution_status' => 'closed',
-      'ContributionSettings.comments_allowed' => FALSE,
-      'ContributionSettings.rating_allowed' => FALSE,
-      'ProjectInformation.allow_conception_comments' => FALSE,
     ],
   ];
 
@@ -226,10 +216,6 @@ function dipas_cron() {
   catch (\Exception $e) {
     \Drupal::logger('dipas')->error('Trying to excecute query (' . $query->__toString() . ') failed: ' . $e->getMessage());
   }
-
- 
-
-
 }
 
 /**
@@ -367,7 +353,6 @@ function dipas_redirect_project_admins_after_login(array $form, FormStateInterfa
  *   The editable config object with applied phase configs.
  */
 function dipas_apply_phase_config(Config $config, array $phaseConfig) {
-
   foreach ($phaseConfig as $key => $value) {
     $config->set($key, $value);
   }
@@ -399,7 +384,7 @@ function _dipas_cockpit_data_generation(EntityInterface $entity) {
       _dipas_cockpit_initiate_contribution_data($year, $month, 1, $database);
     }
     else {
-      $new_count = $record[0] + 1;
+      $new_count = ($record[0] ?? 0) + 1;
       _dipas_cockpit_update_contribution_data($year, $month, $new_count, $database);
     }
   }
@@ -529,6 +514,7 @@ function _dipas_cockpit_get_comment_data($year, $month, $database) {
       ->condition('year', $year, '=')
       ->condition('month', $month, '=');
     $result = $query->execute();
+    $record = [];
     foreach ($result as $row) {
       // Get the count of Comments.
       $record[] = $row->comments;

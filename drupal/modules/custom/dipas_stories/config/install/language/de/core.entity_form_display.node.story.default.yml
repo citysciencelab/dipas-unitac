@@ -1,0 +1,12 @@
+third_party_settings:
+  field_group:
+    group_formsections:
+      label: 'Formularabschnitte'
+    group_map_settings:
+      label: 'Kartenvoreinstellungen'
+    group_story_contents:
+      label: 'Story-Inhalt'
+    group_story_metadata:
+      label: 'Story-Metadaten'
+    group_basic_setttings:
+      label: 'Grundlegende Einstellungen'

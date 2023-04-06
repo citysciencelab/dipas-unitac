@@ -65,5 +65,6 @@ content:
 hidden:
   field_domain_access: true
   field_domain_all_affiliates: true
+  field_geodata: true
   langcode: true
   links: true

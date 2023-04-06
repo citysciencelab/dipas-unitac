@@ -16,6 +16,7 @@ configform:
       libraries/configform/configformstyles.css: { minified: false }
   js:
     libraries/configform/rowsort.js: { minified: false }
+    libraries/configform/select2_searchFocus.js: { minified: false }
   dependencies:
     - core/drupal
     - jquery_ui_sortable/sortable

@@ -7,6 +7,7 @@
 namespace Drupal\dipas\Plugin\CockpitDataResponse;
 
 use Drupal\Core\Url;
+use Drupal\dipas\Annotation\CockpitDataResponse;
 use Drupal\masterportal\GeoJSONFeature;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
@@ -61,6 +62,21 @@ class CockpitDataMap extends CockpitDataResponseBase {
   protected $configFactory;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlgenerator;
+
+  /**
+   * @var String
+   */
+  protected $dipasModulePath;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
@@ -68,6 +84,10 @@ class CockpitDataMap extends CockpitDataResponseBase {
     $this->dateFormatter = $container->get('date.formatter');
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $this->extensionPathResolver = $container->get('extension.path.resolver');
+    $this->fileUrlgenerator = $container->get('file_url_generator');
+
+    $this->dipasModulePath = $this->extensionPathResolver->getPath('module', 'dipas');
   }
 
   /**
@@ -128,19 +148,19 @@ class CockpitDataMap extends CockpitDataResponseBase {
 
       if ($status === 'aktiv') {
         $statusIcon = Url::fromUri(
-          'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+          'base:/' . $this->dipasModulePath .'/assets/',
           ['absolute' => TRUE]
          )->toString() . 'icon_active_gfi.svg';
       }
       elseif ($status === 'inaktiv') {
         $statusIcon = Url::fromUri(
-          'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+          'base:/' . $this->dipasModulePath .'/assets/',
           ['absolute' => TRUE]
          )->toString() . 'icon_inactive_gfi.svg';
       }
       else {
         $statusIcon = Url::fromUri(
-          'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+          'base:/' . $this->dipasModulePath .'/assets/',
           ['absolute' => TRUE]
          )->toString() . 'icon_latest_gfi.svg';
       }
@@ -187,7 +207,7 @@ class CockpitDataMap extends CockpitDataResponseBase {
           'style' => (object) [
             'type' => 'icon',
             'imagePath' => Url::fromUri(
-              'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+              'base:/' . $this->dipasModulePath .'/assets/',
               ['absolute' => TRUE]
              )->toString(),
             'imageName' => 'icon_active_map.svg',
@@ -207,7 +227,7 @@ class CockpitDataMap extends CockpitDataResponseBase {
           'style' => (object) [
             'type' => 'icon',
             'imagePath' => Url::fromUri(
-              'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+              'base:/' . $this->dipasModulePath .'/assets/',
               ['absolute' => TRUE]
              )->toString(),
              'imageName' => 'icon_inactive_map.svg',
@@ -227,7 +247,7 @@ class CockpitDataMap extends CockpitDataResponseBase {
           'style' => (object) [
             'type' => 'icon',
             'imagePath' => Url::fromUri(
-              'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+              'base:/' . $this->dipasModulePath .'/assets/',
               ['absolute' => TRUE]
              )->toString(),
             'imageName' => 'icon_latest_map.svg',
@@ -341,9 +361,9 @@ class CockpitDataMap extends CockpitDataResponseBase {
 
       $document_data = [
         'name' => $document_name,
-        'url' => file_create_url($document->getFileUri()),
+        'url' => $this->fileUrlgenerator->generateAbsoluteString($document->getFileUri()),
         'icon' => Url::fromUri(
-          'base:/' . drupal_get_path('module', 'dipas') .'/assets/',
+          'base:/' . $this->dipasModulePath .'/assets/',
           ['absolute' => TRUE]
          )->toString() . 'picture_as_pdf_white_24dp.svg'
       ];

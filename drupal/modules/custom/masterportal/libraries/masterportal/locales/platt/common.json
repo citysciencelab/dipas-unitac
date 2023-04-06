@@ -168,7 +168,7 @@
           "changeLayerInfo": "Informatschonsschriff wesseln"
         },
         "mapMarker": {
-          "noStyleModel": "Zu der angegebenen StyleId: {{styleId}} konnte keine Style gefunden werden. Bitte überprüfen sie ihre Konfiguration."
+          "nostyleObject": "Zu der angegebenen StyleId: {{styleId}} konnte keine Style gefunden werden. Bitte überprüfen sie ihre Konfiguration."
         },
         "menu": {
             "layer": {
@@ -800,7 +800,7 @@
             "noInitialResults": "Die initiale Suche ergab keine Treffer."
         },
         "vectorStyle": {
-            "styleModel": {
+            "styleObject": {
                 "getGeometryTypeFromWFSFetchfailed": "Die Legende konnte in der Layerinformation nicht erstellt werden!",
                 "getGeometryTypeFromWFSFetchfailedMessage": "Details: Ein benötigter Dienst antwortet nicht."
             }

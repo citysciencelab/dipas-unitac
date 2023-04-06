@@ -128,8 +128,7 @@ export default {
           }
         case 4:
           if (
-            this.step === 4 &&
-                            !(this.contributionMustBeLocalized && !Object.keys(JSON.parse(this.contributionData.step4.geodata)).length)
+            this.step === 4 && !(this.contributionMustBeLocalized && !Object.keys(JSON.parse(this.contributionData.step4.geodata)).length)
           ) {
             return false;
           }
@@ -328,7 +327,6 @@ export default {
         height: calc((var(--vh, 1vh) * 100) - 60px);
         display: flex;
         flex-direction: column;
-        overflow: hidden;
     }
 
     #app.mobile div.createContributionModal div.createWizard ul.createContributionStepIndicator {
@@ -341,6 +339,9 @@ export default {
         flex-flow: row;
         justify-content: space-between;
         margin-top: 1rem;
+        position: sticky;
+        bottom: 5px;
+        z-index: 100;
      }
 
     div.createContributionModal div.createWizard .infoTextZuKurz{
@@ -357,7 +358,6 @@ export default {
     }
 
     #app.mobile div.createContributionModal div.createWizard div.createContributionStep {
-        height: calc((var(--vh, 1vh) * 100) - 170px);
         flex: 20 1 0%;
     }
 

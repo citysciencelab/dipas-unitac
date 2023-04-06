@@ -168,7 +168,7 @@
           "changeLayerInfo": "Bilgi metnini değiştir"
         },
         "mapMarker": {
-          "noStyleModel": "Belirtilen StyleId için Style bulunamadı. Lütfen yapılandırmanızı kontrol edin."
+          "nostyleObject": "Belirtilen StyleId için Style bulunamadı. Lütfen yapılandırmanızı kontrol edin."
         },
         "menu": {
             "layer": {
@@ -800,7 +800,7 @@
             "noInitialResults": "İlk arama sonuç vermedi."
         },
         "vectorStyle": {
-            "styleModel": {
+            "styleObject": {
                 "getGeometryTypeFromWFSFetchfailed": "Katman bilgileri oluşturulamadı!",
                 "getGeometryTypeFromWFSFetchfailedMessage": "Ayrıntılar: Gerekli hizmet yanıt vermiyor."
             }

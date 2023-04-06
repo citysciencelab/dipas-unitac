@@ -37,6 +37,13 @@ class Draw extends PluginBase implements ToolPluginInterface {
    */
   protected $visibleInMenu;
 
+   /**
+   * Flag determining if this tool will be opened in window
+   * 
+   * @var boolean
+   */
+  protected $renderToWindow;
+
   /**
    * {@inheritdoc}
    */
@@ -44,6 +51,7 @@ class Draw extends PluginBase implements ToolPluginInterface {
     return [
       'name' => 'Zeichnen / Schreiben',
       'visibleInMenu' => TRUE,
+      'renderToWindow' => FALSE,
     ];
   }
 
@@ -65,6 +73,12 @@ class Draw extends PluginBase implements ToolPluginInterface {
         '#description' => $this->t('Uncheck to hide this tool from being listed in the Masterportal menu.', [], ['context' => 'Masterportal']),
         '#default_value' => $this->visibleInMenu,
       ],
+      'renderToWindow' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Draw-Tool opens in a seperate window', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('Check, to open this tool in a seperate window.', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->renderToWindow ?? FALSE,
+      ],
       'name' => [
         '#type' => 'textfield',
         '#title' => $this->t('Name', [], ['context' => 'Masterportal']),
@@ -81,6 +95,7 @@ class Draw extends PluginBase implements ToolPluginInterface {
     return [
       'name' => $this->name,
       'visibleInMenu' => $this->visibleInMenu,
+      'renderToWindow' => $this->renderToWindow,
     ];
   }
 
@@ -90,6 +105,7 @@ class Draw extends PluginBase implements ToolPluginInterface {
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
     $pluginSection->visibleInMenu = $this->visibleInMenu;
+    $pluginSection->renderToWindow = $this->renderToWindow ?? FALSE;
   }
 
 }

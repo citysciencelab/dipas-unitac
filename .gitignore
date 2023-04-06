@@ -33,8 +33,11 @@ config/local/*
 
 # Ignore directories administered by composer
 vendor
+!drupal/
 drupal/core
+!drupal/libraries/
 drupal/libraries/*
+!drupal/libraries/MasterportalAddons/
 drupal/modules/contrib/*
 drupal/profiles/contrib/*
 drupal/themes/contrib/*

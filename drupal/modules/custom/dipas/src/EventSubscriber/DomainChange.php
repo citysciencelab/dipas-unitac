@@ -2,9 +2,10 @@
 
 namespace Drupal\dipas\EventSubscriber;
 
+use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\domain\DomainInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\masterportal\Event\DomainCreate;
 use Drupal\masterportal\Event\DomainEdit;
 use Drupal\masterportal\Event\DomainDelete;
@@ -33,6 +34,16 @@ class DomainChange implements EventSubscriberInterface {
   protected $masterportalInstanceStorage;
 
   /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * @var \Drupal\Component\Uuid\UuidInterface
+   */
+  protected $uuidGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
@@ -59,11 +70,15 @@ class DomainChange implements EventSubscriberInterface {
   public function __construct(
     ConfigFactoryInterface $config_factory,
     EntityTypeManagerInterface $entity_type_manager,
-    Connection $db_connection
+    Connection $db_connection,
+    ModuleHandlerInterface $module_handler,
+    UuidInterface $uuid_generator
   ) {
     $this->configFactory = $config_factory;
     $this->masterportalInstanceStorage = $entity_type_manager->getStorage('masterportal_instance');
     $this->database = $db_connection;
+    $this->moduleHandler = $module_handler;
+    $this->uuidGenerator = $uuid_generator;
   }
 
   /**
@@ -80,8 +95,15 @@ class DomainChange implements EventSubscriberInterface {
     $domainDIPASConfig->set('domain', $event->getDomain()->id());
     $domainDIPASConfig->set('ProjectInformation.site_name', $event->getDomain()->label());
 
+    // Clone configured map projections
+    $defaultMapProjections = $this->configFactory->get('masterportal.config.default.projections');
+    $domainMapProjections = $this->configFactory->getEditable(sprintf('masterportal.config.%s.projections', $event->getDomain()->id()));
+    $domainMapProjections->setData($defaultMapProjections->getRawData());
+    $domainMapProjections->save();
+
     // Clone default Masterportal instances.
-    foreach ($this->getMasterportalInstanceConfigurations() as $instanceID => $defaultInstance) {
+    $exclude = $this->moduleHandler->invokeAll('dipas_noclone_masterportal_instances');
+    foreach ($this->getMasterportalInstanceConfigurations(NULL, $exclude) as $instanceID => $defaultInstance) {
       $domainMasterportalInstance = $this->getDomainConfiguration(
         $event->getDomain()->id(),
         'masterportal.instance',
@@ -89,6 +111,7 @@ class DomainChange implements EventSubscriberInterface {
       );
       $domainMasterportalInstance->setData($defaultInstance->getRawData());
       $domainMasterportalInstance->set('id', sprintf('%s.%s', $event->getDomain()->id(), $defaultInstance->get('instance_name')));
+      $domainMasterportalInstance->set('uuid', $this->uuidGenerator->generate());
       $domainMasterportalInstance->set('domain', $event->getDomain()->id());
 
       $domainMasterportalInstance->save();
@@ -347,7 +370,6 @@ class DomainChange implements EventSubscriberInterface {
     return $domainConfig[$configKey];
   }
 
-
   /**
    * Determines the masterportal instances affected by a change.
    *
@@ -357,19 +379,22 @@ class DomainChange implements EventSubscriberInterface {
    *   If no domain is given, returns the immutable default instances,
    *   otherwise editable instance configurations are returned.
    */
-  protected function getMasterportalInstanceConfigurations(string $domainId = NULL) {
+  protected function getMasterportalInstanceConfigurations(string $domainId = NULL, array $exclude_instances = []) {
     $instances = drupal_static(sprintf(
       'dipas_masterportal_instances.%s',
       $domainId === NULL ? 'default' : $domainId)
     );
+
     if (is_null($instances)) {
-      $query = $this->masterportalInstanceStorage->getQuery();
-      // Always exclude default and domain spanning instances.
-      $query->condition(
-        'instance_name',
+      $exclude = array_unique(array_merge(
         ['default', 'config', 'dipas_projectarea', 'cockpit_map'],
-        'NOT IN'
-      );
+        $exclude_instances
+      ));
+
+      $query = $this->masterportalInstanceStorage->getQuery();
+
+      // Always exclude default and domain spanning instances.
+      $query->condition('instance_name', $exclude, 'NOT IN');
       $query->condition('domain', 'default', '=');
       $instanceIDs = $query->execute();
 
@@ -382,6 +407,7 @@ class DomainChange implements EventSubscriberInterface {
         )
       );
     }
+
     return $instances;
   }
 

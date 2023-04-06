@@ -61,7 +61,8 @@ export default {
           responsive: true,
           legend: {
             display: true,
-            position: "left"
+            position: "bottom",
+            align: "start"
           },
           cutoutPercentage: 50,
           tooltips: {

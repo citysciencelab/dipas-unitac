@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\Masterportal\LayerStyle;
 
+use Drupal\masterportal\Annotation\LayerStyle;
 use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\PluginSystem\LayerStylePluginInterface;
 use Drupal\taxonomy\TermInterface;
@@ -40,6 +41,11 @@ class ContributionStyles implements LayerStylePluginInterface {
   protected $fileStorage;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * ContributionStyles constructor.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
@@ -50,6 +56,7 @@ class ContributionStyles implements LayerStylePluginInterface {
     $this->entityTypeManager = $serviceContainer->get('entity_type.manager');
     $this->termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
     $this->fileStorage = $this->entityTypeManager->getStorage('file');
+    $this->fileUrlGenerator = $serviceContainer->get('file_url_generator');
   }
 
   /**
@@ -87,7 +94,13 @@ class ContributionStyles implements LayerStylePluginInterface {
         ],
         'style' => (object) [
           'type' => 'icon',
-          'imageName' => preg_replace('~^https?:~', '', $topicImage ? file_create_url($topicImage->getFileUri()) : ''),
+          'imageName' => preg_replace(
+            '~^https?:~',
+            '',
+            $topicImage
+                ? $this->fileUrlGenerator->generateAbsoluteString($topicImage->getFileUri())
+                : ''
+          ),
           'imagePath' => '',
           'imageScale' => 0.5,
           'imageOffsetX' => 0.5,
