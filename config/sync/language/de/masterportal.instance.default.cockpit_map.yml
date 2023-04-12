@@ -1,18 +1,16 @@
-label: 'Karteninstanz: Standard'
+label: 'Karteninstanz: DIPAS navigator'
 settings:
   MenuSettings:
     tree:
       name: Themen
     tools:
       name: Werkzeuge
-    filter:
-      name: Kategorieauswahl
     legend:
       name: Legende
-  PortalSettings:
-    tooltip: 'Digitales Partizipationssystem'
+    filter:
+      name: Kategorieauswahl
   SearchBarSettings:
-    placeholder: 'Suche nach Themen'
+    placeholder: 'Suche nach Adresse/Thema'
   ToolSettings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:

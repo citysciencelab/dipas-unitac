@@ -5,8 +5,14 @@ dependencies: {  }
 id: default.cockpit_map
 instance_name: cockpit_map
 domain: default
-label: 'Cockpit Map'
+label: 'DIPAS navigator Map'
 settings:
+  DesignSettings:
+    uiStyle: default
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
@@ -14,16 +20,10 @@ settings:
         custom:
           visibility: true
           gfiTheme: default
-  DesignSettings:
-    uiStyle: default
-    treeType: light
-    scaleLine: 0
-    simpleMap: 0
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
-    layer: {  }
   MapSettings:
     startCenter: '[567929,5935026]'
+    twoFingerPan: true
+    useScaleOptions: false
     options:
       -
         resolution: 63.536412646199
@@ -69,12 +69,14 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
-    filterGeneral:
-      name: Kategorieauswahl
+      name: Tools
+    legend:
+      name: Legend
+    filter:
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -82,8 +84,6 @@ settings:
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
       predefinedQueries: '[]'
-    legend:
-      name: Legende
   PortalSettings:
     title: ''
     logo: ''
@@ -91,23 +91,25 @@ settings:
     tooltip: 'Landesbetrieb Geoinformation und Vermessung'
     activePlugins: {  }
     plugins: {  }
+  SearchPluginSettings:
+    activePlugins: {  }
+    plugins: {  }
   SearchBarSettings:
     minChars: 3
     zoomLevel: 9
     recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
+    placeholder: 'Search for address/topic'
     renderToDOM: '#searchbarInMap'
     quickHelp: false
-  SearchPluginSettings:
-    activePlugins: {  }
-    plugins: {  }
+  ForegroundLayerSection:
+    layer: {  }
   ToolSettings:
     activePlugins:
       - Gfi
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
-        name: 'Informationen abfragen'
+        name: 'Query information'
         active: true
         isVisibleInMenu: false
-uid: '1'
+uid: 0
 hidden: false

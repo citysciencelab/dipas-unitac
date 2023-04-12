@@ -26,7 +26,6 @@ hidden:
   field_domain_access: true
   field_domain_all_affiliates: true
   field_media_file: true
-  field_serve_for_documentation: true
   langcode: true
   path: true
   status: true

@@ -1,6 +1,6 @@
 langcode: en
 BasicSettings:
-  html_structure: "<!DOCTYPE html>\r\n<html lang=\"de\">\r\n    <head>\r\n      <meta charset=\"utf-8\">\r\n      <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n      <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\r\n      <meta name=\"mobile-web-app-capable\" content=\"yes\">\r\n      <title>Masterportal</title>\r\n      <link rel=\"stylesheet\" href=\"{{library_path}}/css/masterportal.css\">\r\n      <link rel=\"stylesheet\" href=\"{{library_path}}/css/fonts.css\">\r\n    </head>\r\n    <body>\r\n        <div id=\"masterportal-root\"></div>\r\n\r\n<div id=\"loader\" class=\"centered-box-wrapper loader-is-loading loader-is-initially-loading\">\r\n        <div class=\"centered-box-content\">\r\n            <div id=\"portal-logo-box\">\r\n                <div id=\"portal-logo-sub-title\">Dipas</div>\r\n            </div>\r\n            <div id=\"loader-spinner-itself\" class=\"default\"></div>\r\n        </div>\r\n        <div id=\"generic-masterportal-logo\"><img src=\"{{library_path}}/img/Logo_Masterportal.svg\"></div>\r\n    </div>\r\n    \r\n        <script type=\"text/javascript\" src=\"{{library_path}}/../cesium/1_84/Cesium.js\"></script>\r\n        <script type=\"text/javascript\" src=\"{{library_path}}/js/masterportal.js\"></script>\r\n    </body>\r\n</html>\r\n"
+  html_structure: "<!DOCTYPE html>\r\n<html lang=\"de\">\r\n    <head>\r\n      <meta charset=\"utf-8\">\r\n      <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n      <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\r\n      <meta name=\"mobile-web-app-capable\" content=\"yes\">\r\n      <title>Masterportal</title>\r\n      <link rel=\"stylesheet\" href=\"{{library_path}}/css/masterportal.css\">\r\n      <link rel=\"stylesheet\" href=\"{{library_path}}/css/fonts.css\">\r\n    </head>\r\n    <body>\r\n        <div id=\"masterportal-root\"></div>\r\n\r\n<div id=\"loader\" class=\"centered-box-wrapper loader-is-loading loader-is-initially-loading\">\r\n        <div class=\"centered-box-content\">\r\n            <div id=\"portal-logo-box\">\r\n                <div id=\"portal-logo-sub-title\">DIPAS</div>\r\n            </div>\r\n            <div id=\"loader-spinner-itself\" class=\"default\"></div>\r\n        </div>\r\n        <div id=\"generic-masterportal-logo\"><img src=\"{{library_path}}/img/Logo_Masterportal.svg\"></div>\r\n    </div>\r\n    \r\n        <script type=\"text/javascript\" src=\"{{base_path}}modules/custom/masterportal/libraries/cesium/1_95/Cesium.js\"></script>\r\n        <script type=\"text/javascript\" src=\"{{library_path}}/js/masterportal.js\"></script>\r\n    </body>\r\n</html>\r\n"
   js: |-
     {
         "ignoredKeys": [
@@ -120,15 +120,18 @@ BasicSettings:
         "startingMap3D": false,
         "obliqueMap": true,
         "cesiumParameter": {
-            "tileCacheSize": 20,
-            "enableLighting": true,
             "fog": {
                 "enabled": true,
                 "density": 0.0002,
                 "screenSpaceErrorFactor": 2
             },
             "maximumScreenSpaceError": 2,
-            "fxaa": true
+            "fxaa": false,
+            "globe": {
+                "enableLighting": true,
+                "maximumScreenSpaceError": 2,
+                "tileCacheSize": 20
+            }
         },
         "defaultToolId": "gfi",
         "portalLanguage": {
@@ -153,10 +156,10 @@ BasicSettings:
         },
         "useVectorStyleBeta": true,
         "extent": [
-            560000,
-            5850000,
-            625000,
-            6000000
+            485000,
+            5810000,
+            700000,
+            6080000
         ],
         "addons": [
             "dipas",

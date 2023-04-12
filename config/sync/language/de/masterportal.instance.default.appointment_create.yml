@@ -7,5 +7,11 @@ settings:
       name: Werkzeuge
     legend:
       name: Legende
+    filter:
+      name: Kategorieauswahl
   SearchBarSettings:
     placeholder: 'Suche nach Adresse/Thema'
+  ToolSettings:
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
+        name: 'Zeichnen / Schreiben'

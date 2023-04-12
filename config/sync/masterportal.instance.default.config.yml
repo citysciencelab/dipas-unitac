@@ -7,8 +7,14 @@ _core:
 id: default.config
 instance_name: config
 domain: default
-label: Config
+label: 'Configuration map'
 settings:
+  DesignSettings:
+    uiStyle: default
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
@@ -16,14 +22,6 @@ settings:
         custom:
           visibility: true
           gfiTheme: default
-  DesignSettings:
-    uiStyle: default
-    treeType: light
-    scaleLine: 0
-    simpleMap: 0
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
-    layer: {  }
   MapSettings:
     startCenter: '[566296,5935086]'
     options:
@@ -71,12 +69,14 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
+      name: Tools
+    legend:
+      name: Legend
     filter:
-      name: Kategorieauswahl
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -84,8 +84,6 @@ settings:
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
       predefinedQueries: '[]'
-    legend:
-      name: Legende
   PortalSettings:
     title: Masterportal
     logo: '{{library_path}}/img/Logo_Masterportal.svg'
@@ -93,20 +91,22 @@ settings:
     tooltip: 'Landesbetrieb Geoinformation und Vermessung'
     activePlugins: {  }
     plugins: {  }
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
-    renderToDOM: '#searchbarInMap'
-    quickHelp: false
   SearchPluginSettings:
     activePlugins:
       - Tree
     plugins:
       Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Search for address/topic'
+    renderToDOM: '#searchbarInMap'
+    quickHelp: false
+  ForegroundLayerSection:
+    layer: {  }
   ToolSettings:
     activePlugins: {  }
     plugins: {  }
-uid: '0'
+uid: 0
 hidden: true

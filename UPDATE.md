@@ -14,7 +14,8 @@ The general procedure works as follows:
 5. Copy `config/drupal.database-settings.php`, `config/drupal.salt.inc.php` & `drupal/sites/default/files` back to its original locations
 6. Navigate to `YOURDOMAIN.TLD/drupal/admin/config/development/configuration`
 7. Scroll to the bottom and click *Import all*
-8. Navigate to `YOURDOMAIN.TLD/drupal/update.php`& follow the wizard
+8. Repeat step 7 (Reason: config_ignore settings may have been updated and necessary configuration updates may have been skipped in the first run)
+9. Navigate to `YOURDOMAIN.TLD/drupal/update.php`& follow the wizard
 
 ### From 2.0.0 or higher to 2.2.0
 **To update to this version some important steps are neccessary:**
@@ -35,46 +36,3 @@ The general procedure works as follows:
 There are new **required fields** *project owners* and *topics* which you will find in the dipas configuration form. You have to create data for these taxonomies. Details can be found here https://wiki.dipas.org/.
 
 For proceedings that need to edit appointments, go to the masterportal instance "Create-Appointment" and click edit then select the tab "Portal Settings". The checkmarks for "Center map at marker" and "'use setMarker' should be set to inactive (no checkmark)." You also need to do the following, under the Tool Plugins tab, set the "Drawing" tool to active (checkmark) and the "Drawing tool visible in the masterportal menu" setting to not active (no checkmark).
-
-**Masterportal Filter**
-
-If you want to use the filter for the masterportal, please add the following snippet to the menu settings of the Dipas instance under /admin/config/user-interface/masterportal/instances:
-
-```json
-[
-    {
-        "layerId": "contributions",
-        "strategy": "active",
-        "showHits": false,
-        "snippetTags": false,
-        "snippets": [
-          {
-            "type": "dropdown",
-            "attrName": "Thema",
-            "operator": "IN",
-            "display": "list",
-            "multiselect": true,
-            "addSelectAll": false,
-            "renderIcons": "fromLegend",
-            "info": false
-          }
-        ]
-    }
-]
-```
-
-### From 1.0.0 to 2.0.0
-
-The update of an exisiting DIPAS installation with version 1.0.0 is still in an experimental state.
-It has not yet been completely tested!
-
-Please have in mind the drupal update from drupal 8 to 9!
-This comes along with changed requirements for PHP and PostgreSQL!
-
-Follow these steps BEFORE starting the general update procedure
-
-0. **Backup** all files and the database to prevent data loss
-1. Navigate to `YOURDOMAIN.TLD/drupal/admin/modules/uninstall` and uninstall module "nimbus"
-2. Navigate to `YOURDOMAIN.TLD/drupal/admin/appearance` and uninstall theme "classy"
-3. Move your database from PostgreSQL 9 to PostgreSQL 13
-4. then go on and start the general update procedure

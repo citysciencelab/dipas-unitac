@@ -69,12 +69,12 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
+      name: Tools
     filter:
-      name: Kategorieauswahl
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -96,7 +96,7 @@ settings:
             }
         ]
     legend:
-      name: Legende
+      name: Legend
   PortalSettings:
     title: Masterportal
     logo: ''
@@ -108,7 +108,7 @@ settings:
     minChars: 3
     zoomLevel: 9
     recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
+    placeholder: 'Search for address/topic'
     renderToDOM: '#searchbarInMap'
     quickHelp: false
   SearchPluginSettings:
@@ -117,5 +117,5 @@ settings:
   ToolSettings:
     activePlugins: {  }
     plugins: {  }
-uid: '1'
+uid: 0
 hidden: false

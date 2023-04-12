@@ -7,8 +7,14 @@ _core:
 id: default.default
 instance_name: default
 domain: default
-label: Default
+label: Master
 settings:
+  DesignSettings:
+    uiStyle: default
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
@@ -16,22 +22,10 @@ settings:
         custom:
           visibility: true
           gfiTheme: default
-  DesignSettings:
-    uiStyle: default
-    treeType: custom
-    scaleLine: 0
-    simpleMap: 1
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
-    layer:
-      -
-        id: contributions
-        custom:
-          visibility: true
-          gfiTheme: default
-          mixin: "{\r\n\"clusterDistance\": 20\r\n}"
   MapSettings:
     startCenter: '[566613,5935507]'
+    twoFingerPan: false
+    useScaleOptions: true
     options:
       -
         resolution: 66.145797614603
@@ -77,48 +71,54 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Theme
+      name: Topics
       isInitOpen: false
     tools:
       name: Tools
+    legend:
+      name: Legend
     filter:
-      name: Filter
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: true
-      predefinedQueries: |-
+      predefinedQueries: '[]'
+      layers: |-
         [
             {
                 "layerId": "contributions",
-                "isActive": true,
-                "isSelected": true,
-                "name": "Alle",
-                "liveZoomToFeatures": false,
-                "attributeWhiteList": [
-                    "Thema",
-                    "Rubric"
+                "strategy": "active",
+                "showHits": false,
+                "snippetTags": false,
+                "snippets": [
+                    {
+                        "type": "dropdown",
+                        "attrName": "Thema",
+                        "operator": "IN",
+                        "display": "list",
+                        "multiselect": true,
+                        "addSelectAll": false,
+                        "renderIcons": "fromLegend",
+                        "info": false,
+                        "prechecked": "all",
+                        "showAllValues": true,
+                        "resetLayer": true
+                    }
                 ]
             }
         ]
-    legend:
-      name: Legend
+      active: false
+      layerSelectorVisible: false
   PortalSettings:
-    title: ' '
-    logo: ''
-    link: 'http://geoinfo.hamburg.de'
-    tooltip: 'Landesbetrieb Geoinformation und Vermessung'
+    title: ''
+    logo: '{{library_path}}/img/DIPAS-Logo-RGB.png'
+    link: 'https://dipas.org'
+    tooltip: 'Digital participation system'
     activePlugins: {  }
     plugins: {  }
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Search for Address, Theme, ...'
-    renderToDOM: ''
-    quickHelp: false
   SearchPluginSettings:
     activePlugins:
       - Gazetteer
@@ -136,13 +136,28 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\SearchBar\VisibleVector:
         layerTypes:
           - GeoJSON
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Search for topics'
+    renderToDOM: ''
+    quickHelp: false
+  ForegroundLayerSection:
+    layer:
+      -
+        id: contributions
+        custom:
+          visibility: true
+          gfiTheme: default
+          mixin: "{\r\n\"clusterDistance\": 20\r\n}"
   ToolSettings:
     activePlugins:
       - Gfi
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
-        name: 'Information query'
+        name: 'Query information'
         active: true
         isVisibleInMenu: false
-uid: '0'
+uid: 0
 hidden: false

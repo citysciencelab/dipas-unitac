@@ -71,12 +71,12 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
+      name: Tools
     filter:
-      name: Kategorieauswahl
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -85,7 +85,7 @@ settings:
       isVisibleInMenu: false
       predefinedQueries: '[]'
     legend:
-      name: Legende
+      name: Legend
   PortalSettings:
     title: ' '
     logo: ''
@@ -101,7 +101,7 @@ settings:
     minChars: 3
     zoomLevel: 9
     recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
+    placeholder: 'Search for address/topic'
     renderToDOM: ''
     quickHelp: false
   SearchPluginSettings:
@@ -122,7 +122,7 @@ settings:
       - Draw
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
-        name: Draw
+        name: 'Draw / write'
         visibleInMenu: 0
-uid: '0'
+uid: 0
 hidden: false

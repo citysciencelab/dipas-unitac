@@ -5,7 +5,7 @@ dependencies: {  }
 id: default.dipas
 instance_name: dipas
 domain: default
-label: Dipas
+label: DIPAS
 settings:
   BackgroundLayerSettings:
     layer:
@@ -66,7 +66,7 @@ settings:
           visibility: true
           gfiTheme: default
       -
-        id: '["1585","1586","8713"]'
+        id: '["1586","8713"]'
         custom:
           name: 'Schulstammdaten und Schülerzahlen der Hamburger Schulen'
           visibility: false
@@ -95,57 +95,11 @@ settings:
           visibility: false
           gfiTheme: default
       -
-        id: '["4831","4832","4833","4835","4836","4837","4838","4839","4841","4843","4844","4845","4846","4848","4850","4851","4852","4853","4854","4855","4856","4857","4858","4859","4860","4861","4862","4863","4864","4865","4866","4868","4870","4871","4872","4873","4874","4875","4876","4877","4878","4879"]'
-        custom:
-          name: 'Velo- und Freizeitrouten Hamburg'
-          visibility: false
-          gfiTheme: default
-          mixin: '{"name": "Velorouten Übersicht"}'
-      -
-        id: '["1933","1935"]'
-        custom:
-          name: 'HVV Streckennetz für Bahn-, Bus- und Fährlinien Hamburg'
-          visibility: false
-          gfiTheme: default
-          mixin: '{"id": "special2","name": "HVV","children": [{"id": "1935","visibility": false,"styles": ["geofox_Faehre"],"name": ["HVV FÃ¤hrverbindungen"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-faehre.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox-bahn"],"name": ["HVV Bahnlinien"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bahn.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox-bus"],"name": ["HVV Buslinien"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"},{"id": "1935","visibility": false,"styles": ["geofox_BusName"],"name": ["HVV Busliniennummern"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"},{"id": "1933","styles": ["geofox_stations"],"name": ["HVV Haltestellen"],"legendURL": ["http://geoportal.metropolregion.hamburg.de/legende_mrh/hvv-bus.png"],"gfiAttributes": "ignore"}]}'
-      -
-        id: '["95","96"]'
-        custom:
-          name: 'Lärmkarten Hamburg (§47c BlmSchG)'
-          visibility: false
-          gfiTheme: default
-      -
-        id: '1747'
-        custom:
-          visibility: false
-          gfiTheme: default
-          mixin: '{"name": "Flächennutzungsplan"}'
-      -
         id: '["1754","1755","1756","1757","1758","1759","4953","11077"]'
-        custom:
-          name: 'Denkmalkartierung Hamburg'
-          visibility: false
-          gfiTheme: default
       -
-        id: '["1520","1521","1522","1523","1524","1525","1527","1528","1529","2806","2807","6348"]'
-        custom:
-          name: 'Landesgrundbesitzverzeichnis Hamburg'
-          visibility: false
-          gfiTheme: default
-          mixin: '{"name": "Landesgrundbesitzverzeichnis"}'
+        id: '["1520","1521","1522","1523","1524","1525","1527","1528","1529","2807","6348"]'
       -
         id: '["4409","4410","4411","4412","4413","10767","13895"]'
-        custom:
-          name: 'Integrierte Stadtteilentwicklung - RISE - Fördergebiete in Hamburg'
-          visibility: false
-          gfiTheme: default
-          mixin: '{"name": "RISE"}'
-      -
-        id: '13032'
-        custom:
-          visibility: true
-          gfiTheme: default
-          mixin: '{"isVisibleInTree":"false", "name":"Oblique"}'
   MapSettings:
     startCenter: '[565874, 5934140]'
     options:
@@ -193,12 +147,12 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
+      name: Tools
     filter:
-      name: Kategorieauswahl
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: true
@@ -219,8 +173,34 @@ settings:
                 "snippetType": "checkbox-classic"
             }
         ]
+      layers: |-
+        [
+            {
+                "layerId": "contributions",
+                "strategy": "active",
+                "showHits": false,
+                "snippetTags": false,
+                "snippets": [
+                    {
+                        "type": "dropdown",
+                        "attrName": "Thema",
+                        "operator": "IN",
+                        "display": "list",
+                        "multiselect": true,
+                        "addSelectAll": false,
+                        "renderIcons": "fromLegend",
+                        "info": false,
+                        "prechecked": "all",
+                        "showAllValues": true,
+                        "resetLayer": true
+                    }
+                ]
+            }
+        ]
+      active: true
+      layerSelectorVisible: false
     legend:
-      name: Legende
+      name: Legend
   PortalSettings:
     title: ' '
     logo: '{{library_path}}/img/Logo_Masterportal.svg'
@@ -249,7 +229,7 @@ settings:
     minChars: 3
     zoomLevel: 7
     recommendedListlenth: 5
-    placeholder: 'Suche Adresse/Thema/Beitrag'
+    placeholder: 'Search for address/topic/contribution'
     renderToDOM: ''
     quickHelp: false
   SearchPluginSettings:
@@ -283,19 +263,19 @@ settings:
       - Shadow
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
-        name: 'Zeichnen / Schreiben'
+        name: 'Draw / write'
         visibleInMenu: 1
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
-        name: 'Informationen abfragen'
+        name: 'Query information'
         active: true
         isVisibleInMenu: false
       Drupal\masterportal\Plugin\Masterportal\Tools\Measure:
-        name: 'Strecke / Fläche messen'
+        name: 'Measure distance / area'
       Drupal\masterportal\Plugin\Masterportal\Tools\Populationquery:
-        name: 'Einwohneranzahl abfragen'
+        name: 'Query population'
         onlyDesktop: 0
         populationReqServiceId: '2'
       Drupal\masterportal\Plugin\Masterportal\Tools\Shadow:
-        name: 'Schatten einstellen'
-uid: '0'
+        name: 'Enable shadows'
+uid: 0
 hidden: false

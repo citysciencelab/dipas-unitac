@@ -67,12 +67,14 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
-    filterGeneral:
-      name: Kategorieauswahl
+      name: Tools
+    legend:
+      name: Legend
+    filter:
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -80,8 +82,6 @@ settings:
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
       predefinedQueries: '[]'
-    legend:
-      name: Legende
   PortalSettings:
     title: Masterportal
     logo: ''
@@ -100,7 +100,7 @@ settings:
     minChars: 3
     zoomLevel: 9
     recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
+    placeholder: 'Search for address/topic'
     renderToDOM: '#searchbarInMap'
     quickHelp: false
   ForegroundLayerSection:
@@ -110,7 +110,7 @@ settings:
       - Draw
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
-        name: 'Zeichnen / Schreiben'
+        name: 'Draw / write'
         visibleInMenu: 0
-uid: '0'
+uid: 0
 hidden: false
