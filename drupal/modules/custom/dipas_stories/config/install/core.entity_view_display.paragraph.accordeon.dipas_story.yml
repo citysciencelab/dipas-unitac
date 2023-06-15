@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.dipas_story
+    - field.field.paragraph.accordeon.field_content
+    - paragraphs.paragraphs_type.accordeon
+  module:
+    - entity_reference_revisions
+id: paragraph.accordeon.dipas_story
+targetEntityType: paragraph
+bundle: accordeon
+mode: dipas_story
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: dipas_story
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

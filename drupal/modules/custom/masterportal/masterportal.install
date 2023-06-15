@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Duplicated the default map projections for all configured domains.
+ */
+function masterportal_update_9001() {
+  $defaultProjections = \Drupal::config('masterportal.config.default.projections')->getRawData();
+  $allDomains = array_values(
+    array_filter(
+      \Drupal::entityTypeManager()->getStorage('domain')->getQuery()->execute(),
+      function ($domain) {
+        return $domain !== 'default';
+      }
+    )
+  );
+
+  foreach ($allDomains as $domain) {
+    $config = \Drupal::configFactory()->getEditable(sprintf('masterportal.config.%s.projections', $domain));
+    $config->setData($defaultProjections)->save();
+  }
+}

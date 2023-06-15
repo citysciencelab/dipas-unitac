@@ -1,0 +1,166 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.story_step.story_step.field_content
+    - field.field.story_step.story_step.field_map_settings
+    - field.field.story_step.story_step.field_reading_time
+    - field.field.story_step.story_step.field_title_image
+  module:
+    - dipas_stories
+    - field_group
+    - media_library
+    - paragraphs
+    - paragraphs_ee
+    - paragraphs_features
+third_party_settings:
+  field_group:
+    group_formsections:
+      children:
+        - group_map_settings
+        - group_step_metadata
+        - group_step_content
+      label: Formsections
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: tabs
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        direction: vertical
+        width_breakpoint: 640
+    group_map_settings:
+      children:
+        - field_map_settings
+      label: 'Map Settings'
+      region: content
+      parent_name: group_formsections
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: open
+        description: ''
+        required_fields: true
+    group_basic_settings:
+      children:
+        - title
+      label: 'Basic Settings'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        description: ''
+        required_fields: true
+    group_step_content:
+      children:
+        - field_content
+      label: 'Step content'
+      region: content
+      parent_name: group_formsections
+      weight: 22
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_step_metadata:
+      children:
+        - field_reading_time
+        - field_title_image
+      label: 'Step metadata'
+      region: content
+      parent_name: group_formsections
+      weight: 21
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+id: story_step.story_step.default
+targetEntityType: story_step
+bundle: story_step
+mode: default
+content:
+  field_content:
+    type: paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: modal
+      form_display_mode: default
+      default_paragraph_type: _none
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: true
+        add_in_between_link_count: 3
+        delete_confirmation: true
+        split_text: false
+        show_drag_and_drop: true
+      paragraphs_ee:
+        paragraphs_ee:
+          dialog_off_canvas: false
+          dialog_style: tiles
+  field_map_settings:
+    type: masterportal_map_settings
+    weight: 4
+    region: content
+    settings:
+      widgetMode: story_step
+      omittedWidgetSections:
+        ViewpointConfiguration: 0
+        ForegroundLayer: 0
+        BackgroundLayer: 0
+        Tools: 0
+    third_party_settings: {  }
+  field_reading_time:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_title_image:
+    type: media_library_widget
+    weight: 4
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  status: true
+  uid: true

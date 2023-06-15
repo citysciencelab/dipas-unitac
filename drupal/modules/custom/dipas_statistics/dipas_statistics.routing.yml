@@ -1,0 +1,18 @@
+dipas_statistics.configform:
+  path: '/admin/config/user-interface/dipas_statistics'
+  defaults:
+    _title: 'DIPAS statistic tool configuration'
+    _description: 'Provides an interface to configure the DIPAS statistic tool.'
+    _form: '\Drupal\dipas_statistics\Form\Settings'
+  requirements:
+    _permission: 'administer dipas'
+dipas_statistics.export:
+  path: '/admin/config/user-interface/dipas_statistics/export/{api}/{endpoint}'
+  defaults:
+    _controller: 'dipas_statistics.dataexport:export'
+    api: null
+    endpoint: null
+  requirements:
+    _permission: 'administer dipas'
+    api: \w+
+    endpoint: \w+

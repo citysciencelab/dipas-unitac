@@ -1,26 +1,115 @@
 uuid: 92da07c5-1f17-4081-a76f-e5bab1007d16
-langcode: de
+langcode: en
 status: true
 dependencies: {  }
 id: default.cockpit_map
-uid: '1'
 instance_name: cockpit_map
-label: 'Cockpit Map'
 domain: default
-hidden: false
+label: 'DIPAS navigator Map'
 settings:
+  DesignSettings:
+    uiStyle: default
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
-        id: '19969'
+        id: '453'
         custom:
           visibility: true
           gfiTheme: default
+  MapSettings:
+    startCenter: '[567929,5935026]'
+    twoFingerPan: true
+    useScaleOptions: false
+    options:
+      -
+        resolution: 63.536412646199
+        scale: 250000
+        zoomLevel: 0
+      -
+        resolution: 26.458319045841
+        scale: 100000
+        zoomLevel: 1
+      -
+        resolution: 15.874991427505
+        scale: 50000
+        zoomLevel: 2
+      -
+        resolution: 10.583327618336
+        scale: 25000
+        zoomLevel: 3
+      -
+        resolution: 5.2916638091682
+        scale: 20000
+        zoomLevel: 4
+      -
+        resolution: 2.6458319045841
+        scale: 10000
+        zoomLevel: 5
+      -
+        resolution: 1.3229159522921
+        scale: 5000
+        zoomLevel: 6
+      -
+        resolution: 0.66145797614603
+        scale: 2500
+        zoomLevel: 7
+      -
+        resolution: 0.26458319045841
+        scale: 1000
+        zoomLevel: 8
+      -
+        resolution: 0.13229159522921
+        scale: 500
+        zoomLevel: 9
+    zoomLevel: 1
+    epsg: 'EPSG:25832'
+  MenuSettings:
+    tree:
+      name: Topics
+      isInitOpen: false
+    tools:
+      name: Tools
+    legend:
+      name: Legend
+    filter:
+      name: Category selection
+      deactivateGFI: false
+      isGeneric: false
+      isInitOpen: false
+      liveZoomToFeatures: false
+      allowMultipleQueriesPerLayer: false
+      isVisibleInMenu: false
+      predefinedQueries: '[]'
+  PortalSettings:
+    title: ''
+    logo: ''
+    link: 'http://geoinfo.hamburg.de'
+    tooltip: 'Landesbetrieb Geoinformation und Vermessung'
+    activePlugins: {  }
+    plugins: {  }
+  SearchPluginSettings:
+    activePlugins: {  }
+    plugins: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Search for address/topic'
+    renderToDOM: '#searchbarInMap'
+    quickHelp: false
   ForegroundLayerSection:
     layer: {  }
-  DesignSettings:
-    uiStyle: simple
-    treeType: custom
-    scaleLine: 0
-    simpleMap: 1
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
+  ToolSettings:
+    activePlugins:
+      - Gfi
+    plugins:
+      Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
+        name: 'Query information'
+        active: true
+        isVisibleInMenu: false
+uid: 0
+hidden: false

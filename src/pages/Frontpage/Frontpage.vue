@@ -38,10 +38,29 @@ export default {
     ...mapGetters([
       "frontpage"
     ]),
+    htmlPageTitle () {
+      switch (this.frontpage) {
+        case "contributionlist":
+          return this.$t("ContributionList.title");
+        case "projectinfo":
+          return this.pageContent.title;
+        case "schedule":
+          return this.$t("Schedule.title");
+        case "statistics":
+          return this.$t("Statistics.headline");
+        case "conceptionlist":
+          return this.pageContent.title;
+        case "survey":
+          return this.pageContent.title;
+        case "custompage":
+          return this.pageContent.title;
+        case "contributionmap":
+        default:
+          return this.$t("ContributionMap.title");
+      }
+    },
     component () {
       switch (this.frontpage) {
-        case "contributionmap":
-          return ContributionMap;
         case "contributionlist":
           return ContributionList;
         case "projectinfo":
@@ -56,6 +75,7 @@ export default {
           return SurveyPage;
         case "custompage":
           return CustomPage;
+        case "contributionmap":
         default:
           return ContributionMap;
       }

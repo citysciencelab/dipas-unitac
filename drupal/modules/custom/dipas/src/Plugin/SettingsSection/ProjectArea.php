@@ -67,6 +67,14 @@ class ProjectArea extends SettingsSectionBase {
         ],
         '#required' => TRUE,
       ],
+      'project_area_centerpoint' => [
+        '#type' => 'textfield',
+        '#default_value' => $this->project_area_centerpoint,
+        '#attributes' => [
+          'style' => 'display: none;',
+        ],
+        '#required' => TRUE,
+      ],
       'create_projectarea' => [
         '#type' => 'button',
         '#executes_submit_callback' => FALSE,
@@ -109,6 +117,7 @@ class ProjectArea extends SettingsSectionBase {
   public static function getProcessedValues(array $plugin_values, array $form_values) {
     return [
       'project_area' => $plugin_values['project_area'],
+      'project_area_centerpoint' => $plugin_values['project_area_centerpoint'],
     ];
   }
 

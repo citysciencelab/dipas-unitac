@@ -6,6 +6,8 @@
 
 namespace Drupal\masterportal\Service;
 
+use Drupal\Core\Logger\LoggerChannelInterface;
+
 /**
  * Class ServiceManager.
  *
@@ -24,17 +26,27 @@ class ServiceManager implements ServiceManagerInterface {
   protected $services;
 
   /**
+   * @var \Drupal\
+   */
+  protected $logger;
+
+  /**
    * ServiceManager constructor.
    *
    * @param \Drupal\masterportal\Service\MasterportalTokenServiceInterface $token_service
    *   Custom token service.
    * @param \Drupal\masterportal\Service\MasterportalConfigInterface $config
    *   The configuration service of the Masterportal.
+   * @param Drupal\Core\Logger\LoggerChannelInterface $logger
+   *   Custom logger channel
    */
   public function __construct(
     MasterportalTokenServiceInterface $token_service,
-    MasterportalConfigInterface $config
+    MasterportalConfigInterface $config,
+    LoggerChannelInterface $logger
   ) {
+    $this->logger = $logger;
+
     if ($serviceDefinitionsFile = $config->get('BasicSettings')['service_definitions']) {
       if ($token_service->containsTokens($serviceDefinitionsFile)) {
         $token_service->setFileSystemTokenReplacement(TRUE);

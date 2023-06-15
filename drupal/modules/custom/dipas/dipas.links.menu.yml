@@ -4,3 +4,9 @@ dipas.config:
   route_name: dipas.configform
   parent: system.admin_config_ui
   menu_name: admin
+dipas.navigator.config:
+  title: 'DIPAS navigator'
+  description: 'Provides an interface to configure DIPAS navigator related settings.'
+  route_name: dipas.cockpit.config
+  parent: system.admin_config_ui
+  menu_name: admin

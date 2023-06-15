@@ -79,7 +79,7 @@ class SearchBarSettings extends InstanceConfigSectionBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormSectionElements(FormStateInterface $form_state) {
+  public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
     return [
       'minChars' => [
         '#type' => 'number',

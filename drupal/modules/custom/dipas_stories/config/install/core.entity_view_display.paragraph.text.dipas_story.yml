@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.dipas_story
+    - field.field.paragraph.text.field_headline
+    - field.field.paragraph.text.field_text
+    - paragraphs.paragraphs_type.text
+  module:
+    - element_class_formatter
+    - text
+id: paragraph.text.dipas_story
+targetEntityType: paragraph
+bundle: text
+mode: dipas_story
+content:
+  field_headline:
+    type: wrapper_class
+    label: hidden
+    settings:
+      class: ''
+      tag: h4
+      link: false
+      link_class: ''
+      summary: false
+      trim: 200
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_text:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

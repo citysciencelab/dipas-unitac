@@ -24,6 +24,17 @@ interface ResponseKeyPluginInterface {
   public function getResponseData();
 
   /**
+   * Processes plugin response data before delivery (even cached data).
+   *
+   * @param array $responsedata
+   *   The (potentionally cached) plugin response.
+   *
+   * @return array
+   *   The processed plugin response data
+   */
+  public static function postProcessResponse(array $responsedata);
+
+  /**
    * Returns a list of applicable cache tags for the response data.
    *
    * @return string[]

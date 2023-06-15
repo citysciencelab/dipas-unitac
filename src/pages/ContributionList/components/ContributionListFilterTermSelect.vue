@@ -153,7 +153,7 @@ export default {
         tabindex="0"
       >
         <template v-if="selected">
-          ({{ $t("ContributionList.ContributionListFilter.selection.selected", {'selected': selected, 'count': count}) }})
+          ({{ $t("ContributionList.ContributionListFilter.selection.selected", {'selected': selected, 'count': count, 'termTitlePlural': termTitlePlural}) }})
         </template>
         <template v-else>
           ({{ $t("ContributionList.ContributionListFilter.selection.all", {'termTitlePlural': termTitlePlural}) }})
@@ -280,9 +280,11 @@ export default {
     }
 
     div.termselect div.selectionModal div.actions button.dipasButton {
-        display: inline-block;
-        width: 200px;
-        margin: 0;
+      display: inline-block;
+      width: auto;
+      margin: 0;
+      height: auto;
+      padding: 10px 50px;
     }
 
     div.termselect div.selectionModal div.actions button.dipasButton:first-child {

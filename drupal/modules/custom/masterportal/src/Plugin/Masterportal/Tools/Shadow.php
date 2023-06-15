@@ -31,19 +31,11 @@ class Shadow extends PluginBase implements ToolPluginInterface {
   protected $name;
 
   /**
-   * The icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * {@inheritdoc}
    */
   public static function getDefaults() {
     return [
       'name' => 'Schatten einstellen',
-      'glyphicon' => 'glyphicon-resize-full',
     ];
   }
 
@@ -61,11 +53,6 @@ class Shadow extends PluginBase implements ToolPluginInterface {
         '#default_value' => $this->name,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
     ];
   }
 
@@ -75,7 +62,6 @@ class Shadow extends PluginBase implements ToolPluginInterface {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
     ];
   }
 
@@ -84,7 +70,6 @@ class Shadow extends PluginBase implements ToolPluginInterface {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
   }
 
 }

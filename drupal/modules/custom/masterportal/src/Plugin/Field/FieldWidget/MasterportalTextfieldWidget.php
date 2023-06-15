@@ -6,9 +6,11 @@
 
 namespace Drupal\masterportal\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Annotation\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\StringTextareaWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\EnsureObjectStructureTrait;
 
 /**
@@ -26,6 +28,7 @@ class MasterportalTextfieldWidget extends StringTextareaWidget {
 
   use EnsureObjectStructureTrait;
   use MasterportalWidgetTrait;
+  use DomainAwareTrait;
 
   const INTEGRATE_PARENT_SETTINGS = FALSE;
 
@@ -39,7 +42,7 @@ class MasterportalTextfieldWidget extends StringTextareaWidget {
     array &$form,
     FormStateInterface $form_state
   ) {
-    // Get the form element from Geofield.
+    // Get the form element from Textfield.
     $formElement = parent::formElement($items, $delta, $element, $form, $form_state);
 
     // Add a CSS class to the default inputs.
@@ -108,7 +111,7 @@ class MasterportalTextfieldWidget extends StringTextareaWidget {
         ],
       ],
       'map' => $this->masterportalRenderer->iframe(
-        $this->instanceService->loadInstance($this->getSetting('masterportal_instance')),
+        $this->instanceService->loadInstance(sprintf('%s.%s', $this->getActiveDomain(), $this->getSetting('masterportal_instance'))),
         sprintf('%s%s', $this->getSetting('width'), $this->getSetting('unit')),
         $this->getSetting('aspect_ratio'),
         NULL,
@@ -147,7 +150,7 @@ class MasterportalTextfieldWidget extends StringTextareaWidget {
       }
       foreach ($geometries as $geometry) {
         foreach ($geometry as $coords) {
-          list($lon, $lat) = $coords;
+          [$lon, $lat] = $coords;
           if ($lon < $extent['lonMin']) {
             $extent['lonMin'] = $lon;
           }

@@ -1,0 +1,50 @@
+label: Beiträge
+display:
+  default:
+    display_options:
+      title: Beiträge
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+      empty:
+        area:
+          content:
+            value: "<p>Entschuldigung, Ihre Suche brachte kein Ergebnis.</p>\r\n"
+            format: filtered_html
+      filters:
+        field_category_target_id:
+          expose:
+            label: Kategorie
+        field_rubric_target_id:
+          expose:
+            label: Rubrik
+      fields:
+        title:
+          label: Titel
+        field_category:
+          label: Kategorie
+        field_rubric:
+          label: Rubrik
+        field_geodata:
+          label: Verortet
+          alter:
+            text: Ja
+        created:
+          label: 'Erstellt am'
+  admin_contribution_list:
+    display_title: Seite
+    display_options:
+      title: Inhalt
+      menu:
+        title: Beiträge
+  admin_contribution_list_block:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend

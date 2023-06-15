@@ -158,38 +158,50 @@ export default {
         </span>
       </p>
     </div>
-    <p class="summaryheadline sm1">
+    <p
+      id="sm1headline"
+      class="summaryheadline sm1"
+    >
       {{ $t('CreateContributionModal.StepContents.title') }}
     </p>
     <p
       class="greyBox editIcon contributionHeadline"
       tabindex="0"
       role="button"
+      aria-labelledby="sm1headline"
       @click="jumpTo(1)"
       @keyup.enter="jumpTo(1)"
     >
       {{ value.step1.headline }}
     </p>
-    <p class="summaryheadline  sm2">
+    <p
+      id="sm2headline"
+      class="summaryheadline sm2"
+    >
       {{ $t('CreateContributionModal.StepContents.text') }}
     </p>
     <div
       class="greyBox editIcon contributionText"
       tabindex="0"
       role="button"
+      aria-labelledby="sm2headline"
       @click="jumpTo(1)"
       @keyup.enter="jumpTo(1)"
     >
       <p>{{ value.step1.text }}</p>
     </div>
     <div class="taxonomy">
-      <p class="summaryheadline sm3">
+      <p
+        id="sm3headline"
+        class="summaryheadline sm3"
+      >
         {{ $t('CreateContributionModal.StepIndicator.category') }}
       </p>
       <p
         class="greyBox editIcon inline contributionCategory"
         tabindex="0"
         role="button"
+        aria-labelledby="sm3headline"
         @click="jumpTo(2)"
         @keyup.enter="jumpTo(2)"
       >
@@ -199,7 +211,10 @@ export default {
         />
         {{ chosenCategoryName }}
       </p>
-      <p class="summaryheadline sm4">
+      <p
+        id="sm4headline"
+        class="summaryheadline sm4"
+      >
         {{ $t('CreateContributionModal.StepIndicator.type') }}
       </p>
       <p
@@ -207,6 +222,7 @@ export default {
         class="greyBox editIcon inline contributionRubric"
         tabindex="0"
         role="button"
+        aria-labelledby="sm4headline"
         @click="jumpTo(3)"
         @keyup.enter="jumpTo(3)"
       >
@@ -235,6 +251,7 @@ export default {
 </template>
 
 <style>
+
     .selected-keyword {
         color: #ffffff;
         background-color: #005CA9;
@@ -281,6 +298,11 @@ export default {
 
     div.createContributionStep5 p.contributionHeadline {
         font-weight: bold;
+        padding-top: 7px;
+        padding-right: 40px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     div.createContributionStep5 div.contributionText p {
@@ -332,7 +354,6 @@ export default {
     #app.mobile div.createContributionStep5 {
         overflow-y: auto;
         overflow-x: hidden;
-        height: calc((var(--vh, 1vh) * 100));
     }
 
     div.createContributionStep5 div.taxonomy p.contributionCategory img {
@@ -342,6 +363,7 @@ export default {
 
     div.createContributionStep5 div.locationWidget {
         position: relative;
+        min-height: 50px;
     }
 
     div.createContributionStep5 div.locationWidget div.clickCatcher,
@@ -352,8 +374,9 @@ export default {
         height: 100%;
     }
 
-    #app.mobile div.createContributionStep5 div.locationWidget div.masterportal {
-        height: calc((var(--vh, 1vh) * 100) - 475px);
+     #app.mobile div.createContributionStep5 div.locationWidget div.masterportal {
+        height: calc((var(--vh, 1vh) * 100) - 390px);
+        min-height: 175px;
     }
 
     div.createContributionStep5 div.locationWidget div.clickCatcher {
@@ -377,7 +400,7 @@ export default {
     }
     #app.mobile div.createContributionStep5 div.locationWidget .masterportal iframe,
     #app.mobile div.createContributionStep5 div.locationWidget div.clickCatcher {
-        height: 85%;
+        height: 90%;
     }
 
     div.createContributionStep5 .editIcon:focus-visible {

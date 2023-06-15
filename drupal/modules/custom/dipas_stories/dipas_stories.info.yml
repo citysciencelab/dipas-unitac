@@ -1,0 +1,14 @@
+name: 'DIPAS Stories'
+description: 'Present engaging stories with geographic references in an interactive way.'
+type: module
+package : DIPAS
+core: 8.x
+core_version_requirement: ^8 || ^9
+version: 9.x-1.0-alpha
+dependencies:
+  - drupal:field_group
+  - drupal:textarea_limit
+  - drupal:vuejs
+  - drupal:dipas
+  - drupal:masterportal
+configure: entity.story_step.settings

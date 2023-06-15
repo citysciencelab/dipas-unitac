@@ -24,34 +24,34 @@ bundle: conception
 mode: default
 content:
   field_comments:
-    weight: 2
+    type: comment_default
     label: hidden
     settings:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    type: comment_default
+    weight: 2
     region: content
   field_conception_image:
-    weight: 0
+    type: responsive_image
     label: hidden
     settings:
       responsive_image_style: content_image
       image_link: ''
     third_party_settings: {  }
-    type: responsive_image
+    weight: 0
     region: content
   field_content:
-    weight: 1
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 1
     region: content
   field_rating:
-    weight: 3
+    type: voting_api_formatter
     label: hidden
     settings:
       readonly: false
@@ -59,7 +59,7 @@ content:
       show_results: false
       values: {  }
     third_party_settings: {  }
-    type: voting_api_formatter
+    weight: 3
     region: content
 hidden:
   field_domain_access: true

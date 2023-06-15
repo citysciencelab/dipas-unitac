@@ -1,0 +1,9 @@
+services:
+  dipas_statistics.log_access:
+    class: Drupal\dipas_statistics\EventSubscriber\LogAccess
+    arguments: ['@database', '@request_stack', '@config.factory']
+    tags:
+      - {name: event_subscriber}
+  dipas_statistics.dataexport:
+    class: Drupal\dipas_statistics\Service\DataExport
+    arguments: ['@database', '@csv_serialization.encoder.csv', '@date.formatter']

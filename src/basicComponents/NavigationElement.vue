@@ -78,6 +78,7 @@ export default {
     #app.desktop section.navigation.headermenu ul li {
         padding-top: 14px;
         height: 46px;
+        line-height: 23px;
     }
 
     #app.mobile section.navigation ul li {

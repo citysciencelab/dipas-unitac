@@ -74,6 +74,11 @@ export default {
         };
       });
       return icons;
+    },
+    categoryCount () {
+      const number = this.categories.length;
+
+      return number;
     }
   },
   watch: {
@@ -100,18 +105,50 @@ export default {
     <h3 class="headline">
       {{ $t("CreateContributionModal.StepCategory.headline") }}
     </h3>
-    <fieldset>
-      <legend class="sr-only">
-        {{ $t("CreateContributionModal.StepCategory.headline") }}
-      </legend>
+    <form>
+      <div v-if="categoryCount < 11">
+        <fieldset>
+          <legend class="sr-only">
+            {{ $t("CreateContributionModal.StepCategory.headline") }}
+          </legend>
 
-      <RadioGroup
-        v-model="category"
-        :options="categoryOptions"
-        :icons="categoryIcons"
-        :value="category"
-      />
-    </fieldset>
+          <RadioGroup
+            v-model="category"
+            :options="categoryOptions"
+            :icons="categoryIcons"
+            :value="category"
+          />
+        </fieldset>
+      </div>
+
+      <div v-else>
+        <label
+          for="cat"
+          class="sr-only"
+        >
+          {{ $t("CreateContributionModal.StepCategory.headline") }}
+        </label>
+
+        <select
+          id="cat"
+          v-model="category"
+        >
+          <option
+            disabled="disabled"
+            value=""
+          >
+            {{ $t("CreateContributionModal.select") }}
+          </option>
+          <option
+            v-for="categorySelect in categories"
+            :key="categorySelect.id"
+            :value="categorySelect.id"
+          >
+            {{ categorySelect.name }}
+          </option>
+        </select>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -130,7 +167,7 @@ export default {
 
     div.createContributionStep2 div.radio-wrapper {
         margin-bottom: 0;
-        height: 2rem;
+        height: 2.3rem;
     }
 
     div.createContributionStep2 div.radio-wrapper label:before {

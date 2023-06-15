@@ -22,15 +22,17 @@ bundle: conception
 mode: default
 content:
   field_conception_image:
+    type: image_image
     weight: 2
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-    type: image_image
-    region: content
   field_content:
+    type: paragraphs
     weight: 3
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -47,28 +49,26 @@ content:
         duplicate: duplicate
     third_party_settings:
       paragraphs_features:
-        delete_confirmation: true
         add_in_between: true
+        delete_confirmation: true
         split_text: false
       paragraphs_ee:
         paragraphs_ee:
-          dialog_style: list
           dialog_off_canvas: false
-    type: paragraphs
-    region: content
+          dialog_style: list
   field_domain_access:
     type: options_buttons
     weight: 40
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_domain_all_affiliates:
     type: boolean_checkbox
+    weight: 41
+    region: content
     settings:
       display_label: true
-    weight: 41
     third_party_settings: {  }
-    region: content
   langcode:
     type: language_select
     weight: 0
@@ -78,10 +78,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield

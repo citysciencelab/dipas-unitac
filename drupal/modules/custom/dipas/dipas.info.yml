@@ -2,7 +2,7 @@ name: 'DIPAS'
 description: 'Provides an interface to configure DIPAS related settings for this website.'
 type: module
 package : DIPAS
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9.5 || ^10
 version: 8.x-1.1-alpha
 dependencies:
   - drupal:serialization
@@ -10,7 +10,6 @@ dependencies:
   - drupal:taxonomy
   - drupal:address
   - drupal:masterportal
-  - drupal:geofield
   - drupal:votingapi
   - drupal:datetime
   - drupal:language

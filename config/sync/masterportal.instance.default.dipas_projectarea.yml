@@ -3,12 +3,16 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.dipas_projectarea
-uid: '0'
 instance_name: dipas_projectarea
-label: 'DIPAS Projectarea'
 domain: default
-hidden: true
+label: 'DIPAS Projectarea'
 settings:
+  DesignSettings:
+    uiStyle: default
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
   BackgroundLayerSettings:
     layer:
       -
@@ -16,14 +20,6 @@ settings:
         custom:
           visibility: true
           gfiTheme: default
-  DesignSettings:
-    uiStyle: simple
-    treeType: light
-    scaleLine: 0
-    simpleMap: 0
-    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
-    layer: {  }
   MapSettings:
     startCenter: '[566263,5934768]'
     options:
@@ -71,15 +67,14 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
-      glyphicon: glyphicon-list
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
-      glyphicon: glyphicon-wrench
+      name: Tools
+    legend:
+      name: Legend
     filter:
-      name: Katgorieauswahl
-      glyphicon: glyphicon-filter
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -87,9 +82,6 @@ settings:
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
       predefinedQueries: '[]'
-    legend:
-      name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: ''
@@ -101,13 +93,6 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\Controls\InputWidgetMap:
         setMarker: false
         setCenter: false
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Suche nach Adresse/Thema'
-    renderToDOM: ''
-    quickHelp: false
   SearchPluginSettings:
     activePlugins:
       - Gazetteer
@@ -121,11 +106,21 @@ settings:
         searchParcels: true
         searchStreetKey: true
       Drupal\masterportal\Plugin\Masterportal\SearchBar\Tree: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Search for address/topic'
+    renderToDOM: ''
+    quickHelp: false
+  ForegroundLayerSection:
+    layer: {  }
   ToolSettings:
     activePlugins:
       - Draw
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Draw:
-        name: Draw
-        glyphicon: glyphicon-info-sign
+        name: 'Draw / write'
         visibleInMenu: 0
+uid: 0
+hidden: true

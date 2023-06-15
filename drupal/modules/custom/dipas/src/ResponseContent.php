@@ -73,4 +73,18 @@ class ResponseContent implements ResponseContentInterface {
     return $this->content;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getRawContent() {
+    return $this->content;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function updateContent($content) {
+    $this->content = $content;
+  }
+
 }

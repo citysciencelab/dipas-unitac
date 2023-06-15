@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\Masterportal\LayerStyle;
 
+use Drupal\masterportal\Annotation\LayerStyle;
 use Drupal\masterportal\PluginSystem\LayerStylePluginInterface;
 use Drupal\Core\Url;
 
@@ -22,10 +23,25 @@ use Drupal\Core\Url;
 class MapMarkerStyle implements LayerStylePluginInterface {
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
+   * MapMarkerStyle constructor.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function __construct() {
+    $serviceContainer = \Drupal::getContainer();
+    $this->extensionPathResolver = $serviceContainer->get('extension.path.resolver');
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getStyleObject() {
-
     return (object) [
       'styleId' => 'customMapMarkerPoint',
       'rules' => [
@@ -33,7 +49,7 @@ class MapMarkerStyle implements LayerStylePluginInterface {
           'style' => (object) [
             'type' => 'icon',
             'imagePath' => Url::fromUri(
-                'base:/' . drupal_get_path('module', 'masterportal') .'/libraries/masterportal/img/',
+                'base:/' . $this->extensionPathResolver->getPath('module', 'masterportal') .'/libraries/masterportal/img/',
                 ['absolute' => TRUE]
               )->toString(),
             'imageName' => 'mapMarker.svg',

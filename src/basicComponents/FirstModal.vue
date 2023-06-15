@@ -228,6 +228,7 @@ export default {
               :text="$t('FirstModal.startButton')"
               icon="add"
               class="red contributeButton"
+              role="button"
               :class="[$root.isMobile ? 'angular' : 'round']"
               @click="createContribution"
             />
@@ -265,7 +266,7 @@ export default {
     }
 
     #app.mobile .firstModalContent {
-        height: calc((var(--vh, 1vh) * 100) - 55px);
+        height: 100%;
         overflow-y: auto;
     }
 

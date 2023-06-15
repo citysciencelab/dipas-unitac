@@ -55,27 +55,23 @@ class MenuSettings extends InstanceConfigSectionBase {
     return [
       'tree' => [
         'name' => 'Themen',
-        'glyphicon' => 'glyphicon-list',
         'isInitOpen' => FALSE,
       ],
       'tools' => [
         'name' => 'Werkzeuge',
-        'glyphicon' => 'glyphicon-wrench',
       ],
       'filter' => [
         'name' => 'Katgorieauswahl',
-        'glyphicon' => 'glyphicon-filter',
         'deactivateGFI' => FALSE,
-        'isGeneric' => FALSE,
-        'isInitOpen' => FALSE,
+        'active' => FALSE,
         'liveZoomToFeatures' => FALSE,
-        'allowMultipleQueriesPerLayer' => FALSE,
+        'layerSelectorVisible' => FALSE,
         'isVisibleInMenu' => TRUE,
-        'predefinedQueries' => '{"layerId": "beteiligungsfeatures", "isActive": true, "isSelected": true, "name": "Alle", "liveZoomToFeatures": false, "attributeWhiteList": ["Thema"], "snippetType": "checkbox-classic"}',
+        'layers' => '',
       ],
       'legend' => [
         'name' => 'Legende',
-        'glyphicon' => 'glyphicon-book',
+        'showLegend' => FALSE,
       ],
     ];
   }
@@ -83,11 +79,9 @@ class MenuSettings extends InstanceConfigSectionBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormSectionElements(FormStateInterface $form_state) {
-
+  public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
     // The section definition array.
     return [
-
       'tree' => [
         '#type' => 'details',
         '#open' => TRUE,
@@ -99,8 +93,6 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#default_value' => $this->tree['name'],
           '#required' => TRUE,
         ],
-
-        'glyphicon' => $this->getGlyphiconSelect($this->tree['glyphicon']),
 
         'isInitOpen' => [
           '#type' => 'checkbox',
@@ -121,8 +113,6 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#default_value' => $this->tools['name'],
           '#required' => TRUE,
         ],
-
-        'glyphicon' => $this->getGlyphiconSelect($this->tools['glyphicon']),
       ],
 
       'filter' => [
@@ -137,24 +127,16 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#required' => TRUE,
         ],
 
-        'glyphicon' => $this->getGlyphiconSelect($this->filter['glyphicon']),
-
         'deactivateGFI' => [
           '#type' => 'checkbox',
           '#title' => $this->t('Deactivate GFI', [], ['context' => 'Masterportal']),
           '#default_value' => $this->filter['deactivateGFI'],
         ],
 
-        'isGeneric' => [
+        'active' => [
           '#type' => 'checkbox',
-          '#title' => $this->t('Is generic', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['isGeneric'],
-        ],
-
-        'isInitOpen' => [
-          '#type' => 'checkbox',
-          '#title' => $this->t('Initially opened?', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['isInitOpen'],
+          '#title' => $this->t('Is active', [], ['context' => 'Masterportal']),
+          '#default_value' => isset($this->filter['active']) ? $this->filter['active'] : FALSE,
         ],
 
         'liveZoomToFeatures' => [
@@ -163,10 +145,10 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#default_value' => $this->filter['liveZoomToFeatures'],
         ],
 
-        'allowMultipleQueriesPerLayer' => [
+        'layerSelectorVisible' => [
           '#type' => 'checkbox',
-          '#title' => $this->t('Allow multiple queries per layer?', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['allowMultipleQueriesPerLayer'],
+          '#title' => $this->t('Display a selector for the layers?', [], ['context' => 'Masterportal']),
+          '#default_value' => isset($this->filter['layerSelectorVisible']) ? $this->filter['layerSelectorVisible'] : FALSE,
         ],
 
         'isVisibleInMenu' => [
@@ -175,10 +157,10 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#default_value' => $this->filter['isVisibleInMenu'],
         ],
 
-        'predefinedQueries' => [
+        'layers' => [
           '#type' => 'textarea',
-          '#title' => $this->t('Predefined queries', [], ['context' => 'Masterportal']),
-          '#default_value' => $this->filter['predefinedQueries'],
+          '#title' => $this->t('Predefined layers', [], ['context' => 'Masterportal']),
+          '#default_value' => isset($this->filter['layers']) ? $this->filter['layers'] : '',
           '#element_validate' => [[$this, 'validateJsonInput']],
           '#json_pretty_print' => TRUE,
         ],
@@ -197,52 +179,50 @@ class MenuSettings extends InstanceConfigSectionBase {
           '#required' => TRUE,
         ],
 
-        'glyphicon' => $this->getGlyphiconSelect($this->legend['glyphicon']),
+        'showLegend' => [
+          '#type' => 'checkbox',
+          '#title' => $this->t('Open by default', [], ['context' => 'Masterportal']),
+          '#description' => $this->t('Should the Legend be initially opened?', [], ['context' => 'Masterportal']),
+          '#default_value' => $this->legend['showLegend'] ?? FALSE,
+        ],
       ],
-
     ];
-
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSectionConfigArray(array $rawFormData, FormStateInterface $form_state) {
-
-    // Prepare possible predefined queries (must be an array).
-    $predefinedQueries = !empty($rawFormData["filter"]["predefinedQueries"])
-      ? json_decode($rawFormData["filter"]["predefinedQueries"])
+    // Prepare possible predefined layers (must be an array).
+    $layers = !empty($rawFormData["filter"]["layers"])
+      ? json_decode($rawFormData["filter"]["layers"])
       : [];
 
-    if (!is_array($predefinedQueries)) {
-      $predefinedQueries = [$predefinedQueries];
+    if (!is_array($layers)) {
+      $layers = [$layers];
     }
 
     // Collect basic form settings.
     return [
       'tree' => [
         'name' => $rawFormData["tree"]["name"],
-        'glyphicon' => $rawFormData["tree"]["glyphicon"],
         'isInitOpen' => (bool) $rawFormData["tree"]["isInitOpen"],
       ],
       'tools' => [
         'name' => $rawFormData["tools"]["name"],
-        'glyphicon' => $rawFormData["tools"]["glyphicon"],
       ],
       'filter' => [
         'name' => $rawFormData["filter"]["name"],
-        'glyphicon' => $rawFormData["filter"]["glyphicon"],
         'deactivateGFI' => (bool) $rawFormData["filter"]["deactivateGFI"],
-        'isGeneric' => (bool) $rawFormData["filter"]["isGeneric"],
-        'isInitOpen' => (bool) $rawFormData["filter"]["isInitOpen"],
+        'active' => (bool) $rawFormData["filter"]["active"],
         'liveZoomToFeatures' => (bool) $rawFormData["filter"]["liveZoomToFeatures"],
-        'allowMultipleQueriesPerLayer' => (bool) $rawFormData["filter"]["allowMultipleQueriesPerLayer"],
+        'layerSelectorVisible' => (bool) $rawFormData["filter"]["layerSelectorVisible"],
         'isVisibleInMenu' => (bool) $rawFormData["filter"]["isVisibleInMenu"],
-        'predefinedQueries' => json_encode($predefinedQueries, JSON_UNESCAPED_UNICODE + JSON_PRETTY_PRINT),
+        'layers' => json_encode($layers, JSON_UNESCAPED_UNICODE + JSON_PRETTY_PRINT),
       ],
       'legend' => [
         'name' => $rawFormData["legend"]["name"],
-        'glyphicon' => $rawFormData["legend"]["glyphicon"],
+        'showLegend' => (bool) $rawFormData["legend"]["showLegend"],
       ],
     ];
   }
@@ -261,29 +241,29 @@ class MenuSettings extends InstanceConfigSectionBase {
 
         // Inject the tree section.
         $config->Portalconfig->menu->tree->name = $this->tree["name"];
-        $config->Portalconfig->menu->tree->glyphicon = $this->tree["glyphicon"];
         $config->Portalconfig->menu->tree->isInitOpen = $this->tree["isInitOpen"];
 
         // Inject the tools section.
         $config->Portalconfig->menu->tools->name = $this->tools["name"];
-        $config->Portalconfig->menu->tools->glyphicon = $this->tools["glyphicon"];
 
         // Inject the filter section.
         $config->Portalconfig->menu->filter->name = $this->filter["name"];
-        $config->Portalconfig->menu->filter->glyphicon = $this->filter["glyphicon"];
         $config->Portalconfig->menu->filter->deactivateGFI = $this->filter["deactivateGFI"];
-        $config->Portalconfig->menu->filter->isGeneric = $this->filter["isGeneric"];
-        $config->Portalconfig->menu->filter->isInitOpen = $this->filter["isInitOpen"];
+        $config->Portalconfig->menu->filter->active = !empty($this->filter["active"])
+          ? $this->filter["active"]
+          : FALSE;
         $config->Portalconfig->menu->filter->liveZoomToFeatures = $this->filter["liveZoomToFeatures"];
-        $config->Portalconfig->menu->filter->allowMultipleQueriesPerLayer = $this->filter["allowMultipleQueriesPerLayer"];
+        $config->Portalconfig->menu->filter->layerSelectorVisible = !empty($this->filter["layerSelectorVisible"])
+          ? $this->filter["layerSelectorVisible"]
+          : FALSE;
         $config->Portalconfig->menu->filter->isVisibleInMenu = $this->filter["isVisibleInMenu"];
-        $config->Portalconfig->menu->filter->predefinedQueries = !empty($this->filter["predefinedQueries"])
-          ? json_decode($this->filter["predefinedQueries"])
+        $config->Portalconfig->menu->filter->layers = !empty($this->filter["layers"])
+          ? json_decode($this->filter["layers"])
           : [];
 
         // Inject the legend section.
         $config->Portalconfig->menu->legend->name = $this->legend["name"];
-        $config->Portalconfig->menu->legend->glyphicon = $this->legend["glyphicon"];
+        $config->Portalconfig->menu->legend->showLegend = $this->legend["showLegend"] ?? FALSE;
         break;
     }
   }

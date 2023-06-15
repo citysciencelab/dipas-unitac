@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.story_step.field_reading_time
+  module:
+    - dipas_stories
+id: story_step.story_step.field_reading_time
+field_name: field_reading_time
+entity_type: story_step
+bundle: story_step
+label: 'Reading time'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: 999
+  prefix: ''
+  suffix: minutes
+field_type: integer

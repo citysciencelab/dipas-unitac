@@ -15,11 +15,14 @@ class GeoJSONFeature implements GeoJSONFeatureInterface {
    *
    * @param string $type
    */
-  public function __construct($type = 'Feature') {
+  public function __construct($type = 'Feature', $id = FALSE) {
     $this->feature = new \stdClass();
     $this->feature->type = $type;
     $this->feature->geometry = new \stdClass();
     $this->feature->properties = new \stdClass();
+    if ($id) {
+      $this->setId($id);
+    }
   }
 
   /**
@@ -27,6 +30,13 @@ class GeoJSONFeature implements GeoJSONFeatureInterface {
    */
   public function setGeometryType($type) {
     $this->feature->geometry->type = $type;
+  }
+
+   /**
+   * {@inheritdoc}
+   */
+  public function setId($id) {
+    $this->feature->id = $id;
   }
 
   /**

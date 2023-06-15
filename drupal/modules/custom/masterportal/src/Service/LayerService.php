@@ -7,9 +7,14 @@
 namespace Drupal\masterportal\Service;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\File\Exception\FileNotExistsException;
+use Drupal\Core\File\Exception\InvalidStreamWrapperException;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\file\FileRepositoryInterface;
 use Drupal\masterportal\DomainAwareTrait;
 use Drupal\masterportal\LayerDefinition;
 use Drupal\masterportal\PluginSystem\PluginManagerInterface;
@@ -25,12 +30,25 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @package Drupal\masterportal\Service
  */
 class LayerService implements LayerServiceInterface {
+
   use DomainAwareTrait;
 
   /**
    * The configuration key holding the layer configuration.
    */
   const LAYERCONFIGURATIION_KEY = 'Layerconfiguration';
+
+  /**
+   * The file system path under which the static layer definitions file should be stored.
+   *
+   * Must be variable since it's going to be passed by reference.
+   */
+  protected $LAYERDEFINITIONS_FILESYSTEM_DIRECTORY = 'public://services-json';
+
+  /**
+   * The file name for the local cache file of the layerdefinitions file.
+   */
+  const LAYERDEFINITIONS_FILENAME = 'services-internet.json';
 
   /**
    * To ensure consistent naming of the static definitions array.
@@ -116,6 +134,20 @@ class LayerService implements LayerServiceInterface {
   protected $domainSuffix;
 
   /**
+   * File System Manager
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * Drupal's file handler service.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
    * LayerService constructor.
    *
    * @param \Drupal\masterportal\Service\MasterportalConfigInterface $config
@@ -136,6 +168,10 @@ class LayerService implements LayerServiceInterface {
    *   Drupal's cache tag invalidator service.
    * @param \Drupal\masterportal\Service\InstanceServiceInterface $instance_service
    *   Custom instance service.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   Drupal's file system manager.
+   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   *   Drupal's file handler service.
    */
   public function __construct(
     MasterportalConfigInterface $config,
@@ -146,18 +182,22 @@ class LayerService implements LayerServiceInterface {
     ClientInterface $http_client,
     StateInterface $state,
     CacheTagsInvalidatorInterface $cache_tag_invalidator,
-    InstanceServiceInterface $instance_service
+    InstanceServiceInterface $instance_service,
+    FileSystemInterface $file_system,
+    FileRepositoryInterface $file_repository
   ) {
-    $this->config = $config->get(self::LAYERCONFIGURATIION_KEY);
     $this->logger = $logger;
     $this->tokenService = $token_service;
-    $this->currentRequest = $request_stack->getCurrentRequest();
     $this->layerPluginManager = $layer_plugin_manager;
     $this->httpClient = $http_client;
     $this->state = $state;
     $this->cacheTagInvalidator = $cache_tag_invalidator;
     $this->instanceService = $instance_service;
+    $this->fileSystem = $file_system;
+    $this->fileRepository = $file_repository;
 
+    $this->currentRequest = $request_stack->getCurrentRequest();
+    $this->config = $config->get(self::LAYERCONFIGURATIION_KEY);
     $this->domainSuffix = sprintf(':%s', $this->getActiveDomain());
   }
 
@@ -303,15 +343,49 @@ class LayerService implements LayerServiceInterface {
     if (is_null($configured_path)) {
       $configured_path = $this->config['static_layer_definitions'];
     }
+
     if (preg_match('~^https?://~i', $configured_path)) {
       // This is a remote file.
       try {
         $result = $this->httpClient->request('GET', $configured_path);
-        $static_layers = $result->getBody()->getContents();
+        $response = $result->getBody()->getContents();
+
+        if (
+          $result->getStatusCode() === 200 &&
+          !is_null($this->decodeStaticLayerDefinitions($response))
+        ) {
+          $this->logger->info('Download of static layer definition file successful.');
+        }
+
+        $static_layers = $response;
+
+        // Save the data to a file
+        try {
+          $this->saveFile($static_layers);
+        }
+        catch (InvalidStreamWrapperException $e) {
+          $this->logger->error('The file directory could not be created. Reason: ' . $e->getMessage());
+          return [];
+        }
+        catch (EntityStorageException $e) {
+          $this->logger->error('The file could not be saved. Reason: ' . $e->getMessage());
+          return [];
+        }
       }
       catch (RequestException $e) {
-        $this->logger->error('Retrieval of static layer definitions file failed.');
-        return [];
+        $this->logger->warning(sprintf(
+          'Download failed, trying to use local file instead. HTTP STATUS CODE: %d. Reason: %s.',
+          isset($result) ? $result->getStatusCode() : 0,
+          $e->getMessage()
+        ));
+
+        try {
+          $static_layers = $this->readFile();
+        }
+        catch (FileNotExistsException $e) {
+          $this->logger->error($e->getMessage());
+          return [];
+        }
       }
     }
     else {
@@ -329,11 +403,7 @@ class LayerService implements LayerServiceInterface {
       $static_layers = file_get_contents($filepath);
     }
 
-    // Remove potential BOM.
-    $bom = pack('H*', 'EFBBBF');
-    $static_layers = preg_replace("~^$bom~", '', $static_layers);
-
-    return json_decode($static_layers);
+    return $this->decodeStaticLayerDefinitions($static_layers);
   }
 
   /**
@@ -400,7 +470,9 @@ class LayerService implements LayerServiceInterface {
   public function getLayerDefinition($layerid) {
     /* @var LayerDefinition[] $layercontainer */
     $layercontainer = $this->getData(self::LAYERCONTAINER);
-    return isset($layercontainer[$layerid]) ? $layercontainer[$layerid]->getDefinition() : FALSE;
+    return isset($layercontainer[$layerid])
+      ? $layercontainer[$layerid]->getDefinition()
+      : '';
   }
 
   /**
@@ -617,6 +689,78 @@ class LayerService implements LayerServiceInterface {
       $lastModified = filemtime($filepath);
     }
     return $lastModified;
+  }
+
+  /**
+   * Saves the remote data to the file system
+   *
+   * @param string $data
+   *   The file content to save to the file system.
+   *
+   * @return \Drupal\file\FileInterface
+   *   The newly created file entity.
+   *
+   * @throws \Drupal\Core\File\Exception\InvalidStreamWrapperException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function saveFile($data) {
+    if (
+      !$this->fileSystem->prepareDirectory(
+        $this->LAYERDEFINITIONS_FILESYSTEM_DIRECTORY,
+        FileSystemInterface::CREATE_DIRECTORY
+      )
+    ) {
+      throw new InvalidStreamWrapperException();
+    }
+
+    return $this->fileRepository->writeData(
+      $data,
+      sprintf(
+        "%s/%s",
+        $this->LAYERDEFINITIONS_FILESYSTEM_DIRECTORY,
+        self::LAYERDEFINITIONS_FILENAME
+      ),
+      FileSystemInterface::EXISTS_REPLACE
+    );
+  }
+
+  /**
+   * Reads the local static layer definitions file cache.
+   *
+   * @return string
+   *   The contents of the static layer definitions file cache.
+   *
+   * @throws \Drupal\Core\File\Exception\FileNotExistsException
+   */
+  protected function readFile() {
+    $file_path = sprintf(
+      "%s/%s",
+      $this->LAYERDEFINITIONS_FILESYSTEM_DIRECTORY,
+      self::LAYERDEFINITIONS_FILENAME
+    );
+
+    // Check if the file exists and is readable
+    if (is_readable($file_path)) {
+      return file_get_contents($file_path);
+    }
+    else {
+      throw new FileNotExistsException('The file ' . $file_path . ' does not exist on the filesystem or is not readable.');
+    }
+  }
+
+  /**
+   * Decodes the JSON contained in the static definitions file.
+   *
+   * @param string $contents
+   *   The contents of the static layer definitions file.
+   *
+   * @return array
+   */
+  protected function decodeStaticLayerDefinitions($contents) {
+    $bom = pack('H*', 'EFBBBF');
+    $contents = preg_replace("~^$bom~", '', $contents);
+
+    return json_decode($contents);
   }
 
 }

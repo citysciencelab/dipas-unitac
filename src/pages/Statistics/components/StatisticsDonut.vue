@@ -61,7 +61,8 @@ export default {
           responsive: true,
           legend: {
             display: true,
-            position: "left"
+            position: "bottom",
+            align: "start"
           },
           cutoutPercentage: 50,
           tooltips: {
@@ -118,7 +119,6 @@ export default {
       @click="openModal"
     >
       <h3
-        aria-hidden="true"
         class="headline"
       >
         {{ headline }}

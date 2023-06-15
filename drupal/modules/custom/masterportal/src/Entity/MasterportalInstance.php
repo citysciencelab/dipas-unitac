@@ -7,6 +7,7 @@
 namespace Drupal\masterportal\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Annotation\ConfigEntityType;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\masterportal\Plugin\Masterportal\InstanceConfigSection\LayerSectionPluginInterface;
 
@@ -129,6 +130,13 @@ class MasterportalInstance extends ConfigEntityBase implements MasterportalInsta
   protected $currentUser;
 
   /**
+   * The configuration service for basic Masterportal configurations.
+   *
+   * @var \Drupal\masterportal\Service\MasterportalConfigInterface
+   */
+  protected $masterportalConfigService;
+
+  /**
    * MasterportalInstance constructor.
    *
    * @param array $values
@@ -143,6 +151,7 @@ class MasterportalInstance extends ConfigEntityBase implements MasterportalInsta
     $container = \Drupal::getContainer();
     $this->configurationSectionManager = $container->get('plugin.manager.masterportal.instance_config_section');
     $this->currentUser = $container->get('current_user');
+    $this->masterportalConfigService = $container->get('masterportal.config');
   }
 
   /**
@@ -190,7 +199,7 @@ class MasterportalInstance extends ConfigEntityBase implements MasterportalInsta
 
       // Get an instance of the respective configSectionPlugin.
       $pluginDefinition = $this->configurationSectionManager->getPluginDefinitions($pluginId);
-      $plugin = new $pluginDefinition['class']($configuration);
+      $plugin = new $pluginDefinition['class']($configuration, $this->masterportalConfigService);
 
       // If the current configuration section deals with layers,
       // get the layer ids in use.

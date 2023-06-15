@@ -75,12 +75,16 @@ export default {
      */
     ratingsAllowed: {
       type: Boolean
+    },
+    displayRatings: {
+      type: Boolean
     }
   },
   data () {
     return {
       cookieData: this.$cookies.get("dipas"),
-      savingInProgress: false
+      savingInProgress: false,
+      showPopup: false
     };
   },
   computed: {
@@ -183,7 +187,7 @@ export default {
      * @returns {Boolean} canVote
      */
     canVote () {
-      return this.cookiesAccepted && !this.hasVoted && !this.savingInProgress;
+      return this.cookiesAccepted && this.ratingsAllowed && !this.hasVoted && !this.savingInProgress;
     },
     /**
      * serves wether tooltip is disabled or not
@@ -191,9 +195,13 @@ export default {
      * @returns {Boolean} disabledTooltip
      */
     disabledTooltip () {
-      return !_.isNull(this.cookieData)
-        ? this.$t("RatingWidget.already")
-        : this.$t("RatingWidget.acceptedCookies");
+      if (this.ratingsAllowed) {
+        return !_.isNull(this.cookieData)
+          ? this.$t("RatingWidget.already")
+          : this.$t("RatingWidget.acceptedCookies");
+      }
+
+      return this.$t("RatingWidget.notAllowed");
     }
   },
   methods: {
@@ -223,7 +231,18 @@ export default {
     },
     invalidateCache: function () {
       this.$store.commit("invalidateStateCache", "rating:" + this.bundle + ":" + this.entityID);
+    },
+    fadeMe: function () {
+      this.showPopup = !this.showPopup;
+    },
+    enter: function () {
+      const that = this;
+
+      setTimeout(function () {
+        that.showPopup = false;
+      }, 3000);
     }
+
   }
 };
 </script>
@@ -231,22 +250,36 @@ export default {
 <template>
   <div :class="['ratingwidget', displayStyle]">
     <div
-      v-if="displayStyle === 'full' && ratingsAllowed"
+      v-if="displayStyle === 'full' && displayRatings"
       class="ratingActions"
     >
       <!--
         triggered on click
         @event click
       -->
+      <transition
+        name="fade"
+        @enter="enter"
+      >
+        <div
+          v-if="showPopup"
+          class="votedThanks"
+          role="alert"
+        >
+          {{ $t("RatingWidget.votedThanks") }}
+        </div>
+      </transition>
+
       <DipasButton
         class="angular lightgreen rateButton"
         :disabled="!canVote"
         :disabledText="disabledTooltip"
         icon="thumb_up"
         :aria-label="$t('RatingWidget.iconVoteThumbUp')"
-        @click="voteUp"
-        @keyup.enter="voteUp"
+        @click="voteUp(); fadeMe()"
+        @keyup.enter="voteUp(); fadeMe()"
       />
+
       <!--
         triggered on click
         @event click
@@ -257,16 +290,19 @@ export default {
         :disabledText="disabledTooltip"
         icon="thumb_down"
         :aria-label="$t('RatingWidget.iconVoteThumbDown')"
-        @click="voteDown"
-        @keyup.enter="voteDown"
+        @click="voteDown(); fadeMe()"
+        @keyup.enter="voteDown(); fadeMe()"
       />
     </div>
 
     <div class="ratingStatus">
-      <div class="thumbs upVotes">
+      <div
+        :aria-label="$t('RatingWidget.iconThumbUp')"
+        class="thumbs upVotes"
+      >
         {{ upVotes }}
         <i
-          :aria-label="$t('RatingWidget.iconThumbUp')"
+          aria-hidden="true"
           class="material-icons"
         >
           thumb_up
@@ -292,9 +328,12 @@ export default {
         </div>
       </div>
 
-      <div class="thumbs downVotes">
+      <div
+        :aria-label="$t('RatingWidget.iconThumbDown')"
+        class="thumbs downVotes"
+      >
         <i
-          :aria-label="$t('RatingWidget.iconThumbDown')"
+          aria-hidden="true"
           class="material-icons"
         >
           thumb_down
@@ -306,6 +345,10 @@ export default {
 </template>
 
 <style>
+    div.ratingwidget {
+      position: relative;
+    }
+
     div.ratingwidget div.ratingActions {
         display: flex;
         justify-content: space-between;
@@ -358,6 +401,29 @@ export default {
 
     div.ratingwidget.simple div.ratingStatus div.thumbs {
         font-size: 0.8rem;
+    }
+
+    div.ratingwidget .fade-enter-active,
+    div.ratingwidget .fade-leave-active {
+      transition: opacity 1s
+    }
+
+    div.ratingwidget .fade-enter,
+    div.ratingwidget .fade-leave-to {
+      opacity: 0
+    }
+
+    div.ratingwidget .votedThanks {
+      position: absolute;
+      z-index: 1;
+      background-color: #ffffff;
+      border: 2px solid #707070;
+      width: max-content;
+      padding: 2px 10px;
+      border-radius: 3px;
+      box-shadow: 3px 3px 12px -3px #c0c0c0;
+      top: -28px;
+      right: -9px;
     }
 
     div.ratingwidget div.ratingStatus div.thumbs i.material-icons {

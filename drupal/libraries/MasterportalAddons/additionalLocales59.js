@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[166],{3651:function(o){o.exports=JSON.parse('{"modules":{"tools":{"gfi":{"themes":{"schulinfo":{"no":"No","yes":"Yes","favoriteicons":{"adoptedTargetSchool":"Adopt school as a target"}}}}}}}')}}]);

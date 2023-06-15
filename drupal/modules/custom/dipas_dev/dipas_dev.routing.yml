@@ -1,0 +1,7 @@
+dipas_dev.modifyDomainRecordsForDev:
+  path: '/admin/config/user-interface/dipas-dev'
+  defaults:
+    _title: 'DIPAS domain tools'
+    _form: '\Drupal\dipas_dev\Form\DipasDev'
+  requirements:
+    _permission: 'administer dipas'

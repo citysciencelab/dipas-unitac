@@ -10,7 +10,7 @@ route_parameters:
 options: {  }
 expanded: false
 menu_name: project-administration
-enabled: true
+enabled: false
 parent: 'menu_link_config:administer_categorization'
 weight: -50
 description: ''

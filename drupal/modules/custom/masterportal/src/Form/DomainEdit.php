@@ -5,7 +5,7 @@ namespace Drupal\masterportal\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\domain\DomainForm;
+use Drupal\domain\Form\DomainForm;
 use Drupal\domain\DomainStorageInterface;
 use Drupal\domain\DomainValidatorInterface;
 use Drupal\masterportal\Service\DomainHandlerInterface;
@@ -54,8 +54,10 @@ class DomainEdit extends DomainForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    $isNew = $this->entity->isNew();
+    $previousId = $isNew ? '':$form['id']['#default_value'];
     parent::save($form, $form_state);
-    $this->domainHandler->onDomainEdit($this->entity);
+    $this->domainHandler->onDomainEdit($this->entity, $isNew, $previousId);
   }
 
 }

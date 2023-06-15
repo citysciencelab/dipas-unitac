@@ -83,6 +83,7 @@ class LayerStyles extends MasterportalSettingsBase {
             '#type' => 'textfield',
             '#title' => $this->t('Style ID', [], ['context' => 'Masterportal']),
             '#description' => $this->t('The layer ID this styleset is for.', [], ['context' => 'Masterportal']),
+            '#required' => TRUE,
             '#default_value' => !empty($row_defaults['styleId']) ? $row_defaults['styleId'] : '',
           ],
           'rulescontainer' => [
@@ -181,30 +182,34 @@ class LayerStyles extends MasterportalSettingsBase {
         $styles_processed[$delta] = [
           'styleId' => $style['styleId'],
         ];
-        foreach ($style['rulescontainer'] as $rindex => $rule) {
-          list($rdelta) = sscanf($rindex, 'rules_%d');
+        if (isset($style['rulescontainer']) && is_array($style['rulescontainer'])) {
+          foreach ($style['rulescontainer'] as $rindex => $rule) {
+            list($rdelta) = sscanf($rindex, 'rules_%d');
 
-          foreach ($rule['multivaluePart']['rows'] as $rowindex => $row) {
-            $styles_processed[$delta][$rowindex] = [
-              'conditions' => [],
-              'styles' => [],
-            ];
-            $styles_processed[$delta][$rowindex]['conditions'] = [];
-            $cond_index = 'condition_'.$rdelta.'_'.$rowindex;
-            foreach ($row['row']['conditions']['value'][$cond_index]['multivaluePart']['rows'] as $condition) {
-              $styles_processed[$delta][$rowindex]['conditions'][] = [
-                'property_name' => $condition['row']['property_name']['value'],
-                'property_value' => $condition['row']['property_value']['value'],
+            foreach ($rule['multivaluePart']['rows'] as $rowindex => $row) {
+              $styles_processed[$delta][$rowindex] = [
+                'conditions' => [],
+                'styles' => [],
               ];
-            }
-            $styles_processed[$delta][$rowindex]['styles'] = [];
-            $style_index = 'style_'.$rdelta.'_'.$rowindex;
-            foreach ($row['row']['styles']['value'][$style_index]['multivaluePart']['rows'] as $styleProp) {
-              $styles_processed[$delta][$rowindex]['styles'][] = [
-                'style_property' => $styleProp['row']['style_property']['value'],
-                'property_value' => $styleProp['row']['property_value']['value'],
-                'property_is_json' => (bool) $styleProp['row']['property_is_json']['value'],
-              ];
+              $styles_processed[$delta][$rowindex]['conditions'] = [];
+              $cond_index = 'condition_'.$rdelta.'_'.$rowindex;
+              foreach ($row['row']['conditions']['value'][$cond_index]['multivaluePart']['rows'] as $condition) {
+                $styles_processed[$delta][$rowindex]['conditions'][] = [
+                  'property_name' => $condition['row']['property_name']['value'],
+                  'property_value' => $condition['row']['property_value']['value'],
+                ];
+              }
+              $styles_processed[$delta][$rowindex]['styles'] = [];
+              $style_index = 'style_'.$rdelta.'_'.$rowindex;
+              if (isset($row['row']['styles']) && is_array($row['row']['styles'])) {
+                foreach ($row['row']['styles']['value'][$style_index]['multivaluePart']['rows'] as $styleProp) {
+                  $styles_processed[$delta][$rowindex]['styles'][] = [
+                    'style_property' => $styleProp['row']['style_property']['value'],
+                    'property_value' => $styleProp['row']['property_value']['value'],
+                    'property_is_json' => (bool) $styleProp['row']['property_is_json']['value'],
+                  ];
+                }
+              }
             }
           }
         }

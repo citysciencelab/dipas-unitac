@@ -1,0 +1,36 @@
+mapsettings:
+  css:
+    component:
+      libraries/mapsettings/mapsettings.css: { minified: false }
+
+layerplugin:
+  css:
+    component:
+      libraries/layerplugin/layerplugin.css: { minified: false }
+  js:
+    libraries/layerplugin/Sortable.min.js: { minified: true }
+    libraries/layerplugin/layerplugin.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - jquery_ui_selectmenu/selectmenu
+    - vuejs/vue
+
+viewportplugin:
+  js:
+    libraries/viewport/viewport.js:  { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+mapfeatures/threedimensional:
+  js:
+    libraries/mapfeatures/threedimensional.js: { minified: false }
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+storystep:
+  css:
+    component:
+      libraries/storystep/storystep.css: { minified: false }

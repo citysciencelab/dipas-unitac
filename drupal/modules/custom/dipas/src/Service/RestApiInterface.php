@@ -46,10 +46,12 @@ interface RestApiInterface {
    *
    * @param string $dataType
    *   The data type of the required data.
+    * @param string $parameter
+    *  Optional parameter passed to the endpoint
    *
    * @return string
    *   The JSONd contents of the key requested.
    */
-  public function requestCockpitDataEndpoint($dataType);
+  public function requestCockpitDataEndpoint($dataType, $parameter);
 
 }

@@ -42,11 +42,6 @@ input[type="submit"].addRowButton {
   background-color: #ffffff;
 }
 
-.ui-selectmenu-menu .glyphicon {
-  float: left;
-  margin-right: 10px;
-}
-
 .dependee {
   margin-left: 20px;
 }

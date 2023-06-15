@@ -236,7 +236,7 @@ abstract class PDSResponseBase implements PDSResponsePluginInterface {
   protected function getMaintenanceMessage() {
     return [
       'maintenanceMode' => TRUE,
-      'maintenanceMessage' => str_replace('@site', $this->dipasConfig->get('ProjectInformation/site_name'), $this->configFactory->get('system.maintenance')->get('message')),
+      'maintenanceMessage' => str_replace('@site', $this->dipasConfig->get('ProjectInformation.site_name'), $this->configFactory->get('system.maintenance')->get('message')),
     ];
   }
 

@@ -133,18 +133,6 @@ class DashboardController extends ControllerBase {
           ],
           [
             'title' => [
-              '#markup' => sprintf("<span class='link_title'>%s</span>", $this->t('Categorization'))
-            ],
-            'url' => Url::fromRoute('entity.taxonomy_vocabulary.collection'),
-            'attributes' => [
-              'class' => [
-                'iconLink',
-                'administer_categorization',
-              ],
-            ],
-          ],
-          [
-            'title' => [
               '#markup' => sprintf("<span class='link_title'>%s</span>", $this->t('Configuration'))
             ],
             'url' => Url::fromRoute('dipas.configform'),

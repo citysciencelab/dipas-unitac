@@ -15,12 +15,15 @@ import breakpoints from "@eli5/bootstrap-breakpoints-vue";
 import i18next from "i18next";
 import VueI18Next from "@panter/vue-i18next";
 
-
 // Bootstrap & CSS
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "material-design-icons/iconfont/material-icons.css";
 import "./assets/styles.css";
+
+// Mixins
+import pageTitleMixin from "./mixins/pageTitle.js";
+Vue.mixin(pageTitleMixin);
 
 // Pages
 import Frontpage from "./pages/Frontpage/Frontpage.vue";
@@ -233,6 +236,10 @@ i18next.init({
   ignoreJSONStructure: false
 });
 
+Vue.filter("truncate", function (text, stop, clamp) {
+  return text.slice(0, stop) + (stop < text.length ? clamp || "..." : "");
+});
+
 new Vue({
   el: "#app",
   name: "Main",
@@ -259,10 +266,6 @@ new Vue({
     }
   },
   created () {
-    this.$store.watch((state, getters) => getters.projecttitle, (projectTitle) => {
-      this.$title = projectTitle;
-    });
-
     this.$store.dispatch("readTheming", configElement.src);
     const html = document.documentElement;
     // eslint-disable-next-line

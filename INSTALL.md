@@ -21,3 +21,9 @@
 13. Flush all caches
 14. Create the default domain by navigating to `YOURDOMAIN.TLD/drupal/de/admin/config/user-interface/proceedings/add`
 15. Configure DIPAS to your needs (see [step_by_step.md](https://bitbucket.org/geowerkstatt-hamburg/dipas/src/dev/doc/step_by_step.md))
+
+
+## DIPAS stories - Beta release
+If you want to give the new feature DIPAS stories a try, you will have to enable the 'DIPAS stories' module at:
+`YOURDOMAIN.TLD/drupal/admin/modules`
+To enable the module, check the checkbox next to the module's name and hit 'install'

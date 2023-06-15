@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - dipas_stories
+    - node
+id: node.field_story_steps
+field_name: field_story_steps
+entity_type: node
+type: story_step_entity_reference_field
+settings: {  }
+module: dipas_stories
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

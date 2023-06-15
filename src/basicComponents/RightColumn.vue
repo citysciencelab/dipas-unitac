@@ -53,7 +53,11 @@ export default {
   </section>
 </template>
 
-<style lang="css">
+<style>
+    #app.mobile section.sidebar {
+      margin-top: 50px;
+    }
+
     section.block:not(:first-child) {
         margin-top: 20px;
     }

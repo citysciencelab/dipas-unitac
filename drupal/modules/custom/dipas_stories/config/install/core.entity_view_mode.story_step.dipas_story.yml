@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - dipas_stories
+id: story_step.dipas_story
+label: 'DIPAS story'
+targetEntityType: story_step
+cache: true

@@ -79,6 +79,9 @@ body {
 h2 {
     color: #003063;
 }
+h4 {
+    color: #003063;
+}
 
 
 *:focus:not(:focus-visible) {

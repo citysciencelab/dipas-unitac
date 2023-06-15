@@ -22,7 +22,8 @@ use Drupal\dipas\Plugin\SettingsSection\ContributionSettings;
  *   requestMethods = {
  *     "POST",
  *   },
- *   isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey
@@ -52,7 +53,7 @@ class AddContribution extends ResponseKeyBase {
    */
   public function getPluginResponse() {
     if (
-      $this->dipasConfig->get('ContributionSettings/contribution_status') === ContributionSettings::DIPAS_CONTRIBUTION_STATUS_OPEN &&
+      $this->dipasConfig->get('ContributionSettings.contribution_status') === ContributionSettings::DIPAS_CONTRIBUTION_STATUS_OPEN &&
       $contributionData = json_decode($this->currentRequest->getContent())
     ) {
       list($contributionData, $missingDataKeys) = $this->getSanitizedPostData($contributionData);
@@ -80,7 +81,7 @@ class AddContribution extends ResponseKeyBase {
         'keywords_stored' => $keywords_stored,
       ];
     }
-    else if ($this->dipasConfig->get('ContributionSettings/contribution_status') === ContributionSettings::DIPAS_CONTRIBUTION_STATUS_CLOSED) {
+    else if ($this->dipasConfig->get('ContributionSettings.contribution_status') === ContributionSettings::DIPAS_CONTRIBUTION_STATUS_CLOSED) {
       throw new StatusException("The platform is closed for new entries.", 403);
     }
     else {
@@ -212,17 +213,17 @@ class AddContribution extends ResponseKeyBase {
       'category' => 'int',
     ];
 
-    if ($this->dipasConfig->get('ContributionSettings/rubrics_use')) {
+    if ($this->dipasConfig->get('ContributionSettings.rubrics_use')) {
       $required_fields += [
         'rubric' => 'int',
       ];
     }
-    if ($this->dipasConfig->get('ContributionSettings/contributions_must_be_localized')) {
+    if ($this->dipasConfig->get('ContributionSettings.contributions_must_be_localized')) {
       $required_fields += [
         'geodata' => 'string',
       ];
     }
-    if ($this->dipasConfig->get('ContributionSettings/contributor_must_be_logged_in')) {
+    if ($this->dipasConfig->get('ContributionSettings.contributor_must_be_logged_in')) {
       $required_fields += [
         'user' => 'int',
       ];

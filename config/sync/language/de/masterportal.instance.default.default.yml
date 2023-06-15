@@ -6,9 +6,11 @@ settings:
     tools:
       name: Werkzeuge
     filter:
-      name: Katgorieauswahl
+      name: Kategorieauswahl
     legend:
       name: Legende
+  PortalSettings:
+    tooltip: 'Digitales Partizipationssystem'
   SearchBarSettings:
     placeholder: 'Suche nach Themen'
   ToolSettings:

@@ -6,6 +6,8 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
+
 /**
  * Class Schedule.
  *
@@ -93,12 +95,11 @@ class Schedule extends PagedNodeListingBase {
       ],
       [
         'type' => 'LEFT',
-        'table' => 'node__field_localization',
+        'table' => 'node__field_geodata',
         'alias' => 'localization',
         'condition' => 'base.type = localization.bundle AND base.nid = localization.entity_id AND base.vid = localization.revision_id AND attr.langcode = localization.langcode AND localization.deleted = 0',
         'fields' => [
-          'field_localization_lon' => 'lon',
-          'field_localization_lat' => 'lat',
+          'field_geodata_value' => 'geom',
         ],
       ],
     ];
@@ -126,6 +127,16 @@ class Schedule extends PagedNodeListingBase {
       $node->start = $this->convertTimestampToUTCDateTimeString(strtotime($node->start), TRUE);
       if ($node->end) {
         $node->end = $this->convertTimestampToUTCDateTimeString(strtotime($node->end), TRUE);
+      }
+
+      if ($node->geom) {
+        $node->geom = json_decode($node->geom);
+        $node->lon = $node->geom->centerPoint->coordinates[0];
+        $node->lat = $node->geom->centerPoint->coordinates[1];
+      }
+      else {
+        $node->lon = null;
+        $node->lat = null;
       }
     });
   }

@@ -1,0 +1,4 @@
+services:
+  dipas_dev.service:
+    class: Drupal\dipas_dev\Service\DipasDevService
+    arguments: ['@database', '@request_stack', '@messenger']

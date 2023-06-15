@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -38,11 +39,17 @@ class CustomPage extends ResponseKeyBase {
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
     $this->entityTypeManager = $container->get('entity_type.manager');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
   }
 
   /**
@@ -56,7 +63,7 @@ class CustomPage extends ResponseKeyBase {
    * {@inheritdoc}
    */
   protected function getContentConfigPath() {
-    return 'MenuSettings/mainmenu/custompage/node';
+    return 'MenuSettings.mainmenu.custompage.node';
   }
 
   /**
@@ -64,6 +71,13 @@ class CustomPage extends ResponseKeyBase {
    */
   protected function getEntityTypeManager() {
     return $this->entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
   }
 
 }

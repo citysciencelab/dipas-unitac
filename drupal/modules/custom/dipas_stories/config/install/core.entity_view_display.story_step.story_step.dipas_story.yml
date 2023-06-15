@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.story_step.dipas_story
+    - field.field.story_step.story_step.field_content
+    - field.field.story_step.story_step.field_map_settings
+    - field.field.story_step.story_step.field_reading_time
+    - field.field.story_step.story_step.field_title_image
+  module:
+    - dipas_stories
+    - entity_reference_revisions
+id: story_step.story_step.dipas_story
+targetEntityType: story_step
+bundle: story_step
+mode: dipas_story
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: dipas_story
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_map_settings: true
+  field_reading_time: true
+  field_title_image: true
+  langcode: true
+  status: true
+  title: true
+  uid: true

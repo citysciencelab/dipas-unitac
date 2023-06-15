@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.story_step.field_map_settings
+  module:
+    - dipas_stories
+id: story_step.story_step.field_map_settings
+field_name: field_map_settings
+entity_type: story_step
+bundle: story_step
+label: 'Map Settings'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

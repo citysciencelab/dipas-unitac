@@ -14,8 +14,8 @@ use Drupal\Core\Url;
  *
  * @SettingsSection(
  *   id = "Export",
- *   title = @Translation("Data export"),
- *   description = @Translation("Export user generated data as CSV."),
+ *   title = @Translation("Visibility settings / Export"),
+ *   description = @Translation("Proceeding visibility settings and CSV data exports."),
  *   weight = 99,
  *   affectedConfig = {}
  * )
@@ -25,10 +25,19 @@ use Drupal\Core\Url;
 class Export extends SettingsSectionBase {
 
   /**
+   * Determines if a proceeding should get exposed on public APIs.
+   *
+   * @var bool
+   */
+  protected $proceeding_is_internal;
+
+  /**
    * {@inheritdoc}
    */
   public static function getDefaults() {
-    return [];
+    return [
+      'proceeding_is_internal' => FALSE,
+    ];
   }
 
   /**
@@ -36,42 +45,55 @@ class Export extends SettingsSectionBase {
    */
   public function getForm(array $form, FormStateInterface $form_state) {
     return [
-      'contributions' => [
-        '#type' => 'html_tag',
-        '#tag' => 'a',
-        '#value' => $this->t('Export contributions', [], ['context' => 'DIPAS']),
-        '#attributes' => [
-          'href' => Url::fromRoute('dipas.export', ['type' => 'contributions'])->toString(),
-          'target' => '_blank',
-          'class' => ['button'],
-          'style' => 'display: block; width: 100%; margin-top: 20px;',
+      'visibility_settings' => [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Visibility settings', [], ['context' => 'DIPAS']),
+
+        'proceeding_is_internal' => [
+          '#type' => 'checkbox',
+          '#title' => $this->t('Proceeding is internal', [], ['context' => 'DIPAS']),
+          '#description' => $this->t('If checked, this proceeding will not be exposed on public APIs (i.e. the PDS-API).', [], ['context' => 'DIPAS']),
+          '#default_value' => $this->proceeding_is_internal,
         ],
       ],
+      'data_exports' => [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Data exports', [], ['context' => 'DIPAS']),
 
-      'contribution_comments' => [
-        '#type' => 'html_tag',
-        '#tag' => 'a',
-        '#value' => $this->t('Export contribution (phase 1) comments', [], ['context' => 'DIPAS']),
-        '#attributes' => [
-          'href' => Url::fromRoute('dipas.export', ['type' => 'contribution_comments'])->toString(),
-          'target' => '_blank',
-          'class' => ['button'],
-          'style' => 'display: block; width: 100%; margin-top: 20px;',
+        'contributions' => [
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => $this->t('Export contributions', [], ['context' => 'DIPAS']),
+          '#attributes' => [
+            'href' => Url::fromRoute('dipas.export', ['type' => 'contributions'])->toString(),
+            'target' => '_blank',
+            'class' => ['button'],
+            'style' => 'display: block; width: 100%; margin: 20px auto 0;',
+          ],
+        ],
+        'contribution_comments' => [
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => $this->t('Export contribution (phase 1) comments', [], ['context' => 'DIPAS']),
+          '#attributes' => [
+            'href' => Url::fromRoute('dipas.export', ['type' => 'contribution_comments'])->toString(),
+            'target' => '_blank',
+            'class' => ['button'],
+            'style' => 'display: block; width: 100%; margin: 20px auto 0;',
+          ],
+        ],
+        'conception_comments' => [
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => $this->t('Export conception (phase 2) comments', [], ['context' => 'DIPAS']),
+          '#attributes' => [
+            'href' => Url::fromRoute('dipas.export', ['type' => 'conception_comments'])->toString(),
+            'target' => '_blank',
+            'class' => ['button'],
+            'style' => 'display: block; width: 100%; margin: 20px auto 0;',
+          ],
         ],
       ],
-
-      'conception_comments' => [
-        '#type' => 'html_tag',
-        '#tag' => 'a',
-        '#value' => $this->t('Export conception (phase 2) comments', [], ['context' => 'DIPAS']),
-        '#attributes' => [
-          'href' => Url::fromRoute('dipas.export', ['type' => 'conception_comments'])->toString(),
-          'target' => '_blank',
-          'class' => ['button'],
-          'style' => 'display: block; width: 100%; margin-top: 20px;',
-        ],
-      ],
-
     ];
   }
 
@@ -84,14 +106,16 @@ class Export extends SettingsSectionBase {
    * {@inheritdoc}
    */
   public static function getProcessedValues(array $plugin_values, array $form_values) {
-    return [];
+    return [
+      'proceeding_is_internal' => (bool) $plugin_values['visibility_settings']['proceeding_is_internal'],
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function hasConfigurationSettings() {
-    return FALSE;
+    return TRUE;
   }
 
 }

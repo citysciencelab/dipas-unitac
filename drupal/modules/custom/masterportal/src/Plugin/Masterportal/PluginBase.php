@@ -14,7 +14,6 @@ use Drupal\masterportal\EnsureObjectStructureTrait;
 use Drupal\masterportal\Form\ElementValidateCoordinatesTrait;
 use Drupal\masterportal\Form\ElementValidateFileExistsTrait;
 use Drupal\masterportal\Form\ElementValidateJsonTrait;
-use Drupal\masterportal\GlyphiconTrait;
 use Drupal\masterportal\PluginSystem\PluginInterface;
 
 /**
@@ -25,7 +24,6 @@ use Drupal\masterportal\PluginSystem\PluginInterface;
 abstract class PluginBase implements PluginInterface {
 
   use StringTranslationTrait;
-  use GlyphiconTrait;
   use ElementValidateJsonTrait;
   use ElementValidateFileExistsTrait;
   use ElementValidateCoordinatesTrait;
@@ -54,6 +52,11 @@ abstract class PluginBase implements PluginInterface {
   protected $tokenService;
 
   /**
+   * @var \Drupal\masterportal\Service\MasterportalConfigInterface
+   */
+  protected $masterportalConfigService;
+
+  /**
    * PluginBase constructor.
    *
    * @param array $values
@@ -73,8 +76,8 @@ abstract class PluginBase implements PluginInterface {
     /* @var \Drupal\Core\DependencyInjection\Container $container */
     $container = \Drupal::getContainer();
     $this->tokenService = $container->get('masterportal.tokens');
+    $this->masterportalConfigService = $container->get('masterportal.config');;
     $this->setAdditionalDependencies($container);
-    $this->generateGlyphiconStyles();
     $this->preparePlugin();
   }
 

@@ -8,6 +8,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import _ from "underscore";
 import moment from "moment";
+const crypto = require("crypto");
 
 Vue.use(Vuex);
 
@@ -31,6 +32,7 @@ export default new Vuex.Store({
    * @property {Object{{String}leadingcolor|{String}homeButtonLogo|{String}menuLineLogo}} theming The theming data set.
    */
   state: {
+    initializationTimestamp: null,
     basicApplicationSettings: {},
     schedule: {},
     contributionList: {},
@@ -224,6 +226,7 @@ export default new Vuex.Store({
      */
     initialization: function (state, payload) {
       state.basicApplicationSettings = _.extend({initialized: true}, payload);
+      state.initializationTimestamp = moment();
     },
     /**
      * Sets the endpoint to use from the frontend
@@ -755,6 +758,11 @@ export default new Vuex.Store({
     ratingsAllowed: function (state) {
       return !_.isUndefined(state.basicApplicationSettings.initialized) ? state.basicApplicationSettings.contributions.ratings : false;
     },
+    displayRatings: function (state) {
+      return !_.isUndefined(state.basicApplicationSettings.initialized)
+        ? state.basicApplicationSettings.contributions.display_existing_ratings
+        : false;
+    },
     /**
      * Serves a number with the maximum length of a comment.
      * @name commentMaxlength
@@ -978,6 +986,39 @@ export default new Vuex.Store({
     },
     concetionButtonName: function (state) {
       return !_.isUndefined(state.basicApplicationSettings.initialized) ? state.basicApplicationSettings.menus.main.conceptionlist.name : null;
+    },
+    decryptedToken: function (state) {
+      return (passphrase) => {
+        try {
+          const decipher = crypto.createDecipheriv("aes-256-cbc", passphrase, state.basicApplicationSettings.signature),
+            decrypted = decipher.update(state.basicApplicationSettings.checksum, "base64", "utf8");
+
+          return decrypted + decipher.final("utf8");
+        }
+        catch (e) {
+          return false;
+        }
+      };
+    },
+    requestToken: function (state, getters) {
+      return (passphrase) => {
+        const securityToken = getters.decryptedToken(passphrase);
+
+        if (securityToken) {
+          const timestamp = Number(state.basicApplicationSettings.timestamp),
+            timediff = moment().diff(state.initializationTimestamp, "seconds"),
+            requesttime = timestamp + timediff,
+            requestToken = securityToken + ":|:" + requesttime,
+            cipher = crypto.createCipheriv("aes-256-cbc", passphrase, state.basicApplicationSettings.signature);
+          let encrypted = cipher.update(requestToken, "utf8", "base64");
+
+          encrypted += cipher.final("base64");
+
+          return encrypted.replace(/\+/g, "%2b");
+        }
+
+        return false;
+      };
     }
   },
   modules: {}

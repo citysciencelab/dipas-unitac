@@ -10,6 +10,7 @@ trait RetrieveRatingTrait {
 
   /**
    * @return array
+   * @throws \Exception
    */
   protected function getRating() {
     $ratingdata = [
@@ -20,11 +21,13 @@ trait RetrieveRatingTrait {
       'lastVote' => FALSE,
     ];
 
-    $query = $this->getDatabase()->select('votingapi_vote', 'ratings')
+    $query = $this->getDatabase()
+      ->select('votingapi_vote', 'ratings')
       ->condition('ratings.type', 'vote', '=')
       ->condition('ratings.entity_type', $this->getEntityTypeId(), '=')
       ->condition('ratings.entity_id', $this->getEntityId(), '=')
-      ->groupBy('ratings.entity_type, ratings.entity_id');
+      ->groupBy('ratings.entity_type')
+      ->groupBy('ratings.entity_id');
 
     $query->addExpression('COUNT(ratings.id)', 'allVotes');
     $query->addExpression('SUM(CASE ratings.value WHEN 1 THEN 1 ELSE 0 END)', 'upVotes');

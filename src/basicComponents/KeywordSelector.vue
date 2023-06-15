@@ -129,10 +129,12 @@ export default {
           <span
             v-for="keyword in value.selectedKeywords"
             :key="keyword"
+            :aria-label="$t('CreateContributionModal.StepCategory.KeywordSelector.declineKeyword')"
             class="selected-keywords"
           >
             {{ keyword }}
             <i
+              aria-hidden="true"
               class="material-icons keyword-icon-style"
               @click="removeKeyword(keyword)"
             >close
@@ -166,10 +168,12 @@ export default {
         <p
           v-for="proposal in value.abandonedProposals"
           :key="proposal"
+          :aria-label="$t('CreateContributionModal.StepCategory.KeywordSelector.addKeyword')"
           class="proposal-keywords"
         >
           {{ proposal }}
           <i
+            aria-hidden="true"
             class="material-icons keyword-icon-style"
             @click="addProposal(proposal)"
           >

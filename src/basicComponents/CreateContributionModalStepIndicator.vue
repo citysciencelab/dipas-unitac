@@ -40,7 +40,10 @@ export default {
 </script>
 
 <template>
-  <ul class="createContributionStepIndicator">
+  <ul
+    :aria-label="$t('CreateContributionModal.processDescription')"
+    class="createContributionStepIndicator"
+  >
     <!--
       @fire activeStep
       @event click jumpTo
@@ -50,6 +53,7 @@ export default {
       :key="'createContributionStep-' + index"
       :class="[activeStep === index ? 'red' : (activeStep > index ? 'blue jumpButton' : 'grey')]"
       :tabindex="[activeStep === index ? '0' : (activeStep > index ? '0' : '-1')]"
+      :aria-current="activeStep < index || activeStep > index ? null : 'step'"
       @click="activeStep > index ? $emit('jumpTo', index) : null"
       @keyup.enter="activeStep > index ? $emit('jumpTo', index) : null"
     >

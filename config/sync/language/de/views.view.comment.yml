@@ -1,0 +1,90 @@
+label: Kommentare
+description: 'Finden und verwalten von Kommentaren'
+display:
+  default:
+    display_options:
+      title: Kommentare
+      fields:
+        subject:
+          label: Betreff
+        name:
+          label: Autor
+        entity_id:
+          label: 'Veröffentlicht in'
+        field_domain_access:
+          label: Verfahren
+        changed:
+          label: Geändert
+        operations:
+          label: Aktionen
+        comment_bulk_form:
+          action_title: Aktion
+      pager:
+        options:
+          tags:
+            next: 'nächste ›'
+            previous: '‹ vorhergehende'
+            first: '« erste'
+            last: 'letzte »'
+          expose:
+            items_per_page_label: 'Einträge pro Seite'
+            items_per_page_options_all_label: '- Alle -'
+            offset_label: Versatz
+      exposed_form:
+        options:
+          submit_button: Anwenden
+          reset_button_label: Zurücksetzen
+          exposed_sorts_label: Sortierung
+          sort_asc_label: Aufsteigend
+          sort_desc_label: Absteigend
+      empty:
+        area_text_custom:
+          content: 'Keine Kommentare verfügbar.'
+      filters:
+        subject:
+          expose:
+            label: Betreff
+        combine:
+          expose:
+            label: 'Name des Autors'
+        langcode:
+          expose:
+            label: Sprache
+      use_more_text: mehr
+  page_published:
+    display_title: 'Bestätigte Kommentare'
+    display_options:
+      display_description: 'Die Liste bestätigter Kommentare'
+      menu:
+        title: Kommentare
+        description: 'Veröffentlichte Kommentare'
+  page_unapproved:
+    display_title: 'Unbestätigte Kommentare'
+    display_options:
+      fields:
+        comment_bulk_form:
+          action_title: Aktion
+        subject:
+          label: Betreff
+        name:
+          label: Autor
+        entity_id:
+          label: 'Veröffentlicht in'
+        changed:
+          label: Geändert
+        operations:
+          label: Aktionen
+      filters:
+        subject:
+          expose:
+            label: Betreff
+        combine:
+          expose:
+            label: 'Name des Autors'
+        langcode:
+          expose:
+            label: Sprache
+      display_description: 'Die Auflistung nicht freigegebener Kommentare'
+      menu:
+        title: 'Unbestätigte Kommentare'
+        description: 'Nicht freigegebene Kommentare'

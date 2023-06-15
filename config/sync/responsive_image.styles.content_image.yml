@@ -11,8 +11,6 @@ id: content_image
 label: 'Content Image'
 image_style_mappings:
   -
-    breakpoint_id: responsive_image.viewport_sizing
-    multiplier: 1x
     image_mapping_type: sizes
     image_mapping:
       sizes: '(min-width: 1400px) 1600w, (min-width: 1000px) 1200w, (min-width: 600px) 800w, 50vw'
@@ -20,5 +18,7 @@ image_style_mappings:
         - content_image_lg
         - content_image_md
         - content_image_xl
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
 breakpoint_group: responsive_image
 fallback_image_style: content_image_sm

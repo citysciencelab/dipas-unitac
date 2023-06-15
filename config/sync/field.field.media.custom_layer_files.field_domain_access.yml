@@ -19,8 +19,8 @@ settings:
   handler: 'default:domain'
   handler_settings:
     target_bundles: null
-    auto_create: false
     sort:
       field: weight
       direction: ASC
+    auto_create: false
 field_type: entity_reference

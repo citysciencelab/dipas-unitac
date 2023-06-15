@@ -20,7 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   requestMethods = {
  *     "POST",
  *   },
- *   isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey
@@ -117,7 +118,7 @@ class Rate extends ResponseKeyBase {
    * Checks, if the request is legitimate. Throws exception when not.
    */
   protected function checkRequest() {
-    if (!$this->dipasConfig->get('ContributionSettings/rating_allowed')) {
+    if (!$this->dipasConfig->get('ContributionSettings.rating_allowed')) {
       throw new StatusException('Ratings are closed.', 403);
     }
 

@@ -2,43 +2,57 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\Core\Database\Query\ConditionInterface;
 use Drupal\masterportal\DomainAwareTrait;
 
 trait NodeListingTrait {
   use DomainAwareTrait;
 
   /**
-   * Returns the base fields to select.
+   * Returns a list of the nodes of the currently requested page.
    *
-   * @return array
+   * @return array[]
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Exception
    */
-  protected function getBaseFields() {
-    return [
-      'nid' => [
-        'tablealias' => 'base',
-        'fieldalias' => 'nid',
-      ],
-      'type' => [
-        'tablealias' => 'base',
-        'fieldalias' => 'type',
-      ],
-      'title' => [
-        'tablealias' => 'attr',
-        'fieldalias' => 'title',
-      ],
-      'created' => [
-        'tablealias' => 'attr',
-        'fieldalias' => 'created',
-      ],
-      'langcode' => [
-        'tablealias' => 'attr',
-        'fieldalias' => 'langcode',
-      ],
-      'name' => [
-        'tablealias' => 'userdata',
-        'fieldalias' => 'author',
-      ],
-    ];
+  protected function getNodes() {
+    static $nodes = NULL;
+
+    if ($nodes === NULL) {
+      $query = $this->getQuery();
+
+      // Convert the created timestamp to an ISO 8601 UTC date string.
+      $nodes = $query->execute()->fetchAll();
+      array_walk($nodes, function (&$node) {
+        $node->created = $this->convertTimestampToUTCDateTimeString($node->created, FALSE);
+        $this->postProcessDataRow($node);
+      });
+      $this->postProcessNodes($nodes);
+    }
+
+    return $nodes;
+  }
+
+  /**
+   * Initiates the basic database query object (singleton).
+   *
+   * @return \Drupal\Core\Database\Query\SelectInterface
+   */
+  protected function getBaseQuery() {
+    /**
+     * @var \Drupal\Core\Database\Query\SelectInterface
+     */
+    $query = drupal_static('dipasDatabaseQuery');
+
+    if (is_null($query)) {
+      $query = $this->getDatabase()->select('node', 'base')
+        ->condition('base.type', $this->getNodeType(), '=')
+        ->condition('attr.status', '1', '=');
+    }
+
+    return $query;
   }
 
   /**
@@ -53,16 +67,13 @@ trait NodeListingTrait {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getQuery($ignoreDomainBinding = FALSE) {
-    // Construct the basic query object.
-    /* @var \Drupal\Core\Database\Query\SelectInterface $query */
-    $query = $this->getDatabase()->select('node', 'base')
-      ->condition('base.type', $this->getNodeType(), '=')
-      ->condition('attr.status', '1', '=');
+    $query = $this->getBaseQuery();
 
     // Domain module integration.
     if (
-      $this->isDomainModuleInstalled()
-      && $activeDomain = $this->getActiveDomain()
+      $this->isDomainModuleInstalled() &&
+      $this->listingIsDomainSensitive() &&
+      $activeDomain = $this->getActiveDomain()
     ) {
       // Add domain table joins.
       $query->addJoin('LEFT', 'node__field_domain_access', 'domain_access', 'base.type = domain_access.bundle AND base.nid = domain_access.entity_id AND base.vid = domain_access.revision_id');
@@ -106,7 +117,12 @@ trait NodeListingTrait {
 
     // Are there any conditions that should be applied?
     foreach ($this->getConditions() as $condition) {
-      $query->condition($condition['field'], $condition['value'], $condition['operator']);
+      if ($condition instanceof ConditionInterface) {
+        $query->condition($condition);
+      }
+      else {
+        $query->condition($condition['field'], $condition['value'], $condition['operator']);
+      }
     }
 
     // Is there any grouping involved?
@@ -137,26 +153,55 @@ trait NodeListingTrait {
   }
 
   /**
-   * Returns a list of the nodes of the currently requested page.
+   * Returns a query condition group (OR).
    *
-   * @return array[]
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Exception
+   * @return \Drupal\Core\Database\Query\ConditionInterface
    */
-  protected function getNodes() {
-    static $nodes = NULL;
-    if ($nodes === NULL) {
-      $query = $this->getQuery();
+  protected function getOrConditionGroup() {
+    return $this->getBaseQuery()->orConditionGroup();
+  }
 
-      // Convert the created timestamp to an ISO 8601 UTC date string.
-      $nodes = $query->execute()->fetchAll();
-      array_walk($nodes, function (&$node) {
-        $node->created = $this->convertTimestampToUTCDateTimeString($node->created, FALSE);
-      });
-    }
-    return $nodes;
+  /**
+   * Returns a query condition group (AND).
+   *
+   * @return \Drupal\Core\Database\Query\ConditionInterface
+   */
+  protected function getAndConditionGroup() {
+    return $this->getBaseQuery()->andConditionGroup();
+  }
+
+  /**
+   * Returns the base fields to select.
+   *
+   * @return array
+   */
+  protected function getBaseFields() {
+    return [
+      'nid' => [
+        'tablealias' => 'base',
+        'fieldalias' => 'nid',
+      ],
+      'type' => [
+        'tablealias' => 'base',
+        'fieldalias' => 'type',
+      ],
+      'title' => [
+        'tablealias' => 'attr',
+        'fieldalias' => 'title',
+      ],
+      'created' => [
+        'tablealias' => 'attr',
+        'fieldalias' => 'created',
+      ],
+      'langcode' => [
+        'tablealias' => 'attr',
+        'fieldalias' => 'langcode',
+      ],
+      'name' => [
+        'tablealias' => 'userdata',
+        'fieldalias' => 'author',
+      ],
+    ];
   }
 
   /**
@@ -167,6 +212,55 @@ trait NodeListingTrait {
   protected function getLimit() {
     return FALSE;
   }
+
+  /**
+   * Getter function for AND toggle function to set the node listing domain sensitivity.
+   *
+   * @param bool $isSensitive
+   *   Set the listing to be domain sensitive or not.
+   *
+   * @return bool
+   *   The domain sensitivity flag.
+   */
+  protected function listingIsDomainSensitive($isSensitive = NULL) {
+    static $listingIsDomainsensitive;
+
+    if ($listingIsDomainsensitive === NULL || $isSensitive !== NULL) {
+      if ($this->isDomainModuleInstalled()) {
+        if ($listingIsDomainsensitive === NULL && $isSensitive === NULL) {
+          $listingIsDomainsensitive = TRUE;
+        }
+        else {
+          $listingIsDomainsensitive = $isSensitive;
+        }
+      }
+      else {
+        $listingIsDomainsensitive = FALSE;
+      }
+    }
+
+    return $listingIsDomainsensitive;
+  }
+
+  /**
+   * Called on each data row returned by the query.
+   *
+   * @param array $row
+   *   The currently processed data row
+   *
+   * @return void
+   */
+  protected function postProcessDataRow(&$row) {}
+
+  /**
+   * Acts on all rows returned by the database query.
+   *
+   * @param array $nodes
+   *   The complete set of data rows resulted from the query.
+   *
+   * @return void
+   */
+  protected function postProcessNodes(array &$nodes) {}
 
   /**
    * Returns the node type to list.

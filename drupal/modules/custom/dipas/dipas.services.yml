@@ -2,9 +2,6 @@ services:
   dipas.config:
     class: Drupal\dipas\Service\DipasConfig
     arguments: ['@config.factory']
-  dipasconfig.api:
-    class: Drupal\dipas\Controller\DipasConfig
-    arguments: ['@dipas.config']
   logger.channel.dipas:
     class: Drupal\Core\Logger\LoggerChannels
     factory: logger.factory:get
@@ -34,22 +31,22 @@ services:
     arguments: ['@entity_type.manager', '@entity_type.bundle.info', '@entity_field.manager', '@entity_type.repository', '@entity_display.repository', '@string_translation']
   dipas.restapi:
     class: Drupal\dipas\Service\RestApi
-    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@plugin.manager.dipas.response_key', '@request_stack', '@cache.data', '@cache_tags.invalidator', '@plugin.manager.dipas.pds_response', '@plugin.manager.dipas.cockpitData_response']
+    arguments: ['@dipas.config', '@logger.channel.dipas', '@plugin.manager.dipas.response_key', '@request_stack', '@cache.data', '@cache_tags.invalidator', '@plugin.manager.dipas.pds_response', '@plugin.manager.dipas.cockpitData_response', '@module_handler']
   dipas.cookie:
     class: Drupal\dipas\Service\DipasCookie
     arguments: ['@request_stack']
   dipas.keywords:
     class: Drupal\dipas\Service\DipasKeywords
-    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@http_client', '@database', '@dipas.entity_services']
+    arguments: ['@dipas.config', '@logger.channel.dipas', '@http_client', '@database', '@dipas.entity_services']
   dipas.nlp_services:
     class: Drupal\dipas\Service\DipasNlpServices
-    arguments: ['@dipasconfig.api', '@logger.channel.dipas', '@http_client', '@state', '@dipas.entity_services', '@database', '@entity_type.manager', '@date.formatter', '@request_stack']
+    arguments: ['@dipas.config', '@logger.channel.dipas', '@http_client', '@state', '@dipas.entity_services', '@database', '@entity_type.manager', '@date.formatter', '@request_stack']
   dipas.dataexport:
     class: Drupal\dipas\Service\DataExport
     arguments: ['@database', '@date.formatter', '@csv_serialization.encoder.csv', '@state', '@entity_type.manager']
   dipas.anonymous_redirect_to_login:
     class: Drupal\dipas\EventSubscriber\AnonymousRedirectToLogin
-    arguments: ['@current_user', '@request_stack']
+    arguments: ['@current_user', '@request_stack', '@module_handler', '@logger.channel.dipas']
     tags:
       - {name: event_subscriber}
   dipas.remove_x_frame_options_in_dev:
@@ -62,6 +59,6 @@ services:
     arguments: []
   dipas.domain_change:
     class: Drupal\dipas\EventSubscriber\DomainChange
-    arguments: ['@config.factory', '@entity_type.manager']
+    arguments: ['@config.factory', '@entity_type.manager', '@database', '@module_handler', '@uuid']
     tags:
       - {name: event_subscriber}

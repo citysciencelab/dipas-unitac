@@ -1,0 +1,123 @@
+langcode: en
+status: true
+dependencies: {  }
+id: default.dipas_story_telling
+instance_name: dipas_story_telling
+domain: default
+label: 'DIPAS Story Telling'
+settings:
+  DesignSettings:
+    uiStyle: table
+    treeType: light
+    scaleLine: 0
+    simpleMap: 0
+    backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
+  BackgroundLayerSettings:
+    layer: {  }
+  MapSettings:
+    startCenter: '[565874,5934140]'
+    twoFingerPan: false
+    useScaleOptions: true
+    options:
+      -
+        resolution: 66.145797614603
+        scale: 250000
+        zoomLevel: 0
+      -
+        resolution: 26.458319045841
+        scale: 100000
+        zoomLevel: 1
+      -
+        resolution: 15.874991427505
+        scale: 60000
+        zoomLevel: 2
+      -
+        resolution: 10.583327618336
+        scale: 40000
+        zoomLevel: 3
+      -
+        resolution: 5.2916638091682
+        scale: 20000
+        zoomLevel: 4
+      -
+        resolution: 2.6458319045841
+        scale: 10000
+        zoomLevel: 5
+      -
+        resolution: 1.3229159522921
+        scale: 5000
+        zoomLevel: 6
+      -
+        resolution: 0.66145797614603
+        scale: 2500
+        zoomLevel: 7
+      -
+        resolution: 0.26458319045841
+        scale: 1000
+        zoomLevel: 8
+      -
+        resolution: 0.13229159522921
+        scale: 500
+        zoomLevel: 9
+    zoomLevel: 3
+    epsg: 'EPSG:25832'
+  MenuSettings:
+    tree:
+      name: Themen
+      isInitOpen: false
+    tools:
+      name: Werkzeuge
+    filter:
+      name: Katgorieauswahl
+      deactivateGFI: true
+      active: false
+      liveZoomToFeatures: false
+      layerSelectorVisible: false
+      isVisibleInMenu: false
+      layers: |-
+        [
+            {
+                "layerId": "contributions",
+                "strategy": "active",
+                "showHits": false,
+                "snippetTags": false,
+                "snippets": [
+                    {
+                        "type": "dropdown",
+                        "attrName": "Thema",
+                        "operator": "IN",
+                        "display": "list",
+                        "multiselect": true,
+                        "addSelectAll": false,
+                        "renderIcons": "fromLegend",
+                        "info": false
+                    }
+                ]
+            }
+        ]
+    legend:
+      name: Legende
+  PortalSettings:
+    title: Masterportal
+    logo: '{{library_path}}/img/Logo_Masterportal.svg'
+    link: 'http://geoinfo.hamburg.de'
+    tooltip: 'Landesbetrieb Geoinformation und Vermessung'
+    activePlugins: {  }
+    plugins: {  }
+  SearchPluginSettings:
+    activePlugins: {  }
+    plugins: {  }
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Suche nach Adresse/Thema'
+    renderToDOM: ''
+    quickHelp: false
+  ForegroundLayerSection:
+    layer: {  }
+  ToolSettings:
+    activePlugins: {  }
+    plugins: {  }
+uid: 0
+hidden: true

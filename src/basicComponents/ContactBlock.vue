@@ -57,19 +57,24 @@ export default {
         {{ projectowner.zip }} {{ projectowner.city }}
       </p>
       <p class="phone">
-        <a>
+        <a
+          :aria-label="$t('Contact.phone')"
+        >
           <i
             class="material-icons material-icons-style"
-            :aria-label="$t('Contact.phone')"
+            aria-hidden="true"
           >
             phone
           </i> {{ projectowner.telephone }}</a>
       </p>
       <p class="address">
-        <a :href="'mailto:' + projectowner.email">
+        <a
+          :href="'mailto:' + projectowner.email"
+          :aria-label="$t('Contact.email')"
+        >
           <i
             class="material-icons material-icons-style"
-            :aria-label="$t('Contact.email')"
+            aria-hidden="true"
           >
             email
           </i>&nbsp;{{ projectowner.email }}</a>
@@ -77,11 +82,12 @@ export default {
       <p class="address">
         <a
           :href="projectowner.website"
+          :aria-label="$t('Contact.web')"
           target="_blank"
         >
           <i
             class="material-icons material-icons-style"
-            :aria-label="$t('Contact.web')"
+            aria-hidden="true"
           >
             public
           </i>&nbsp;{{ projectowner.website }}

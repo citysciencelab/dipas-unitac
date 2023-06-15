@@ -26,13 +26,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
   use MultivalueRowTrait;
 
   /**
-   * The default icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * The default number of search results to display.
    *
    * @var int
@@ -58,7 +51,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
    */
   public static function getDefaults() {
     return [
-      'glyphicon' => 'glyphicon-home',
       'maxFeatures' => 20,
       'timeout' => 6000,
       'WFSSearchDefinitions' => [],
@@ -70,12 +62,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
    */
   public function getForm(FormStateInterface $form_state, $dependantSelector = FALSE, $dependantSelectorProperty = NULL, $dependantSelectorValue = NULL) {
     $form = [
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        FALSE,
-        'The default graphic symbol that appears next to the search results. Can be overridden in distinct implementations.'
-      ),
       'maxFeatures' => [
         '#type' => 'number',
         '#title' => $this->t('Maximum features', [], ['context' => 'Masterportal']),
@@ -133,7 +119,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
         '#description' => $this->t('Webaddress of the WFS layer.', [], ['context' => 'Masterportal']),
         '#default_value' => !empty($row_defaults['url']) ? $row_defaults['url'] : '',
       ],
-      'glyphicon' => $this->getGlyphiconSelect(!empty($row_defaults['glyphicon']) ? $row_defaults['glyphicon'] : NULL),
       'typeName' => [
         '#type' => 'textfield',
         '#title' => $this->t('Type name', [], ['context' => 'Masterportal']),
@@ -213,7 +198,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
    */
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
-      'glyphicon' => $this->glyphicon,
       'maxFeatures' => (int) $this->maxFeatures,
       'timeout' => (int) $this->timeout * 1000,
       'WFSSearchDefinitions' => self::getData('WFSSearchDefinitions', $form_state->getUserInput()),
@@ -224,7 +208,6 @@ class SpecialWFS extends PluginBase implements SearchBarPluginInterface {
    * {@inheritdoc}
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->maxFeatures = $this->maxFeatures;
     $pluginSection->timeout = $this->timeout;
     $pluginSection->definitions = [];

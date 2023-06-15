@@ -39,6 +39,11 @@ export default {
       RightColumn: "ConceptionDetailsRightColumn"
     };
   },
+  computed: {
+    htmlPageTitle () {
+      return this.$t("ConceptionDetails.htmlTitlePrefix") + ": " + this.pageContent.title;
+    }
+  },
   beforeMount () {
     /**
      * Loads conception data via request broker
