@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.dipas_story
+label: 'DIPAS story'
+targetEntityType: paragraph
+cache: true

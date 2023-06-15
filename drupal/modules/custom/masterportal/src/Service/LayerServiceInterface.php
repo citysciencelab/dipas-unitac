@@ -46,7 +46,7 @@ interface LayerServiceInterface {
    * @param mixed $layerid
    *   The ID of the layer in question.
    *
-   * @return \stdClass|false
+   * @return \stdClass|string
    *   The layer definition (if existent, false if otherwise).
    */
   public function getLayerDefinition($layerid);

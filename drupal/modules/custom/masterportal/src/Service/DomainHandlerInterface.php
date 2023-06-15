@@ -15,8 +15,10 @@ interface DomainHandlerInterface {
    * Gets called when a new domain entry is created or an existing one is changed.
    *
    * @param \Drupal\domain\DomainInterface $domain
+   * @param bool $isNew
+   * @param string $previousId
    */
-  public function onDomainEdit(DomainInterface $domain);
+  public function onDomainEdit(DomainInterface $domain, bool $isNew, string $previousId);
 
   /**
    * Gets called when a domain entry gets deleted.

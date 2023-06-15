@@ -19,7 +19,14 @@
     "linktext": "Cookie Privacy Policy",
     "text": "By clicking on \"Accept Cookies\" you agree that cookies may be used in accordance with our ",
     "text_2ndLine": "on this website.",
-    "buttontext": "Accept Cookies"
+    "buttontext": "Accept Cookies",
+    "acceptButtonText": "Accept Cookies",
+    "declineButtonText": "Decline Cookies",
+    "closeButton": "Close"
+  },
+  "MobileView": {
+    "closeButton": "Close menu",
+    "threeDots": "Display menu"
   },
   "ContributionMap": {
     "addContributionButton": "Start entry",
@@ -34,6 +41,8 @@
     "noContributions": "No further posts available",
     "loadMore": "load more posts",
     "addNew": "Add new post",
+    "itemCount": "Number of posts",
+    "filtered": "filtered",
     "ContributionListFilter": {
       "filterOptions": "Filter Options",
       "termSelectHeadlineCat": "Choose category",
@@ -54,7 +63,7 @@
         "asc": "ascending"
       },
       "selection": {
-        "selected": "{{selected}} of {{count}} choosen",
+        "selected": "{{selected}} of {{count}} {{termTitlePlural}} choosen",
         "all": "all {{termTitlePlural}} are displayed"
       }
     },
@@ -76,6 +85,8 @@
     "backward": "Back",
     "forward": "Next Step",
     "complete": "Complete",
+    "select": "Please select",
+    "processDescription": "Steps to create a contribution",
     "StepIndicator": {
       "content": "Content",
       "category": "Category",
@@ -97,7 +108,9 @@
         "proposals": "Proposals:",
         "placeholder": "Add a own keyword.",
         "tag-placeholder": "Mark as new keyword.",
-        "note": "We have automatically recommended keywords so that other users can benefit from your contribution and find it. You can deselect the recommended keywords or add your own."
+        "note": "We have automatically recommended keywords so that other users can benefit from your contribution and find it. You can deselect the recommended keywords or add your own.",
+        "declineKeyword": "Decline keyword",
+        "addKeyword": "Add keyword"
       }
     },
     "StepType": {
@@ -107,6 +120,7 @@
     "StepMap": {
       "headline": "Situate your post on map",
       "geometry": "Select a tool",
+      "infoSymbol": "Information",
       "infotext_point": "To place a point, click on the desired location in the map. You can move the point afterwards.",
       "infotext_linestring": "To create a line, click in the map on the desired start of the line. Then click at each point and double-click to finish.",
       "infotext_polygon": "To create a polygon, click in the map on the desired start of the polygon. Then click at each point and double-click to finish.",
@@ -121,6 +135,7 @@
     }
   },
   "ContributionDetails": {
+    "htmlTitlePrefix": "Contribution",
     "backToList": "Back to contribution list",
     "comment": "Comment",
     "oClock": "o'clock"
@@ -135,13 +150,20 @@
     "Tooltip": "open in new window"
   },
   "ConceptionDetails": {
+    "htmlTitlePrefix": "Conception",
     "commentsFormHeadline": "Comment"
   },
   "ConceptionDetailsSidebar": {
     "headline": "Other conceptions"
   },
   "DownloadsBlock": {
-    "headline": "Downloads"
+    "headline": "Downloads",
+    "documentationFiles": "Documentation",
+    "allFiles": "General documents",
+    "firstPage": "First page",
+    "lastPage": "Last page",
+    "goBack": "Back",
+    "goForward": "Forward"
   },
   "NewsletterBlock": {
     "headline": "Newsletter"
@@ -155,7 +177,9 @@
     "iconThumbUp": "Thumb up votes",
     "iconThumbDown": "Thumb down votes",
     "iconVoteThumbUp": "Vote thumb up",
-    "iconVoteThumbDown": "Vote thumb down"
+    "iconVoteThumbDown": "Vote thumb down",
+    "votedThanks": "Thank you for your rating",
+    "notAllowed": "Currently casting a vote is not allowed"
   },
   "CommentsForm": {
     "remainingChars": "You have {{remaining}} chars left.",
@@ -210,6 +234,7 @@
     }
   },
   "Schedule": {
+    "title": "Schedule",
     "closeButton": "Close",
     "headline": "Appointments",
     "nodeLength": "There are no appointments right now.",

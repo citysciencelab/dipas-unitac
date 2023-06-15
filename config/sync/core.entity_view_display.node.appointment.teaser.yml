@@ -20,9 +20,9 @@ bundle: appointment
 mode: teaser
 content:
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   field_address: true
@@ -30,6 +30,7 @@ hidden:
   field_description: true
   field_domain_access: true
   field_domain_all_affiliates: true
+  field_geodata: true
   field_localization: true
   field_topic: true
   langcode: true

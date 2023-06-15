@@ -43,9 +43,9 @@ class ProjectArea implements LayerPluginInterface {
    */
   public function getGeoJSONFeatures() {
     /* @var \Drupal\dipas\Controller\DipasConfig $dipasConfig */
-    $dipasConfig = \Drupal::service('dipasconfig.api');
+    $dipasConfig = \Drupal::service('dipas.config');
 
-    $projectarea = json_decode($dipasConfig->get('ProjectArea/project_area'));
+    $projectarea = json_decode($dipasConfig->get('ProjectArea.project_area'));
     $features = [];
 
     if (!empty($projectarea)) {

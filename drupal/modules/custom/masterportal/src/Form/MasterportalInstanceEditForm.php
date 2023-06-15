@@ -21,6 +21,7 @@ use Drupal\masterportal\FindFormSectionTrait;
 use Drupal\masterportal\PluginSystem\PluginManagerInterface;
 use Drupal\masterportal\Service\Masterportal;
 use Drupal\masterportal\Exception\UnknownPluginMethodException;
+use Drupal\masterportal\Service\MasterportalConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -79,6 +80,11 @@ class MasterportalInstanceEditForm extends EntityForm {
   protected $configSectionPluginManager;
 
   /**
+   * @var \Drupal\masterportal\Service\MasterportalConfigInterface
+   */
+  protected $masterportalConfigService;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -89,7 +95,7 @@ class MasterportalInstanceEditForm extends EntityForm {
       $container->get('entity_type.manager'),
       $container->get('cache_tags.invalidator'),
       $container->get('plugin.manager.masterportal.instance_config_section'),
-      $container->get('module_handler')
+      $container->get('masterportal.config')
     );
   }
 
@@ -120,7 +126,8 @@ class MasterportalInstanceEditForm extends EntityForm {
     AccountInterface $current_user,
     EntityTypeManagerInterface $entity_type_manager,
     CacheTagsInvalidatorInterface $cache_tags_invalidator,
-    PluginManagerInterface $config_section_manager
+    PluginManagerInterface $config_section_manager,
+    MasterportalConfigInterface $masterportal_config_service
   ) {
     $this->container = $container;
     $this->logger = $logger;
@@ -128,6 +135,7 @@ class MasterportalInstanceEditForm extends EntityForm {
     $this->entityStorage = $entity_type_manager->getStorage('masterportal_instance');
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->configSectionPluginManager = $config_section_manager;
+    $this->masterportalConfigService = $masterportal_config_service;
   }
 
   /**
@@ -215,6 +223,8 @@ class MasterportalInstanceEditForm extends EntityForm {
     // Add each available config section.
     foreach ($availableConfigSections as $pluginId => $configSection) {
 
+      $pluginIdentifier = sprintf('%s/%s', $this->configSectionPluginManager->getPluginType(), $pluginId);
+
       // Prepare the container holding the section definition.
       $form['settings'][$pluginId] = [
         '#type' => 'details',
@@ -222,7 +232,7 @@ class MasterportalInstanceEditForm extends EntityForm {
         '#description' => $configSection['description'],
         '#weight' => $configSection['sectionWeight'],
         '#group' => 'vertical_tabs',
-        '#plugin' => sprintf('%s/%s', $this->configSectionPluginManager->getPluginType(), $pluginId),
+        '#plugin' => $pluginIdentifier,
       ];
 
       // Determine the plugin default values.
@@ -232,14 +242,21 @@ class MasterportalInstanceEditForm extends EntityForm {
 
       // Instantiate the plugin.
       /* @var \Drupal\masterportal\PluginSystem\InstanceConfigSectionInterface $plugin */
-      $plugin = new $configSection['class'](array_merge(
-        $pluginDefaults,
-        ['_entity' => $this->entity, '_definition' => $configSection]
-      ));
+      $plugin = new $configSection['class'](
+        array_merge(
+          $pluginDefaults,
+          ['_entity' => $this->entity, '_definition' => $configSection]
+        ),
+        $this->masterportalConfigService
+      );
 
       $form['settings'][$pluginId] = array_merge(
         $form['settings'][$pluginId],
-        $plugin->getFormSectionElements($form_state, !empty($instanceSettings[$pluginId]) ? $instanceSettings[$pluginId] : [])
+        $plugin->getFormSectionElements(
+          $form_state,
+          !empty($instanceSettings[$pluginId]) ? $instanceSettings[$pluginId] : [],
+          $pluginIdentifier
+        )
       );
 
     }
@@ -404,7 +421,6 @@ class MasterportalInstanceEditForm extends EntityForm {
    */
   public function __call($method, array $arguments) {
     switch ($method) {
-
       // Methods of the MultivalueRowTrait trait.
       case 'addRow':
       case 'removeRow':
@@ -413,6 +429,7 @@ class MasterportalInstanceEditForm extends EntityForm {
         /* @var array $form */
         /* @var FormStateInterface $form_state */
         $trigger = $form_state->getTriggeringElement();
+
         [, $property,] = explode(':', $trigger["#name"]);
 
         // Determine the form section that caused the method call.
@@ -420,7 +437,7 @@ class MasterportalInstanceEditForm extends EntityForm {
 
         // Do we have the information, which plugin actually triggered
         // the method call?
-        if (!empty($section["#plugin"])) {
+        if ($section !== FALSE && !empty($section["#plugin"])) {
 
           // Determine the plugin that caused the call.
           [$pluginType, $pluginID] = explode('/', $section["#plugin"]);
@@ -454,13 +471,23 @@ class MasterportalInstanceEditForm extends EntityForm {
           }
 
         }
+        else {
+          $this->logger->error(
+            'Unable to call method %method due to undefined plugin definition in file %file, triggered by %trigger.',
+            [
+              '%method' => $method,
+              '%file' => __FILE__,
+              '%trigger' => isset($trigger['#name']) ? $trigger['#name'] : 'unknown',
+            ]
+          );
+          break;
+        }
 
       /*
        * We do not know which plugin it was. The section property '#plugin'
        * is missing. So we simply omit to break this switch/case here and
        * let this method run into it's default logger.
        */
-
       default:
         $this->logger->error(
           'Call to undefined method %method in file %file, triggered by %trigger.',

@@ -89,6 +89,20 @@ export default {
      */
     remaining () {
       return this.maxlength - this.comment.length;
+    },
+    cleanedComment () {
+      let strC = "";
+
+      strC = this.comment.replace(/\s\s+/g, " ").trim();
+      return strC;
+    },
+    commentNotEmpty: function () {
+      let result = false;
+
+      if (this.cleanedComment !== "") {
+        result = true;
+      }
+      return result;
     }
   },
   methods: {
@@ -104,18 +118,18 @@ export default {
      * @returns {void}
      */
     saveComment: function () {
-      if (this.comment.length >= this.commentMinLength && this.mobileurl.length === 0) {
+      if (this.comment.length >= this.commentMinLength && this.mobileurl.length === 0 && this.commentNotEmpty === true) {
         this.saving = true;
         this.addComment({
           rootEntityID: this.rootEntityID,
           commentedEntityType: this.commentedEntityType,
           commentedEntityID: this.commentedEntityID,
           subject: this.commentSubject,
-          comment: this.comment
+          comment: this.cleanedComment
         });
         this.$store.commit("invalidateStateCache", "comment:" + this.rootEntityBundle + ":" + this.rootEntityID);
       }
-      else if (this.comment.length < this.commentMinLength) {
+      else if (this.comment.length < this.commentMinLength || this.commentNotEmpty === false) {
         this.tooShort = true;
         const currTextarea = this.$refs.txtarea;
 

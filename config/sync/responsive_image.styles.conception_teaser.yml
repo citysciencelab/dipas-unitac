@@ -12,8 +12,6 @@ id: conception_teaser
 label: 'Conception Teaser'
 image_style_mappings:
   -
-    breakpoint_id: responsive_image.viewport_sizing
-    multiplier: 1x
     image_mapping_type: sizes
     image_mapping:
       sizes: '(min-width: 350px) 360w, (min-width: 290px) 300w, (min-width: 230px) 240w, (min-width: 170px) 180w, (min-width: 90px) 120w, 15vw'
@@ -23,5 +21,7 @@ image_style_mappings:
         - conception_sm
         - conception_xl
         - conception_xs
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
 breakpoint_group: responsive_image
 fallback_image_style: conception_md

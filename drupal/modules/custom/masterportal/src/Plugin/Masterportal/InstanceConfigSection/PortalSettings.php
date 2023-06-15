@@ -95,7 +95,7 @@ class PortalSettings extends InstanceConfigSectionBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormSectionElements(FormStateInterface $form_state) {
+  public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
 
     // Determine the available control plugins.
     $available_control_plugins = $this->controlPluginManager->getPluginTypeOptions();

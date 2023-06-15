@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[189],{3551:function(n){n.exports=JSON.parse('{"modules":{"tools":{"cosi":{"areaSelector":{"title":"Manuelle Fl\xE4chenauswahl","drawPolygon":"Polygon zeichnen","info":"Ein Polygon zeichnen f\xFCr das Einrichtungen/Fachdaten geladen werden sollen.","requestInhabitants":"Einwohnerabfrage"}}}}}')}}]);

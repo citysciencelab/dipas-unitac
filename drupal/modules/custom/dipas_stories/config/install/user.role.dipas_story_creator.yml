@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.filtered_html
+    - node.type.story
+  module:
+    - dipas_stories
+    - domain_access
+    - entity_browser
+    - filter
+    - node
+id: dipas_story_creator
+label: 'DIPAS Story Creator'
+weight: 5
+is_admin: null
+permissions:
+  - 'access image_browser entity browser pages'
+  - 'create story content'
+  - 'create story content on assigned domains'
+  - 'create story step'
+  - 'delete own story content'
+  - 'delete story step'
+  - 'edit own story content'
+  - 'edit story step'
+  - 'use text format filtered_html'
+  - 'view story step'

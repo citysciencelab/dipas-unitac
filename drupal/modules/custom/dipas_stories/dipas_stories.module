@@ -1,0 +1,224 @@
+<?php
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\dipas_stories\Entity\StoryStep;
+
+/**
+ * Implements hook_dipas_api_links().
+ *
+ * @return string[]
+ */
+function dipas_stories_dipas_api_links() {
+  return [
+    'stories',
+  ];
+}
+
+/**
+ * Implements hook_open_dipas_routes().
+ *
+ * @return string[]
+ */
+function dipas_stories_open_dipas_routes() {
+  return [
+    'dipas_stories.stories',
+  ];
+}
+
+/**
+ * Implements hook_dipas_noclone_masterportal_instances().
+ */
+function dipas_stories_dipas_noclone_masterportal_instances() {
+  return [
+    'dipas_story_telling',
+  ];
+}
+
+/**
+ * Helper function to invalidate cache tags.
+ *
+ * @param array $cachetags
+ *   The cache tags to invalidate
+ *
+ * @return void
+ */
+function dipas_stories_invalidate_cachetags(array $cachetags) {
+  /* @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cacheTagInvalidator */
+  $cacheTagInvalidator = \Drupal::getContainer()->get('cache_tags.invalidator');
+
+  $cacheTagInvalidator->invalidateTags($cachetags);
+}
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Clear the story overview cache on new stories. Changed & deleted stories
+ * already get handled by the DIPAS module itself.
+ */
+function dipas_stories_entity_insert(EntityInterface $entity) {
+  if ($entity instanceof ContentEntityInterface) {
+    $typeString = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->bundle());
+
+    switch ($typeString) {
+      case 'node:story':
+        dipas_stories_invalidate_cachetags(['dipas-stories']);
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function dipas_stories_entity_update(EntityInterface $entity) {
+  if ($entity instanceof ContentEntityInterface) {
+    $typeString = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->bundle());
+
+    switch ($typeString) {
+      case 'story_step:story_step':
+        dipas_stories_invalidate_cachetags([sprintf('story_step:%d', $entity->id())]);
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_predelete()
+ */
+ function dipas_stories_entity_predelete(EntityInterface $entity) {
+   if ($entity instanceof ContentEntityInterface) {
+    $typeString = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->bundle());
+
+    switch ($typeString) {
+      case 'node:story':
+        \Drupal::service('dipas_stories.story_form')->deleteAllAssociatedStorySteps($entity);
+        break;
+    }
+  }
+ }
+
+/**
+ * Implements hook_entity_delete().
+ */
+function dipas_stories_entity_delete(EntityInterface $entity) {
+  if ($entity instanceof ContentEntityInterface) {
+    $typeString = sprintf('%s:%s', $entity->getEntityTypeId(), $entity->bundle());
+
+    switch ($typeString) {
+      case 'story_step:story_step':
+        dipas_stories_invalidate_cachetags([sprintf('story_step:%d', $entity->id())]);
+        break;
+      case 'node:story':
+        dipas_stories_invalidate_cachetags([sprintf('node:%d', $entity->id())]);
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function dipas_stories_entity_extra_field_info() {
+  return [
+    'node' => [
+      'story' => [
+        'form' => [
+          'field_reading_time' => [
+            'label' => t('Reading time', [], ['context' => 'dipas_stories']),
+            'description' => t('The accumulated reading time of all story steps associated with this story node.'),
+            'weight' => 0,
+            'visible' => TRUE,
+          ],
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function dipas_stories_form_alter(&$form, FormStateInterface $form_state, $formid) {
+  // Register the Story redirect handler
+  if (in_array($formid, ['node_story_form', 'node_story_edit_form', 'story_step_edit_form'])) {
+    $form['actions']['submit']['#submit'][]  = [\Drupal::service('dipas_stories.story_form'), 'redirectHandler'];
+  }
+
+  //  Change the the default save button value & and add a new nextStep button
+  if (in_array($formid, ['story_step_edit_form'])) {
+    $form['actions']['submit']['#value'] = t('Save and go back');
+    $process_status = \Drupal::request()->query->get('process_status');
+    if ($process_status === 'create' || $process_status === null) {
+      $form['actions']['next_step'] = [
+        '#type' => 'submit',
+        '#value' => t('Save & Next Step >'),
+        '#weight' => 9, // since delete is 10
+        '#submit' => [[\Drupal::service('dipas_stories.story_form'), 'nextStoryStepHandler']],
+      ];
+    }
+
+  }
+
+  if ($formid === 'story_step_delete_form') {
+    $stepEntity = $form_state->getFormObject()->getEntity();
+
+    $form['actions']['submit']['#submit'][]  = [\Drupal::service('dipas_stories.story_form'), 'deleteStoryStepSubmit'];
+    $form['actions']['cancel']['#url'] = Url::fromRoute(
+      'entity.node.edit_form',
+      [
+        'node' => \Drupal::service('dipas_stories.story_form')->getAssociatedStoryNodeIDForStoryStep($stepEntity->id())
+      ]
+    );
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function dipas_stories_theme($existing, $type, $theme, $path) {
+  return [
+    'node__story' => [
+      'base hook' => 'node',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function dipas_stories_preprocess_node(&$variables) {
+  if ($variables['node']->bundle() === 'story') {
+    $variables['story_iframe'] = \Drupal::service('masterportal.renderer')->iFrame(
+      \Drupal::service('masterportal.instanceservice')->loadInstance('default.dipas_story_telling'),
+      '100%',
+      'aspect_ratio_16_9',
+      NULL,
+      NULL,
+      NULL,
+      [
+        'story' => Url::fromRoute(
+          'dipas_stories.stories',
+          ['storyID' => $variables['node']->id()],
+          ['absolute' => TRUE]
+        )->toString()
+      ]
+    );
+  }
+}
+
+/**
+ * Implements template_preprocess_paragraph().
+ */
+function dipas_stories_preprocess_paragraph(&$variables) {
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->hasField('field_image_position')) {
+    if (!$paragraph->get('field_image_position')->isEmpty()) {
+      $variables['attributes']['class'][] = $paragraph->get('field_image_position')->getString();
+      $variables['#attached']['library'][] = 'dipas_stories/storystep';
+      $variables["content"]["field_image_position"][0]['#markup'] = "";
+    }
+  }
+}

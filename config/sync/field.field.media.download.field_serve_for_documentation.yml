@@ -1,0 +1,23 @@
+uuid: 8922d781-a8dc-4f84-ac93-cbc2132612c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_serve_for_documentation
+    - media.type.download
+id: media.download.field_serve_for_documentation
+field_name: field_serve_for_documentation
+entity_type: media
+bundle: download
+label: 'Serve for documentation'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

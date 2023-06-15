@@ -1,4 +1,4 @@
-node_advanced_tab: true
 _core:
   default_config_hash: t7OcDTvXZT4FQ8IxyPjOy7e-LB2zLZm-b-F5EF89cmE
 langcode: en
+node_advanced_tab: true

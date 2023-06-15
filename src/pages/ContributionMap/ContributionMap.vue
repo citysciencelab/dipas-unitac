@@ -36,6 +36,9 @@ export default {
       "projectRunning",
       "takesNewContributions"
     ]),
+    htmlPageTitle () {
+      return this.$t("ContributionMap.title");
+    },
     /**
      * serves the map with the contribution extend
      * @returns {String|Boolean}
@@ -74,6 +77,11 @@ export default {
 
 <template>
   <div class="map_frontpage">
+    <h1
+      class="sr-only"
+    >
+      {{ $t('ContributionMap.title') }}
+    </h1>
     <iframe
       v-if="contributionMapWithExtend"
       id="contribution_map"
@@ -125,6 +133,8 @@ export default {
         position: relative;
         top: -100px;
         margin: 0 auto;
+        font-size: 1.25rem;
+        line-height: 0.8rem;
     }
 
     #app.mobile section.content div.map_frontpage,
@@ -135,4 +145,3 @@ export default {
         border: none;
     }
 </style>
-

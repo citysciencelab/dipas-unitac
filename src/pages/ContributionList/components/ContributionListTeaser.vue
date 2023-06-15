@@ -36,7 +36,7 @@ export default {
      * serves the link to details
      * @returns {String}
      */
-    detaillink () {
+    detailLink () {
       return "/contribution/" + this.teaser.nid;
     },
     /**
@@ -66,21 +66,27 @@ export default {
      */
     created () {
       return moment(this.teaser.created).format("DD.MM.YYYY | HH:mm") + " Uhr";
+    },
+    /**
+     * serves the boolean wether rating is allowed or not
+     * @returns {Boolean}
+     */
+    ratingsAllowed () {
+      return this.$store.getters.ratingsAllowed;
     }
+
   }
 };
 </script>
 
 <template>
-  <article
-    class="contributionteaser"
-  >
+  <article class="contributionteaser">
     <div
       class="inner"
       tabindex="0"
       role="link"
-      @click="$router.push(detaillink)"
-      @keyup.enter="$router.push(detaillink)"
+      @click="$router.push(detailLink)"
+      @keyup.enter="$router.push(detailLink)"
     >
       <img
         class="categoryIcon"
@@ -88,44 +94,57 @@ export default {
         :alt="categoryName"
       />
 
-      <p class="rubric">
+      <p
+        :title="rubricName"
+        class="rubric"
+      >
         {{ rubricName }}
       </p>
+
       <div class="textContent">
-        <h2
-          :id="rndid"
-        >
-          {{ teaser.title }}
+        <h2 :id="rndid">
+          {{ teaser.title | truncate(75, '...') }}
         </h2>
-        <p
+
+        <a
           :aria-describedby="rndid"
+          :href="'#' + detailLink"
           class="detailLink"
           role="link"
         >
-          {{ $t("ContributionList.ContributionListTeaser.routeToEntry") }}<i class="material-icons">play_arrow</i>
-        </p>
+          {{ $t("ContributionList.ContributionListTeaser.routeToEntry") }}
+
+          <i
+            aria-hidden="true"
+            class="material-icons"
+          >
+            play_arrow
+          </i>
+        </a>
+
         <hr />
+
         <div class="subline">
           <div class="meta">
             <p class="created">
               {{ created }}
             </p>
+
             <p class="category">
               {{ categoryName }}
             </p>
           </div>
 
           <div class="activity">
-            <!--
-              @name RatingWidget
-            -->
             <RatingWidget
+              v-if="ratingsAllowed"
               class="rating"
               entityType="node"
               widgetStyle="simple"
               :entityID="teaser.nid"
               :rating="{upVotes: teaser.upVotes, downVotes: teaser.downVotes}"
             />
+
             <p class="comments">
               {{ teaser.comments === 1 ? $t("ContributionList.ContributionListTeaser.comment", {"teaserComments": teaser.comments}) : $t("ContributionList.ContributionListTeaser.comments", {"teaserComments": teaser.comments}) }}
             </p>
@@ -144,14 +163,15 @@ export default {
     }
 
     article.contributionteaser div.inner {
-        background-color: #F0F0F0;
+        background-color: #ffffff;
+        border: 2px solid #707070;
         padding: 10px 32px 32px 32px;
     }
 
     article.contributionteaser div.inner img.categoryIcon {
         height: 40px;
         position: relative;
-        top: -20px;
+        top: -24px;
         margin: 0 0 -10px -10px
     }
 
@@ -162,6 +182,11 @@ export default {
         font-size: 0.8rem;
         margin-left: 10px;
         margin-right: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 65%;
+        text-align: right;
     }
 
     article.contributionteaser div.inner div.textContent h2 {
@@ -174,8 +199,8 @@ export default {
         font-weight: bold;
     }
 
-    article.contributionteaser div.inner div.textContent p.detailLink,
-    article.contributionteaser div.inner div.textContent p.detailLink i {
+    article.contributionteaser div.inner div.textContent a.detailLink,
+    article.contributionteaser div.inner div.textContent a.detailLink i {
         vertical-align: middle;
         text-align: right;
         line-height: 1rem;
@@ -186,7 +211,7 @@ export default {
         white-space: nowrap;
     }
 
-    article.contributionteaser div.inner div.textContent p.detailLink {
+    article.contributionteaser div.inner div.textContent a.detailLink {
         cursor: pointer;
         color: #005CA9;
     }

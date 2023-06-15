@@ -45,10 +45,13 @@ export default {
 </script>
 
 <template>
-  <div class="download">
+  <div
+    class="download"
+    :aria-label="$t('DownloadsBlock.headline')"
+  >
     <i
       class="material-icons"
-      :aria-label="$t('DownloadsBlock.headline')"
+      aria-hidden="true"
     >
       get_app
     </i>&nbsp;

@@ -112,7 +112,7 @@ class DomainEditForm extends DomainEdit {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
 
-    if (!$this->isDefaultDomainCreation()) {
+    if (!$this->isDefaultDomainCreation() && $form_state->getValue('id') !== 'default') {
 
       /** @var \Drupal\domain\DomainInterface $entity */
       $entity = $this->entity;

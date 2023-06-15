@@ -44,11 +44,17 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
   protected $gfiThemes;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * {@inheritdoc}
    */
   protected function setAdditionalDependencies(Container $container) {
     $this->layerService = $container->get('masterportal.layerservice');
     $this->tempStore = $container->get('tempstore.private')->get('masterportal');
+    $this->extensionPathResolver = $container->get('extension.path.resolver');
   }
 
   /**
@@ -59,7 +65,7 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
       $this->gfiThemes = [];
       $masterportal = file_get_contents(sprintf(
         '%s/libraries/masterportal/js/masterportal.js',
-        drupal_get_path('module', 'masterportal')
+        $this->extensionPathResolver->getPath('module', 'masterportal')
       ));
       preg_match_all('~("|\')([^"\']+?)\1===[a-z]\.gfiTheme~ism', $masterportal, $matches);
       $this->gfiThemes = array_merge(['default'], $matches[2]);
@@ -79,7 +85,7 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
   /**
    * {@inheritdoc}
    */
-  final public function getFormSectionElements(FormStateInterface $form_state) {
+  final public function getFormSectionElements(FormStateInterface $form_state, array $settings, $pluginIdentifier) {
 
     // Prepare the container.
     $section = [];
@@ -101,9 +107,13 @@ abstract class LayerSectionBase extends InstanceConfigSectionBase implements Lay
    */
   final protected function getInputRow($property, $delta, array $row_defaults, FormStateInterface $form_state) {
     // Determine the placeholder label for configured layers.
-    $label_placeholder = ($ids = json_decode($row_defaults['id'])) !== NULL && is_array($ids)
-      ? $this->layerService->getLayerNameForCompositeIds($ids)
-      : $this->layerService->getLayerDefinition($row_defaults['id'])->name;
+    if (($ids = json_decode($row_defaults['id'])) !== NULL && is_array($ids)) {
+      $label_placeholder = $this->layerService->getLayerNameForCompositeIds($ids);
+    }
+    else {
+      $definition = $this->layerService->getLayerDefinition($row_defaults['id']);
+      $label_placeholder = is_object($definition) ? $definition->name : $definition;
+    }
 
     // Return the input elements for the current row.
     $row = [

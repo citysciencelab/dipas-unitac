@@ -7,6 +7,7 @@
 namespace Drupal\dipas\Plugin\ResponseKey;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

@@ -1,0 +1,5 @@
+story_step.add_form:
+  route_name: entity.story_step.add_form
+  title: 'Add story step'
+  appears_on:
+    - entity.story_step.collection

@@ -8,13 +8,13 @@ services:
     arguments: ['masterportal']
   masterportal.tokens:
     class: Drupal\masterportal\Service\MasterportalTokenService
-    arguments: ['@logger.channel.masterportal', '@request_stack']
+    arguments: ['@logger.channel.masterportal', '@request_stack', '@extension.path.resolver']
   masterportal.layerservice:
     class: Drupal\masterportal\Service\LayerService
-    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@request_stack', '@plugin.manager.masterportal.layer', '@http_client', '@state', '@cache_tags.invalidator', '@masterportal.instanceservice']
+    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@request_stack', '@plugin.manager.masterportal.layer', '@http_client', '@state', '@cache_tags.invalidator', '@masterportal.instanceservice', '@file_system', '@file.repository']
   masterportal.servicesmanager:
     class: Drupal\masterportal\Service\ServiceManager
-    arguments: ['@masterportal.tokens', '@masterportal.config']
+    arguments: ['@masterportal.tokens', '@masterportal.config', '@logger.channel.masterportal']
   masterportal.instanceservice:
     class: Drupal\masterportal\Service\InstanceService
     arguments: ['@entity_type.manager', '@logger.channel.masterportal', '@config.factory']
@@ -44,13 +44,13 @@ services:
     arguments: ['@entity_type.manager']
   masterportal.renderer:
     class: Drupal\masterportal\Service\Masterportal
-    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@entity_type.manager', '@cache.data', '@request_stack', '@masterportal.layerservice', '@plugin.manager.masterportal.instance_config_section', '@plugin.manager.masterportal.layer_styles', '@plugin.manager.masterportal.layer']
+    arguments: ['@masterportal.config', '@logger.channel.masterportal', '@masterportal.tokens', '@entity_type.manager', '@cache.data', '@request_stack', '@masterportal.layerservice', '@plugin.manager.masterportal.instance_config_section', '@plugin.manager.masterportal.layer_styles', '@plugin.manager.masterportal.layer', '@event_dispatcher']
   masterportal.downloadservice:
     class: Drupal\masterportal\Service\MasterportalDownloadService
-    arguments: ['@file_system', '@request_stack', '@masterportal.renderer']
+    arguments: ['@file_system', '@request_stack', '@masterportal.renderer', '@extension.path.resolver']
   masterportal.addon_request_resolver:
     class: Drupal\masterportal\EventSubscriber\AddonRequestResolver
-    arguments: ['@request_stack']
+    arguments: ['@request_stack', '@extension.path.resolver']
     tags:
       - { name: event_subscriber }
   masterportal.domainhandler:

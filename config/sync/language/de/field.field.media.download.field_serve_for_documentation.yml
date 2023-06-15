@@ -1,0 +1,4 @@
+label: 'Als Verfahrensauswertung kennzeichnen'
+settings:
+  on_label: Ja
+  off_label: Nein

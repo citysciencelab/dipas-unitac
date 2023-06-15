@@ -9,7 +9,6 @@ namespace Drupal\dipas\Service;
 
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\dipas\Controller\DipasConfig;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\State\StateInterface;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
@@ -105,7 +104,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
   /**
    * DipasNlpServices constructor.
    *
-   * @param \Drupal\dipas\Controller\DipasConfig $config_factory
+   * @param \Drupal\dipas\Service\DipasConfigInterface $config
    *   Custom config service.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   Custom logger channel.
@@ -113,7 +112,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
    *   The guzzle ClientInterface.
    * @param \Drupal\Core\State\StateInterface $state
    *   Drupal's key-value-storage.
-   * @param  \Drupal\dipas\Service\EntityServicesInterface $entity_services
+   * @param \Drupal\dipas\Service\EntityServicesInterface $entity_services
    *   Drupal's entity type manager service.
    * @param \Drupal\Core\Database\Connection $db_connection
    *   Drupal database.
@@ -128,7 +127,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function __construct(
-    DipasConfig $config_factory,
+    DipasConfigInterface $config,
     LoggerChannelInterface $logger,
     ClientInterface $guzzle,
     StateInterface $state,
@@ -138,7 +137,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     DateFormatterInterface $date_formatter,
     RequestStack $request_stack
   ) {
-    $this->dipasConfig = $config_factory;
+    $this->dipasConfig = $config;
     $this->logger = $logger;
     $this->guzzle = $guzzle;
     $this->state = $state;
@@ -164,15 +163,15 @@ class DipasNlpServices implements DipasNlpServicesInterface {
   public function executeNlpScoresProcessing(array $contribution_nodes) {
     // Only run service when it is enabled and the previous request has finished.
     if (
-      $this->dipasConfig->get('NLPSettings/enabled') === TRUE &&
-      $this->dipasConfig->get('NLPSettings/enable_score_service') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_score_service') === TRUE &&
       $this->state->get(sprintf('dipas.nlp.score.status%s', $this->domainSuffix)) !== 'Processing'
     ) {
       return $this->executeNlp(
         $contribution_nodes,
         sprintf('dipas.nlp.score.status%s', $this->domainSuffix),
         sprintf('dipas.nlp.score.result%s', $this->domainSuffix),
-        $this->dipasConfig->get('NLPSettings/score_service_basis_url'),
+        $this->dipasConfig->get('NLPSettings.score_service_basis_url'),
         'getScoreServiceHeader',
         'getScoreServiceBody',
         'score_service'
@@ -187,7 +186,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
    *   Array holding the configuration header.
    */
   protected function getScoreServiceHeader() {
-    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings/score_stoplist'))) {
+    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings.score_stoplist'))) {
       $stoplist = preg_split('/\s*,\s*/', trim($stoplistString));
     }
     else {
@@ -195,11 +194,11 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     }
 
     return [
-      'contentScore' => $this->dipasConfig->get('NLPSettings/enable_score_service_content_score'),
-      'responseScore' => $this->dipasConfig->get('NLPSettings/enable_score_service_response_score'),
-      'mutualityScore' => $this->dipasConfig->get('NLPSettings/enable_score_service_mutuality_score'),
-      'relevanceScore' => $this->dipasConfig->get('NLPSettings/enable_score_service_relevance_score'),
-      'sentimentScore' => $this->dipasConfig->get('NLPSettings/enable_score_service_sentiment_score'),
+      'contentScore' => $this->dipasConfig->get('NLPSettings.enable_score_service_content_score'),
+      'responseScore' => $this->dipasConfig->get('NLPSettings.enable_score_service_response_score'),
+      'mutualityScore' => $this->dipasConfig->get('NLPSettings.enable_score_service_mutuality_score'),
+      'relevanceScore' => $this->dipasConfig->get('NLPSettings.enable_score_service_relevance_score'),
+      'sentimentScore' => $this->dipasConfig->get('NLPSettings.enable_score_service_sentiment_score'),
       'language' => 'de',
       'stoplist' => $stoplist,
     ];
@@ -247,15 +246,15 @@ class DipasNlpServices implements DipasNlpServicesInterface {
   public function executeNlpClusteringProcessing(array $contribution_nodes, $filterid = '') {
     // Only run service when it is enabled and the previous request has finished.
     if (
-      $this->dipasConfig->get('NLPSettings/enabled') === TRUE &&
-      $this->dipasConfig->get('NLPSettings/enable_clustering') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_clustering') === TRUE &&
       $this->state->get(sprintf('dipas.nlp.clustering.status%s', $this->domainSuffix)) !== 'Processing'
     ) {
       return $this->executeNlp(
         $contribution_nodes,
         sprintf('dipas.nlp.clustering.status%s', $this->domainSuffix),
         sprintf('dipas.nlp.clustering.result%s%s', ($filterid ? "|$filterid" : ''), $this->domainSuffix),
-        $this->dipasConfig->get('NLPSettings/clustering_service_basis_url'),
+        $this->dipasConfig->get('NLPSettings.clustering_service_basis_url'),
         'getClusteringServiceHeader',
         'getServiceBody',
         'clustering_service'
@@ -270,7 +269,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
    *   Array holding the configuration header.
    */
   protected function getClusteringServiceHeader() {
-    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings/cluster_stoplist'))) {
+    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings.cluster_stoplist'))) {
       $stoplist = preg_split('/\s*,\s*/', trim($stoplistString));
     }
     else {
@@ -278,7 +277,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     }
 
     return [
-      'clusterCount' => $this->dipasConfig->get('NLPSettings/cluster_count'),
+      'clusterCount' => $this->dipasConfig->get('NLPSettings.cluster_count'),
       'language' => 'de',
       'stoplist' => $stoplist,
     ];
@@ -323,15 +322,15 @@ class DipasNlpServices implements DipasNlpServicesInterface {
   public function executeNlpWordcloudProcessing(array $contribution_nodes, $filterid = '') {
     // Only run service when it is enabled and the previous request has finished.
     if (
-      $this->dipasConfig->get('NLPSettings/enabled') === TRUE &&
-      $this->dipasConfig->get('NLPSettings/enable_wordcloud') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_wordcloud') === TRUE &&
       $this->state->get(sprintf('dipas.nlp.wordcloud.status%s', $this->domainSuffix)) !== 'Processing'
     ) {
       return $this->executeNlp(
         $contribution_nodes,
         sprintf('dipas.nlp.wordcloud.status%s', $this->domainSuffix),
         sprintf('dipas.nlp.wordcloud.result%s%s', ($filterid ? "|$filterid" : ''), $this->domainSuffix),
-        $this->dipasConfig->get('NLPSettings/wordcloud_service_basis_url'),
+        $this->dipasConfig->get('NLPSettings.wordcloud_service_basis_url'),
         'getWordcloudServiceHeader',
         'getServiceBody',
         'wordcloud_service'
@@ -346,7 +345,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
    *   Array holding the configuration header.
    */
   protected function getWordcloudServiceHeader() {
-    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings/wordcloud_stoplist'))) {
+    if (!empty($stoplistString = $this->dipasConfig->get('NLPSettings.wordcloud_stoplist'))) {
       $stoplist = preg_split('/\s*,\s*/', trim($stoplistString));
     }
     else {
@@ -354,10 +353,10 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     }
 
     return [
-      'num' => $this->dipasConfig->get('NLPSettings/wordcloud_count'),
+      'num' => $this->dipasConfig->get('NLPSettings.wordcloud_count'),
       'language' => 'de',
       'stoplist' => $stoplist,
-      'dictionary' => $this->dipasConfig->get('NLPSettings/wordcloud_dictionary'),
+      'dictionary' => $this->dipasConfig->get('NLPSettings.wordcloud_dictionary'),
     ];
   }
 

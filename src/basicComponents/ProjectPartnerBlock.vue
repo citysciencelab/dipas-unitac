@@ -44,11 +44,15 @@ export default {
             :href="partnerlogo.logo_link"
             target="_blank"
           >
-            <img :src="partnerlogo.partner_logo" />
+            <img
+              :src="partnerlogo.partner_logo"
+              :alt="partnerlogo.partner_logo_alttext"
+            />
           </a>
           <img
             v-else
             :src="partnerlogo.partner_logo"
+            :alt="partnerlogo.partner_logo_alttext"
           />
         </li>
       </ul>

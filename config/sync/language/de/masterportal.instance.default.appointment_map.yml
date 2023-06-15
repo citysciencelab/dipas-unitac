@@ -6,7 +6,7 @@ settings:
     tools:
       name: Werkzeuge
     filter:
-      name: Katgorieauswahl
+      name: Kategorieauswahl
     legend:
       name: Legende
   SearchBarSettings:

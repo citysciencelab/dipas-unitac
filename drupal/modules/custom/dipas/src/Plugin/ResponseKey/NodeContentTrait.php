@@ -124,7 +124,7 @@ trait NodeContentTrait {
                 ];
                 $html = trim(\Drupal::service('renderer')->render($renderarray));
                 $result[$field][$delta]['html'] = $html;
-                $result[$field][$delta]['origin'] = file_create_url($file->getFileUri());
+                $result[$field][$delta]['origin'] = $this->getFileUrlGenerator()->generateAbsoluteString($file->getFileUri());
                 break;
 
               case 'image':
@@ -136,11 +136,11 @@ trait NodeContentTrait {
                 }
                 else {
                   $result[$field][$delta]['url'] = $this->stripProtocolIndicatorFromUrl(
-                    file_create_url($file->getFileUri())
+                    $this->getFileUrlGenerator()->generateAbsoluteString($file->getFileUri())
                   );
                 }
                 $result[$field][$delta]['origin'] = $this->stripProtocolIndicatorFromUrl(
-                  file_create_url($file->getFileUri())
+                  $this->getFileUrlGenerator()->generateAbsoluteString($file->getFileUri())
                 );
                 $imageStyles = $this->getContentImageStyleList();
                 $result[$field][$delta]['srcset'] = [];
@@ -268,5 +268,10 @@ trait NodeContentTrait {
    * @return \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   abstract protected function getEntityTypeManager();
+
+  /**
+   * @return \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  abstract function getFileUrlGenerator();
 
 }

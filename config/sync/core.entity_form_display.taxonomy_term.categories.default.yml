@@ -18,32 +18,32 @@ bundle: categories
 mode: default
 content:
   field_category_icon:
+    type: image_image
     weight: 1
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-    type: image_image
-    region: content
   field_color:
+    type: color_field_widget_html5
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: color_field_widget_html5
-    region: content
   field_domain_access:
     type: options_buttons
     weight: 40
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_domain_all_affiliates:
     type: boolean_checkbox
+    weight: 41
+    region: content
     settings:
       display_label: true
-    weight: 41
     third_party_settings: {  }
-    region: content
   langcode:
     type: language_select
     weight: 2
@@ -61,10 +61,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 100
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
 hidden:
   description: true

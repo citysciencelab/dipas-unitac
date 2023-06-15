@@ -22,13 +22,15 @@ mode: teaser
 content:
   field_conception_image:
     type: image
-    weight: 0
-    region: content
     label: hidden
     settings:
-      image_style: conception_xl
       image_link: ''
+      image_style: conception_xl
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   field_comments: true
   field_content: true

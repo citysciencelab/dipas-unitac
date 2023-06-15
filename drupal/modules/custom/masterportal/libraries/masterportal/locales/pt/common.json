@@ -38,7 +38,6 @@
             "routing": "Direções",
             "draw": "Desenhar / Escrever",
             "shadow": "Sombra",
-            "styleWMS": "Stilo WMS",
             "commuterLines": "Mobilidade pendular (linhas)",
             "commuterAnimation": "Mobilidade pendular (animação)",
             "layerSlider": "Série temporal",
@@ -92,8 +91,7 @@
             }
           },
           "parametricURL": {
-            "alertZoomToGeometry": "A chamada parametrizada do portal infelizmente correu mal!<br>Por favor, certifique-se de que todos os parâmetros foram introduzidos correctamente.",
-            "alertWrongLayerIds": "<strong>A chamada parametrizada está avariada!</strong> O LAYERIDS nas posições: <b>{{wrongIdsPositionsConcat}}</b> não existem e são ignorados!"
+            "alertWrongLayerIds": "<strong>A chamada parametrizada está avariada!</strong></br>O <b>layerIds</b> nas posições: {{wrongIdsPositionsConcat}} não existem e são ignorados!"
           }
         },
         "alerting": {
@@ -115,8 +113,13 @@
             "languageTitle": "Por favor selecione um idioma",
             "de": "Deutsch",
             "en": "English",
+            "es": "Español",
             "it": "Italiano",
-            "pt": "Português"
+            "platt": "Platt",
+            "pt": "Português",
+            "ru": "Русский",
+            "tr": "Türkçe",
+            "ua": "Українська"
         },
         "cswParser": {
             "noMetadataMessage": "Metadados não estão disponíveis.",
@@ -150,7 +153,7 @@
           "buildings":"Edifício"
         },
         "mapMarker": {
-          "noStyleModel": "Zu der angegebenen StyleId: {{styleId}} konnte keine Style gefunden werden. Bitte überprüfen sie ihre Konfiguration."
+          "nostyleObject": "Zu der angegebenen StyleId: {{styleId}} konnte keine Style gefunden werden. Bitte überprüfen sie ihre Konfiguration."
         },
         "featureViaURL": {
             "coordLabel": "Coordenadas",
@@ -164,11 +167,12 @@
                 "geometryNotSupported": "FeatureViaURL: O tipo de geometria {{geometryType}} na configuração da camada {{layerId}} não é suportado.",
                 "layerNotFound": "FeatureViaURL: A camada com o ID {{layerId}} não foi encontrado.",
                 "noLayers": "FeatureViaURL: Para as funções não existem camadas definidas na configuração.",
-                "noNameDefined": "FeatureViaURL: O nome da camada com o ID {{layerId}} não foi definido nas configurações."
+                "noNameDefined": "FeatureViaURL: O nome da camada com o ID {{layerId}} não foi definido nas configurações.",
+                "defaultTreeNotSupported": "FeatureViaURL só é compatível com Treetype custom ou light."
             }
         },
         "quickHelp": {
-            "titleTag": "Abrir ajuda",
+            "titleTag": "Abrir/fechar ajuda",
             "search": {
                 "title": "Ajuda - Pesquisa",
                 "generalInfo": "Geral",
@@ -240,7 +244,6 @@
                 "errorMessage": " serviço especificado não pôde ser carregado. Por favor, certifique-se de que o URL foi especificado correctamente.<br><br> FSe o problema ainda ocorrer, por favor contacte o operador do serviço com a seguinte nota:<br><strong>Deve-se assegurar que um cabeçalho CORS é definido para o serviço. Isto é recomendado pelo <a target='_blank' href='https://www.gdi-de.org/SharedDocs/Downloads/DE/GDI-DE/Dokumente/Architektur_GDI-DE_Bereitstellung_Darstellungsdienste.pdf?__blob=publicationFile'>GDI-DE</a> no capítulo 4.7.1.</strong>",
                 "errorHttpsMessage": "O WMS que solicitou está localizado sob uma http url. O \"Masterportal\" só pode integrar WMS através de https (SSL).",
                 "placeholder": "Por favor introduza aqui o URL do WMS.",
-                "textExample": "Exemplo: https://geodienste.hamburg.de/HH_WMS_Gruenes_Netz",
                 "textLoadLayer": "Carregar camada",
                 "ifInExtent": "Os geodados fornecidos através do WMS estão fora da área de exposição. Adicionar WMS não é possível.",
                 "checkVersion": "Adicionar WMS só é possível se camada externa do WMS for igual ou superior a versão 1.3.0."
@@ -263,6 +266,7 @@
                 "titlePlaceholder": "Meu Título",
                 "layoutLabel": "Layout",
                 "formatLabel": "Formato",
+                "dpiLabel": "DPI",
                 "scaleLabel": "Escala de impressão",
                 "withLegendLabel": "Com Legenda",
                 "printLabel": "Imprimir",
@@ -287,24 +291,6 @@
               "chooseTheme": "Por favor seleccione o tópico activo",
               "style": "Estilo"
             },
-            "styleWMS": {
-                "noStyleableLayers": "Não há actualmente tópicos classificáveis disponíveis aos quais esta ferramenta possa ser aplicada.",
-                "theme": "Tópico",
-                "chooseTheme": "Por favor seleccione um tópico",
-                "attribute": "Atributo",
-                "chooseAttribute": "Seleccione por favor o atributo",
-                "countOfClasses": "Número de classes",
-                "chooseNumberOfClasses": "Por favor, seleccione o número de classes",
-                "rangeOfValues": "Gama de valores Classe",
-                "from": "de",
-                "to": "a",
-                "reset": "Reiniciar",
-                "apply": "Aplicar",
-                "pleaseEnterInteger": "Por favor, introduza um número inteiro.",
-                "pleaseChooseColor": "Por favor, seleccione uma cor.",
-                "checkTheValues": "Verifique os valores.",
-                "overlappingValueRanges": "Verifique os valores. Os intervalos de valores não devem sobrepor-se."
-            },
             "featureLister": {
                 "chooseTheme": "Escolha o tópico",
                 "visibleVectorLayers": "Camadas vectoriais visíveis",
@@ -313,7 +299,7 @@
                 "more": "Mais...",
                 "detailsOfSelected": "Detalhes da característica seleccionada",
                 "alert": "A tentativa de mostrar a característica seleccionada falhou porque não tem geometria.",
-                "key": "{{shownFeatures.x}} von {{shownFeatures.y}} Features gelistet"
+                "key": "{{shownFeatures}} von {{featureCount}} Features gelistet"
             },
             "layerSlider": {
                 "displayLayers": "Visualização de várias camadas.",
@@ -322,16 +308,7 @@
                 "serviceOne": "Serviço 1",
                 "serviceTwo": "Serviço 2",
                 "serviceThree": "Serviço 3",
-                "key": "Configuração de ferramenta <b>{{alertMessage.x}}</b> incorrecta: <b>sliderType</b> \"{{alertMessage.y}}\" ainda não está implementado!"
-            },
-            "filter": {
-                "result": "Acerto",
-                "results": "Acertos",
-                "zoomOnResults": "Zoom sobre o acerto",
-                "filter": "-Filtro",
-                "yourSelection": "A sua selecção: ",
-                "noFilterOptionSelected": "Ainda sem opção de filtro seleccionada",
-                "deleteAll":"Apagar tudo"
+                "serviceFour": "Serviço 4"
             },
             "pendler": {
                 "animation": {
@@ -496,38 +473,6 @@
                       }
                     }
                 }
-            },
-            "graph": {
-              "localeFormat": {
-                "decimal": "\",\"",
-                "thousands": "\".\"",
-                "grouping": ["3"],
-                "currency": ["€", ""],
-                "dateTime": "\"%a %b %e %X %Y\"",
-                "date": "\"%Y-%m-%d\"",
-                "time": "\"%H:%M:%S\"",
-                "periods": ["AM", "PM"],
-                "days": ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-Feira", "Sábado"],
-                "shortDays": ["Do", "Seg.", "Terç.", "Qua.", "Qui.", "Sx.", "Sa."],
-                "months": ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-                "shortMonths": ["Jan.", "Fev.", "Mar.", "Abr.", "Maio", "Jun.", "Jul.", "Ago.", "Set.", "Out.", "Nov.", "Dez."]
-              }
-            },
-            "viomRouting": {
-                "startAddressLabel": "Endereço de partida",
-                "destinationAddressLabel": "Endereço de destino",
-                "fromPlaceholder": "de",
-                "toPlaceholder": "até",
-                "setStartTimeText": "Especificar a hora de arranque",
-                "routingError": "Mensagem de erro durante o cálculo da rota",
-                "enterStartDestHoverText": "Introduzir partida e destino",
-                "enterOptionsText": "Introduzir opções",
-                "calculateRoute": "Calcular rota",
-                "currentPosition": "Posição actual",
-                "routingCalcError": "Desculpe, a consulta de endereço falhou. Por favor contacte o administrador.",
-                "routingCalcAborted": "Desculpe, a consulta de endereço falhou. Por favor contacte o administrador. Ocorreu o seguinte erro",
-                "addressRequestFailed": "Consulta de endereço falhou",
-                "selectedDestination": "Destino escolhido"
             },
             "searchByCoord": {
                 "exampleAcronym": "Ex.",
@@ -709,7 +654,8 @@
                 "address": "Endereço",
                 "location": "Localização",
                 "subject": "Assunto",
-                "topic": "Tópico"
+                "topic": "Tópico",
+                "general": "Tópico"
             },
             "specialWFS": {
                 "ongoing": "em processo",
@@ -730,9 +676,14 @@
             "noInitialResults": "A pesquisa inicial não resultou em nenhum acerto."
         },
         "vectorStyle": {
-            "styleModel": {
+            "styleObject": {
                 "getGeometryTypeFromWFSFetchfailed": "A legenda não podia ser criada na camada de informação!",
                 "getGeometryTypeFromWFSFetchfailedMessage": "Detalhes: Um serviço necessário não responde."
+            }
+        },
+        "wmsTime": {
+            "layerSwiper": {
+              "title": "Confrontare gli strati"
             }
         },
         "legend": {
@@ -740,11 +691,6 @@
             "linkToPdf": "Para a lenda externa (PDF)",
             "noLegendForLayerInfo": "Legenda não disponível",
             "toggleCollapseAll": "Mostrar/ocultar todas as legendas"
-        },
-        "zoomToGeometry": {
-          "alertNoFoundFeature": "Nenhum objecto foi encontrado! Por favor verifique os parâmetros de entrada.",
-          "alertParameterizedAccess": "A chamada parametrizada do portal infelizmente correu mal!",
-          "alertRequiredService": "Detalhes: Um serviço necessário não responde."
         }
     },
     "snippets": {

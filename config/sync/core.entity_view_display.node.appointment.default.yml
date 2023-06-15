@@ -23,47 +23,48 @@ bundle: appointment
 mode: default
 content:
   field_address:
-    weight: 1
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 1
     region: content
   field_date:
-    weight: 2
+    type: daterange_default
     label: above
     settings:
-      separator: '-'
-      format_type: medium
       timezone_override: ''
+      format_type: medium
+      separator: '-'
     third_party_settings: {  }
-    type: daterange_default
+    weight: 2
     region: content
   field_description:
-    weight: 3
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 3
     region: content
   field_localization:
-    weight: 4
+    type: geofield_latlon
     label: above
     settings:
       output_format: decimal
     third_party_settings: {  }
-    type: geofield_latlon
+    weight: 4
     region: content
   field_topic:
-    weight: 0
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
 hidden:
   field_domain_access: true
   field_domain_all_affiliates: true
+  field_geodata: true
   langcode: true
   links: true

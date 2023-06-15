@@ -24,10 +24,10 @@ content:
     weight: 2
     region: content
     settings:
+      width: 100%
+      autocomplete: false
       match_operator: CONTAINS
       match_limit: 10
-      autocomplete: false
-      width: 100%
     third_party_settings: {  }
   language:
     weight: 1

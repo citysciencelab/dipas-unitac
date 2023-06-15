@@ -132,7 +132,7 @@ export default {
     }
 
     div.checkbox-wrapper label.withIcon span {
-        padding-left: 20px;
+        padding-left: 1.5rem;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: top left;

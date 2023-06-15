@@ -51,4 +51,12 @@ class ResponseKey extends Plugin {
    */
   public $isCacheable;
 
+  /**
+   * Indicating if requests to this endpoint should be secured by a request token.
+   *
+   * @var bool
+   * @default FALSE
+   */
+  public $shieldRequest = FALSE;
+
 }

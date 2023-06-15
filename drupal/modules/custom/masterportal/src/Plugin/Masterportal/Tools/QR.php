@@ -26,7 +26,6 @@ class QR extends PluginBase {
   public static function getDefaults() {
     return [
       'name' => 'QR-Code',
-      'glyphicon' => 'glyphicon-qrcode',
       'text' => \Drupal::service('string_translation')->translate('Tap on the map to generate a QR code leading to the contribution wizard.',
         [], ['context' => 'Masterportal']),
       'url' => '',
@@ -55,11 +54,6 @@ class QR extends PluginBase {
         '#default_value' => $this->text,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
       'url' => [
         '#type' => 'textfield',
         '#title' => $this->t('URL'),
@@ -77,7 +71,6 @@ class QR extends PluginBase {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
       'text' => $this->text,
       'url' => $this->url,
       'projection' => $this->projection,
@@ -89,7 +82,6 @@ class QR extends PluginBase {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->text = $this->text;
     $pluginSection->urlSchema = "$this->url?lat={{LAT}}&lon={{LON}}";
     $pluginSection->projection = $this->projection;

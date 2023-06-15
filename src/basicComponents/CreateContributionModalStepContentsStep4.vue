@@ -170,10 +170,16 @@ export default {
     >
       <i
         class="material-icons"
+        aria-hidden="true"
       >
         info
       </i>
-      <span class="infotext">{{ $t("CreateContributionModal.StepMap.infotext_" + geometryType) }}</span>
+      <span
+        :aria-label="$t('CreateContributionModal.StepMap.infoSymbol')"
+        class="infotext"
+      >
+        {{ $t("CreateContributionModal.StepMap.infotext_" + geometryType) }}
+      </span>
     </p>
     <!--
       @name Masterportal
@@ -194,7 +200,22 @@ export default {
 <style>
     div.createContributionStep4 {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        height: 100%;
     }
+
+    #app.mobile div.createContributionStep4 h3,
+    #app.mobile div.createContributionStep4 p,
+    #app.mobile div.createContributionStep4 fieldset {
+      flex: 1 1 0%;
+    }
+
+    #app.mobile div.createContributionStep4 .masterportal {
+      flex: 25 1 0%;
+    }
+
 
     #app.mobile div.createContributionStep4 p.usageHint {
         margin: 0 0 5px 0;
@@ -219,10 +240,6 @@ export default {
 
     #app.mobile div.createContributionStep4 p.usageHint.infotextHidden span.infotext {
         display: none;
-    }
-
-    #app.mobile div.createContributionStep4 div.masterportal {
-        height: calc((var(--vh, 1vh) * 100) - 225px);
     }
 
     #app.mobile div.createContributionStep4 div.masterportal div.aspectRatioWrapper {

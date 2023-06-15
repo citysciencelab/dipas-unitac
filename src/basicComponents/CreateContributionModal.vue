@@ -128,8 +128,7 @@ export default {
           }
         case 4:
           if (
-            this.step === 4 &&
-                            !(this.contributionMustBeLocalized && !Object.keys(JSON.parse(this.contributionData.step4.geodata)).length)
+            this.step === 4 && !(this.contributionMustBeLocalized && !Object.keys(JSON.parse(this.contributionData.step4.geodata)).length)
           ) {
             return false;
           }
@@ -326,10 +325,13 @@ export default {
     #app.mobile div.createContributionModal div.createWizard {
         width: 100%;
         height: calc((var(--vh, 1vh) * 100) - 60px);
+        display: flex;
+        flex-direction: column;
     }
 
     #app.mobile div.createContributionModal div.createWizard ul.createContributionStepIndicator {
         height: 12px;
+        flex: 1 1 0%;
     }
 
     div.createContributionModal div.createWizard div.actions {
@@ -337,6 +339,9 @@ export default {
         flex-flow: row;
         justify-content: space-between;
         margin-top: 1rem;
+        position: sticky;
+        bottom: 5px;
+        z-index: 100;
      }
 
     div.createContributionModal div.createWizard .infoTextZuKurz{
@@ -353,7 +358,7 @@ export default {
     }
 
     #app.mobile div.createContributionModal div.createWizard div.createContributionStep {
-        height: calc((var(--vh, 1vh) * 100) - 170px);
+        flex: 20 1 0%;
     }
 
     #app.mobile div.createContributionModal div.createWizard div.createContributionStep.step1 {
@@ -361,31 +366,30 @@ export default {
     }
 
     #app.mobile div.createContributionModal div.createWizard div.actions {
-        height: 40px;
-        position: fixed;
-        right: 4%;
-        bottom: 3%;
-        left: 4%;
         margin-top:15px;
+        flex: 1 1 0%;
     }
 
     div.createContributionModal div.createWizard div.actions button {
         display: inline-block;
-        width: 150px;
+        width: auto;
         height: 40px;
+        padding: 10px 30px;
     }
 
     div.createContributionModal div.createWizard div.actions button.dipasButton .customIcon {
         font-size: 1.625rem;
-        vertical-align: bottom;
+        vertical-align: middle;
         font-weight: normal;
     }
 
     div.createContributionModal div.createWizard div.actions button.dipasButton .customIcon.left {
         margin-right: -5px;
+        padding-bottom:2px;
     }
 
     div.createContributionModal div.createWizard div.actions button.dipasButton .customIcon.right {
         margin-left: -5px;
+        padding-bottom:2px;
     }
 </style>

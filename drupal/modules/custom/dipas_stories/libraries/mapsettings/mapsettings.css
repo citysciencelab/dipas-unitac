@@ -1,0 +1,9 @@
+.horizontal-tabs-panes > .horizontal-tabs {
+  display: none;
+}
+
+.horizontal-tabs-pane > .seven-details__wrapper > .seven-details__description {
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: solid 1px #999;
+}

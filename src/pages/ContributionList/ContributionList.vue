@@ -58,6 +58,9 @@ export default {
       "takesNewContributions",
       "frontpage"
     ]),
+    htmlPageTitle () {
+      return this.$t("ContributionList.title");
+    },
     /**
      * @name projectStarted
      * @returns {String} date of project start
@@ -189,6 +192,17 @@ export default {
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
         <h1>{{ $t('ContributionList.title') }}</h1>
 
+        <p
+          role="status"
+        >
+          {{ $t('ContributionList.itemCount') }}: {{ contributionList.totalNodes }}
+          <span
+            v-if="filtersApplied"
+          >
+            ({{ $t('ContributionList.filtered') }})
+          </span>
+        </p>
+
         <div
           v-if="showNodes"
           class="row teaserlist"
@@ -227,7 +241,12 @@ export default {
             class="col-xs-12 col-12 loadMore"
             @click="loadMore"
           >
-            <i class="material-icons">list</i>
+            <i
+              aria-hidden="true"
+              class="material-icons"
+            >
+              list
+            </i>
             {{ $t('ContributionList.loadMore') }}
           </p>
 

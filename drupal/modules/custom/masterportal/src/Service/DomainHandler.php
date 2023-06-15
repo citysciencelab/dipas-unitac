@@ -58,16 +58,16 @@ class DomainHandler implements DomainHandlerInterface {
   /**
    * {@inheritdoc}
    */
-  public function onDomainEdit(DomainInterface $domain) {
+  public function onDomainEdit(DomainInterface $domain, bool $isNew, string $previousId) {
     $domainConfig = $this->getDomainConfiguration($domain, 'masterportal.config', 'layers');
-    // "isNew" will be true, if no configuration for this subdomain exists.
-    if ($domainConfig->isNew()) {
+
+    if ($isNew) {
       $this->createDefaultConfiguration($domain);
       $event = new DomainCreate($domain);
       $this->eventDispatcher->dispatch(DomainCreate::EVENT_NAME, $event);
     }
     else {
-      $event = new DomainEdit($domain);
+      $event = new DomainEdit($domain, $previousId);
       $this->eventDispatcher->dispatch(DomainEdit::EVENT_NAME, $event);
     }
   }

@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.dipas_story
+    - field.field.media.image.field_caption
+    - field.field.media.image.field_copyright
+    - field.field.media.image.field_domain_access
+    - field.field.media.image.field_domain_all_affiliates
+    - field.field.media.image.field_media_image
+    - image.style.content_image_xl
+    - media.type.image
+  module:
+    - image
+id: media.image.dipas_story
+targetEntityType: media
+bundle: image
+mode: dipas_story
+content:
+  field_media_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: content_image_xl
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_caption: true
+  field_copyright: true
+  field_domain_access: true
+  field_domain_all_affiliates: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

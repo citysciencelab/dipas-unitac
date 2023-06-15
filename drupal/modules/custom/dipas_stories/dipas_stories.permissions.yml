@@ -1,0 +1,13 @@
+administer story step:
+  title: 'Administer story step settings'
+  restrict access: true
+access story step overview:
+  title: 'Access story step overview page'
+delete story step:
+  title: Delete story step
+create story step:
+  title: Create story step
+view story step:
+  title: View story step
+edit story step:
+  title: Edit story step

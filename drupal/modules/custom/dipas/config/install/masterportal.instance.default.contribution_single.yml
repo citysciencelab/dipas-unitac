@@ -79,14 +79,11 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
       name: Filter
-      glyphicon: glyphicon-filter
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -96,7 +93,6 @@ settings:
       predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: ' '
     logo: ''
@@ -126,6 +122,5 @@ settings:
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
         name: 'Informationen abfragen'
-        glyphicon: glyphicon-info-sign
         isActive: true
         isVisibleInMenu: false

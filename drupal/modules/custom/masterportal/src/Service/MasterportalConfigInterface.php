@@ -19,7 +19,7 @@ interface MasterportalConfigInterface {
    * @param string $key
    *   The key the desired configuration is stored beneath.
    *
-   * @return \Drupal\Core\Config\ImmutableConfig
+   * @return array
    *   The configuration values stored under the key given.
    */
   public function get($key);

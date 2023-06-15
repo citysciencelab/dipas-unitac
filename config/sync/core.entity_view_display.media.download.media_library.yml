@@ -20,16 +20,19 @@ content:
     type: image
     label: hidden
     settings:
-      image_style: medium
       image_link: ''
-    weight: 0
+      image_style: medium
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   created: true
   field_domain_access: true
   field_domain_all_affiliates: true
   field_media_file: true
+  field_serve_for_documentation: true
   langcode: true
   name: true
   uid: true

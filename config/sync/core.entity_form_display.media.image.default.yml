@@ -18,42 +18,42 @@ bundle: image
 mode: default
 content:
   field_caption:
+    type: string_textfield
     weight: 27
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_copyright:
+    type: string_textfield
     weight: 26
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_domain_access:
     type: options_buttons
     weight: 40
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_domain_all_affiliates:
     type: boolean_checkbox
+    weight: 41
+    region: content
     settings:
       display_label: true
-    weight: 41
     third_party_settings: {  }
-    region: content
   field_media_image:
+    type: image_image
     weight: 1
+    region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-    type: image_image
-    region: content
   name:
     type: string_textfield
     weight: 0

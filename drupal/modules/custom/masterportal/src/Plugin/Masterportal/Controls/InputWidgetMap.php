@@ -7,6 +7,7 @@
 namespace Drupal\masterportal\Plugin\Masterportal\Controls;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\masterportal\Annotation\ControlPlugin;
 
 /**
  * Defines a control plugin implementation for the isInputMap property.
@@ -22,7 +23,14 @@ use Drupal\Core\Form\FormStateInterface;
 class InputWidgetMap extends ControlPluginBase {
 
   /**
-   * Should setMarker be used (only for GeofieldLatLonWidgets)?
+   * The target map projection to be used.
+   *
+   * @var String
+   */
+  protected $targetProjection;
+
+  /**
+   * Should setMarker be used?
    *
    * @var bool
    */
@@ -40,6 +48,7 @@ class InputWidgetMap extends ControlPluginBase {
    */
   public static function getDefaults() {
     return [
+      'targetProjection' => 'EPSG:4326',
       'setMarker' => FALSE,
       'setCenter' => FALSE,
     ];
@@ -49,10 +58,25 @@ class InputWidgetMap extends ControlPluginBase {
    * {@inheritdoc}
    */
   public function getForm(FormStateInterface $form_state, $dependantSelector = FALSE, $dependantSelectorProperty = NULL, $dependantSelectorValue = NULL) {
+    $projectionOptions = array_map(
+      function ($projection) {
+        return $projection['name'];
+      },
+      $this->masterportalConfigService->get('projections')
+    );
+
     return [
+      'targetProjection' => [
+        '#type' => 'select',
+        '#title' => $this->t('Target map projection', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('The projection that the coordinates should utilize when being transferred from the Masterportal', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->targetProjection,
+        '#options' => array_combine($projectionOptions, $projectionOptions),
+        '#required' => TRUE,
+      ],
       'setMarker' => [
         '#type' => 'checkbox',
-        '#title' => $this->t('Use setMarker (only for GeofieldLatLonWidgets)?', [], ['context' => 'Masterportal']),
+        '#title' => $this->t('Use setMarker?', [], ['context' => 'Masterportal']),
         '#description' => $this->t('If this Masterportal is used in conjunction with a Geofield, check this option.', [], ['context' => 'Masterportal']),
         '#default_value' => $this->setMarker,
       ],
@@ -99,7 +123,7 @@ class InputWidgetMap extends ControlPluginBase {
    */
   public function injectJavascriptConfiguration(\stdClass &$config) {
     $config->inputMap = (object) [
-      'targetProjection' => 'EPSG:4326',
+      'targetProjection' => $this->targetProjection,
       'setCenter' => $this->setCenter,
       'setMarker' => $this->setMarker,
     ];

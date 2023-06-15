@@ -6,13 +6,13 @@
 
 namespace Drupal\dipas\Plugin\QueueWorker;
 
+use Drupal\Core\Annotation\QueueWorker;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Queue\PostponeItemException;
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\Core\Queue\SuspendQueueException;
 use Drupal\Core\State\StateInterface;
-use Drupal\dipas\Controller\DipasConfig;
+use Drupal\dipas\Service\DipasConfig;
 use Drupal\dipas\Service\DipasNlpServicesInterface;
 use Drupal\masterportal\DomainAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,7 +77,7 @@ class NLPRequestQueue extends QueueWorkerBase implements ContainerFactoryPluginI
       $pluginDefinition,
       $container->get('entity_type.manager'),
       $container->get('state'),
-      $container->get('dipasconfig.api'),
+      $container->get('dipas.config'),
       $container->get('dipas.nlp_services')
     );
   }
@@ -132,21 +132,21 @@ class NLPRequestQueue extends QueueWorkerBase implements ContainerFactoryPluginI
     $contributions = $this->nodeStorage->loadMultiple($contribution_ids);
 
     if (
-      $this->dipasConfig->get('NLPSettings/enable_score_service') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_score_service') === TRUE &&
       !$this->nlpService->executeNlpScoresProcessing($contributions)
     ) {
       throw new SuspendQueueException('This queue run is skipped because of an unexpected error in requesting NLP scores service.');
     }
 
     if (
-      $this->dipasConfig->get('NLPSettings/enable_clustering') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_clustering') === TRUE &&
       !$this->nlpService->executeNlpClusteringProcessing($contributions)
     ) {
       throw new SuspendQueueException('This queue run is skipped because of an unexpected error in requesting NLP clustering service.');
     }
 
     if (
-      $this->dipasConfig->get('NLPSettings/enable_wordcloud') === TRUE &&
+      $this->dipasConfig->get('NLPSettings.enable_wordcloud') === TRUE &&
       !$this->nlpService->executeNlpWordcloudProcessing($contributions)
     ) {
       throw new SuspendQueueException('This queue run is skipped because of an unexpected error in requesting NLP wordcloud service.');

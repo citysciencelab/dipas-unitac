@@ -18,29 +18,31 @@ bundle: categories
 mode: default
 content:
   description:
-    label: hidden
     type: text_default
-    weight: 0
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_category_icon:
-    weight: 1
+    type: image
     label: above
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
-    type: image
+    weight: 1
     region: content
   field_color:
-    weight: 2
+    type: color_field_formatter_text
     label: above
     settings:
       format: hex
       opacity: true
     third_party_settings: {  }
-    type: color_field_formatter_text
+    weight: 2
     region: content
 hidden:
   field_domain_access: true

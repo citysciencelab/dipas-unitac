@@ -44,6 +44,11 @@ In addition to placing the required files in the correct location within the DIP
 Any further occurrences which may be found by the search by ‘mastercode’ search which may include “/locales/{{lng}}/{{ns}}.json” can be ignored as the path to the language files can be defined in the base Javascript configurations of the Masterportal.
 
 
+## CSS adjustments
+
+If the images of the 3D control are not loaded the pathes in the masterportal.css may have to be adjusted so that the paths starts with ../ e.g. url("../img/compass/pointer-west-short.png")
+
+
 ## Addons
 
 If there are any addons required to be added to the Masterportal those addons need to be cloned from the Addon repository to the ‘addons’ folder of the Masterportal before running the build process so that the addons will be incorporated into the build of the Masterportal.

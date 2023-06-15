@@ -4,8 +4,9 @@ namespace Drupal\dipas\Plugin\views\filter;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\dipas\Controller\DipasConfig;
+use Drupal\dipas\Service\DipasConfigInterface;
 use Drupal\dipas\Service\DipasNlpServicesInterface;
+use Drupal\views\Annotation\ViewsFilter;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\filter\ManyToOne;
 use Drupal\views\ViewExecutable;
@@ -41,7 +42,7 @@ class DipasNLPClusterFilter extends ManyToOne implements ContainerFactoryPluginI
       $plugin_id,
       $plugin_definition,
       $container->get('dipas.nlp_services'),
-      $container->get('dipasconfig.api')
+      $container->get('dipas.config')
     );
   }
 
@@ -52,14 +53,14 @@ class DipasNLPClusterFilter extends ManyToOne implements ContainerFactoryPluginI
    * @param $plugin_id
    * @param $plugin_definition
    * @param \Drupal\dipas\Service\DipasNlpServicesInterface $nlp_services
-   * @param \Drupal\dipas\Controller\DipasConfig $config
+   * @param \Drupal\dipas\Service\DipasConfigInterface $config
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     DipasNlpServicesInterface $nlp_services,
-    DipasConfig $config
+    DipasConfigInterface $config
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->nlpServices = $nlp_services;
@@ -71,7 +72,7 @@ class DipasNLPClusterFilter extends ManyToOne implements ContainerFactoryPluginI
    */
   public function init(ViewExecutable $view, DisplayPluginBase $display, array &$options = NULL) {
     parent::init($view, $display, $options);
-    if ($this->config->get('NLPSettings/enabled') && $this->config->get('NLPSettings/enable_clustering')) {
+    if ($this->config->get('NLPSettings.enabled') && $this->config->get('NLPSettings.enable_clustering')) {
       $this->valueTitle = t('Filter by cluster');
       $this->definition['options callback'] = [$this->nlpServices, 'getClusterOptions'];
     }

@@ -1,0 +1,8 @@
+name: 'DIPAS Dev Tools'
+description: 'Provides functions for the DIPAS development environment.'
+type: module
+package : DIPAS
+core_version_requirement: ^9.5 || ^10
+version: 9.x-1.0-alpha
+dependencies:
+  - drupal:dipas

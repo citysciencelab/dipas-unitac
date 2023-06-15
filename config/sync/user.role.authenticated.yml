@@ -1,11 +1,14 @@
 uuid: ca8a1d11-25cd-4327-bfc8-dc17fcb5168f
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - media
+    - system
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
 id: authenticated
-label: 'Angemeldeter Benutzer'
+label: 'Authenticated user'
 weight: 1
 is_admin: false
 permissions:

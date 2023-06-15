@@ -90,7 +90,7 @@ export default {
      * @returns {String} labelStyle
      */
     labelStyle: function () {
-      return this.icon ? "background-image: url(" + this.icon + ")" : "";
+      return this.icon ? this.icon : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=";
     }
   }
 };
@@ -112,8 +112,13 @@ export default {
     <label
       :for="uniqueId"
       :class="{withIcon: icon}"
+      aria-describedby="radioheadline"
     >
-      <span :style="labelStyle">{{ label }}</span>
+      <img
+        :src="labelStyle"
+        alt=""
+      />
+      {{ label }}
     </label>
   </div>
 </template>
@@ -170,5 +175,9 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         background-position: top left;
+    }
+
+    div.radio-wrapper label.withIcon img {
+        height: 25px;
     }
 </style>

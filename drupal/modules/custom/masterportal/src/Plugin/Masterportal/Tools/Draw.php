@@ -31,18 +31,18 @@ class Draw extends PluginBase implements ToolPluginInterface {
   protected $name;
 
   /**
-   * The icon this plugin uses in the UI.
-   *
-   * @var string
-   */
-  protected $glyphicon;
-
-  /**
    * Flag determining if this tool is listed in the Masterportal menu.
    *
    * @var boolean
    */
   protected $visibleInMenu;
+
+   /**
+   * Flag determining if this tool will be opened in window
+   * 
+   * @var boolean
+   */
+  protected $renderToWindow;
 
   /**
    * {@inheritdoc}
@@ -50,8 +50,8 @@ class Draw extends PluginBase implements ToolPluginInterface {
   public static function getDefaults() {
     return [
       'name' => 'Zeichnen / Schreiben',
-      'glyphicon' => 'glyphicon-resize-full',
       'visibleInMenu' => TRUE,
+      'renderToWindow' => FALSE,
     ];
   }
 
@@ -73,17 +73,18 @@ class Draw extends PluginBase implements ToolPluginInterface {
         '#description' => $this->t('Uncheck to hide this tool from being listed in the Masterportal menu.', [], ['context' => 'Masterportal']),
         '#default_value' => $this->visibleInMenu,
       ],
+      'renderToWindow' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Draw-Tool opens in a seperate window', [], ['context' => 'Masterportal']),
+        '#description' => $this->t('Check, to open this tool in a seperate window.', [], ['context' => 'Masterportal']),
+        '#default_value' => $this->renderToWindow ?? FALSE,
+      ],
       'name' => [
         '#type' => 'textfield',
         '#title' => $this->t('Name', [], ['context' => 'Masterportal']),
         '#default_value' => $this->name,
         '#states' => $states,
       ],
-      'glyphicon' => $this->getGlyphiconSelect(
-        $this->glyphicon,
-        'Please choose',
-        $states
-      ),
     ];
   }
 
@@ -93,8 +94,8 @@ class Draw extends PluginBase implements ToolPluginInterface {
   public function getConfigurationArray(FormStateInterface $form_state) {
     return [
       'name' => $this->name,
-      'glyphicon' => $this->glyphicon,
       'visibleInMenu' => $this->visibleInMenu,
+      'renderToWindow' => $this->renderToWindow,
     ];
   }
 
@@ -103,8 +104,8 @@ class Draw extends PluginBase implements ToolPluginInterface {
    */
   public function injectConfiguration(\stdClass &$pluginSection) {
     $pluginSection->name = $this->name;
-    $pluginSection->glyphicon = $this->glyphicon;
     $pluginSection->visibleInMenu = $this->visibleInMenu;
+    $pluginSection->renderToWindow = $this->renderToWindow ?? FALSE;
   }
 
 }

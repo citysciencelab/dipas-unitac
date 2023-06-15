@@ -110,8 +110,14 @@ export default {
           <span
             v-if="!showMenu"
             class="threedots"
+            :aria-label="$t('MobileView.threeDots')"
           >
-            <i class="material-icons">more_vert</i>
+            <i
+              aria-hidden="true"
+              class="material-icons"
+            >
+              more_vert
+            </i>
           </span>
 
           <span
@@ -130,8 +136,14 @@ export default {
           <span
             v-if="showMenu"
             class="closeIcon"
+            :aria-label="$t('MobileView.closeButton')"
           >
-            <i class="material-icons">clear</i>
+            <i
+              aria-hidden="true"
+              class="material-icons"
+            >
+              clear
+            </i>
           </span>
         </div>
         <!--
@@ -143,11 +155,12 @@ export default {
           tabindex="0"
           class="filterButton"
           :class="{filterButtonActive: $root.showFilter}"
+          :aria-label="$t('ContributionList.ContributionListFilter.filterOptions')"
           @click="$root.showFilter = !$root.showFilter"
           @keyup.enter="$root.showFilter = !$root.showFilter"
         >
           <i
-            :aria-label="$t('ContributionList.ContributionListFilter.filterOptions')"
+            aria-hidden="true"
             class="material-icons"
           >
             filter_list
@@ -373,7 +386,6 @@ export default {
 
     #app.mobile section.header div.menuContents div.menuFooter {
         padding: 20px 20px 30px 20px;
-        position: absolute;
         bottom: 0;
         width: 100%;
     }

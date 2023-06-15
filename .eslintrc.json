@@ -222,7 +222,7 @@
       "no-useless-computed-key": "error",
       "no-useless-constructor": "error",
       "no-useless-rename": "error",
-      "prefer-const": "error",
+      "prefer-const": "off",
       "prefer-numeric-literals": "error",
       "prefer-rest-params": "error",
       "padding-line-between-statements": [

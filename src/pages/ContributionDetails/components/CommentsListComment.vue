@@ -192,7 +192,7 @@ export default {
         v-if="commentsOpen"
         class="addComment"
         tabindex="0"
-        role="link"
+        role="button"
         :aria-describedby="'comment-' + comment.cid"
         @click="addComment(comment.cid)"
         @keyup.enter="addComment(comment.cid)"
@@ -239,7 +239,7 @@ export default {
 <style>
     div.comment,
     div.reply {
-        padding: 30px 30px 10px;
+        padding: 15px 30px 10px;
         transition: .5s;
     }
 
@@ -252,15 +252,21 @@ export default {
         padding-bottom: 0px;
     }
 
+    div.comments p.text {
+        margin-bottom: 0.5rem;
+    }
+
     div.comment {
-        background-color: #F0F0F0;
+        background-color: #ffffff;
+        border: 2px solid #707070;
         margin-bottom: 20px;
+        padding-top: 20px;
         word-break: break-word;
     }
 
     div.reply {
-        background-color: #E3E3E3;
-        border-top: solid 1px #707070;
+        background-color: #ffffff;
+/*        border-top: solid 2px #c7c7c7; */
     }
 
     div.reply p.text span.subject {
@@ -269,9 +275,17 @@ export default {
         cursor: pointer;
     }
 
-    div.replies div.reply:last-child {
-        border-bottom: solid 1px #707070;
-        margin-bottom: 20px;
+    div.replies {
+        border-top: 2px solid #c7c7c7;
+    }
+
+    div.replies p.text {
+        padding-top:20px;
+        border-top: 2px solid #c7c7c7;
+    }
+
+    div.replies div.reply:first-child p.text {
+         border: none;
     }
 
     div.commentWrapper div.subline p {
@@ -285,7 +299,8 @@ export default {
 
     div.commentWrapper div.subline p.addComment {
         color: #005CA9;
-        font-weight: bold;;
+        font-weight: bold;
+        margin-bottom: 0;
     }
 
     div.commentWrapper div.subline p.addComment {

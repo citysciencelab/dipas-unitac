@@ -9,7 +9,6 @@ namespace Drupal\dipas\Plugin\PDSResponse;
 use stdClass;
 use Drupal\Core\Url;
 use Drupal\masterportal\GeoJSONFeature;
-use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\dipas\Plugin\ResponseKey\RetrieveRatingTrait;
 use Drupal\dipas\Plugin\ResponseKey\RetrieveCommentsTrait;
@@ -111,6 +110,13 @@ class PDSContributionList extends PDSResponseBase {
     $features = [];
     $domain_id = $this->domainModulePresent ? $this->currentRequest->attributes->get('proj_ID'): 'default';
 
+    $config_id = sprintf('dipas.%s.configuration', $domain_id);
+    $dipasConfigDomain = $this->dipasConfig->getEditable($config_id);
+
+    if ($dipasConfigDomain->get('Export.proceeding_is_internal')) {
+      return $features;
+    }
+
     $query = $this->nodeStorage->getQuery()
                   ->condition('type', 'contribution', '=')
                   ->condition('status', 1, '=')
@@ -134,7 +140,7 @@ class PDSContributionList extends PDSResponseBase {
       // find non-localized contributions to add project area gemetry instead.
       if (empty($geodata) || ($geodata = json_decode($geodata)) === null || count((array) $geodata) === 0) {
         $dipasLocated = false;
-        $geodata = json_decode($this->dipasConfig->get('ProjectArea/project_area'));
+        $geodata = json_decode($this->dipasConfig->get('ProjectArea.project_area'));
 
         if (!$geodata || !isset($geodata->coordinates) || count($geodata->coordinates) === 0) {
           $geodata = new stdClass;
@@ -266,4 +272,3 @@ class PDSContributionList extends PDSResponseBase {
   }
 
 }
-

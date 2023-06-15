@@ -23,21 +23,21 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 1
     target_bundles:
       planning_subarea: planning_subarea
       conception: conception
       accordeon_item: accordeon_item
+    negate: 1
     target_bundles_drag_drop:
       accordeon:
         weight: -10
         enabled: false
       accordeon_item:
-        enabled: true
         weight: 10
-      conception:
         enabled: true
+      conception:
         weight: -8
+        enabled: true
       division_in_planning_subareas:
         weight: 12
         enabled: false
@@ -45,8 +45,8 @@ settings:
         weight: -12
         enabled: false
       planning_subarea:
-        enabled: true
         weight: -9
+        enabled: true
       text:
         weight: -13
         enabled: false

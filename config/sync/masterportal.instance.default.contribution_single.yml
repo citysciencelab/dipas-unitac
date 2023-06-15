@@ -3,29 +3,20 @@ langcode: en
 status: true
 dependencies: {  }
 id: default.contribution_single
-uid: '0'
 instance_name: contribution_single
-label: 'Single contribution display'
 domain: default
-hidden: false
+label: 'Single contribution display'
 settings:
-  BackgroundLayerSettings:
-    layer:
-      -
-        id: '19969'
-        custom:
-          visibility: true
-          gfiTheme: default
   DesignSettings:
     uiStyle: default
     treeType: custom
     scaleLine: 0
     simpleMap: 1
     backgroundImage: '{{library_path}}/img/backgroundCanvas.jpeg'
-  ForegroundLayerSection:
+  BackgroundLayerSettings:
     layer:
       -
-        id: contributions
+        id: '19969'
         custom:
           visibility: true
           gfiTheme: default
@@ -76,25 +67,47 @@ settings:
     epsg: 'EPSG:25832'
   MenuSettings:
     tree:
-      name: Themen
-      glyphicon: glyphicon-list
+      name: Topics
       isInitOpen: false
     tools:
-      name: Werkzeuge
-      glyphicon: glyphicon-wrench
+      name: Tools
+    legend:
+      name: Legend
     filter:
-      name: Filter
-      glyphicon: glyphicon-filter
+      name: Category selection
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
       liveZoomToFeatures: false
       allowMultipleQueriesPerLayer: false
       isVisibleInMenu: false
-      predefinedQueries: "[\n    {\n        \"layerId\": \"contributions\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\",\n            \"Rubric\"\n        ]\n    }\n]"
-    legend:
-      name: Legende
-      glyphicon: glyphicon-book
+      predefinedQueries: '[]'
+      layers: |-
+        [
+            {
+                "layerId": "contributions",
+                "strategy": "active",
+                "showHits": false,
+                "snippetTags": false,
+                "snippets": [
+                    {
+                        "type": "dropdown",
+                        "attrName": "Thema",
+                        "operator": "IN",
+                        "display": "list",
+                        "multiselect": true,
+                        "addSelectAll": false,
+                        "renderIcons": "fromLegend",
+                        "info": false,
+                        "prechecked": "all",
+                        "showAllValues": true,
+                        "resetLayer": true
+                    }
+                ]
+            }
+        ]
+      active: false
+      layerSelectorVisible: false
   PortalSettings:
     title: ' '
     logo: ''
@@ -102,13 +115,6 @@ settings:
     tooltip: 'Landesbetrieb Geoinformation und Vermessung'
     activePlugins: {  }
     plugins: {  }
-  SearchBarSettings:
-    minChars: 3
-    zoomLevel: 9
-    recommendedListlenth: 5
-    placeholder: 'Suche nach Themen'
-    renderToDOM: ''
-    quickHelp: false
   SearchPluginSettings:
     activePlugins:
       - Tree
@@ -118,12 +124,27 @@ settings:
       Drupal\masterportal\Plugin\Masterportal\SearchBar\VisibleVector:
         layerTypes:
           - GeoJSON
+  SearchBarSettings:
+    minChars: 3
+    zoomLevel: 9
+    recommendedListlenth: 5
+    placeholder: 'Search for topics'
+    renderToDOM: ''
+    quickHelp: false
+  ForegroundLayerSection:
+    layer:
+      -
+        id: contributions
+        custom:
+          visibility: true
+          gfiTheme: default
   ToolSettings:
     activePlugins:
       - Gfi
     plugins:
       Drupal\masterportal\Plugin\Masterportal\Tools\Gfi:
-        name: 'Informationen abfragen'
-        glyphicon: glyphicon-info-sign
+        name: 'Query information'
         active: true
         isVisibleInMenu: false
+uid: 0
+hidden: false

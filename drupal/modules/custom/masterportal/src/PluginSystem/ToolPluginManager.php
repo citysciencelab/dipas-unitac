@@ -11,7 +11,7 @@ namespace Drupal\masterportal\PluginSystem;
  *
  * @see plugin_api
  */
-class ToolPluginManager extends PluginManagerBase {
+class ToolPluginManager extends PluginManagerBase implements ToolPluginManagerInterface {
 
   const PLUGIN_TYPE = 'tool_plugin';
 
@@ -41,6 +41,21 @@ class ToolPluginManager extends PluginManagerBase {
    */
   public function getPluginType() {
     return self::PLUGIN_TYPE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPluginDefinitionByConfigProperty($propertyValue) {
+    $availableToolPlugins = $this->getDefinitions();
+    $requestedPluginDefinition = array_filter(
+      $availableToolPlugins,
+      function ($definition) use ($propertyValue) {
+        return $definition['configProperty'] === $propertyValue;
+      }
+    );
+
+    return count($requestedPluginDefinition) ? array_shift($requestedPluginDefinition) : NULL;
   }
 
 }

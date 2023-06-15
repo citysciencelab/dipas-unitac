@@ -1,0 +1,12 @@
+third_party_settings:
+  field_group:
+    group_formsections:
+      label: 'Formularabschnitte'
+    group_map_settings:
+      label: 'Karteneinstellungen'
+    group_basic_settings:
+      label: 'Grundlegende Einstellungen'
+    group_step_content:
+      label: 'Step-Inhalt'
+    group_step_metadata:
+      label: 'Step-Metadaten'

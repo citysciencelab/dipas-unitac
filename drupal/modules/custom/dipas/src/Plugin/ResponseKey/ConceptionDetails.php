@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -41,11 +42,17 @@ class ConceptionDetails extends ResponseKeyBase {
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
   public function setAdditionalDependencies(ContainerInterface $container) {
     $this->dateFormatter = $container->get('date.formatter');
     $this->entityTypeManager = $container->get('entity_type.manager');
+    $this->fileUrlGenerator = $container->get('file_url_generator');
   }
 
   /**
@@ -116,6 +123,13 @@ class ConceptionDetails extends ResponseKeyBase {
    */
   protected function getEntityTypeManager() {
     return $this->entityTypeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getFileUrlGenerator() {
+    return $this->fileUrlGenerator;
   }
 
 }

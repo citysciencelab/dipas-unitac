@@ -15,7 +15,6 @@ use Drupal\Core\State\StateInterface;
 use Drupal\dipas\Plugin\ResponseKey\ContributionDetailsTrait;
 use Drupal\dipas\Plugin\ResponseKey\DateTimeTrait;
 use Drupal\dipas\Plugin\ResponseKey\NodeListingTrait;
-use Drupal\masterportal\DomainAwareTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
@@ -398,8 +397,6 @@ class DataExport implements DataExportInterface {
     $comments = $this->commentStorage->loadThread($entity, $commentsField, CommentManagerInterface::COMMENT_MODE_FLAT);
     foreach ($comments as $comment) {
       /* @var \Drupal\comment\CommentInterface $comment */
-      $this->cacheTags[] = sprintf('comment:%d', $comment->id());
-      $this->commentCount++;
       $subject = ($subject = $comment->get('subject')->first()) ? $subject->getString() : '';
       $commentListEntry = [
         'cid' => $comment->id(),

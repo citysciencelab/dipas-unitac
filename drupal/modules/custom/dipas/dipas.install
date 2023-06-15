@@ -11,7 +11,6 @@ use Drupal\Core\Database\Database;
  * Implements hook_schema().
  */
 function dipas_schema() {
-
   $schema['dipas_keywords'] = [
     'description' => 'Table to store the text and the keywords of the dipas keyword service',
     'fields' => [
@@ -120,7 +119,6 @@ function dipas_schema() {
  * Introducing an new table for dipas keyword service.
  */
 function dipas_update_8101() {
-
   $spec = [
     'description' => 'Table to store the text and the keywords of the dipas keyword service',
     'fields' => [
@@ -325,7 +323,6 @@ function dipas_update_8104() {
 
 /**
  * Exceptionally remove of masterportal setting within dipas_update hook: Removing extent.
- *
  */
 function dipas_update_8105() {
   $config_factory = \Drupal::configFactory();
@@ -349,7 +346,6 @@ function dipas_update_8105() {
 
 /**
  * Remove overwriteFrontpage Tickbox from projectSchedule settings and check the box on MenuSettings if it was set
- *
  */
 function dipas_update_8106() {
   $config_factory = \Drupal::configFactory();
@@ -424,4 +420,440 @@ function dipas_update_8107() {
   $schema = Database::getConnection()->schema();
   // CREATE TABLE dipas_cockpit_data
   $schema->createTable('dipas_cockpit_data', $spec);
+}
+
+/**
+ * Calculating and adding centerpoints for project areas
+ */
+function dipas_update_8108() {
+  $configNames = \Drupal::service('config.storage')->listAll('dipas.');
+  $configNames = array_filter($configNames, function($item){return preg_match('~^dipas\..+?\.configuration$~i', $item) && $item !== 'dipas.default.configuration';});
+
+  foreach ($configNames as $configFile) {
+    $config = \Drupal::configFactory()->getEditable($configFile);
+
+    $geodata = json_decode($config->get('ProjectArea')['project_area']);
+
+    $boundingbox = [
+      'xmin' => 9999999,
+      'xmax' => 0,
+      'ymin' => 9999999,
+      'ymax' => 0,
+    ];
+
+    foreach($geodata->coordinates as $polygon) {
+      foreach($polygon as $point) {
+        if ($point[0] < $boundingbox['xmin']) {
+          $boundingbox['xmin'] = $point[0];
+        };
+
+        if ($point[1] < $boundingbox['ymin']) {
+          $boundingbox['ymin'] = $point[1];
+        };
+
+        if ($point[0] > $boundingbox['xmax']) {
+          $boundingbox['xmax'] = $point[0];
+        };
+
+        if ($point[1] > $boundingbox['ymax']) {
+          $boundingbox['ymax'] = $point[1];
+        };
+      }
+    }
+
+    $centerpoint = [
+      $boundingbox['xmin'] + ($boundingbox['xmax'] - $boundingbox['xmin']) / 2,
+      $boundingbox['ymin'] + ($boundingbox['ymax'] - $boundingbox['ymin']) / 2,
+    ];
+
+    $config->set('ProjectArea.project_area_centerpoint', implode(', ', $centerpoint));
+    $config->save();
+  }
+}
+
+/**
+ * Migrate geodata from GeoField to text field for appointments.
+ */
+function dipas_update_9101() {
+  /* @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
+  $entityTypeManager = \Drupal::getContainer()->get('entity_type.manager');
+  /* @var \Drupal\Core\Entity\EntityStorageInterface $nodeStorage */
+  $nodeStorage = $entityTypeManager->getStorage('node');
+
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $nodeStorage->loadByProperties([
+    'type' => 'appointment',
+  ]);
+
+  foreach ($nodes as $node) {
+    $localization = $node->get('field_localization');
+    if ($fieldValue = $localization->first()) {
+      $geodata = [
+        'geometry' => [
+          'type' => 'Point',
+          'coordinates' => [
+            $fieldValue->get('lon')->getValue(),
+            $fieldValue->get('lat')->getValue(),
+          ]
+        ],
+        'centerPoint' => [
+          'type' => 'Point',
+          'coordinates' => [
+            $fieldValue->get('lon')->getValue(),
+            $fieldValue->get('lat')->getValue(),
+          ]
+        ],
+      ];
+      $node->set('field_geodata', json_encode($geodata));
+      $node->save();
+    }
+  }
+}
+
+/**
+ * Remove now unused GeoField from the field configuration of appointment nodes.
+ *
+ * Re-iterated updatehook since it seems not to be run on previous updates
+ */
+function dipas_update_9103() {
+  if ($fieldConfig = \Drupal\field\Entity\FieldConfig::loadByName('node', 'appointment', 'field_localization')) {
+    $fieldConfig->delete();
+  }
+  if ($fieldStorage = \Drupal\field\Entity\FieldStorageConfig::loadByName('node', 'field_localization')) {
+    $fieldStorage->delete();
+  }
+}
+
+/**
+ * Remove potentially invalid Masterportal instances and re-clone them from the default instance
+ */
+function dipas_update_9104() {
+  // Fetch a database connection
+  /*
+   * @var \Drupal\Core\Database\Connection $database
+   */
+  $database = \Drupal::database();
+
+  // UUID Generator
+  /*
+   * @var \Drupal\Component\Uuid\UuidInterface $uuidGenerator
+   */
+  $uuidGenerator = \Drupal::service('uuid');
+
+  // Determine the default instances defined
+  $defaultInstances = $database->select('config')
+    ->fields('config')
+    ->condition('name', 'masterportal.instance.default.%', 'LIKE')
+    ->execute()
+    ->fetchAll();
+
+  // Now determine the cloned instances
+  $clonedInstances = $database->select('config')
+    ->fields('config')
+    ->condition('name', 'masterportal.instance.%', 'LIKE')
+    ->condition('name', 'masterportal.instance.default.%', 'NOT LIKE')
+    ->execute()
+    ->fetchAll();
+
+  // Determine which instances are not properly defined
+  $invalidInstances = array_filter(
+    $clonedInstances,
+    function ($instance) {
+      $data = unserialize($instance->data);
+
+      return $data === FALSE || !isset($data['settings']);
+    }
+  );
+
+  $databaseChanged = (bool) count($invalidInstances);
+
+  // Process each invalid instance
+  foreach ($invalidInstances as $instance) {
+    // Prepare the id parts of the name
+    $id = explode('.', $instance->name);
+
+    // Filter the default instance definitions for the matching one
+    $defaultBlueprint = (function ($id, $collection) use ($defaultInstances) {
+      $matchingInstance = array_filter(
+        $defaultInstances,
+        function ($instance) use ($id, $collection) {
+          return $instance->collection === $collection &&
+            $instance->name === sprintf('masterportal.instance.default.%s', $id);
+        }
+      );
+
+      return array_shift($matchingInstance);
+    })($id[3], $instance->collection);
+
+    // unserialize the blueprint's data
+    $properData = unserialize($defaultBlueprint->data);
+
+    // Set a new UUID to make sure the newly cloned data is valid
+    $properData['uuid'] = $uuidGenerator->generate();
+
+    // Fix the id
+    $properData['id'] = sprintf('%s.%s', $id[2], $id[3]);
+
+    // Serialize the fixed data
+    $instance->data = serialize($properData);
+
+    // write the fixed data back to the database
+    $database->update('config')
+      ->fields([
+        'data' => $instance->data,
+      ])
+      ->condition('name', $instance->name, '=')
+      ->execute();
+  }
+
+  // Invalidate Drupal caches if the database was changed.
+  if ($databaseChanged) {
+    drupal_flush_all_caches();
+  }
+}
+
+/**
+ * Ensure all previously cloned Masterportal instances have a unique UUID and proper filter settings
+ */
+function dipas_update_9105() {
+  // Get the entity type manager.
+  /*
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   */
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // UUID Generator
+  /*
+   * @var \Drupal\Component\Uuid\UuidInterface $uuidGenerator
+   */
+  $uuidGenerator = \Drupal::service('uuid');
+
+  // Load all Masterportal instances defined in the database.
+  /*
+   * @var \Drupal\masterportal\Entity\MasterportalInstanceInterface[] $instances
+   */
+  $instances = $entityTypeManager->getStorage('masterportal_instance')->loadMultiple();
+
+  // Process each instance
+  foreach ($instances as $instance) {
+    // Ensure filter settings are not outdated
+    $settings = $instance->get('settings');
+    if (
+      !isset($settings['MenuSettings']['filter']) &&
+      isset($settings['MenuSettings']['filterGeneral'])
+    ) {
+      $settings['MenuSettings']['filter'] = $settings['MenuSettings']['filterGeneral'];
+      unset($settings['MenuSettings']['filterGeneral']);
+
+      $instance->set('settings', $settings);
+    }
+
+    // First we have to delete the old instance
+    $instance->delete();
+
+    // Make sure the UUID differs in each instance
+    $instance->set('uuid', $uuidGenerator->generate());
+
+    // Mark the instance as new to enable proper saving
+    $instance->enforceIsNew();
+
+    // Save the instance
+    $instance->save();
+  }
+
+  // Invalidate Drupal caches
+  drupal_flush_all_caches();
+}
+
+/**
+ * Update the filter settings of all defined Masterportal instances which utilize the contributions layer.
+ */
+function dipas_update_9106() {
+  // Get the entity type manager.
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // Load all Masterportal instances defined in the database.
+  /*
+   * @var \Drupal\masterportal\Entity\MasterportalInstanceInterface[] $instances
+   */
+  $instances = $entityTypeManager->getStorage('masterportal_instance')->loadMultiple();
+
+  // Filter out all instances that do not use the "contributions" layer
+  $instances = array_filter(
+    $instances,
+    function ($instance) {
+      $settings = $instance->get('settings');
+
+      $instancelayer = [];
+      foreach (['BackgroundLayerSettings', 'ForegroundLayerSection'] as $section) {
+        $sectionlayer = array_map(
+          function ($definition) {
+            return $definition['id'];
+          },
+          $settings[$section]['layer']
+        );
+
+        $instancelayer = array_merge($instancelayer, $sectionlayer);
+      }
+
+      return in_array('contributions', $instancelayer);
+    }
+  );
+
+  $databaseChanged = (bool) count($instances);
+
+  // Process each remaining instance.
+  foreach ($instances as $instance) {
+    // Retrieve the instance settings
+    $settings = $instance->get('settings');
+
+    // Make sure an entry exists for filter layers
+    if (!isset($settings['MenuSettings']['filter']['layers'])) {
+      $settings['MenuSettings']['filter']['layers'] = '[]';
+    }
+
+    // Try to decode it's filter layer value
+    $definedLayers = json_decode($settings['MenuSettings']['filter']['layers']);
+
+    // If the value derived is not an array, turn it into one
+    if (!is_array($definedLayers)) {
+      // In case the encoding failed (it was a bad definition then anyways)
+      if (!$definedLayers) {
+        $definedLayers = [];
+      }
+      else {
+        $definedLayers = [$definedLayers];
+      }
+    }
+
+    // Make sure there's no previous definition for the contributions layer
+    $definedLayers = array_filter(
+      $definedLayers,
+      function ($layer) {
+        // Make sure it's an array, not an object.
+        $layer = (array) $layer;
+
+        // Determine which keys(properties) this layer has
+        $keys = array_map(
+          function ($key) {
+            return strtolower($key);
+          },
+          array_keys($layer)
+        );
+
+        // Is a key named "layerid" present?
+        if (in_array('layerid', $keys)) {
+          // Find the index of that key
+          $index = array_search('layerid', $keys);
+
+          // Now determine which value that key has
+          $layerid = array_values($layer)[$index];
+
+          // If the layerid matches we need to filter out that layer definition
+          if ($layerid === 'contributions') {
+            return FALSE;
+          }
+        }
+
+        // In all other cases this definition may pass
+        return TRUE;
+      }
+    );
+
+    // Now we need to add the new contribution filter layer definition
+    $definedLayers[] = json_decode('{
+        "layerId": "contributions",
+        "strategy": "active",
+        "showHits": false,
+        "snippetTags": false,
+        "snippets": [
+          {
+              "type": "dropdown",
+              "attrName": "Thema",
+              "operator": "IN",
+              "display": "list",
+              "multiselect": true,
+              "addSelectAll": false,
+              "renderIcons": "fromLegend",
+              "info": false,
+              "prechecked": "all",
+              "showAllValues": true,
+              "resetLayer": true
+          }
+        ]
+      }');
+
+    // The now updated layer definition field value is now to be encoded and written back
+    $settings['MenuSettings']['filter']['layers'] = json_encode($definedLayers, JSON_UNESCAPED_UNICODE + JSON_PRETTY_PRINT);
+
+    // Make sure the flags and values set on the filter are valid values
+    foreach (
+      [
+        'deactivateGFI' => FALSE,
+        'active' => FALSE,
+        'liveZoomToFeatures' => FALSE,
+        'layerSelectorVisible' => FALSE,
+        'isVisibleInMenu' => FALSE
+      ] as $property => $default
+    ) {
+      if (
+        !isset($settings['MenuSettings']['filter'][$property]) ||
+        !is_bool($settings['MenuSettings']['filter'][$property])
+      ) {
+        $settings['MenuSettings']['filter'][$property] = $default;
+      }
+
+      // Special handling for some instances
+      if (preg_match('~\.(?:dipas|default)$~i', $instance->id())) {
+        if (preg_match('~\.dipas$~i', $instance->id())) {
+          $settings['MenuSettings']['filter']['active'] = TRUE;
+        }
+        else {
+          $settings['MenuSettings']['filter']['isVisibleInMenu'] = TRUE;
+        }
+      }
+    }
+
+    // Write back the updated settings to the configuration and save it
+    $instance->set('settings', $settings);
+    $instance->save();
+  }
+
+  // Invalidate Drupal caches if any instances were changed.
+  if ($databaseChanged) {
+    drupal_flush_all_caches();
+  }
+}
+
+/**
+ * Initialize the new config flag 'ContributionSettings.display_existing_ratings' on old proceedings.
+ */
+function dipas_update_9107() {
+  $database = \Drupal::database();
+  $query = $database->select('comment', 'c');
+  $query->addJoin(
+    'LEFT',
+    'comment__field_domain_access',
+    'fda',
+    'c.comment_type = fda.bundle AND c.cid = fda.entity_id AND c.langcode = fda.langcode'
+  );
+  $query->groupBy('fda.field_domain_access_target_id');
+  $query->fields('fda', ['field_domain_access_target_id']);
+  $query->addExpression('COUNT(c.cid)', 'comments');
+  $query->orderBy('comments', 'DESC');
+
+  $raw = $query->execute()->fetchAll();
+  $comments = array_combine(
+    array_map(function ($row) { return $row->field_domain_access_target_id; }, $raw),
+    array_map(function ($row) { return $row->comments; }, $raw)
+  );
+
+  /* @var \Drupal\dipas\Service\DipasConfigInterface $dipasConfigService */
+  $dipasConfigService = \Drupal::service('dipas.config');
+  foreach ($dipasConfigService->getIds() as $configID) {
+    [,$proceedingID,] = explode('.', $configID);
+    $config = $dipasConfigService->getEditable($configID);
+    $config->set('ContributionSettings.display_existing_ratings', (int) in_array($proceedingID, array_keys($comments)));
+    $config->save();
+  }
 }

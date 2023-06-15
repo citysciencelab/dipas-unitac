@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[137],{3603:function(e){e.exports=JSON.parse('{"modules":{"tools":{"cosi":{"residentialSimulation":{"title":"Create Residential Projects","subTitle":"Create Residential","titleReference":"Select reference area (optional)","pickReference":"Select area","help":"Lorem Ipsum","createFeature":"Create"}}}}}')}}]);

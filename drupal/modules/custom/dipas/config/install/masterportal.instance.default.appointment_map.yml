@@ -75,14 +75,11 @@ settings:
   MenuSettings:
     tree:
       name: Themen
-      glyphicon: glyphicon-list
       isInitOpen: false
     tools:
       name: Werkzeuge
-      glyphicon: glyphicon-wrench
     filter:
       name: Katgorieauswahl
-      glyphicon: glyphicon-filter
       deactivateGFI: false
       isGeneric: false
       isInitOpen: false
@@ -92,7 +89,6 @@ settings:
       predefinedQueries: "[\n    {\n        \"layerId\": \"beteiligungsfeatures\",\n        \"isActive\": true,\n        \"isSelected\": true,\n        \"name\": \"Alle\",\n        \"liveZoomToFeatures\": false,\n        \"attributeWhiteList\": [\n            \"Thema\"\n        ],\n        \"snippetType\": \"checkbox-classic\"\n    }\n]"
     legend:
       name: Legende
-      glyphicon: glyphicon-book
   PortalSettings:
     title: Masterportal
     logo: '{{library_path}}/img/logo.png'

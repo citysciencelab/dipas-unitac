@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.dipas_story
+    - field.field.paragraph.image_with_text.field_image
+    - field.field.paragraph.image_with_text.field_image_position
+    - field.field.paragraph.image_with_text.field_text
+    - paragraphs.paragraphs_type.image_with_text
+  module:
+    - options
+    - text
+id: paragraph.image_with_text.dipas_story
+targetEntityType: paragraph
+bundle: image_with_text
+mode: dipas_story
+content:
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: dipas_story
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image_position:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_text:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

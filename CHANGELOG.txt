@@ -5,6 +5,164 @@ This file contains all valuable change to the DIPAS project.
 
 We use semantic versioning.
 
+Version 2.2.3 23-04-06
+=========================
+
+** Story
+    * Beta-Release DIPAS stories
+    * Neuer Konfigurationsparameter zur Trennung von Anzeige- und Aktivierungsstatus von Bewertungen
+    * Feldtyp zur Rubrikauswahl im Beitragswizard bei mehr als 10 Rubriken auf Select geändert
+    * Beitragsliste: Einzelbeitrag per Rechtsklick in neuem Browser-Tab öffnen können
+    * Link "Details" in 16 px (Terminseite)
+    * Backend: Image-Paragraph anpassen für Text-Umlauf
+    * Bewertungsfeatures ausblenden wenn Bewertungen deaktiviert
+    * DIPAS-Frontend: Anpassung Rendering Image-Paragraph
+    * Backend: Hierarchieblockierung für Story Steps einbauen und konfigurierbar machen
+    * Backend: Refactoring Field Widget Story Steps
+    * Dipas Story Preview nach speichern auf Drupal-Seite
+    * Anordnung der Layer verändern können (drag & drop)
+    * Story-Steps nicht unter den Layern anordnen sondern darüber
+    * 3D Modus (Controls) in Stories stepweise ermöglichen
+    * Step Titelbild kein Pflichtfeld
+    * Story-Sidebar Breite 27% des Screens (Storyview & Auswahltool)
+    * Taxonomie Interface für Projektadmin sperren
+    * Step Titelbild kein Pflichtfeld im Masterportal
+    * Masterportal: Rendering Textumlauf einbauen
+    * Story-Toolbar Umbau (horizontale Leiste unter der Story)
+    * Story Frontend Designoptimierungen
+    * Anordnung Paragraphen optimieren
+    * Browser-Tab Bezeichnung
+
+** Aufgabe
+    * Logeinträge für Autologout-Events
+    * Drupal-Updates integriert
+    * CSS-Verfeinerungen für das DIPAS stories Story-Auswahltool
+    * Integration von Drupal-Core- und -Contrib-Updates
+    * Anpassung der von CRON automatisch angepassten Verfahrenseinstellungen
+    * Masterportal-Tools schließen nicht in Story Steps
+    * Alle assoziierten Story Steps löschen bei Löschung des Story-Nodes
+    * Refactoring: Service DipasStoriesMasterportal durch Custom Events ersetzen
+    * Fokus auf Suchfeld bei Layer-Auswahl
+    * Tool-Auswahl auf Story-Ebene gleich auf Story-Step-Ebene durchreichen
+    * Konfigurations-Möglichkeit für Tools: Open in Window
+    * Legende initial offen
+    * 3D-Modus im Story Telling Tool
+    * Schließen X für Cookie-Banner im DIPAS-Frontend
+    * 3D Konfiguration im Story Telling Tool (Drupal-Teil)
+    * DipasPlayer Inhaltsverzeichnis & Seitenspalte
+    * Masterportal bauen und in DIPAS bereitstellen als Grundlage für DPS-1493
+    * Progressbar um Inhaltsverzeichnisbutton
+    * StorySelectorTool dynamisch in das config.json der MP story_telling_tool Instanz einbauen
+    * Masterportal 3D Kamera Positionierung über URL Parameter
+    * Umbennung von Parametern im stories.json
+    * Drupal core und modul-Updates
+    * Fix MouseHover in AddLayerRemotely
+
+** Bug
+    * Bug behoben, bei dem ein falscher Argumenttyp an eine Methode übergeben wurde, wodurch Stories nicht bearbeitet werden konnten.
+    * Darstellungsbreite von Text mit langen Worten in mobiler Ansicht korrigiert.
+    * CORS-Header für Masterportal-Requests korrigiert
+    * Darstellungsbreite von Bildern korrigiert, die nicht von Text umflossen werden
+    * Darstellung der Beitragskategorie in der Beitragsliste korrigiert
+    * Verarbeitung von Mehrkomponenten-Layern im DIPAS stories Masterportal korrigiert
+    * Entfernung von PHP Warnings beim Datenexport
+    * Korrektur des Verhaltens der Anzeigeeinstellung für Kommentare
+    * PDS-API: Beitragskategorien & Typen fehlerhaft
+    * HTML-Steiten der Stories sind nach Leeren des Caches gelegentlich leer
+    * Partnerlogos können nicht gelöscht werden
+    * DIPAS Story Loader Tool wird nicht gestartet, wenn es dynamisch eingefügt wird
+    * Map Settings Widget: Karteneinstellungen werden nicht übernommen beim anlegen eines Story Steps
+    * Kartenprojektionen werden beim Anlegen eines neuen Verfahrens nicht kopiert
+    * Cacheproblem beim laden von Stories behoben
+    * Field-Widget-Weiterleitung funktioniert nicht
+    * Beitragstypen Sortierung buggy
+    * Bearbeiten & Löschen Button verweisen immer auf den letzten erstellten Storyschritt
+    * Speichern und neuen Step erstellen - Buggy bei "nicht-letztem" Schritt
+    * AnonymousRedirectToLogin fehlerhaft
+    * Modul dipas: Cloning der Masterportal-Instanzen klont auch UUID
+    * Fehlerhafte Masterportal-Instanzen identifizieren und fixen
+
+Version 2.2.2 23-02-23
+=========================
+
+** Story
+    * Drupal Modulupdates & Bereitstellung RC
+    * Backend und Frontend für neues Feature "DIPAS Stories" vorbereiten
+    * Backend für neues Feature "DIPAS navigator" vorbereiten (noch nicht als OS released)
+    * Hard gecodete EPSG Codes konfigurierbar machen
+    * Prüfungsmechanik services.json
+    * .htaccess: Umleitung auf Unterordner /dipas/ rausnehmen
+    * verfahrenskarte mouseover funktioniert nicht
+    * Onlinetool Auswertungsseite: Chart Grafiken zu klein bei langen Texten
+    * Zugriffs-Counter für DIPAS navigator und Einzelverfahren
+    * Drupal Karteneinstellungen um Parameter twoFingerPan erweitern
+    * Onlinetool Sidebar / Downloads: Begriff "Verfahrensauswertung" ausblenden, wenn keine Verfahrensauswertung hochgeladen wurde
+    * Masterportal Version in Drupal aktualisieren
+    * Übersetzungen im Backend vornehmen
+    * check drupal loggins configuration and increase number of stored entries
+    * update size of media type conception_md for concenption teazers
+    * change download type from "Dokumentation" to "Verfahrensauswertung"
+    * Schriftgröße Modalbuttons anpassen
+    * Backend: Verfahrensattribut "Absender" im DIPAS-Backend konfigurieren können
+    * Backend: "Verfahrensbezirk" im Backend konfigurierbar machen
+    * Themen-Auswahl im Backend
+    * Sicherheitsmaßnahme "Token" / "Shared Secret" implementieren
+    * Verfahren für PDS-API deaktivieren könnenn
+    * PDS-API: Beiträge ohne Verortung bekommen Projektgebietpolygon als Koordinate
+    * MasterportalAPI GeoJSON afterLoading-Event
+    * Adress Feld Bezeichnung Company umbennen
+    * Abfangen, dass Kommentare ausschließlich Leerzeichen enthalten
+    * Wizard-Buttons: Pfeile & Texte vertikal zentriert ausrichten
+    * Verbesserung der Barrierefreiheit
+    * Willkommensmodal bei 200% Textzoom (zoom textonly)
+    * Konturen um Beiträge in der Beitragsliste
+    * Kommentarfunktion Styling anpassen
+    * Dropdown statt Radiobutton bei mehr als 10 Kategorien
+    * "Graue Kasten" entfernen, Styling anpassen
+    * Auswertungsseite: Titel Charts anpassen
+    * IP-Adressen im Drupal automatisiert lösche
+    * Download-Typ: "Dokumentation" implementieren
+    * Anzahl gefilteter Beiträge
+    * Plugin zum Starten des MPs in 3D
+    * Feedback Beitragsbewertung
+    * Filter-Einstellungen im DIPAS-Backend anpassen
+    * Hartgecodete EPSG-Codes für Masterportal-Steuerung entfernen
+    * Update auf Drush 10
+
+** Bug
+    * MapSettings-Widget: Beim entfernen eines Layers die LayerID aus visibleLayers löschen
+    * Löschen von rows im MultivalueRowTrait funktioniert nicht
+    * Filter im Masterportal auf neuen Filter anpassen
+    * MP Instanzkonfiguration: Portallogo Konfiguration buggy
+    * Hotfix neue Filtereinstellungen nicht null
+    * DIPAS-Frontend mobil: Abschlussdialog lässt sich nicht scrollen
+    * Masterportal: Parameter in der URL des config.json müssen erhalten bleiben
+    * Masterportal uiStyle Table funktioniert nicht
+    * Willkommensmodal mobil teilweise überdeckt
+    * allow deletion of proceedings
+    * allow renaming of proceedings (NOT default) and transfer all content
+    * fix broken buttons in mobile wizard
+    * glyphicons in masterportal konfigurationsoberfläche verschwunden
+    * DIPAS Admin-Backend: sidebar buggy
+    * Onlinetool: Burgermenü auf kleinen Bildschirmen -> Inhalte verdeckt
+    * Patch für vertical-tabs erzeugen
+    * Terminerstellung - Marker nicht setzbar
+    * Wenn GFI Tool mit isVisibleInMenu und sonst kein weiteres Tool konfigurirert
+    * Wizard - zurück von Step 2 zu Step 1 - values undefined
+    * PDS Documentation Response überprüfen! Only TAGGED files.
+    * masterportal.config.basic in config-ignore tab aufnehmen
+    * Fix Masterportal withoutGUIDraw
+    * free the tax lineItemCreator tied up from domain_access_all in Drupal
+    * Bewertung ohne Cookie mobil fehlerhaft
+
+
+Version 2.2.0 22-11-29
+=========================
+
+** Story
+    * update appointment from localization
+    * masterportal adoption to new filter tool
+
 Version 2.1.1 22-03-07
 =========================
 

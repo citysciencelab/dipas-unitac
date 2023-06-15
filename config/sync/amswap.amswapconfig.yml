@@ -1,3 +1,6 @@
+_core:
+  default_config_hash: d7tn_kI_5tCvOXLD4Qa-_znks4jgfgCwsKda6GKH-vk
+langcode: en
 role_menu_pairs:
   -
     role: project_admin
@@ -5,6 +8,3 @@ role_menu_pairs:
 dependencies:
   module:
     - amswap
-_core:
-  default_config_hash: d7tn_kI_5tCvOXLD4Qa-_znks4jgfgCwsKda6GKH-vk
-langcode: en

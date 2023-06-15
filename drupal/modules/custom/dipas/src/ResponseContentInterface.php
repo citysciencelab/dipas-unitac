@@ -41,4 +41,21 @@ interface ResponseContentInterface {
    */
   public function getErrorMessage();
 
+  /**
+   * Returns the response content set by the constructor raw.
+   *
+   * @return mixed
+   */
+  public function getRawContent();
+
+  /**
+   * Updates the response content.
+   *
+   * @param mixed $content
+   *   The updated content.
+   *
+   * @return void
+   */
+  public function updateContent($content);
+
 }

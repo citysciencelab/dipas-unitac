@@ -10,6 +10,7 @@ use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\dipas\Annotation\SettingsSection;
 
 /**
  * Class ContributionSettings.
@@ -62,6 +63,7 @@ class ContributionSettings extends SettingsSectionBase {
       'comments_maxlength' => 1000,
       'display_existing_comments' => TRUE,
       'rating_allowed' => FALSE,
+      'display_existing_ratings' => TRUE,
       'masterportal_instances' => [
         'contributionmap' => 'default',
         'singlecontribution' => [
@@ -166,6 +168,20 @@ class ContributionSettings extends SettingsSectionBase {
         '#description' => $this->t('When activated, users can rate contributions other users have created. If de-activated mid-term, existing ratings will not be deleted. The rating widget will still be displayed, but no new rates can be made.', [], ['context' => 'DIPAS']),
         '#default_value' => $this->rating_allowed,
       ],
+      'display_existing_ratings' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Keep displaying existing ratings', [], ['context' => 'DIPAS']),
+        '#description' => $this->t('Should already existing ratings still be displayed or should they get hidden?', [], ['context' => 'DIPAS']),
+        '#default_value' => $this->display_existing_ratings ?? TRUE,
+        '#states' => [
+          'visible' => [
+            ':input[type="checkbox"][name="settings[ContributionSettings][rating_allowed]"]' => ['checked' => FALSE],
+          ]
+        ],
+        '#attributes' => [
+          'style' => 'margin-left: 25px;',
+        ],
+      ],
       'masterportal_instances' => [
         '#type' => 'fieldset',
         '#title' => $this->t('Masterportal instances', [], ['context' => 'DIPAS']),
@@ -255,6 +271,7 @@ class ContributionSettings extends SettingsSectionBase {
       'comments_maxlength' => (int) $plugin_values['comments_maxlength'],
       'display_existing_comments' => (bool) $plugin_values['display_existing_comments'],
       'rating_allowed' => (bool) $plugin_values['rating_allowed'],
+      'display_existing_ratings' => (bool) $plugin_values['display_existing_ratings'],
       'masterportal_instances' => [
         'contributionmap' => $plugin_values['masterportal_instances']['contributionmap'],
         'singlecontribution' => [

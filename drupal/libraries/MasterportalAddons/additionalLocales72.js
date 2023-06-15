@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[181],{3671:function(e){e.exports=JSON.parse('{"modules":{"tools":{"quickResponseCode":{"text":"Klicken Sie in die Karte, um den QR-Code zu erstellen","title":"QR-Code"}}}}')}}]);

@@ -6,6 +6,7 @@
 
 namespace Drupal\dipas\Plugin\ResponseKey;
 
+use Drupal\dipas\Annotation\ResponseKey;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\dipas\Exception\MalformedRequestException;
 
@@ -18,7 +19,8 @@ use Drupal\dipas\Exception\MalformedRequestException;
  *   requestMethods = {
  *     "POST",
  *   },
- *  isCacheable = false
+ *   isCacheable = false,
+ *   shieldRequest = true
  * )
  *
  * @package Drupal\dipas\Plugin\ResponseKey

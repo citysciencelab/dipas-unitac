@@ -11,8 +11,9 @@ use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\dipas\Controller\DipasConfig;
+use Drupal\dipas\Exception\MalformedRequestException;
 use Drupal\dipas\ResponseContent;
 use Drupal\masterportal\DomainAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -95,11 +96,15 @@ class RestApi implements RestApiInterface {
    */
   protected $cockpitdataResponsePluginManager;
 
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
 
   /**
    * RestApi constructor.
    *
-   * @param \Drupal\dipas\Controller\DipasConfig $config_factory
+   * @param \Drupal\dipas\Service\DipasConfigInterface $config
    *   Custom config service.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   Custom logger channel.
@@ -117,16 +122,17 @@ class RestApi implements RestApiInterface {
    *   Custom plugin manager for cockpitData response plugins.
    */
   public function __construct(
-    DipasConfig $config_factory,
+    DipasConfigInterface $config,
     LoggerChannelInterface $logger,
     PluginManagerInterface $response_key_plugin_manager,
     RequestStack $request_stack,
     CacheBackendInterface $cache,
     CacheTagsInvalidatorInterface $cache_tags_invalidator,
     PluginManagerInterface $pds_response_plugin_manager,
-    PluginManagerInterface $cockpitdata_response_plugin_manager
+    PluginManagerInterface $cockpitdata_response_plugin_manager,
+    ModuleHandlerInterface $module_handler
   ) {
-    $this->config = $config_factory;
+    $this->config = $config;
     $this->logger = $logger;
     $this->responsePluginManager = $response_key_plugin_manager;
     $this->request = $request_stack->getCurrentRequest();
@@ -134,19 +140,61 @@ class RestApi implements RestApiInterface {
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
     $this->pdsResponsePluginManager = $pds_response_plugin_manager;
     $this->cockpitdataResponsePluginManager = $cockpitdata_response_plugin_manager;
+    $this->moduleHandler = $module_handler;
 
     $this->domainCachePrefix = $this->getActiveDomain();
+  }
+
+  /**
+   * Validates a token provided if needed and throws an exception if not available/faulty.
+   *
+   * @param array $pluginDefinition
+   *   The definition of the request plugin.
+   *
+   * @return void
+   * @throws \Drupal\dipas\Exception\MalformedRequestException
+   *   Exception is thrown if the token was not provided or does not match.
+   */
+  protected function shieldRequest(array $pluginDefinition) {
+    if ($pluginDefinition['shieldRequest']) {
+      [$cypher, $security_token, $passphrase, $initvector] = require_once(realpath(__DIR__ . '/../Plugin/ResponseKey/RestApiToken.php'));
+
+      if (
+        ($token = $this->request->query->get('token')) &&
+        ($decryptedToken = openssl_decrypt($token, $cypher, $passphrase, 0, $initvector)) &&
+        count($decryptedToken = explode(":|:", $decryptedToken)) === 2
+      ) {
+        $tokenTime = (int) $decryptedToken[1];
+        $decryptedToken = $decryptedToken[0];
+
+        if ($security_token !== $decryptedToken || time() > ($tokenTime + 5)) {
+          throw new MalformedRequestException();
+        }
+      }
+      else {
+        throw new MalformedRequestException();
+      }
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function requestEndpoint($key) {
+    // Check, if any other module implements this key before lifting heavy weights.
+    $foreignApis = $this->moduleHandler->invokeAll('dipas_api_links');
+    if (in_array($key, $foreignApis)) {
+      return FALSE;
+    }
+
     $response = new JsonResponse();
     $cacheId = "{$this->domainCachePrefix}/{$key}/{$this->request->attributes->get('id')}" . json_encode($this->request->query->all());
 
     try {
       $pluginDefinition = $this->responsePluginManager->getDefinition(strtolower($key));
+
+      $this->shieldRequest($pluginDefinition);
+
       if (
         $pluginDefinition['isCacheable'] &&
         !$this->request->query->has('noCache') &&
@@ -194,6 +242,14 @@ class RestApi implements RestApiInterface {
         }
       }
     }
+    catch (MalformedRequestException $e) {
+      $this->logger->warning("Call to endpoint with faulty or without security token: {$key}");
+      $content = new ResponseContent(
+        ResponseContent::RESPONSE_STATUS_ERROR,
+        "Malformed request",
+        500
+      );
+    }
     catch (PluginNotFoundException $e) {
       $this->logger->notice("Undefined endpoint: {$key}");
       $content = new ResponseContent(
@@ -203,6 +259,10 @@ class RestApi implements RestApiInterface {
       );
     }
 
+    if (!$content->isError()) {
+      $content->updateContent($pluginDefinition['class']::postProcessResponse($content->getRawContent()));
+    }
+
     $response->setData($content->getResponseContent());
     if ($content->isError()) {
       $response->setStatusCode($content->getResponseStatusCode());
@@ -210,7 +270,6 @@ class RestApi implements RestApiInterface {
     $response->setEncodingOptions(static::JSON_OUTPUT_OPTIONS);
     return $response;
   }
-
 
   /**
    * {@inheritdoc}
@@ -327,9 +386,9 @@ class RestApi implements RestApiInterface {
   /**
    * {@inheritdoc}
    */
-  public function requestCockpitDataEndpoint($data) {
+  public function requestCockpitDataEndpoint($data, $parameter) {
     $response = new JsonResponse();
-    $cacheId = "participation_cockpit/{$data}";
+    $cacheId = "participation_cockpit/{$data}/{$parameter}";
 
     try {
       $pluginDefinition = $this->cockpitdataResponsePluginManager->getDefinition(strtolower($data));

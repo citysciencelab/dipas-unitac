@@ -32,9 +32,7 @@ export default {
       uniqueIdHeadline: _.uniqueId("title-"),
       uniqueIdText: _.uniqueId("text-"),
       headline: this.value.headline,
-      text: this.value.text,
-      headlineMinLength: this.value.headlineMinLength,
-      contributionMinLength: this.value.contributionMinLength
+      text: this.value.text
     };
   },
   computed: {
@@ -52,11 +50,23 @@ export default {
     remaining () {
       return this.maxlength - this.text.length;
     },
+    cleanedHeadline () {
+      let strH = "";
+
+      strH = this.headline.replace(/\s\s+/g, " ").trim();
+      return strH;
+    },
+    cleanedContribution () {
+      let strT = "";
+
+      strT = this.text.replace(/\s\s+/g, " ").trim();
+      return strT;
+    },
     headlineTooShort () {
-      return this.headline.length < this.headlineMinLength;
+      return this.cleanedHeadline.length < this.value.headlineMinLength;
     },
     contributionTooShort () {
-      return this.text.length < this.contributionMinLength;
+      return this.cleanedContribution.length < this.value.contributionMinLength;
     }
   },
   watch: {
@@ -64,13 +74,13 @@ export default {
      * @event input if the headline or text changing
      */
     headline () {
-      this.$emit("input", {headline: this.headline, text: this.text});
+      this.$emit("input", {headline: this.cleanedHeadline, text: this.cleanedContribution, headlineMinLength: this.value.headlineMinLength, contributionMinLength: this.value.contributionMinLength});
     },
     /**
      * @event input if the headline or text changing
      */
     text () {
-      this.$emit("input", {headline: this.headline, text: this.text});
+      this.$emit("input", {headline: this.cleanedHeadline, text: this.cleanedContribution, headlineMinLength: this.value.headlineMinLength, contributionMinLength: this.value.contributionMinLength});
     }
   }
 };
@@ -86,7 +96,7 @@ export default {
       v-if="headlineTooShort"
       :for="uniqueIdHeadline"
     >
-      {{ $t("CreateContributionModal.StepContents.title") }} ({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": headlineMinLength}) }})
+      {{ $t("CreateContributionModal.StepContents.title") }} <span class="minimumcharhint">({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": value.headlineMinLength}) }})</span>
     </label>
     <label
       v-else
@@ -109,7 +119,7 @@ export default {
       v-if="contributionTooShort"
       :for="uniqueIdText"
     >
-      {{ $t("CreateContributionModal.StepContents.text") }} ({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": contributionMinLength}) }})
+      {{ $t("CreateContributionModal.StepContents.text") }} <span class="minimumcharhint">({{ $t("CreateContributionModal.StepContents.minimalChars", {"minChar": value.contributionMinLength}) }})</span>
     </label>
     <label
       v-else
@@ -157,6 +167,14 @@ export default {
         color: #595959;
         margin: 5px 0 0 0;
         padding: 0 0 5px 0;
+    }
+
+    div.createContributionStep1 span.minimumcharhint {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: normal;
+        color: #595959;
+        margin: auto auto auto 10px;
     }
 
     #app.mobile div.customModal.createContributionModal.modalMobile div.modalContent {

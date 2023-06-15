@@ -1,0 +1,60 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.story_step.field_content
+    - paragraphs.paragraphs_type.image
+    - paragraphs.paragraphs_type.image_with_text
+    - paragraphs.paragraphs_type.text
+    - paragraphs.paragraphs_type.video
+  module:
+    - dipas_stories
+    - entity_reference_revisions
+id: story_step.story_step.field_content
+field_name: field_content
+entity_type: story_step
+bundle: story_step
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      text: text
+      image: image
+      image_with_text: image_with_text
+      video: video
+    negate: 0
+    target_bundles_drag_drop:
+      accordeon:
+        weight: -15
+        enabled: false
+      accordeon_item:
+        weight: -14
+        enabled: false
+      conception:
+        weight: -13
+        enabled: false
+      division_in_planning_subareas:
+        weight: -12
+        enabled: false
+      image:
+        weight: -18
+        enabled: true
+      image_with_text:
+        weight: -17
+        enabled: true
+      planning_subarea:
+        weight: -11
+        enabled: false
+      text:
+        weight: -19
+        enabled: true
+      video:
+        weight: -16
+        enabled: true
+field_type: entity_reference_revisions

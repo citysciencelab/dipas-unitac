@@ -2,11 +2,10 @@ name: 'LGV Masterportal'
 description: 'Integrates the "Masterportal" into Drupal as a presentation layer as well as a field widget.'
 type: module
 package : User interface
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9.5 || ^10
 version: 8.x-1.0-alpha
 dependencies:
   - drupal:field
-  - drupal:geofield
   - drupal:select2
   - drupal:form_options_attributes
   - drupal:jquery_ui

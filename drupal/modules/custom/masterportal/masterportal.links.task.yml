@@ -16,16 +16,22 @@ masterportal.settings.layerstyles:
   base_route: masterportal.settings.basics
   weight: 30
 
+masterportal.settings.mapprojections:
+  title: 'Map projections'
+  route_name: masterportal.settings.mapprojections
+  base_route: masterportal.settings.basics
+  weight: 40
+
 masterportal.settings.instances:
   title: 'Instance configurations'
   route_name: masterportal.settings.instances
   base_route: masterportal.settings.basics
-  weight: 40
+  weight: 50
 
 masterportal.settings.testpage:
   title: 'Testpage'
   route_name: masterportal.settings.testpage
   base_route: masterportal.settings.basics
-  weight: 50
+  weight: 60
   route_parameters:
     masterportal_instance: 'thisTaskIsJustHereToKeepTheTabsVisibleOnTheTestpage'

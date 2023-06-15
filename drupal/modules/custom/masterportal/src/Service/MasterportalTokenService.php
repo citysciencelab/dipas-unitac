@@ -6,6 +6,7 @@
 
 namespace Drupal\masterportal\Service;
 
+use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -58,6 +59,11 @@ class MasterportalTokenService implements MasterportalTokenServiceInterface {
   protected $currentRequest;
 
   /**
+   * @var \Drupal\Core\Extension\ExtensionPathResolver
+   */
+  protected $extensionPathResolver;
+
+  /**
    * Switch to determine if file-sensitive tokens should be replaced with file-system or browser paths.
    *
    * @var bool
@@ -74,11 +80,13 @@ class MasterportalTokenService implements MasterportalTokenServiceInterface {
    */
   public function __construct(
     LoggerChannel $logger,
-    RequestStack $request_stack
+    RequestStack $request_stack,
+    ExtensionPathResolver $extension_path_resolver
   ) {
     $this->logger = $logger;
     // Determine the variable contents for the "masterportal_instance" variable.
     $this->currentRequest = $request_stack->getCurrentRequest();
+    $this->extensionPathResolver = $extension_path_resolver;
     $this->setTokens();
   }
 
@@ -93,7 +101,8 @@ class MasterportalTokenService implements MasterportalTokenServiceInterface {
 
     // Build a stack of dynamic variables for replacement
     // in the response content.
-    $module_path = drupal_get_path('module', 'masterportal');
+    $module_path = $this->extensionPathResolver->getPath('module', 'masterportal');
+
     $this->simpleTokens = [
       'base_path' => base_path(),
       'module_path' => $module_path,
@@ -147,6 +156,7 @@ class MasterportalTokenService implements MasterportalTokenServiceInterface {
    */
   public function replaceTokens($subject, array $tokens = [], $allTokens = TRUE, $preservedTokens = []) {
     $tokens = $this->mergeTokens($tokens, FALSE, $allTokens);
+
     foreach ($tokens as $key => $replacement) {
       if (in_array($key, $preservedTokens)) {
         continue;
@@ -156,7 +166,7 @@ class MasterportalTokenService implements MasterportalTokenServiceInterface {
       if (preg_match($pattern, $subject)) {
         if (!is_string($replacement)) {
           try {
-            list($object, $method) = $replacement;
+            [$object, $method] = $replacement;
             $replacement = $object->{$method}();
           }
           catch (\Exception $e) {

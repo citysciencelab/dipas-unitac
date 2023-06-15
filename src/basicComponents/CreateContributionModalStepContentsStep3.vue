@@ -65,6 +65,9 @@ export default {
         };
       });
       return options;
+    },
+    showSelectBox () {
+      return this.rubrics.length >= 10;
     }
   },
   watch: {
@@ -85,17 +88,42 @@ export default {
     <h3 class="headline">
       {{ $t("CreateContributionModal.StepType.headline") }}
     </h3>
+
     <fieldset>
       <legend class="sr-only">
         {{ $t("CreateContributionModal.StepType.headline") }}
       </legend>
 
-      <RadioGroup
-        v-if="useRubrics"
-        v-model="rubric"
-        :options="rubricOptions"
-        :value="rubric"
-      />
+      <div v-if="useRubrics">
+        <RadioGroup
+          v-if="!showSelectBox"
+          v-model="rubric"
+          :options="rubricOptions"
+          :value="rubric"
+        />
+
+        <select
+          v-else
+          id="cat"
+          v-model="rubric"
+        >
+          <option
+            disabled="disabled"
+            value=""
+          >
+            {{ $t("CreateContributionModal.select") }}
+          </option>
+
+          <option
+            v-for="rubricSelect in rubrics"
+            :key="rubricSelect.id"
+            :value="rubricSelect.id"
+          >
+            {{ rubricSelect.name }}
+          </option>
+        </select>
+      </div>
+
       <div v-else>
         {{ $t("CreateContributionModal.StepType.no_rubrics_text") }}
       </div>
