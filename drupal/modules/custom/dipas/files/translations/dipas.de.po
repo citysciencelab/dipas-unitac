@@ -535,15 +535,65 @@ msgstr "Einstellungen für die Verschlagwortung"
 msgid "Settings for the keyword service."
 msgstr "Einstellungen für die Verschlagwortung."
 
-#: src/Plugin/SettingsSection/MenuSettings.php:102
+#: src/Plugin/SettingsSection/MenuSettings.php:68
+msgctxt "DIPAS"
+msgid "Contribution list"
+msgstr "Beitragsliste"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:78
+msgctxt "DIPAS"
+msgid "About the proceeding"
+msgstr "Über das Verfahren"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:84
+msgctxt "DIPAS"
+msgid "Appointments"
+msgstr "Termine"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:90
+msgctxt "DIPAS"
+msgid "Analysis"
+msgstr "Auswertungen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:95
+msgctxt "DIPAS"
+msgid "Poll"
+msgstr "Umfrage"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:101
+msgctxt "DIPAS"
+msgid "my page"
+msgstr "eigene Seite"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:107
+msgctxt "DIPAS"
+msgid "Compare concepts"
+msgstr "Entwürfe vergleichen"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:115
+msgctxt "DIPAS"
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:121
+msgctxt "DIPAS"
+msgid "FAQ"
+msgstr "FAQ"
+ 
+#: src/Plugin/SettingsSection/MenuSettings.php:126
+msgctxt "DIPAS"
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/Plugin/SettingsSection/MenuSettings.php:250
 msgid "Please choose"
 msgstr "Bitte wählen"
 
-#: src/Plugin/SettingsSection/MenuSettings.php:118
+#: src/Plugin/SettingsSection/MenuSettings.php:142
 msgid "Main menu settings"
 msgstr "Hauptmenü Einstellungen"
 
-#: src/Plugin/SettingsSection/MenuSettings.php:122
+#: src/Plugin/SettingsSection/MenuSettings.php:146
 msgid "Footer menu settings"
 msgstr "Footer Menü Einstellungen"
 

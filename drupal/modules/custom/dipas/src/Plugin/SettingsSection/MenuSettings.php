@@ -9,6 +9,7 @@ namespace Drupal\dipas\Plugin\SettingsSection;
 use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Class MenuSettings.
@@ -64,46 +65,46 @@ class MenuSettings extends SettingsSectionBase {
       'mainmenu' => [
         'contributionmap' => [
           'enabled' => 1,
-          'name' => 'Beitragskarte',
+          'name' => new TranslatableMarkup('Contribution map', [], ['context' => 'DIPAS']),
           'icon' => 'room',
         ],
         'contributionlist' => [
           'enabled' => 1,
-          'name' => 'Beitragsliste',
+          'name' => new TranslatableMarkup('Contribution list', [], ['context' => 'DIPAS']),
           'icon' => 'sms',
         ],
         'projectinfo' => [
           'enabled' => 1,
-          'name' => 'Über das Verfahren',
+          'name' => new TranslatableMarkup('About the proceeding', [], ['context' => 'DIPAS']),
           'icon' => 'info',
           'node' => '',
         ],
         'schedule' => [
           'enabled' => 1,
-          'name' => 'Termine',
+          'name' => new TranslatableMarkup('Appointments', [], ['context' => 'DIPAS']),
           'icon' => 'event',
           'mapinstance' => 'default',
         ],
         'statistics' => [
           'enabled' => 1,
-          'name' => 'Auswertungen',
+          'name' => new TranslatableMarkup('Analysis', [], ['context' => 'DIPAS']),
           'icon' => 'timeline',
         ],
         'survey' => [
           'enabled' => 1,
-          'name' => 'Umfrage',
+          'name' => new TranslatableMarkup('Poll', [], ['context' => 'DIPAS']),
           'icon' => 'phone',
           'url' => '',
         ],
         'custompage' => [
           'enabled' => 0,
-          'name' => 'eigene Seite',
+          'name' => new TranslatableMarkup('my page', [], ['context' => 'DIPAS']),
           'icon' => 'keyboard',
           'node' => '',
         ],
         'conceptionlist' => [
           'enabled' => 0,
-          'name' => 'Entwürfe vergleichen',
+          'name' => new TranslatableMarkup('Compare concepts', [], ['context' => 'DIPAS']),
           'icon' => 'compare_arrows',
           'overwriteFrontpage' => 0,
         ],
@@ -111,18 +112,18 @@ class MenuSettings extends SettingsSectionBase {
       'footermenu' => [
         'dataprivacy' => [
           'enabled' => 1,
-          'name' => 'Datenschutz',
+          'name' => new TranslatableMarkup('Privacy', [], ['context' => 'DIPAS']),
           'node' => '',
         ],
         'imprint' => ['enabled' => 1, 'name' => 'Impressum', 'node' => ''],
         'faq' => [
           'enabled' => 1,
-          'name' => 'FAQ',
+          'name' => new TranslatableMarkup('FAQ', [], ['context' => 'DIPAS']),
           'node' => '',
         ],
         'contact' => [
           'enabled' => 1,
-          'name' => 'Kontakt',
+          'name' => new TranslatableMarkup('Contact', [], ['context' => 'DIPAS']),
           'node' => '',
         ],
       ],
