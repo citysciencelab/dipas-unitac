@@ -73,6 +73,7 @@ class DipasNLPClusterFilter extends ManyToOne implements ContainerFactoryPluginI
   public function init(ViewExecutable $view, DisplayPluginBase $display, array &$options = NULL) {
     parent::init($view, $display, $options);
     if ($this->config->get('NLPSettings.enabled') && $this->config->get('NLPSettings.enable_clustering')) {
+      # correct?
       $this->valueTitle = t('Filter by cluster');
       $this->definition['options callback'] = [$this->nlpServices, 'getClusterOptions'];
     }
