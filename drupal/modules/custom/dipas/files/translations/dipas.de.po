@@ -1313,3 +1313,18 @@ msgstr "Standard"
 #: src/Service/DipasNlpServices.php:419
 msgid "Finished"
 msgstr "Abgeschlossen"
+
+#: src/Form/Settings.php:80
+msgctxt "DIPAS_STATISTICS"
+msgid "Export complete tracking data: "
+msgstr "Komplette Trackingdaten exportieren: "
+
+#: src/Form/Settings.php:100
+msgctxt "DIPAS_STATISTICS"
+msgid "Export tracking data"
+msgstr "Trackingdaten exportieren"
+
+#: src/Form/Settings.php:115
+msgctxt "DIPAS_STATISTICS"
+msgid "Select the endpoints to track"
+msgstr "Tracking Endpunkte wählen"
