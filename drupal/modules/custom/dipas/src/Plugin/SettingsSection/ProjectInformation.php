@@ -318,7 +318,7 @@ class ProjectInformation extends SettingsSectionBase {
       'partner_logos',
       $form_state,
       $this->partner_logos ?: [],
-      $this->t('No partner logos defined. Click the "Add logo" button to add a new logo.')
+      $this->t('No partner logos defined. Click the "Add logo" button to add a new logo.')->__toString()
     );
 
     foreach ($topics as $tid => $value) {

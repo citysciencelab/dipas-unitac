@@ -185,7 +185,7 @@ class MenuSettings extends SettingsSectionBase {
           ],
           'menuitem' => [
             '#type' => 'markup',
-            '#markup' => $this->t('Endpoint: %endpoint', ['%endpoint' => $endpoint], ['context' => 'DIPAS']),
+            '#markup' => $this->t('Endpoint: %endpoint', ['%endpoint' => $defaults[$menu][$endpoint]['name']], ['context' => 'DIPAS']),
             '#prefix' => '<div class="endpointname">',
             '#suffix' => '</div>',
             '#weight' => 1,
