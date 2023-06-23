@@ -87,7 +87,6 @@ class Contributions implements LayerPluginInterface {
       'minScale' => '0',
       'maxScale' => '2500000',
       'gfiAttributes' => (object) [
-        // TODO ubi?? Kategorie, Typ?
         'Thema' => 'Kategorie',
         'Rubric' => 'Typ',
         'description' => 'description',
@@ -105,10 +104,7 @@ class Contributions implements LayerPluginInterface {
         ]
       ],
       'legend' => TRUE,
-      // TODO ubi?
-      // something like the following?
-      // $this->t('nicht vorhanden', [], ['context' => 'DIPAS'])
-      'layerAttribution' => $this->t('nicht vorhanden', [], ['context' => 'DIPAS']),
+      'layerAttribution' => 'nicht vorhanden',
       'cache' => FALSE,
       'datasets' => [],
       'autoRefresh' => 60000,

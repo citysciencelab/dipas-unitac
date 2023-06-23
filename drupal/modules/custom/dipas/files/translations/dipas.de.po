@@ -1088,7 +1088,7 @@ msgstr "Wählen Sie das Medienelement, dass das Projektbild enthält. Wenn Sie z
 #: src/Plugin/SettingsSection/ProjectInformation.php:321
 msgctxt "DIPAS"
 msgid "No partner logos defined. Click the \"Add logo\" button to add a new logo."
-msgstr "Keine Partner Logo definiert. Klicken Sie den \"Logo hinzufügen\" Button, um ein neues Logo hinzuzufügen."
+msgstr "Keine Partner Logos definiert. Klicken Sie den \"Logo hinzufügen\" Button, um ein neues Logo hinzuzufügen."
 
 #: src/Plugin/SettingsSection/ProjectInformation.php:301
 msgctxt "DIPAS"
@@ -1304,11 +1304,6 @@ msgstr "Stellt das Projektlogo in einem Block dar"
 #: src/Service/EntityServices.php:230
 msgid "Default"
 msgstr "Standard"
-
-# TODO: probably not needed since already in cnofig/de.po
-#: src/Service/DipasNlpServices.php:398
-#msgid "Processing"
-#msgstr "In Bearbeitung"
 
 #: src/Service/DipasNlpServices.php:419
 msgid "Finished"
