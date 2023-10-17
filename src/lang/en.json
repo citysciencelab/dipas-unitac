@@ -12,7 +12,8 @@
     "projectFinished": "The procedure is finished an ran until {{projectEnd}}.",
     "infoButton": "Get information",
     "startButton": "Start entry",
-    "conceptionsButton": "View conceptions"
+    "conceptionsButton": "View conceptions",
+    "minute": "Minute"
   },
   "Cookiebar": {
     "title": "We use cookies!",
@@ -71,7 +72,9 @@
       "loading": "Loading ...",
       "routeToEntry": "To Entry",
       "comments": "{{teaserComments}} Comments",
-      "comment": "{{teaserComments}} Comment"
+      "comment": "{{teaserComments}} Comment",
+      "datetimeFormat": "DD/MM/YYYY | HH:mm",
+      "oClock": "o'clock"
     }
   },
   "Contact": {
@@ -138,7 +141,8 @@
     "htmlTitlePrefix": "Contribution",
     "backToList": "Back to contribution list",
     "comment": "Comment",
-    "oClock": "o'clock"
+    "oClock": "o'clock",
+    "datetimeFormat": "DD/MM/YYYY | HH:mm:ss"
   },
   "ParagraphDivisionInPlanningSubareas": {
     "Filter": {
@@ -199,7 +203,9 @@
       "cancel": "Cancel",
       "reply": "Reply",
       "replyNoPlural": "Reply for No. ",
-      "replyNo": "Reply for No. "
+      "replyNo": "Reply for No. ",
+      "datetimeFormat": "DD/MM/YYYY | HH:mm:ss",
+      "oClock": "o'clock"
     }
   },
   "RelatedContributions": {
@@ -241,7 +247,11 @@
     "Item": {
       "topic": "Topic:",
       "details": "Details",
-      "date": "Date:"
+      "date": "Date:",
+      "oClock": "o'clock",
+      "until": "until",
+      "datetimeFormat": "DD/MM/YYYY - HH:mm",
+      "timeFormat": "HH:mm"
     }
   },
   "MaintenanceMessage": {

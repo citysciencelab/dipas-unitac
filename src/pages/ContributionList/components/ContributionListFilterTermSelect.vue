@@ -199,7 +199,7 @@ export default {
           @event click cancel
         -->
         <DipasButton
-          text="Abbrechen"
+          :text="$t('ContributionList.ContributionListFilter.cancel')"
           class="grey angular"
           @click="cancel"
         />
@@ -208,7 +208,7 @@ export default {
           @event click ok
         -->
         <DipasButton
-          text="Auswahl übernehmen"
+          :text="$t('ContributionList.ContributionListFilter.ok')"
           class="blue angular"
           @click="ok"
         />
@@ -222,7 +222,7 @@ export default {
           @event click ok
         -->
         <DipasButton
-          text="Auswahl übernehmen"
+          :text="$t('ContributionList.ContributionListFilter.ok')"
           class="blue angular mobileButton"
           @click="ok"
         />
@@ -231,7 +231,7 @@ export default {
           @event click cancel
         -->
         <DipasButton
-          text="Abbrechen"
+          :text="$t('ContributionList.ContributionListFilter.cancel')"
           class="grey angular mobileButton"
           @click="cancel"
         />

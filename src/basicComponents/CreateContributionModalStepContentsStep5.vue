@@ -162,7 +162,7 @@ export default {
       id="sm1headline"
       class="summaryheadline sm1"
     >
-      Beitragstitel
+      {{ $t('CreateContributionModal.StepContents.title') }}
     </p>
     <p
       class="greyBox editIcon contributionHeadline"
@@ -178,7 +178,7 @@ export default {
       id="sm2headline"
       class="summaryheadline sm2"
     >
-      Beschreibung
+      {{ $t('CreateContributionModal.StepContents.text') }}
     </p>
     <div
       class="greyBox editIcon contributionText"
@@ -195,7 +195,7 @@ export default {
         id="sm3headline"
         class="summaryheadline sm3"
       >
-        Kategorie
+        {{ $t('CreateContributionModal.StepIndicator.category') }}
       </p>
       <p
         class="greyBox editIcon inline contributionCategory"
@@ -215,7 +215,7 @@ export default {
         id="sm4headline"
         class="summaryheadline sm4"
       >
-        Beitragstyp
+        {{ $t('CreateContributionModal.StepIndicator.type') }}
       </p>
       <p
         v-if="useRubrics"

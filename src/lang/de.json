@@ -12,7 +12,8 @@
     "projectFinished": "Das Verfahren lief bis zum {{projectEnd}}.",
     "infoButton": "Jetzt informieren",
     "startButton": "Beitrag erstellen",
-    "conceptionsButton": "Entwürfe ansehen"
+    "conceptionsButton": "Entwürfe ansehen",
+    "minute": "Minute"
   },
   "Cookiebar": {
     "title": "Wir verwenden Cookies!",
@@ -43,6 +44,8 @@
     "itemCount": "Anzahl Beiträge",
     "filtered": "gefiltert",
     "ContributionListFilter": {
+      "cancel": "Abbrechen",
+      "ok": "Auswahl übernehmen",
       "filterOptions": "Filteroptionen",
       "termSelectHeadlineCat": "Kategorie wählen",
       "termSelectTitleCat": "Kategorie",
@@ -70,7 +73,9 @@
       "loading": "Lade ...",
       "routeToEntry": "zum Beitrag",
       "comments": "{{teaserComments}} Kommentare",
-      "comment": "{{teaserComments}} Kommentar"
+      "comment": "{{teaserComments}} Kommentar",
+      "datetimeFormat": "DD.MM.YYYY | HH:mm",
+      "oClock": "Uhr"
     }
   },
   "Contact": {
@@ -137,7 +142,8 @@
     "htmlTitlePrefix": "Beitrag",
     "backToList": "Zurück zur Beitragsliste",
     "comment": "Kommentieren",
-    "oClock": "Uhr"
+    "oClock": "Uhr",
+    "datetimeFormat": "DD.MM.YYYY | HH:mm:ss"
   },
   "ParagraphDivisionInPlanningSubareas": {
     "Filter": {
@@ -198,7 +204,9 @@
       "cancel": "Abbrechen",
       "reply": "Antworten",
       "replyNoPlural": "Antworten an Nr. ",
-      "replyNo": "Antwort an Nr. "
+      "replyNo": "Antwort an Nr. ",
+      "datetimeFormat": "DD.MM.YYYY | HH:mm:ss",
+      "oClock": "Uhr"
     }
   },
   "RelatedContributions": {
@@ -240,7 +248,11 @@
     "Item": {
       "topic": "Thema:",
       "details": "Details",
-      "date": "Datum:"
+      "date": "Datum:",
+      "oClock": "Uhr",
+      "until": "bis",
+      "datetimeFormat": "DD.MM.YYYY - HH:mm",
+      "timeFormat": "HH:mm"
     }
   },
   "MaintenanceMessage": {

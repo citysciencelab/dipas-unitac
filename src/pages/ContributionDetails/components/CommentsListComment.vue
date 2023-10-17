@@ -71,7 +71,7 @@ export default {
      * @returns {String}
      */
     created () {
-      return moment(this.comment.created).format("DD.MM.YYYY | HH:mm:ss") + " Uhr";
+      return moment(this.comment.created).format(this.$t("CommentsList.Comment.datetimeFormat")) + " " + this.$t("CommentsList.Comment.oClock");
     },
     /**
      * serves the comments state is open as boolean
