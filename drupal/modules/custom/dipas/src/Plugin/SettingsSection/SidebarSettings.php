@@ -94,7 +94,7 @@ class SidebarSettings extends SettingsSectionBase {
       'blocks',
       $form_state,
       $availableBlockPlugins,
-      'No available block plugins.'
+      $this->t('No available block plugins.')
     );
 
     return $form;

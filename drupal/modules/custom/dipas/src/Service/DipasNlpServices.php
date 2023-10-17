@@ -21,6 +21,7 @@ use Drupal\dipas\Plugin\ResponseKey\RetrieveRatingTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\dipas\Plugin\ResponseKey\RetrieveCommentsTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Class DipasNlpServices.
@@ -165,7 +166,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     if (
       $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
       $this->dipasConfig->get('NLPSettings.enable_score_service') === TRUE &&
-      $this->state->get(sprintf('dipas.nlp.score.status%s', $this->domainSuffix)) !== 'Processing'
+      $this->state->get(sprintf('dipas.nlp.score.status%s', $this->domainSuffix)) !== new TranslatableMarkup('Processing')
     ) {
       return $this->executeNlp(
         $contribution_nodes,
@@ -248,7 +249,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     if (
       $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
       $this->dipasConfig->get('NLPSettings.enable_clustering') === TRUE &&
-      $this->state->get(sprintf('dipas.nlp.clustering.status%s', $this->domainSuffix)) !== 'Processing'
+      $this->state->get(sprintf('dipas.nlp.clustering.status%s', $this->domainSuffix)) !== new TranslatableMarkup('Processing')
     ) {
       return $this->executeNlp(
         $contribution_nodes,
@@ -324,7 +325,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
     if (
       $this->dipasConfig->get('NLPSettings.enabled') === TRUE &&
       $this->dipasConfig->get('NLPSettings.enable_wordcloud') === TRUE &&
-      $this->state->get(sprintf('dipas.nlp.wordcloud.status%s', $this->domainSuffix)) !== 'Processing'
+      $this->state->get(sprintf('dipas.nlp.wordcloud.status%s', $this->domainSuffix)) !== new TranslatableMarkup('Processing')
     ) {
       return $this->executeNlp(
         $contribution_nodes,
@@ -394,7 +395,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
   ) {
     $response = [];
 
-    $this->state->set($status_key, 'Processing');
+    $this->state->set($status_key, new TranslatableMarkup('Processing'));
 
     try {
       if ($contribution_nodes && !empty($contribution_nodes)) {
@@ -416,7 +417,7 @@ class DipasNlpServices implements DipasNlpServicesInterface {
         $response = ($result = json_decode($nlp_score->getBody()->__toString())) ? $result : [];
 
         $timestamp = time();
-        $this->state->set($status_key, 'Finished');
+        $this->state->set($status_key, new TranslatableMarkup('Finished'));
         $this->state->set(sprintf('dipas.nlp.%s.last_run_time%s', $service_name, $this->domainSuffix), $timestamp);
       }
     }

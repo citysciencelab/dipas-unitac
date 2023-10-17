@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -77,12 +78,20 @@ class Settings extends FormBase {
 
     $form['#tree'] = TRUE;
 
+    $markup = $this->t('Export complete tracking data: ', [], ['context' => 'DIPAS_STATISTICS']);
+    $markup .= $this->t('(@Export tracking data)', 
+      [
+        '@Export tracking data' => Link::fromTextAndUrl(
+          'Export tracking data',
+          Url::fromRoute('dipas_statistics.export', [])
+        )->toString(),
+      ], 
+      ['context' => 'DIPAS_STATISTICS']
+    );
+    
     $form['preface'] = [
       '#type' => 'markup',
-      '#markup' => sprintf(
-        'Export complete tracking data: <a href="%s" target="_blank">(Export tracking data)</a>',
-        Url::fromRoute('dipas_statistics.export', [])->toString()
-      ),
+      '#markup' => $markup,
       '#prefix' => '<p>',
       '#suffix' => '</p>',
     ];
@@ -90,23 +99,28 @@ class Settings extends FormBase {
     foreach ($this->pluginManager as $section => $pluginManager) {
       $plugins = $pluginManager->getDefinitions();
 
+      $description = $this->t('(@Export tracking data)', 
+        [
+          '@Export tracking data' => Link::fromTextAndUrl(
+            'Export tracking data',
+            Url::fromRoute(
+              'dipas_statistics.export',
+              [ 'api' => $section ]
+            )
+          )->toString(),
+        ], 
+        ['context' => 'DIPAS_STATISTICS']
+      );
+      
       $form[$section] = [
         '#type' => 'details',
         '#title' => $section,
-        '#description' => sprintf(
-          '<a href="%s" target="_blank">(Export tracking data)</a>',
-          Url::fromRoute(
-            'dipas_statistics.export',
-            [
-              'api' => $section,
-            ]
-          )->toString()
-        ),
+        '#description' => $description
       ];
 
       $form[$section]['endpoints'] = [
         '#type' => 'checkboxes',
-        '#title' => 'Select the endpoints to track',
+        '#title' => $this->t('Select the endpoints to track', [], ['context' => 'DIPAS_STATISTICS']),
         '#options' => array_combine(
           array_keys($plugins),
           array_map(
